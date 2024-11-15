@@ -1,7 +1,7 @@
 // 인증, 권한의 식별이 필요한 APICALL에는 window.localStorage.getItem("accessToken")
 // redux 에 있는 State 중 accessToken 을 가져와서 사용함
 //그러니까... 우리는 단순한 상품 조회외의 대부분의 API에서 이를 사용해야함
-import { GET_USER, POST_LOGIN, POST_SINGUP } from "../modules/UserModule";
+import { GET_USER, POST_LOGIN, POST_SINGUP, WITHDRAWAL_USER } from "../modules/UserModule";
 const prefix = `http://${process.env.REACT_APP_RESTAPI_IP}:8080`;
 
 export const callLoginAPI = ({ form }) => {
@@ -66,6 +66,29 @@ export const callSignupAPI = ({ form }) => {
 			dispatch({ type: POST_SINGUP, payload: result });
 		} else {
 			alert("회원가입에 실패했습니다. 잠시 후 다시 시도해주세요.");
+		}
+	};
+};
+
+export const callWithdrawAPI = ({ username }) => {
+	const requestURL = `${prefix}/api/user/withdraw/${username}`;
+	console.log(requestURL);
+
+	return async (dispatch, getState) => {
+		const result = await fetch(requestURL, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "*/*",
+				Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+			},
+		}).then(response => response.json());
+
+		console.log(result);
+		if (result.status === 202) {
+			dispatch({ type: WITHDRAWAL_USER, payload: result });
+		} else {
+			alert("회원 탈퇴에 실패했습니다. 잠시 후 다시 시도해주세요");
 		}
 	};
 };
