@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./layouts/Layout";
 import Main from "./pages/Main";
 import Login from "./pages/user/Login";
+import Singup from "./pages/user/Singup";
 
 function App() {
 	return (
@@ -18,6 +19,7 @@ function App() {
 					<Route path='management'>{/* 관리자들의 관리페이지 */}</Route>
 
 					<Route path='login' element={<Login />} />
+					<Route path='signup' element={<Singup />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>

@@ -39,3 +39,33 @@ export const callLogoutAPI = () => {
 		console.log("[UserApiCall] callLogoutAPI RESULT : SUCCESS");
 	};
 };
+
+export const callSignupAPI = ({ form }) => {
+	const requestURL = `${prefix}/auth/signup`;
+
+	console.log(form);
+	return async (dispatch, getState) => {
+		const result = await fetch(requestURL, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "*/*",
+			},
+			body: JSON.stringify({
+				username: form.username,
+				password: form.password,
+				userFullName: form.userFullName,
+				userEmail: form.userEmail,
+				userPhone: form.userPhone,
+			}),
+		}).then(response => response.json());
+
+		console.log("[UserAPICalls] callRegisterAPI RESULT : ", result);
+
+		if (result.status === 201) {
+			dispatch({ type: POST_SINGUP, payload: result });
+		} else {
+			alert("회원가입에 실패했습니다. 잠시 후 다시 시도해주세요.");
+		}
+	};
+};
