@@ -1,5 +1,12 @@
+import MainProductNav from "../components/common/products/MainProductNav";
+
+
 function Main(props) {
-	return <div>메인 페이지</div>;
+	return (
+		<div>
+			<MainProductNav />
+		</div>
+	);
 }
 
 export default Main;
