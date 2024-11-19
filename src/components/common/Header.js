@@ -48,6 +48,7 @@ function Header(props) {
 		if (loginUser.data) {
 			userFullname = loginUser.data.userFullName;
 		}
+		const isProducer = decodeJwt(isLogin).auth.some(a => /ROLE_PRODUCER/.test(a));
 		const isAdmin = decodeJwt(isLogin).auth.some(a => /ROLE_.*_ADMIN/.test(a));
 
 		console.log(isAdmin);
@@ -57,6 +58,7 @@ function Header(props) {
 		return (
 			<>
 				{commonHeader()}
+				{isProducer && <NavLink to='/producer/product-manage'>판매자 매장관리</NavLink>} |
 				<NavLink to='/mypage/detail'>{userFullname}님</NavLink> |{" "}
 				<NavLink to='/login'>장바구니</NavLink> | <NavLink to='/register'>알림</NavLink>
 				<button onClick={onClickLogoutHandler}>로그아웃</button>
