@@ -44,10 +44,7 @@ function Header(props) {
 	function AfterUserLogin() {
 		// const username = loginUser.;
 		console.log("로그인 유저", loginUser);
-		let userFullname = "";
-		if (loginUser.data) {
-			userFullname = loginUser.data.userFullName;
-		}
+		let userFullname = window.localStorage.getItem("userFullName");
 		const isProducer = decodeJwt(isLogin).auth.some(a => /ROLE_PRODUCER/.test(a));
 		const isAdmin = decodeJwt(isLogin).auth.some(a => /ROLE_.*_ADMIN/.test(a));
 
