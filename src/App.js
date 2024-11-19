@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./layouts/Layout";
 import Main from "./pages/Main";
 import Login from "./pages/user/Login";
-import PreviewList from "./pages/products/PreviewList";
+import MainList from "./pages/products/MainList";
 
 function App() {
 	return (
@@ -12,7 +12,8 @@ function App() {
 					<Route index element={<Main />} />
 
 					<Route path='products'>
-						<Route path="preview" element={ <PreviewList/> }/>
+						<Route path="preview" element={ <MainList/> }/>
+						<Route path="preview/:category" element={ <MainList/> }/>
 					</Route>
 
 					<Route path='mypage'>{/* 회원들의 마이페이지 */}</Route>
