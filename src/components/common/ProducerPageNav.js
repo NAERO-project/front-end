@@ -17,16 +17,16 @@ function SellerPageNavBar() {
         <div>
             <ul>
                 <li>
-                    <NavLink to="producer/product">상품관리</NavLink>
+                    <NavLink to="/producer/product-manage">상품관리</NavLink>
                 </li>
                 <li>
-                    <NavLink to="producer/order">주문관리</NavLink>
+                    <NavLink to="/producer/order-manage">주문관리</NavLink>
                 </li>
                 <li>
-                    <NavLink to="producer/coupon">쿠폰관리</NavLink>
+                    <NavLink to="/producer/coupon-manage">쿠폰관리</NavLink>
                 </li>
                 <li>
-                    <NavLink to="producer/banner">배너관리</NavLink>
+                    <NavLink to="/producer/banner-manage">배너관리</NavLink>
                 </li>
             </ul>
         </div>

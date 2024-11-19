@@ -73,7 +73,7 @@ function ProductRegist() {
 		);
 
 		alert('상품 리스트로 이동합니다.');
-		navigate('/product-manage', { replace: true });
+		navigate('/producer/product-manage', { replace: true });
 		window.location.reload();
 
     };
@@ -216,6 +216,35 @@ function ProductRegist() {
                                     </td>
                                     <td>
                                        {/* 선택한 중분류에 따라 리스트 내용 달라짐 */}
+                                       <label>
+                                            <input
+                                                type="radio"
+                                                name="smallCategoryId"
+                                                onChange={onChangeHandler}
+                                                value="1"
+                                            />{" "}
+                                            소분류1
+                                        </label>{" "}
+                                        &nbsp;
+                                        <label>
+                                            <input
+                                                type="radio"
+                                                name="smallCategoryId"
+                                                onChange={onChangeHandler}
+                                                value="2"
+                                            />{" "}
+                                            소분류2
+                                        </label>{" "}
+                                        &nbsp;
+                                        <label>
+                                            <input
+                                                type="radio"
+                                                name="smallCategoryId"
+                                                onChange={onChangeHandler}
+                                                value="3"
+                                            />{" "}
+                                            소분류3
+                                        </label>
                                     </td>
                                 </tr>
                                 <tr>
