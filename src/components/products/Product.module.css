@@ -1,0 +1,37 @@
+.ProductBox{
+    width: 277px;
+    margin: 0 0 15px 0;
+    background-color: aquamarine;
+    cursor: pointer;
+}
+
+.productImgBox{
+    width: 277px;
+    height: 250px;
+}
+
+.ProductTextBox{
+    width: 277px;
+    padding: 10px;
+    border: 1px 0 1px 0 solid var(--text03);
+}
+
+.ProductTextBox > p{
+    font-size: 18px;
+    color: var(--text03);
+    /* color: #757575; */
+}
+
+.ProductTextBox > p{
+    font-size: 18px;
+    color: var(--text03);
+}
+
+.ProductTextBox > div{
+    display: flex;
+    justify-content: space-between;
+}
+
+.ProductTextBox div:first-child{
+    margin-bottom: 10px;
+}

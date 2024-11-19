@@ -36,7 +36,7 @@ export const callProductListApi = ({ currentPage }) =>{
                 Accept: '*/*'
             }
         }).then((response) => response.json());
-        if(result.state === 200){
+        if(result.status === 200){
             console.log('[ProduceAPICalls] callProductListApi RESULT : ', result);
             dispatch({ type: GET_PRODUCTS, payload: result.data });
         }
@@ -65,7 +65,7 @@ export const callProductCategoryListApi = ({ currentPage, mediumId }) =>{
                 Accept: '*/*'
             }
         }).then((response) => response.json());
-        if(result.state === 200){
+        if(result.status === 200){
             console.log('[ProduceAPICalls] callProductCategoryListApi RESULT : ', result);
             dispatch({ type: GET_PRODUCTS, payload: result.data });
         }
@@ -88,7 +88,8 @@ export const callProductListPreviewApi = () =>{
                 Accept: '*/*'
             }
         }).then((response) => response.json());
-        if(result.state === 200){
+
+        if(result.status === 200){
             console.log('[ProduceAPICalls] callProductListPreviewApi RESULT : ', result);
             dispatch({ type: GET_PRODUCTS_PREVIEW, payload: result.data });
         }
@@ -111,7 +112,7 @@ export const callProductPreviewFoodApi = () =>{
                 Accept: '*/*'
             }
         }).then((response) => response.json());
-        if(result.state === 200){
+        if(result.status === 200){
             console.log('[ProduceAPICalls] callProductListPreviewApi RESULT : ', result);
             dispatch({ type: GET_PRODUCTS_PREVIEW_FOOD, payload: result.data });
         }
@@ -134,7 +135,7 @@ export const callProductPreviewBeautyApi = () =>{
                 Accept: '*/*'
             }
         }).then((response) => response.json());
-        if(result.state === 200){
+        if(result.status === 200){
             console.log('[ProduceAPICalls] callProductPreviewBeautyApi RESULT : ', result);
             dispatch({ type: GET_PRODUCTS_PREVIEW_BEAUTY, payload: result.data });
         }
@@ -157,7 +158,7 @@ export const callProductPreviewFashionApi = () =>{
                 Accept: '*/*'
             }
         }).then((response) => response.json());
-        if(result.state === 200){
+        if(result.status === 200){
             console.log('[ProduceAPICalls] callProductPreviewFashionApi RESULT : ', result);
             dispatch({ type: GET_PRODUCTS_PREVIEW_FASHION, payload: result.data });
         }
@@ -180,7 +181,7 @@ export const callProducerProductListApi = () =>{
                 Accept: '*/*'
             }
         }).then((response) => response.json());
-        if(result.state === 200){
+        if(result.status === 200){
             console.log('[ProduceAPICalls] callProducerProductListApi RESULT : ', result);
             dispatch({ type: GET_PRODUCTS_PRODUCER_PREVIEW, payload: result.data });
         }
@@ -209,7 +210,7 @@ export const callProducerProductListPageApi = ({ currentPage, producerId }) =>{
                 Accept: '*/*'
             }
         }).then((response) => response.json());
-        if(result.state === 200){
+        if(result.status === 200){
             console.log('[ProduceAPICalls] callProducerProductListPageApi RESULT : ', result);
             dispatch({ type: GET_PRODUCTS_PRODUCER, payload: result.data });
         }
@@ -238,7 +239,7 @@ export const callProducerProductCategoryListApi = ({ currentPage, producerId, me
                 Accept: '*/*'
             }
         }).then((response) => response.json());
-        if(result.state === 200){
+        if(result.status === 200){
             console.log('[ProduceAPICalls] callProducerProductCategoryListApi RESULT : ', result);
             dispatch({ type: GET_PRODUCTS_PRODUCER, payload: result.data });
         }
@@ -261,7 +262,7 @@ export const callProductDetailApi = ({productId}) =>{
                 Accept: '*/*'
             }
         }).then((response) => response.json());
-        if(result.state === 200){
+        if(result.status === 200){
             console.log('[ProduceAPICalls] callProductDetailApi RESULT : ', result);
             dispatch({ type: GET_PRODUCT, payload: result.data });
         }

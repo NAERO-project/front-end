@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import ProductCSS from './Product.module.css';
+import { FaRegHeart } from "react-icons/fa6";
 
 function Product({
     product: { productCode, productName, productPrice, productImg, smallCategoryId },
@@ -11,36 +13,21 @@ function Product({
     };
 
     return(
-        <div 
-            onClick={() => onClickProductHandler(productCode)}
-            style={{
-                border: '1px solid #ddd',
-                borderRadius: '8px',
-                padding: '15px',
-                margin: '10px 0',
-                cursor: 'pointer'
-            }}
-        >
-            <div>
-                <img 
-                    src={productImg} 
-                    alt={productName}
-                    style={{
-                        width: '100%',
-                        maxWidth: '200px',
-                        height: 'auto'
-                    }}
-                />
+        <div
+        className={ProductCSS.ProductBox}
+        onClick={() => onClickProductHandler(productCode)}>
+            <div className={ProductCSS.productImgBox}>
+                <img src={productImg} alt={productName}/>
             </div>
-            <div>
+            <div className={ProductCSS.ProductTextBox}>
                 <div>
-                    <p style={{ fontWeight: 'bold' }}>{productName}</p>
+                    <p>{productName}</p>
+                    <p><FaRegHeart/></p>
                     <p>0</p>
-                    <p>0</p> 
                 </div>
                 <div>
                     <p>{productPrice.toLocaleString()}원</p>
-                    <p>카테고리: {smallCategoryId}</p>
+                    <p>{smallCategoryId}</p>
                 </div>
             </div>
         </div>

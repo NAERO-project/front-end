@@ -1,44 +1,35 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { callProductListPreviewApi } from "../../apis/ProductApiCall";
 import MainProductNav from "../../components/products/MainProductNav";
 import Product from "../../components/products/Product";
+import MainListCSS from "./MainList.module.css";
 
 function MainList(){
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { category } = useParams();
 
-    // 옵셔널 체이닝(?.)을 이용해 undefined일 때 에러가 나지 않도록 처리
-    const previewList = useSelector(state => state.productReducer?.data);
-
+    const previewList = useSelector(state => state.productReducer);
+    console.log("previewList", previewList);
     useEffect(() => {
             fetchData();
-        },[]);
+        },[category]);
 
-    const fetchData = async () => {
-        try {
-            await dispatch(callProductListPreviewApi());
-        } catch (error) {
-            console.error('Error fetching product list:', error);
-        }
-        
-    };
-    
+    const fetchData=()=>{dispatch(callProductListPreviewApi(category))}
 
     useEffect(()=>{
-        console.log(previewList,"확인")
+        console.log('category:', category);
+        console.log(previewList,"확인");
     },[previewList]);
 
     return(
-            // previewList.length > 0 && previewList.map((list) => (<Product key={ list.productCode } product={ list } />))     (첫번째 시도)
-            // Array.isArray(previewList) > 0 && previewList.map((list) => (<Product key={ list.productCode } product={ list } />))     (두번째 시도)
-            // previewList?.length > 0 && previewList.map((list) => (<Product key={ list.productCode } product={ list } />))
         <>
             <MainProductNav/>
-            <div>
-                {previewList && previewList.map((list) => (
-                    <Product key={list.productCode} product={list}/>
+            <div className={MainListCSS.MainProductBox}>
+                {Array.isArray(previewList) && previewList.map((product) => (
+                    <Product key={product.productCode} product={product}/>
                 ))}
             </div>
         </>
