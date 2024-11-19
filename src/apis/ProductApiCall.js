@@ -188,9 +188,37 @@ export const callProducerProductListApi = () =>{
     };
 };
 
+/* 판매자 페이지 전체 상품 조회 (페이징) */
+export const callProducerProductListPageApi = ({ currentPage, producerUsername }) =>{
+
+    let requestURL;
+
+    if(currentPage !== undefined || currentPage !== null){
+        requestURL = `${prefix}/api/products/producer-page/${producerUsername}?offset=${currentPage}`;
+    }else{
+        requestURL = `${prefix}/api/products/producer-page/${producerUsername}`;
+    }
+
+    console.log('[productAPICalls] requestURL: ', requestURL);
+
+    return async (dispatch, getState) =>{
+        const result = await fetch(requestURL, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: '*/*'
+            }
+        }).then((response) => response.json());
+        if(result.status === 200){
+            console.log('[ProduceAPICalls] callProducerProductListPageApi RESULT : ', result);
+            dispatch({ type: GET_PRODUCTS_PRODUCER, payload: result.data });
+        }
+    };
+};
+
 
 /* 브랜드별 페이지 전체 상품 조회 (페이징) */
-export const callProducerProductListPageApi = ({ currentPage, producerId }) =>{
+export const callBrandProductListPageApi = ({ currentPage, producerId }) =>{
 
     let requestURL;
 
@@ -204,14 +232,14 @@ export const callProducerProductListPageApi = ({ currentPage, producerId }) =>{
 
     return async (dispatch, getState) =>{
         const result = await fetch(requestURL, {
-            method: 200,
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 Accept: '*/*'
             }
         }).then((response) => response.json());
         if(result.status === 200){
-            console.log('[ProduceAPICalls] callProducerProductListPageApi RESULT : ', result);
+            console.log('[ProduceAPICalls] callBrandProductListPageApi RESULT : ', result);
             dispatch({ type: GET_PRODUCTS_PRODUCER, payload: result.data });
         }
     };
