@@ -271,7 +271,7 @@ export const callProductDetailApi = ({productId}) =>{
 
 
 /* 판매자 상품 등록 */
-export const callInsertProductApi = ({ form }) =>{
+export const callProductRegistAPI = ({ form }) =>{
     console.log('[ProductAPICalls] callInsertProductApi Call');
 
     const requestURL = `${prefix}/api/products`;
