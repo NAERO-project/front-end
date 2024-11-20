@@ -35,7 +35,7 @@ function ProductRegist() {
     const [option, setOption] = useState({
         optionDesc: "기본 옵션",
         addPrice: 0,
-        optionQuantity: 100,
+        optionQuantity: 0,
     });
 
     const largeCategories = [
@@ -123,6 +123,21 @@ function ProductRegist() {
         }));
     }, [selectedMediumCategory]);
 
+    // useEffect(() => {
+    //     if (form.options.length === 0) {
+    //         setForm((prevForm) => ({
+    //             ...prevForm,
+    //             options: [
+    //                 {
+    //                     optionDesc: "기본 옵션",
+    //                     addPrice: 0,
+    //                     optionQuantity: 0,
+    //                 },
+    //             ],
+    //         }));
+    //     }
+    // }, [form.options]);
+
     // 핸들러
     const onChangeImageUpload = (e) => {
         setImage(e.target.files[0]);
@@ -137,6 +152,37 @@ function ProductRegist() {
             ...form,
             [e.target.name]: e.target.value,
         });
+    };
+
+    const onChangeLargeCategoryHandler = (e) => {
+        const value = e.target.value;
+
+        setSelectedLargeCategory(value);
+        setSelectedMediumCategory(""); // 중분류 초기화
+        setSmallCategories([]); // 소분류 초기화
+        setForm((prevForm) => ({
+            ...prevForm,
+            smallCategory: {
+                smallCategoryId: "",
+                smallCategoryName: "",
+                mediumCategoryId: "",
+            },
+        }));
+    };
+
+    const onChangeMediumCategoryHandler = (e) => {
+        const value = e.target.value;
+
+        setSelectedMediumCategory(value);
+        setSmallCategories([]); // 소분류 초기화
+        setForm((prevForm) => ({
+            ...prevForm,
+            smallCategory: {
+                ...prevForm.smallCategory,
+                smallCategoryId: "",
+                smallCategoryName: "",
+            },
+        }));
     };
 
     const onChangeSmallCategoryHandler = (e) => {
@@ -161,17 +207,20 @@ function ProductRegist() {
     };
 
     const onAddOptionHandler = () => {
-        if (!option.optionDesc || !option.addPrice || !option.optionQuantity) {
+        if (
+            !option.optionDesc ||
+            option.addPrice === null ||
+            option.addPrice === undefined ||
+            option.optionQuantity === null ||
+            option.optionQuantity === undefined
+        ) {
             alert("옵션 정보를 모두 입력해주세요.");
             return;
         }
 
         setForm((prevForm) => ({
             ...prevForm,
-            options: [
-                ...prevForm.options,
-                { ...option }, // optionId를 제거하고 다른 정보만 추가
-            ],
+            options: [...prevForm.options, { ...option }],
         }));
 
         setOption({
@@ -213,17 +262,25 @@ function ProductRegist() {
             return;
         }
 
-        // 옵션이 비어 있으면 기본 옵션 생성
-        const options =
-            form.options.length === 0
-                ? [
-                      {
-                          optionDesc: "기본 옵션",
-                          addPrice: 0,
-                          optionQuantity: 100,
-                      },
-                  ]
-                : form.options;
+        console.log("현재 옵션 상태:", form.options);
+
+        // 옵션이 하나도 추가되지 않은 경우 경고
+        if (!Array.isArray(form.options) || form.options.length === 0) {
+            alert("옵션을 최소 1개 이상 추가해주세요.");
+            return;
+        }
+
+        // // 옵션이 비어 있으면 기본 옵션 생성
+        // const options =
+        //     form.options.length === 0
+        //         ? [
+        //               {
+        //                   optionDesc: "기본 옵션",
+        //                   addPrice: 0,
+        //                   optionQuantity: 100,
+        //               },
+        //           ]
+        //         : form.options;
 
         const formData = new FormData();
 
@@ -304,11 +361,7 @@ function ProductRegist() {
                                 <td>
                                     <select
                                         value={selectedLargeCategory}
-                                        onChange={(e) =>
-                                            setSelectedLargeCategory(
-                                                e.target.value
-                                            )
-                                        }
+                                        onChange={onChangeLargeCategoryHandler}
                                     >
                                         <option value="">대분류 선택</option>
                                         {largeCategories.map((category) => (
@@ -329,11 +382,7 @@ function ProductRegist() {
                                 <td>
                                     <select
                                         value={selectedMediumCategory}
-                                        onChange={(e) =>
-                                            setSelectedMediumCategory(
-                                                e.target.value
-                                            )
-                                        }
+                                        onChange={onChangeMediumCategoryHandler}
                                         disabled={!selectedLargeCategory}
                                     >
                                         <option value="" disabled>
