@@ -9,6 +9,7 @@ import ProductRegist from "./pages/products/producer/ProductRegist";
 import MainFoodList from "./pages/products/MainFoodList";
 import MainBeautyList from "./pages/products/MainBeautyList";
 import MainFashionList from "./pages/products/MainFashionList";
+import ProductMore from "./pages/products/ProductMore";
 
 
 function App() {
@@ -18,11 +19,14 @@ function App() {
 				<Route path='/' element={<Layout />}>
 					<Route index element={<Main />} />
 
-					<Route path='products' element={<MainList/>}>
+					<Route path='products'>
 						<Route path="preview" element={ <MainList/> }/>
 						<Route path="preview/food" element={ <MainFoodList/> }/>
 						<Route path="preview/beauty" element={ <MainBeautyList/> }/>
 						<Route path="preview/fashion" element={ <MainFashionList/> }/>
+						<Route path="more" element={ <ProductMore/> }/>
+						<Route path="more:mediumId" element={ <ProductMore/> }/>
+					
 					</Route>
 
           <Route path="mypage">{/* 회원들의 마이페이지 */}</Route>

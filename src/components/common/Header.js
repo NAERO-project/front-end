@@ -5,8 +5,6 @@ import { decodeJwt } from "../../utils/tokenUtils";
 import { useSelector, useDispatch } from "react-redux";
 import { callLogoutAPI } from "../../apis/UserApiCall";
 import HeaderCSS from "./Header.module.css";
-// import NaeroLogo from "front-end/public/neroLogo.png";
-// import NaeroLogo from "neroLogo.png";
 
 function Header(props) {
 	//필요헤더 -> 로그인 전, 로그인 후, 관리자 로그인 후
@@ -79,6 +77,7 @@ function Header(props) {
 		return (
 			<>
 				관리자헤더
+				{commonHeader()}
 				<button onClick={onClickLogoutHandler}>로그아웃</button>
 			</>
 		);

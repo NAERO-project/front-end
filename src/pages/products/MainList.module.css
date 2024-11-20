@@ -1,8 +1,18 @@
-.MainProductBox{
+.main_list{
+    width: 1168px;
+    margin: 0 auto;
+}
+
+.main_product_box{
     width: 1167px;
-    height: 687px;
-    margin: 50px auto;
+    margin: 50px 0;
     box-sizing: border-box;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.more_button{
+    width: 410px;
+    margin: 0 auto;
+    cursor: pointer;
 }

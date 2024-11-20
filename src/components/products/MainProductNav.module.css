@@ -1,10 +1,3 @@
-.ProductNavBox{
-    display : flex; 
-    justify-content : center;
-    /* margin: 0 0 50px 0; */
-    /* margin: 0 auto; */
-}
-
 .ProductNav{
     width: 1168px;
     height: 60px;
@@ -24,7 +17,12 @@ li:hover{
     border-bottom: 3px solid var(--main-color03);
 }
 
-li h3:hover{
+.Nav{
+    color: var(--text04);
+    font-size: 24px;
+}
+
+.Nav:hover{
     font-weight: 500;
     color: var(--main-color03);
 }

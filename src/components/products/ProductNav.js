@@ -1,13 +1,13 @@
 import { NavLink } from "react-router-dom";
 import ProductNavCSS from "./MainProductNav.module.css";
 
-function MainProductNav(){
+function ProductNav(){
 
     let array =  [
-        {url: "preview", content:"전체"},
-        {url: "preview/food", content:"식품&음료"},
-        {url: "preview/beauty", content:"건강&뷰티"},
-        {url: "preview/fashion", content:"의류"}
+        {url: "more", content:"전체"},
+        {url: "more", content:"식품&음료"},
+        {url: "more", content:"건강&뷰티"},
+        {url: "more", content:"의류"}
     ]
 
     return (
@@ -27,4 +27,4 @@ function MainProductNav(){
     );
 }
 
-export default MainProductNav;
+export default ProductNav;

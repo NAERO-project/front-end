@@ -29,6 +29,7 @@
 .MainButton{
     width: 410px;
     height: 60px;
+    display: inline-block;
     padding: 20px 0;
     font-size: 18px;
     font-weight: 300;
@@ -88,16 +89,6 @@
     color: var(--text01);
     background-color: #7B9064;
 }
-
-
-
-
-
-
-
-
-
-
 
 
 /* 상품 상세 페이지 */
@@ -193,14 +184,16 @@
     color: #849076;
 }
 
+/* 사용하실 때 말씀해주세요 */
 .Icon02{
   width: 30px;
   height: 30px;
   margin: 0 0 0 10px;
-  padding: 3px 5px;
+  padding: 3px 5px 4px 5px;
+  font-weight: 500;
   border-radius: 50%;
-  background-color: #849076;
-  color: var(--text01);
+  background-color: var(--text01);
+  color: #849076; 
 }
 
 
