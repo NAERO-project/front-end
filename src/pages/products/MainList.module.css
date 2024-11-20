@@ -1,7 +1,7 @@
 .MainProductBox{
     width: 1167px;
     height: 687px;
-    margin: 0 auto;
+    margin: 50px auto;
     box-sizing: border-box;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;

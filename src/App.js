@@ -3,6 +3,9 @@ import Layout from "./layouts/Layout";
 import Main from "./pages/Main";
 import Login from "./pages/user/Login";
 import MainList from "./pages/products/MainList";
+import MainFoodList from "./pages/products/MainFoodList";
+import MainBeautyList from "./pages/products/MainBeautyList";
+import MainFashionList from "./pages/products/MainFashionList";
 
 function App() {
 	return (
@@ -11,9 +14,11 @@ function App() {
 				<Route path='/' element={<Layout />}>
 					<Route index element={<Main />} />
 
-					<Route path='products'>
+					<Route path='products' element={<MainList/>}>
 						<Route path="preview" element={ <MainList/> }/>
-						<Route path="preview/:category" element={ <MainList/> }/>
+						<Route path="preview/food" element={ <MainFoodList/> }/>
+						<Route path="preview/beauty" element={ <MainBeautyList/> }/>
+						<Route path="preview/fashion" element={ <MainFashionList/> }/>
 					</Route>
 
 					<Route path='mypage'>{/* 회원들의 마이페이지 */}</Route>

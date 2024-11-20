@@ -1,25 +1,26 @@
 .ProductBox{
     width: 277px;
     margin: 0 0 15px 0;
-    background-color: aquamarine;
-    cursor: pointer;
 }
 
 .productImgBox{
     width: 277px;
     height: 250px;
+    background-color: aquamarine;
+    cursor: pointer;
 }
 
 .ProductTextBox{
     width: 277px;
     padding: 10px;
-    border: 1px 0 1px 0 solid var(--text03);
+    margin-top: 10px;
+    border-top: 1px solid var(--text03);
+    border-bottom: 1px solid var(--text03);
 }
 
-.ProductTextBox > p{
+.ProductTextBox div p{
     font-size: 18px;
     color: var(--text03);
-    /* color: #757575; */
 }
 
 .ProductTextBox > p{
@@ -34,4 +35,20 @@
 
 .ProductTextBox div:first-child{
     margin-bottom: 10px;
+}
+
+.ProductIconBox{
+    display: flex;
+}
+
+.ProductIconBox p{
+    cursor: pointer;
+}
+
+.ProductIconBox p:first-child{
+    margin: 0 10px 0 0;
+}
+
+.ProductIconBox p:first-child:hover{
+    color: red;
 }
