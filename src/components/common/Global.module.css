@@ -48,6 +48,7 @@ h2{
 
 h3{
     font-size: 24px;
+    font-weight: 300;
 }
 
 h4{
@@ -62,12 +63,16 @@ p{
     font-size: 18px;
 }
 
+button{
+    cursor: pointer;
+}
+
 /* 컬러 */
 
 :root {
     /* 페이지 컬러 */
     --header-color: #F5F1E7;
-    --header-color: rgb(0, 0, 0, 0.2);
+    --header-color: rgb(0, 0, 0, 0.8);
     --main-bg-color: #FFFDF8;
     --page-bg-color: #39393A;
 
@@ -83,6 +88,5 @@ p{
     --text02 : #020202;
     --text03: #757575 ;
     --text03: #849076 ; 
+    --text04: #d1d1d1 ; 
 }
-
-/*  */

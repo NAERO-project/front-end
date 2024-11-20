@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import ProductCSS from './Product.module.css';
 import { FaRegHeart } from "react-icons/fa6";
+import { LuShoppingCart } from "react-icons/lu";
+import GlobalCSS from "../common/Global.module.css";
 
 function Product({
     product: { productCode, productName, productPrice, productImg, smallCategoryId },
@@ -22,12 +24,14 @@ function Product({
             <div className={ProductCSS.ProductTextBox}>
                 <div>
                     <p>{productName}</p>
-                    <p><FaRegHeart/></p>
-                    <p>0</p>
+                    <div className={ProductCSS.ProductIconBox}>
+                        <p><FaRegHeart/></p>
+                        <p><LuShoppingCart/></p>
+                    </div>
                 </div>
                 <div>
                     <p>{productPrice.toLocaleString()}원</p>
-                    <p>{smallCategoryId}</p>
+                    <h5 className={GlobalCSS.ProductTag}>{smallCategoryId}</h5>
                 </div>
             </div>
         </div>
