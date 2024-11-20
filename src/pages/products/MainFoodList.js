@@ -28,7 +28,7 @@ function MainFoodList(){
     return(
         <>
             <MainProductNav/>
-            <div className={MainListCSS.MainProductBox}>
+            <div className={MainListCSS.main_product_box}>
                 {Array.isArray(previewList) && previewList.map((product) => (
                     <Product key={product.productCode} product={product}/>
                 ))}
