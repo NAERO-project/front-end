@@ -55,7 +55,9 @@ function ProductManage() {
                     {/* 판매자의 상품 리스트 조회하는 부분 */}
                     <colgroup>
                         <col width="5%" />
-                        <col width="50%" />
+                        <col width="30%" />
+                        <col width="10%" />
+                        <col width="10%" />
                         <col width="10%" />
                         <col width="10%" />
                         <col width="15%" />
@@ -66,7 +68,9 @@ function ProductManage() {
                             <th>상품번호</th>
                             <th>상품명</th>
                             <th>상품가격</th>
+                            <th>옵션 추가가격</th>
                             <th>상품 카테고리</th>
+                            <th>상품 옵션명</th>
                             <th>재고</th>
                             <th>판매여부</th>
                         </tr>
@@ -78,13 +82,14 @@ function ProductManage() {
                                     key={p.productId}
                                     onClick={() => onClickTableTr(p.productId)}
                                 >
-                                    <td>{p.productId}</td>
-                                    <td>{p.productName}</td>
-                                    <td>{p.productPrice}</td>
-                                    <td>{p.smallCategoryId}</td>
-                                    <td>{p.productStock}</td>
-                                    <td>{p.productCheck}</td>
-                                    {/* <td>{p.category?.categoryName}</td> */}
+                                    <td>{p.product.productId}</td>
+                                    <td>{p.product.productName}</td>
+                                    <td>{p.product.productPrice}</td>
+                                    <td>{p.addPrice}</td>
+                                    <td>{p.product.smallCategory.smallCategoryName}</td>
+                                    <td>{p.optionDesc}</td>
+                                    <td>{p.optionQuantity}</td>
+                                    <td>{p.product.productCheck}</td>
                                 </tr>
                             ))}
                     </tbody>
