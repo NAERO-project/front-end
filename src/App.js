@@ -3,6 +3,13 @@ import Layout from "./layouts/Layout";
 import Main from "./pages/Main";
 import Login from "./pages/user/Login";
 import MainList from "./pages/products/MainList";
+import ProducerPageLayout from "./layouts/ProducerPageLayout";
+import ProductManage from "./pages/products/producer/ProductManage";
+import ProductRegist from "./pages/products/producer/ProductRegist";
+import MainFoodList from "./pages/products/MainFoodList";
+import MainBeautyList from "./pages/products/MainBeautyList";
+import MainFashionList from "./pages/products/MainFashionList";
+
 
 function App() {
 	return (

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { decodeJwt } from "../../../utils/tokenUtils";
 
 import { callProductRegistAPI } from "../../../apis/ProductApiCall";
 
@@ -11,6 +12,9 @@ function ProductRegist() {
     const [image, setImage] = useState(null);
     const [imageUrl, setImageUrl] = useState();
     const imageInput = useRef();
+
+    const isLogin = window.localStorage.getItem("accessToken"); // Local Storage 에 token 정보 확인
+    const producerUsername = isLogin ? decodeJwt(isLogin).sub : null; // JWT에서 사용자 ID 추출
 
     // Form state
     const [form, setForm] = useState({
@@ -35,9 +39,9 @@ function ProductRegist() {
     });
 
     const largeCategories = [
-        { largeCategoryId: 1, largeCategoryName: "식품" },
-        { largeCategoryId: 2, largeCategoryName: "건강&생활" },
-        { largeCategoryId: 3, largeCategoryName: "패션" },
+        { largeCategoryId: "1", largeCategoryName: "식품" },
+        { largeCategoryId: "2", largeCategoryName: "건강&생활" },
+        { largeCategoryId: "3", largeCategoryName: "패션" },
     ];
 
     // State for categories
@@ -104,8 +108,19 @@ function ProductRegist() {
                     setSmallCategories([]); // 에러 발생 시 초기화
                 });
         } else {
-            setSmallCategories([]); // 대분류 선택 해제 시 초기화
+            setSmallCategories([]); // 중분류 선택 해제 시 초기화
         }
+    }, [selectedMediumCategory]);
+
+    // form의 smallCategory.mediumCategoryId를 업데이트하는 useEffect
+    useEffect(() => {
+        setForm((prevForm) => ({
+            ...prevForm,
+            smallCategory: {
+                ...prevForm.smallCategory,
+                mediumCategoryId: selectedMediumCategory,
+            },
+        }));
     }, [selectedMediumCategory]);
 
     // 핸들러
@@ -126,14 +141,16 @@ function ProductRegist() {
 
     const onChangeSmallCategoryHandler = (e) => {
         const selectedOption = e.target.options[e.target.selectedIndex];
-        setForm({
-            ...form,
+
+        setForm((prevForm) => ({
+            ...prevForm,
             smallCategory: {
-                smallCategoryId: e.target.value,
-                smallCategoryName: selectedOption.text,
-                mediumCategoryId: selectedMediumCategory, // mediumCategoryId 저장
+                ...prevForm.smallCategory,
+                smallCategoryId: e.target.value, // 소분류 ID 설정
+                smallCategoryName: selectedOption?.text || "", // 소분류 이름 설정
+                mediumCategoryId: selectedMediumCategory || "", // 중분류 ID 유지
             },
-        });
+        }));
     };
 
     const onChangeOptionHandler = (e) => {
@@ -153,11 +170,11 @@ function ProductRegist() {
             ...prevForm,
             options: [
                 ...prevForm.options,
-                { ...option, optionId: prevForm.options.length + 1 }, // 새로운 ID 부여
+                { ...option }, // optionId를 제거하고 다른 정보만 추가
             ],
         }));
+
         setOption({
-            optionId: "",
             optionDesc: "",
             addPrice: 0,
             optionQuantity: 0,
@@ -165,12 +182,54 @@ function ProductRegist() {
     };
 
     const onClickProductRegistHandler = () => {
+        if (!selectedMediumCategory) {
+            alert("중분류를 선택해주세요.");
+            return;
+        }
+        if (!form.smallCategory.smallCategoryId) {
+            alert("소분류를 선택해주세요.");
+            return;
+        }
+        if (!form.productName) {
+            alert("상품명을 입력해주세요.");
+            return;
+        }
+        if (!form.productPrice) {
+            alert("상품 가격을 입력해주세요.");
+            return;
+        }
+        if (!form.productCheck) {
+            alert("상품 판매여부를 선택해주세요.");
+            return;
+        }
+        if (!form.productDesc) {
+            alert("상품 상세 설명을 적어주세요.");
+            return;
+        }
+
+        // 이미지가 업로드되지 않았을 경우 경고
+        if (!image) {
+            alert("상품 이미지를 업로드해주세요.");
+            return;
+        }
+
+        // 옵션이 비어 있으면 기본 옵션 생성
+        const options =
+            form.options.length === 0
+                ? [
+                      {
+                          optionDesc: "기본 옵션",
+                          addPrice: 0,
+                          optionQuantity: 100,
+                      },
+                  ]
+                : form.options;
+
         const formData = new FormData();
 
         formData.append("productName", form.productName);
         formData.append("productPrice", form.productPrice);
         formData.append("productCheck", form.productCheck);
-        formData.append("productQuantity", form.productQuantity);
         formData.append("productDesc", form.productDesc);
 
         // smallCategory 데이터 추가
@@ -198,18 +257,19 @@ function ProductRegist() {
         });
 
         if (image) {
-            formData.append("productImg", image);
+            formData.append("productImage", image);
         }
 
         dispatch(
             callProductRegistAPI({
                 form: formData,
+                producerUsername: producerUsername,
             })
         );
 
-        alert("상품 리스트로 이동합니다.");
-        navigate("/producer/product-manage", { replace: true });
-        window.location.reload();
+        // alert("상품 리스트로 이동합니다.");
+        // navigate("/producer/product-manage", { replace: true });
+        // window.location.reload();
     };
 
     return (
@@ -268,6 +328,7 @@ function ProductRegist() {
                                 </td>
                                 <td>
                                     <select
+                                        value={selectedMediumCategory}
                                         onChange={(e) =>
                                             setSelectedMediumCategory(
                                                 e.target.value
@@ -275,30 +336,19 @@ function ProductRegist() {
                                         }
                                         disabled={!selectedLargeCategory}
                                     >
-                                        {/* <option value="">중분류 선택</option>
+                                        <option value="" disabled>
+                                            중분류 선택
+                                        </option>
                                         {mediumCategories.map((category) => (
                                             <option
                                                 key={category.mediumCategoryId}
-                                                value={category.mediumCategoryId}
+                                                value={
+                                                    category.mediumCategoryId
+                                                }
                                             >
                                                 {category.mediumCategoryName}
                                             </option>
-                                        ))} */}
-                                        {Array.isArray(mediumCategories) &&
-                                            mediumCategories.map((category) => (
-                                                <option
-                                                    key={
-                                                        category.mediumCategoryId
-                                                    }
-                                                    value={
-                                                        category.mediumCategoryId
-                                                    }
-                                                >
-                                                    {
-                                                        category.mediumCategoryName
-                                                    }
-                                                </option>
-                                            ))}
+                                        ))}
                                     </select>
                                 </td>
                             </tr>
@@ -308,19 +358,12 @@ function ProductRegist() {
                                 </td>
                                 <td>
                                     <select
-                                        name="smallCategoryId"
+                                        name="smallCategory"
                                         onChange={onChangeSmallCategoryHandler}
-                                        disabled={!selectedMediumCategory}
+                                        disabled={!selectedMediumCategory} // 중분류가 선택되지 않으면 비활성화
                                     >
-                                        {/* <option value="">소분류 선택</option>
-                                        {smallCategories.map((category) => (
-                                            <option
-                                                key={category.smallCategoryId}
-                                                value={category.smallCategoryId}
-                                            >
-                                                {category.smallCategoryName}
-                                            </option>
-                                        ))} */}
+                                        <option value="">소분류 선택</option>{" "}
+                                        {/* 기본 선택 옵션 */}
                                         {Array.isArray(smallCategories) &&
                                             smallCategories.map((category) => (
                                                 <option
@@ -329,7 +372,7 @@ function ProductRegist() {
                                                     }
                                                     value={
                                                         category.smallCategoryId
-                                                    }
+                                                    } // 소분류 ID를 value로 설정
                                                 >
                                                     {category.smallCategoryName}
                                                 </option>

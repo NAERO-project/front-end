@@ -299,10 +299,12 @@ export const callProductDetailApi = ({productId}) =>{
 
 
 /* 판매자 상품 등록 */
-export const callProductRegistAPI = ({ form }) =>{
+export const callProductRegistAPI = ({ form, producerUsername}) =>{
     console.log('[ProductAPICalls] callInsertProductApi Call');
 
-    const requestURL = `${prefix}/api/products`;
+    console.log(producerUsername);
+
+    const requestURL = `${prefix}/api/products/insert?producerUsername=${producerUsername}`;
 
     return async (dispatch, getState) =>{
         const result = await fetch(requestURL, {
