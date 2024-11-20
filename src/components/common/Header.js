@@ -4,6 +4,9 @@ import { useState } from "react";
 import { decodeJwt } from "../../utils/tokenUtils";
 import { useSelector, useDispatch } from "react-redux";
 import { callLogoutAPI } from "../../apis/UserApiCall";
+import HeaderCSS from "./Header.module.css";
+// import NaeroLogo from "front-end/public/neroLogo.png";
+// import NaeroLogo from "neroLogo.png";
 
 function Header(props) {
 	//필요헤더 -> 로그인 전, 로그인 후, 관리자 로그인 후
@@ -29,16 +32,25 @@ function Header(props) {
 	};
 
 	function commonHeader() {
-		//네비바가 될 듯함
-		return <>기본 헤더 </>;
+		
+		const imagePath = process.env.PUBLIC_URL + '/neroLogo.png';
+
+		return (
+			<div className={HeaderCSS.HeaderBar}>
+				<div className={HeaderCSS.LogoImage}>
+					<NavLink to='/'><img src={imagePath} alt="NeroLogo"/></NavLink>
+				</div>
+			</div>
+		);
 	}
 	function BeforeLogin() {
 		return (
-			<>
+			<div>
 				{commonHeader()}
 				로그인 하지 않은 사용자
+				
 				<NavLink to='/login'>로그인</NavLink> | <NavLink to='/signup'>회원가입</NavLink>
-			</>
+			</div>
 		);
 	}
 	function AfterUserLogin() {
