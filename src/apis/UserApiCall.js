@@ -24,7 +24,9 @@ export const callLoginAPI = ({ form }) => {
 
 		console.log("[UserApiCall] callLoginAPI RESULT : ", result);
 		if (result.status === 200) {
+			console.log(result.data.userFullName);
 			window.localStorage.setItem("accessToken", result.data.accessToken);
+			window.localStorage.setItem("userFullName", result.data.userFullName);
 		} else if (result.status === 400) {
 			alert(result.message); // 로그인 실패 시 메시지를 alert로 표시
 		}

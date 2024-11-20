@@ -48,6 +48,7 @@ h2{
 
 h3{
     font-size: 24px;
+    font-weight: 300;
 }
 
 h4{
@@ -60,6 +61,10 @@ h5{
 
 p{
     font-size: 18px;
+}
+
+button{
+    cursor: pointer;
 }
 
 /* 컬러 */
@@ -83,6 +88,5 @@ p{
     --text02 : #020202;
     --text03: #757575 ;
     --text03: #849076 ; 
+    --text04: #d1d1d1 ; 
 }
-
-/*  */
