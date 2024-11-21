@@ -26,7 +26,7 @@ img {
 
 body {
     font-family: 'Pretendard', 'Montserrat', sans-serf;
-    color: #FFFDF8;
+    color: var(--text02);
     background-color: var(--main-bg-color);
 }
 

@@ -1,16 +1,16 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { callProductListPreviewApi } from "../../apis/ProductApiCall";
-import MainProductNav from "../../components/products/MainProductNav";
-import Product from "../../components/products/Product";
+import MainProductNav from "../../components/common/products/MainProductNav";
+import Product from "../../components/common/products/Product";
 import MainListCSS from "./MainList.module.css";
-import GlobalCSS from "../../components/common/Global.module.css";
+import ButtonCSS from "../../components/common/Button.module.css";
 
 function MainList(){
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { category } = useParams();
+    const { category, productId } = useParams();
 
     const previewList = useSelector(state => state.productReducer);
     console.log("previewList", previewList);
@@ -18,7 +18,7 @@ function MainList(){
             fetchData();
         },[category]);
 
-    const fetchData=()=>{dispatch(callProductListPreviewApi(category))}
+    const fetchData=()=>{dispatch(callProductListPreviewApi(category, productId))}
 
     useEffect(()=>{
         console.log('category:', category);
@@ -26,20 +26,21 @@ function MainList(){
     },[previewList]);
 
     return(
-        <>
+        <div className={MainListCSS.main_list}>
             <MainProductNav/>
-            <div className={MainListCSS.MainProductBox}>
+            <div className={MainListCSS.main_product_box}>
                 {Array.isArray(previewList) && previewList.map((product) => (
-                    <Product key={product.productCode} product={product}/>
+                    <Product key={product.productId} product={product}/>
                 ))}
             </div>
 
-            <div className={GlobalCSS.Button}>
-            {/* <div> */}
-                <span>더보기</span>
-                {/* <span className={GlobalCSS.Icon}>-></span> */}
+            <div className={MainListCSS.more_button}>
+                <NavLink to="/products/more" className={ButtonCSS.main_button}>
+                    <span>더보기</span>
+                    <span className={ButtonCSS.icon01}>-&gt;</span>
+                </NavLink>
             </div>
-        </>
+        </div>
             
     );
 }
