@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import ProductCSS from './Product.module.css';
 import { FaRegHeart } from "react-icons/fa6";
 import { LuShoppingCart } from "react-icons/lu";
-import GlobalCSS from "../common/Global.module.css";
+import GlobalCSS from "../../common/Global.module.css";
 
 function Product({
     product: { productCode, productName, productPrice, productImg, smallCategoryId },
