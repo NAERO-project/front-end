@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
-import Product from "../../components/products/Product";
+import Product from "../../components/common/products/Product";
 import { callProductListApi } from "../../apis/ProductApiCall";
 import MainListCSS from "./MainList.module.css";
-import ProductNav from "../../components/products/ProductNav";
+import ProductNav from "../../components/common/products/ProductNav";
 import ProductMoreCSS from "./ProductMore.module.css";
 
  

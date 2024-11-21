@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { callProductPreviewFoodApi } from "../../apis/ProductApiCall";
-import MainProductNav from "../../components/products/MainProductNav";
+import MainProductNav from "../../components/common/products/MainProductNav";
 import MainListCSS from "./MainList.module.css";
-import Product from "../../components/products/Product";
+import Product from "../../components/common/products/Product";
 import ButtonCSS from "../../components/common/Button.module.css";
 
 
@@ -36,9 +36,9 @@ function MainFoodList(){
             </div>
 
             <div className={MainListCSS.more_button}>
-                <NavLink to="/products/more" className={ButtonCSS.MainButton}>
+                <NavLink to="/products/more" className={ButtonCSS.main_button}>
                     <span>더보기</span>
-                    <span className={ButtonCSS.Icon02}>-&gt;</span>
+                    <span className={ButtonCSS.icon01}>-&gt;</span>
                 </NavLink>
             </div>
         </div>
