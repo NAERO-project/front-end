@@ -1,17 +1,17 @@
 import UserInfoForm from "./UserInfoForm";
 
-function ProducerInfoForm(producer) {
-	const { producerName, producerAdd, busiNo, producerGrade, producerPhone, user } = producer.user;
+function ProducerInfoForm({ producer }) {
+	const { producerName, producerAdd, busiNo, producerPhone, producerGrade, user } = producer;
 
-	console.log(producer);
+	console.log("프로듀서", producer);
+	// console.log("등급", producer.producerGrade.pgradeName);
 	return (
 		<div>
 			<UserInfoForm user={user}></UserInfoForm>
 			<div>
 				<h3>브랜드 정보 </h3>
-				<div>주문자 정보</div>
 				<p>이름 : {producerName}</p>
-				<p>이름 : {producerGrade.pgradeName}</p>
+				<p>등급 : {producerGrade.pgradeName}</p>
 
 				<p>사업자 주소 : {producerAdd}</p>
 				<p>사업자 번호 : {busiNo}</p>

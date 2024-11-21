@@ -16,11 +16,21 @@ function ProducerDetail(props) {
 		dispatch(callUserDetailAPI({ username: username }));
 	}, []);
 
+	useEffect(() => {
+		console.log("producer 확인", producer);
+	}, [producer]);
+
 	return (
 		<div style={{ color: "black" }}>
-			<h2>{userFullName} 님 안녕하세요 </h2>
-			{producer && <ProducerInfoForm user={producer}></ProducerInfoForm>}
-			<WithdrawButton />
+			{producer && (
+				<div>
+					<h2>{userFullName} 님 안녕하세요 </h2>
+					{producer.producerName && (
+						<ProducerInfoForm producer={producer}></ProducerInfoForm>
+					)}
+					<WithdrawButton />
+				</div>
+			)}
 		</div>
 	);
 }

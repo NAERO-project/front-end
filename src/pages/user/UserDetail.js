@@ -20,11 +20,15 @@ function UserDetail(props) {
 
 	return (
 		<div style={{ color: "black" }}>
-			<h2>{user.userFullName} 님 안녕하세요 </h2>
-			{user && <UserInfoForm user={user}></UserInfoForm>}
+			{user && (
+				<div>
+					<h2>{user.userFullName} 님 안녕하세요 </h2>{" "}
+					<UserInfoForm user={user}></UserInfoForm>
+				</div>
+			)}
 			<hr style={{ border: "1px solid black" }}></hr>
 			배송지 정보
-			{!isProducer ? <NavLink to='/'>사업자 신청</NavLink> : null}
+			{!isProducer ? <NavLink to='/mypage/toproducer'>사업자 신청</NavLink> : null}
 			<WithdrawButton />
 		</div>
 	);

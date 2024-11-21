@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { callSignupAPI } from "../../apis/UserApiCall";
 import SignupContainer from "../../components/signup/SignupContainer";
 
-function Singup(props) {
+function Signup(props) {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -123,6 +123,6 @@ function Singup(props) {
 	);
 }
 
-export default Singup;
+export default Signup;
 
 //각 스텝 완성 후  가능하다면분리작업을 해야 될 듯. 번잡스러움

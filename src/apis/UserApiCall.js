@@ -1,6 +1,7 @@
 // 인증, 권한의 식별이 필요한 APICALL에는 window.localStorage.getItem("accessToken")
 // redux 에 있는 State 중 accessToken 을 가져와서 사용함
 //그러니까... 우리는 단순한 상품 조회외의 대부분의 API에서 이를 사용해야함
+import { useNavigate } from "react-router-dom";
 import { GET_USER, POST_LOGIN, POST_SINGUP, WITHDRAWAL_USER } from "../modules/UserModule";
 const prefix = `http://${process.env.REACT_APP_RESTAPI_IP}:8080`;
 
@@ -118,27 +119,3 @@ export const callUserDetailAPI = ({ username }) => {
 	};
 };
 
-export const callConvertToProducerAPI = ({ form }) => {
-	const requestURL = `${prefix}/api/user/insert/producer`;
-	console.log("실행", form);
-	return async () => {
-		const result = await fetch(requestURL, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Accept: "*/*",
-				Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
-			},
-			body: JSON.stringify(form),
-		}).then(response => {
-			return response.json();
-		});
-		console.log("사업자 전환", result);
-
-		if (result.status === 200) {
-			window.localStorage.setItem("accessToken", result.accessToken);
-		} else {
-			alert("등록에 실패했습니다. 다시시도해주세요.");
-		}
-	};
-};

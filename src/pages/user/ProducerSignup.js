@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { callConvertToProducerAPI } from "../../apis/UserApiCall";
 function ProducerSignup(props) {
+	const navigate = useNavigate();
 	const [form, setForm] = useState({
 		busiNo: "",
 		producerAdd: "",
@@ -16,6 +17,37 @@ function ProducerSignup(props) {
 		e.preventDefault();
 		callConvertToProducerAPI({ form })();
 	};
+
+	const prefix = `http://${process.env.REACT_APP_RESTAPI_IP}:8080`;
+
+	const callConvertToProducerAPI = ({ form }) => {
+		const requestURL = `${prefix}/api/user/insert/producer`;
+		console.log("실행", form);
+		return async () => {
+			const result = await fetch(requestURL, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Accept: "*/*",
+					Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+				},
+				body: JSON.stringify(form),
+			}).then(response => {
+				return response.json();
+			});
+			console.log("사업자 전환", result);
+
+			if (result.status === 200) {
+				window.localStorage.removeItem("accessToken");
+				window.localStorage.setItem("accessToken", result.data.accessToken);
+
+				navigate("/producer/detail", { replace: true });
+			} else {
+				alert("등록에 실패했습니다. 다시시도해주세요.");
+			}
+		};
+	};
+
 	const onChangeHandler = e => {
 		console.log(form);
 		setForm({
