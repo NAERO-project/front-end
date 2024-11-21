@@ -1,0 +1,54 @@
+.ProductBox{
+    width: 277px;
+    margin: 0 0 15px 0;
+}
+
+.productImgBox{
+    width: 277px;
+    height: 250px;
+    background-color: aquamarine;
+    cursor: pointer;
+}
+
+.ProductTextBox{
+    width: 277px;
+    padding: 10px;
+    margin-top: 10px;
+    border-top: 1px solid var(--text03);
+    border-bottom: 1px solid var(--text03);
+}
+
+.ProductTextBox div p{
+    font-size: 18px;
+    color: var(--text03);
+}
+
+.ProductTextBox > p{
+    font-size: 18px;
+    color: var(--text03);
+}
+
+.ProductTextBox > div{
+    display: flex;
+    justify-content: space-between;
+}
+
+.ProductTextBox div:first-child{
+    margin-bottom: 10px;
+}
+
+.ProductIconBox{
+    display: flex;
+}
+
+.ProductIconBox p{
+    cursor: pointer;
+}
+
+.ProductIconBox p:first-child{
+    margin: 0 10px 0 0;
+}
+
+.ProductIconBox p:first-child:hover{
+    color: red;
+}

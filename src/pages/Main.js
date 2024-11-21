@@ -1,7 +1,13 @@
-import Global from "../components/common/Global.module.css";
+import GlobalCSS from "../components/common/Global.module.css";
+import MainList from "./products/MainList";
+
 
 function Main(props) {
-	return <div className={Global}>메인 페이지</div>;
+	return (
+		<div className={GlobalCSS}>
+			<MainList />
+		</div>
+	);
 }
 
 export default Main;
