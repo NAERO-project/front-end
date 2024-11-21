@@ -11,6 +11,7 @@ import MainBeautyList from "./pages/products/MainBeautyList";
 import MainFashionList from "./pages/products/MainFashionList";
 import ProductMore from "./pages/products/ProductMore";
 import ProductDetail from "./pages/products/ProductDetail";
+import Order from "./pages/order/Order";
 
 
 function App() {
@@ -30,6 +31,8 @@ function App() {
 						<Route path=":productId" element={ <ProductDetail/> }/>
 					
 					</Route>
+
+          <Route path="order" element={<Order />} />
 
           <Route path="mypage">{/* 회원들의 마이페이지 */}</Route>
 

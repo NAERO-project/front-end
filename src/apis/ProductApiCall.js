@@ -302,8 +302,6 @@ export const callProductDetailApi = ({productId}) =>{
 export const callProductRegistAPI = ({ form, producerUsername}) =>{
     console.log('[ProductAPICalls] callInsertProductApi Call');
 
-    console.log(producerUsername);
-
     const requestURL = `${prefix}/api/products/insert?producerUsername=${producerUsername}`;
 
     return async (dispatch, getState) =>{
