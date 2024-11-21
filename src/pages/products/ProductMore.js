@@ -48,7 +48,7 @@ import ProductMoreCSS from "./ProductMore.module.css";
     return(
         <div className={MainListCSS.main_list}>
             <ProductNav/>
-            <div className={MainListCSS.main_product_box}>
+            <div className={ProductMoreCSS.main_product_box}>
                 {Array.isArray(productList) && productList.map((product) => (
                     <Product key={product.productCode} product={product}/>
                 ))}
