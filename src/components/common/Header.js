@@ -4,6 +4,9 @@ import { useState } from "react";
 import { decodeJwt } from "../../utils/tokenUtils";
 import { useSelector, useDispatch } from "react-redux";
 import { callLogoutAPI } from "../../apis/UserApiCall";
+import HeaderCSS from "./Header.module.css";
+// import NaeroLogo from "front-end/public/neroLogo.png";
+// import NaeroLogo from "neroLogo.png";
 
 function Header(props) {
 	//필요헤더 -> 로그인 전, 로그인 후, 관리자 로그인 후
@@ -29,25 +32,32 @@ function Header(props) {
 	};
 
 	function commonHeader() {
-		//네비바가 될 듯함
-		return <>기본 헤더 </>;
+		
+		const imagePath = process.env.PUBLIC_URL + '/neroLogo.png';
+
+		return (
+			<div className={HeaderCSS.HeaderBar}>
+				<div className={HeaderCSS.LogoImage}>
+					<NavLink to='/'><img src={imagePath} alt="NeroLogo"/></NavLink>
+				</div>
+			</div>
+		);
 	}
 	function BeforeLogin() {
 		return (
-			<>
+			<div>
 				{commonHeader()}
 				로그인 하지 않은 사용자
+				
 				<NavLink to='/login'>로그인</NavLink> | <NavLink to='/signup'>회원가입</NavLink>
-			</>
+			</div>
 		);
 	}
 	function AfterUserLogin() {
 		// const username = loginUser.;
 		console.log("로그인 유저", loginUser);
-		let userFullname = "";
-		if (loginUser.data) {
-			userFullname = loginUser.data.userFullName;
-		}
+		let userFullname = window.localStorage.getItem("userFullName");
+		const isProducer = decodeJwt(isLogin).auth.some(a => /ROLE_PRODUCER/.test(a));
 		const isAdmin = decodeJwt(isLogin).auth.some(a => /ROLE_.*_ADMIN/.test(a));
 
 		console.log(isAdmin);
@@ -57,6 +67,7 @@ function Header(props) {
 		return (
 			<>
 				{commonHeader()}
+				{isProducer && <NavLink to='/producer/product-manage'>판매자 매장관리</NavLink>} |
 				<NavLink to='/mypage/detail'>{userFullname}님</NavLink> |{" "}
 				<NavLink to='/login'>장바구니</NavLink> | <NavLink to='/register'>알림</NavLink>
 				<button onClick={onClickLogoutHandler}>로그아웃</button>
