@@ -1,12 +1,14 @@
-function UserInfoForm({ userDetail }) {
+import { NavLink } from "react-router-dom";
+
+function UserInfoForm({ user }) {
 	return (
 		<div>
-			<h2>{userDetail.userFullName} 구매자님 안녕하세요 </h2>
 			<div>주문자 정보</div>
-			<p>이름 : {userDetail.userFullName}</p>
-			<p>아이디 : {userDetail.username}</p>
-			<p>이메일 : {userDetail.userEmail}</p>
-			<p>휴대폰 : {userDetail.userPhone ? userDetail.userPhone : "등록하지 않음"}</p>
+			<p>이름 : {user.userFullName}</p>
+
+			<p>아이디 : {user.username}</p>
+			<p>이메일 : {user.userEmail}</p>
+			<p>휴대폰 : {user.userPhone ? user.userPhone : "등록하지 않음"}</p>
 		</div>
 	);
 }

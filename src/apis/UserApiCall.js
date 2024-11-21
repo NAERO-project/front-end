@@ -117,3 +117,28 @@ export const callUserDetailAPI = ({ username }) => {
 		}
 	};
 };
+
+export const callConvertToProducerAPI = ({ form }) => {
+	const requestURL = `${prefix}/api/user/insert/producer`;
+	console.log("실행", form);
+	return async () => {
+		const result = await fetch(requestURL, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "*/*",
+				Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+			},
+			body: JSON.stringify(form),
+		}).then(response => {
+			return response.json();
+		});
+		console.log("사업자 전환", result);
+
+		if (result.status === 200) {
+			window.localStorage.setItem("accessToken", result.accessToken);
+		} else {
+			alert("등록에 실패했습니다. 다시시도해주세요.");
+		}
+	};
+};

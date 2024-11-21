@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { callSignupAPI } from "../../apis/UserApiCall";
-import { POST_SINGUP } from "../../modules/UserModule";
 import SignupContainer from "../../components/signup/SignupContainer";
 
 function Singup(props) {
@@ -10,7 +9,6 @@ function Singup(props) {
 	const navigate = useNavigate();
 
 	const success = useSelector(state => state.userReducer);
-	const [step, setStep] = useState(2);
 	const [passwordCheck, setPasswordCheck] = useState("");
 	const [isChecked, setIsChecked] = useState(false);
 	const email = useRef();

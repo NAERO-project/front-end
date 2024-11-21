@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { decodeJwt } from "../../utils/tokenUtils";
 import { useSelector, useDispatch } from "react-redux";
 import { callLogoutAPI } from "../../apis/UserApiCall";
@@ -19,7 +19,9 @@ function Header(props) {
 	const isLogin = window.localStorage.getItem("accessToken"); // Local Storage 에 token 정보 확인
 	// const username = decodeJwt(isLogin).sub;
 
-	const [loginModal, setLoginModal] = useState(false);
+	if (!isLogin || decodeJwt(isLogin).exp * 1000 < Date.now()) {
+		dispatch(callLogoutAPI());
+	}
 
 	//로그아웃
 	const onClickLogoutHandler = () => {
@@ -32,13 +34,14 @@ function Header(props) {
 	};
 
 	function commonHeader() {
-		
-		const imagePath = process.env.PUBLIC_URL + '/neroLogo.png';
+		const imagePath = process.env.PUBLIC_URL + "/neroLogo.png";
 
 		return (
 			<div className={HeaderCSS.HeaderBar}>
 				<div className={HeaderCSS.LogoImage}>
-					<NavLink to='/'><img src={imagePath} alt="NeroLogo"/></NavLink>
+					<NavLink to='/'>
+						<img src={imagePath} alt='NeroLogo' />
+					</NavLink>
 				</div>
 			</div>
 		);
@@ -48,7 +51,6 @@ function Header(props) {
 			<div>
 				{commonHeader()}
 				로그인 하지 않은 사용자
-				
 				<NavLink to='/login'>로그인</NavLink> | <NavLink to='/signup'>회원가입</NavLink>
 			</div>
 		);
