@@ -26,7 +26,7 @@ img {
 
 body {
     font-family: 'Pretendard', 'Montserrat', sans-serf;
-    color: #FFFDF8;
+    color: var(--text01);
     background-color: var(--main-bg-color);
 }
 
@@ -84,7 +84,7 @@ button{
     --sub-color03: #C5E1A5;
 
     /* 텍스트 컬러 */
-    --text01 : #fff;
+    --text01 : #b82e2e;
     --text02 : #020202;
     --text03: #757575 ;
     --text03: #849076 ; 
