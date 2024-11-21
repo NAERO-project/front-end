@@ -13,7 +13,6 @@
 .HeaderContent {
   max-width: 1167px;
   width: 100%;
-  padding: 0 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -70,6 +69,7 @@
 .LogoutButton {
   background-color: transparent;
   border: none;
+  margin: 0;
   padding: 0;
   cursor: pointer;
   display: flex;
