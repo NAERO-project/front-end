@@ -10,7 +10,7 @@ import ButtonCSS from "../../components/common/Button.module.css";
 function MainList(){
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { category } = useParams();
+    const { category, productId } = useParams();
 
     const previewList = useSelector(state => state.productReducer);
     console.log("previewList", previewList);
@@ -18,7 +18,7 @@ function MainList(){
             fetchData();
         },[category]);
 
-    const fetchData=()=>{dispatch(callProductListPreviewApi(category))}
+    const fetchData=()=>{dispatch(callProductListPreviewApi(category, productId))}
 
     useEffect(()=>{
         console.log('category:', category);
@@ -30,7 +30,7 @@ function MainList(){
             <MainProductNav/>
             <div className={MainListCSS.main_product_box}>
                 {Array.isArray(previewList) && previewList.map((product) => (
-                    <Product key={product.productCode} product={product}/>
+                    <Product key={product.productId} product={product}/>
                 ))}
             </div>
 

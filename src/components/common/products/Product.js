@@ -5,19 +5,19 @@ import { LuShoppingCart } from "react-icons/lu";
 import GlobalCSS from "../../common/Global.module.css";
 
 function Product({
-    product: { productCode, productName, productPrice, productImg, smallCategoryId },
+    product: { productId, productName, productPrice, productImg, smallCategoryId },
 }){
 
     const navigate = useNavigate();
 
-    const onClickProductHandler = (productCode) => {
-        navigate(`/product/${productCode}`, {replace: false});
+    const onClickProductHandler = (productId) => {
+        navigate(`/product/${productId}`, {replace: false});
     };
 
     return(
         <div
         className={ProductCSS.ProductBox}
-        onClick={() => onClickProductHandler(productCode)}>
+        onClick={() => onClickProductHandler(productId)}>
             <div className={ProductCSS.productImgBox}>
                 <img src={productImg} alt={productName}/>
             </div>

@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { Navigate } from 'react-router-dom';
-import { decodeJwt } from '../../utils/tokenUtils';
+import { decodeJwt } from '../../../utils/tokenUtils';
 
 function SellerPageNavBar() {
     const token = decodeJwt(window.localStorage.getItem('accessToken'));
