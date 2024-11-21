@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { callSignupAPI } from "../../apis/UserApiCall";
@@ -13,6 +13,7 @@ function Singup(props) {
 	const [step, setStep] = useState(2);
 	const [passwordCheck, setPasswordCheck] = useState("");
 	const [isChecked, setIsChecked] = useState(false);
+	const email = useRef();
 	const [form, setForm] = useState({
 		username: "",
 		password: "",
@@ -106,6 +107,7 @@ function Singup(props) {
 					placeholder='이메일'
 					autoComplete='off'
 					onChange={onChangeHandler}
+					reff
 				/>
 				{/* <button> 이메일 중복 확인 및 인증 </button> */}
 				<button type='button' onClick={prevBtn}>

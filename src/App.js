@@ -3,7 +3,7 @@ import Layout from "./layouts/Layout";
 import Main from "./pages/Main";
 import Login from "./pages/user/Login";
 import Singup from "./pages/user/Singup";
-import Mypage from "./pages/user/Mypage";
+import UserDetail from "./pages/user/UserDetail";
 
 function App() {
 	return (
@@ -14,7 +14,7 @@ function App() {
 
 					<Route path='product'>{/* 상품관련 페이지 */}</Route>
 					<Route path='mypage'>
-						<Route path='detail' element={<Mypage />} />
+						<Route path='detail' element={<UserDetail />} />
 						{/* 회원들의 마이페이지 */}
 					</Route>
 

@@ -38,6 +38,8 @@ export const callLoginAPI = ({ form }) => {
 export const callLogoutAPI = () => {
 	return async (dispatch, getState) => {
 		dispatch({ type: POST_LOGIN, payload: "" });
+		window.localStorage.removeItem("accessToken");
+		window.localStorage.removeItem("userFullName");
 		console.log("[UserApiCall] callLogoutAPI RESULT : SUCCESS");
 	};
 };
@@ -91,6 +93,27 @@ export const callWithdrawAPI = ({ username }) => {
 			dispatch({ type: WITHDRAWAL_USER, payload: result });
 		} else {
 			alert("회원 탈퇴에 실패했습니다. 잠시 후 다시 시도해주세요");
+		}
+	};
+};
+
+export const callUserDetailAPI = ({ username }) => {
+	const requestURL = `${prefix}/api/user/detail/${username}`;
+	return async (dispatch, getState) => {
+		const result = await fetch(requestURL, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "*/*",
+				Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+			},
+		}).then(response => response.json());
+
+		console.log(result);
+		if (result.status === 200) {
+			dispatch({ type: GET_USER, payload: result });
+		} else {
+			alert("회원정보를 가져오는데에 실패했습니다. 다시 시도해주세요");
 		}
 	};
 };
