@@ -1,9 +1,53 @@
+@import './Global.module.css';
+
 .HeaderBar{
     width: 100%;
     height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: var(--header-color);
+}
+
+.HeaderContent{
+    width: 1167px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .LogoImage{
     cursor: pointer;
+}
+
+.NavLinkContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.NavLinkItem{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.NavLinkContainer .NavLinkItem span {
+    font-size: 18px;
+    color: var(--text01);
+    margin-right: 8px;
+}
+
+.NavLinkContainer .NavLinkItem a {
+    color: var(--text01);
+    text-decoration: none;
+}
+
+.NavLinkContainer .NavLinkItem a:visited {
+    color: var(--text01);
+}
+
+.NavLinkContainer .NavLinkItem a:hover {
+    color: var(--text01);
 }

@@ -11,6 +11,8 @@ import MainBeautyList from "./pages/products/MainBeautyList";
 import MainFashionList from "./pages/products/MainFashionList";
 import ProductMore from "./pages/products/ProductMore";
 import ProductDetail from "./pages/products/ProductDetail";
+import AdminPageLayout from "./layouts/AdminPageLayout";
+import Dashboard from "./pages/admin/Dashboard";
 import Order from "./pages/order/Order";
 
 
@@ -45,7 +47,17 @@ function App() {
             {/* <Route path="banner-manage" element={<BannerManage />} /> */}
           </Route>
 
-          <Route path="management">{/* 관리자들의 관리페이지 */}</Route>
+          <Route path="admin" element={<AdminPageLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="product-manage" element={<ProductManage />} />
+            {/* <Route path="user-manage" element={<UserManage />} /> */}
+            {/* <Route path="producer-manage" element={<ProducerManage />} /> */}
+            {/* <Route path="promotion-manage" element={<PromotionManage />} /> */}
+            {/* <Route path="order-manage" element={<OrderManage />} /> */}
+            {/* <Route path="FAQ-manage" element={<FAQManage />} /> */}
+            {/* <Route path="inquiry-manage" element={<InquiryManage />} /> */}
+          </Route>
 
           <Route path="login" element={<Login />} />
         </Route>
