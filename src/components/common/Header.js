@@ -78,7 +78,7 @@ function Header(props) {
 	function AdminLogin() {
 		return (
 			<>
-				관리자헤더
+				{commonHeader()}
 				<button onClick={onClickLogoutHandler}>로그아웃</button>
 			</>
 		);

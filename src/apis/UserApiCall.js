@@ -38,6 +38,8 @@ export const callLoginAPI = ({ form }) => {
 export const callLogoutAPI = () => {
 	return async (dispatch, getState) => {
 		dispatch({ type: POST_LOGIN, payload: "" });
+		localStorage.removeItem("accessToken");
+		localStorage.removeItem("userFullName");
 		console.log("[UserApiCall] callLogoutAPI RESULT : SUCCESS");
 	};
 };
