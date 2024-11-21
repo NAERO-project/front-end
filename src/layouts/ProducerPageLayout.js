@@ -1,5 +1,5 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import ProducerPageNav from "../components/common/ProducerPageNav";
+import ProducerPageNav from "../components/common/producer/ProducerPageNav";
 import { Navigate } from "react-router-dom";
 import { useEffect } from "react";
 
