@@ -12,7 +12,7 @@ function Product({
     const navigate = useNavigate();
 
     const onClickProductHandler = (productId) => {
-        navigate(`/product/${productId}`, {replace: false});
+        navigate(`/products/${productId}`, {replace: false});
     };
 
     return(

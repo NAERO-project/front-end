@@ -6,6 +6,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { callLogoutAPI } from "../../apis/UserApiCall";
 import HeaderCSS from "./Header.module.css";
 
+import { MdOutlineContactPage } from "react-icons/md";
+import { LuShoppingCart } from "react-icons/lu";
+import { IoMdNotificationsOutline } from "react-icons/io";
+import { BiLogOutCircle } from "react-icons/bi";
+import { FiUser } from "react-icons/fi";
+import { RiLoginCircleLine } from "react-icons/ri";
+import { MdOutlineLockOpen } from "react-icons/md";
+
 function Header(props) {
 	//필요헤더 -> 로그인 전, 로그인 후, 관리자 로그인 후
 
@@ -29,28 +37,39 @@ function Header(props) {
 		window.location.reload();
 	};
 
-	function commonHeader() {
-		
+	function commonHeader(additionalContent) {
 		const imagePath = process.env.PUBLIC_URL + '/neroLogo.png';
 
 		return (
 			<div className={HeaderCSS.HeaderBar}>
-				<div className={HeaderCSS.LogoImage}>
-					<NavLink to='/'><img src={imagePath} alt="NeroLogo"/></NavLink>
+				<div className={HeaderCSS.HeaderContent}>
+					<div className={HeaderCSS.LogoImage}>
+						<NavLink to='/'><img src={imagePath} alt="NeroLogo"/></NavLink>
+					</div>
+					{additionalContent && <div className={HeaderCSS.NavLinkContainer}>{additionalContent}</div>}
 				</div>
 			</div>
 		);
 	}
+
 	function BeforeLogin() {
-		return (
-			<div>
-				{commonHeader()}
-				로그인 하지 않은 사용자
-				
-				<NavLink to='/login'>로그인</NavLink> | <NavLink to='/signup'>회원가입</NavLink>
-			</div>
+		
+		const additionalContent = (
+			<>
+				<div className={HeaderCSS.NavLinkItem}>
+					<span><RiLoginCircleLine /></span>
+					<NavLink to='/login'>로그인</NavLink>
+				</div>
+				<div className={HeaderCSS.NavLinkItem}>
+					<span><MdOutlineLockOpen /></span>
+					<NavLink to='/signup'>회원가입</NavLink>
+				</div>
+			</>
 		);
+		
+		return commonHeader(additionalContent);
 	}
+
 	function AfterUserLogin() {
 		// const username = loginUser.;
 		console.log("로그인 유저", loginUser);
@@ -60,27 +79,64 @@ function Header(props) {
 
 		console.log(isAdmin);
 		if (isAdmin) {
-			return AdminLogin();
+			return AdminLogin(userFullname);
 		}
-		return (
+
+		const additionalContent = (
 			<>
-				{commonHeader()}
-				{isProducer && <NavLink to='/producer/product-manage'>판매자 매장관리</NavLink>} |
-				<NavLink to='/mypage/detail'>{userFullname}님</NavLink> |{" "}
-				<NavLink to='/login'>장바구니</NavLink> | <NavLink to='/register'>알림</NavLink>
-				<button onClick={onClickLogoutHandler}>로그아웃</button>
+				<div className={HeaderCSS.NavLinkItem}>
+					<span><MdOutlineContactPage /></span>
+					{isProducer && <NavLink to='/producer/product-manage'>판매자 페이지</NavLink>}
+				</div>
+				<div className={HeaderCSS.NavLinkItem}>
+					<span><FiUser /></span>
+					<NavLink to='/mypage/detail'>{userFullname}님</NavLink>
+				</div>
+				<div className={HeaderCSS.NavLinkItem}>
+					<span><LuShoppingCart /></span>
+					<NavLink to='/login'>장바구니</NavLink>
+				</div>
+				<div className={HeaderCSS.NavLinkItem}>
+					<span><IoMdNotificationsOutline /></span>
+					<NavLink to='/register'>알림</NavLink>
+				</div>
+				<div className={HeaderCSS.NavLinkItem}>
+					<span><BiLogOutCircle /></span>
+					<button onClick={onClickLogoutHandler}>로그아웃</button>
+				</div>
 			</>
 		);
+
+		return commonHeader(additionalContent);
 	}
 
-	function AdminLogin() {
-		return (
+	// 관리자 로그인
+	function AdminLogin(userFullname) {
+		const additionalContent = (
 			<>
-				관리자헤더
-				{commonHeader()}
-				<button onClick={onClickLogoutHandler}>로그아웃</button>
+				<div className={HeaderCSS.NavLinkItem}>
+					<span><MdOutlineContactPage /></span>
+					<NavLink to='/admin/dashboard'>관리자 페이지</NavLink>
+				</div>
+				<div className={HeaderCSS.NavLinkItem}>
+					<span><FiUser /></span>
+					<NavLink to='/mypage/detail'>{userFullname}님</NavLink>
+				</div>
+				<div className={HeaderCSS.NavLinkItem}>
+					<span><LuShoppingCart /></span>
+					<NavLink to='/login'>장바구니</NavLink>
+				</div>
+				<div className={HeaderCSS.NavLinkItem}>
+					<span><IoMdNotificationsOutline /></span>
+					<NavLink to='/register'>알림</NavLink>
+				</div>
+				<div className={HeaderCSS.NavLinkItem}>
+					<span><BiLogOutCircle /></span>
+					<button onClick={onClickLogoutHandler}>로그아웃</button>
+				</div>
 			</>
 		);
+		return commonHeader(additionalContent);
 	}
 
 	// 아래 조건 위치 (boolean위치) 에 들어가야할 값 :로그인 여부, role 확인,

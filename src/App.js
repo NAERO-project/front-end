@@ -12,6 +12,9 @@ import ProductMore from "./pages/products/ProductMore";
 import ProductDetail from "./pages/products/ProductDetail";
 import ProductPageLayout from "./layouts/ProductPageLayout";
 import ProductCategory from "./pages/products/ProductCategory";
+import AdminPageLayout from "./layouts/AdminPageLayout";
+import Dashboard from "./pages/admin/Dashboard";
+import Order from "./pages/order/Order";
 
 
 function App() {
@@ -31,6 +34,8 @@ function App() {
 						<Route path=":productId" element={ <ProductDetail/> }/>
 					</Route>
 
+          <Route path="order" element={<Order />} />
+
           <Route path="mypage">{/* 회원들의 마이페이지 */}</Route>
 
           <Route path="producer" element={<ProducerPageLayout />}>
@@ -42,7 +47,17 @@ function App() {
             {/* <Route path="banner-manage" element={<BannerManage />} /> */}
           </Route>
 
-          <Route path="management">{/* 관리자들의 관리페이지 */}</Route>
+          <Route path="admin" element={<AdminPageLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="product-manage" element={<ProductManage />} />
+            {/* <Route path="user-manage" element={<UserManage />} /> */}
+            {/* <Route path="producer-manage" element={<ProducerManage />} /> */}
+            {/* <Route path="promotion-manage" element={<PromotionManage />} /> */}
+            {/* <Route path="order-manage" element={<OrderManage />} /> */}
+            {/* <Route path="FAQ-manage" element={<FAQManage />} /> */}
+            {/* <Route path="inquiry-manage" element={<InquiryManage />} /> */}
+          </Route>
 
           <Route path="login" element={<Login />} />
         </Route>

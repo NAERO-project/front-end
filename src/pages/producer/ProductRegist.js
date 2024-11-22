@@ -324,8 +324,8 @@ function ProductRegist() {
             })
         );
 
-        // alert("상품 리스트로 이동합니다.");
-        // navigate("/producer/product-manage", { replace: true });
+        alert("상품 리스트로 이동합니다.");
+        navigate("/producer/product-manage", { replace: true });
         // window.location.reload();
     };
 
