@@ -14,9 +14,9 @@ function WithdrawButton(props) {
 
 	useEffect(() => {
 		console.log(success);
-		if (success && success.status === 200) {
+		if (success && success.status === 202) {
 			window.localStorage.removeItem("accessToken");
-			callLogoutAPI();
+			dispatch(callLogoutAPI());
 			alert(`${comment}에 성공했습니다. 자동 로그아웃 됩니다.`);
 			navigate("/", { replace: true });
 		}

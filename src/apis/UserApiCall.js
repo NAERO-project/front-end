@@ -42,6 +42,7 @@ export const callLoginAPI = ({ form }) => {
 
 //서버 요청 없이 로컬 인증정보를 삭제하는 방식의 로그아웃
 export const callLogoutAPI = () => {
+	console.log("로그아웃 요청");
 	return async (dispatch, getState) => {
 		dispatch({ type: POST_LOGIN, payload: "" });
 		window.localStorage.removeItem("accessToken");
@@ -95,7 +96,7 @@ export const callWithdrawAPI = ({ username, url }) => {
 		}).then(response => response.json());
 
 		console.log(result);
-		if (result.status === 200) {
+		if (result.status === 202) {
 			dispatch({ type: WITHDRAWAL_USER, payload: result });
 		} else {
 			alert("회원 탈퇴에 실패했습니다. 잠시 후 다시 시도해주세요");

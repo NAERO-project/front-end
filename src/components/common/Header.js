@@ -19,7 +19,7 @@ function Header(props) {
 	const isLogin = window.localStorage.getItem("accessToken"); // Local Storage 에 token 정보 확인
 	// const username = decodeJwt(isLogin).sub;
 
-	if (!isLogin || decodeJwt(isLogin).exp * 1000 < Date.now()) {
+	if (isLogin && decodeJwt(isLogin).exp * 1000 < Date.now()) {
 		dispatch(callLogoutAPI());
 	}
 
@@ -30,7 +30,6 @@ function Header(props) {
 
 		alert("로그아웃이 되어 메인화면으로 이동합니다.");
 		navigate("/", { replace: true });
-		window.location.reload();
 	};
 
 	function commonHeader() {

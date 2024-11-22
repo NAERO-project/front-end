@@ -8,21 +8,22 @@ import ProducerDetail from "./pages/user/ProducerDetail";
 import ProducerSignup from "./pages/user/ProducerSignup";
 import UpdateUser from "./pages/user/UpdateUser";
 import UpdateProducer from "./pages/user/UpdateProducer";
+import MypageLayout from "./layouts/MypageLayout";
 
 function App() {
 	return (
 		<BrowserRouter>
 			<Routes>
+				<Route path='mypage' element={<MypageLayout />}>
+					<Route path='detail' element={<UserDetail />} />
+					<Route path='update' element={<UpdateUser />} />
+					<Route path='toproducer' element={<ProducerSignup />}></Route>
+					{/* 회원들의 마이페이지 */}
+				</Route>
 				<Route path='/' element={<Layout />}>
 					<Route index element={<Main />} />
 
 					<Route path='product'>{/* 상품관련 페이지 */}</Route>
-					<Route path='mypage'>
-						<Route path='detail' element={<UserDetail />} />
-						<Route path='update' element={<UpdateUser />} />
-						<Route path='toproducer' element={<ProducerSignup />}></Route>
-						{/* 회원들의 마이페이지 */}
-					</Route>
 
 					<Route path='producer'>
 						<Route path='detail' element={<ProducerDetail />} />
