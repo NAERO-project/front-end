@@ -36,6 +36,7 @@ function ProductDetail() {
 
         // Redux에 cartItems 추가
         const updatedCartItems = [...cartItems, cartItem];
+        console.log(updatedCartItems);
         dispatch({ type: SET_CART_ITEMS, payload: updatedCartItems });
     };
 
@@ -58,17 +59,17 @@ function ProductDetail() {
     return (
         <div>
             <p>
-                {productData.product == undefined
+                {productData == undefined
                     ? ""
-                    : productData.product.productName}
+                    : productData.productName}
             </p>
             <select onChange={onChangeOptionHandler} value={selectedOption}>
                 <option value="">옵션 선택</option>
-                {productData.product &&
-                    productData.product.options &&
-                    productData.product.options.map((option) => (
+                {productData &&
+                    productData.options &&
+                    productData.options.map((option) => (
                         <option key={option.optionId} value={option.optionId}>
-                            {option.optionDesc} (추가 금액: {option.addPrice}원)
+                            {option.optionDesc} (추가 금액: {option.addPrice ? option.addPrice : 0}원)
                         </option>
                     ))}
             </select>

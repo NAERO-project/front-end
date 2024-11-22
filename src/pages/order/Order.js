@@ -11,6 +11,7 @@ function Order() {
     const cartItems = useSelector((state) => state.orderReducer.cartItems); // Redux에서 cartItems 가져오기
     const isLogin = window.localStorage.getItem("accessToken");
     const username = isLogin ? decodeJwt(isLogin).sub : null;
+    const formatNumber = (num) => num.toLocaleString("ko-KR");
 
     const [payRequest, setPayRequest] = useState({
         orderDTO: {
@@ -44,13 +45,13 @@ function Order() {
 
     // 주소 검색 완료 후 상태 업데이트
     const handleComplete = (data) => {
+        console.log(data);
         setPayRequest((prev) => ({
             ...prev,
             orderDTO: {
                 ...prev.orderDTO,
                 postalCode: data.zonecode,
-                addressRoad: data.roadAddress,
-                addressDetail: data.buildingName || "",
+                addressRoad: `${data.roadAddress}(${data.bname}, ${data.buildingName}}` || ""
             },
         }));
         setIsPostcodeOpen(false); // 주소 검색 창 닫기
@@ -135,11 +136,12 @@ function Order() {
             <hr style={{ border: "1px solid #000" }} />
             <h3>장바구니 정보</h3>
             <br></br>
-            {cartItems.length > 0 ? (
-                cartItems.map((item, index) => (
+            {orderData?.orderPageProductDTOList ? (
+                orderData.orderPageProductDTOList.map((item, index) => (
                     <div key={index}>
-                        <p>옵션 ID: {item.optionId}</p>
-                        <p>수량: {item.count}</p>
+                        <img src={item.productImg} alt={item.productName}/>
+                        <p>{item.productName}</p>
+                        <p>총 금액: {formatNumber(item.amount + item.addPrice)}원</p>
                     </div>
                 ))
             ) : (
@@ -165,24 +167,38 @@ function Order() {
             />
             <input
                 type="text"
+                value={payRequest.orderDTO.postalCode}
+                readOnly
+                placeholder="우편번호"
+            />
+            <input
+                type="text"
                 value={payRequest.orderDTO.addressRoad}
                 readOnly
                 placeholder="주소를 입력하세요"
             />
+            <input
+                type="text"
+                value={payRequest.orderDTO.addressDetail}
+                readOnly
+                placeholder="상세주소"
+            />
             <button onClick={() => setIsPostcodeOpen(true)}>주소 검색</button>
             {isPostcodeOpen && (
-                <div className={ModalCSS.Modal}>
-                    <div className={ModalCSS.ModalContent}>
-                        <span
-                            className={ModalCSS.CloseButton}
-                            onClick={() => setIsPostcodeOpen(false)}
-                        >
-                            &times;
-                        </span>
+                <div
+                    className={ModalCSS.Modal}
+                    onClick={() => setIsPostcodeOpen(false)} // 모달 외부 클릭 시 닫기
+                >
+                    <div
+                        className={ModalCSS.ModalContent}
+                        onClick={(e) => e.stopPropagation()} // 모달 내부 클릭 시 이벤트 버블링 방지
+                    >
+                        {/* Daum Postcode */}
                         <Postcode onComplete={handleComplete} />
                     </div>
                 </div>
             )}
+
             <textarea
                 name="deliveryNote"
                 value={payRequest.orderDTO.deliveryNote}

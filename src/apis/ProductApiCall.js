@@ -297,7 +297,6 @@ export const callProductDetailApi = ({productId}) =>{
     };
 };
 
-
 /* 판매자 상품 등록 */
 export const callProductRegistAPI = ({ form, producerUsername}) =>{
     console.log('[ProductAPICalls] callInsertProductApi Call');
