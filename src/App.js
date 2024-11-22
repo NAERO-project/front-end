@@ -12,7 +12,7 @@ import MainFashionList from "./pages/products/MainFashionList";
 import ProductMore from "./pages/products/ProductMore";
 import ProductDetail from "./pages/products/ProductDetail";
 import AdminPageLayout from "./layouts/AdminPageLayout";
-import Dashboard from "./pages/admin/Dashboard";
+import Dashboard from "./pages/admin/Dashboard/Dashboard";
 
 
 function App() {
