@@ -1,7 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { callConvertToProducerAPI } from "../../apis/UserApiCall";
 function ProducerSignup(props) {
 	const navigate = useNavigate();
 	const [form, setForm] = useState({

@@ -37,7 +37,11 @@ function Signup(props) {
 
 	const fetchSignup = e => {
 		e.preventDefault();
-		dispatch(callSignupAPI({ form: form }));
+		if (isChecked) {
+			dispatch(callSignupAPI({ form: form }));
+		} else {
+			alert("비밀번호가 일치하지 않습니다.");
+		}
 	};
 
 	const onChangeHandler = e => {

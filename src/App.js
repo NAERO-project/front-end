@@ -6,6 +6,8 @@ import Signup from "./pages/user/Signup";
 import UserDetail from "./pages/user/UserDetail";
 import ProducerDetail from "./pages/user/ProducerDetail";
 import ProducerSignup from "./pages/user/ProducerSignup";
+import UpdateUser from "./pages/user/UpdateUser";
+import UpdateProducer from "./pages/user/UpdateProducer";
 
 function App() {
 	return (
@@ -17,12 +19,14 @@ function App() {
 					<Route path='product'>{/* 상품관련 페이지 */}</Route>
 					<Route path='mypage'>
 						<Route path='detail' element={<UserDetail />} />
+						<Route path='update' element={<UpdateUser />} />
 						<Route path='toproducer' element={<ProducerSignup />}></Route>
 						{/* 회원들의 마이페이지 */}
 					</Route>
 
 					<Route path='producer'>
 						<Route path='detail' element={<ProducerDetail />} />
+						<Route path='update' element={<UpdateProducer />} />
 						{/* 판매자 페이지 */}
 					</Route>
 

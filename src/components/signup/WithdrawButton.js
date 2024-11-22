@@ -21,7 +21,13 @@ function WithdrawButton(props) {
 	}, [success]);
 
 	const fetchWithdraw = () => {
-		dispatch(callWithdrawAPI({ username: username }));
+		if (
+			window.confirm(
+				"확인 버튼을 누르시면 회원탈퇴가 진행되며, 계정 복구가 불가능합니다. 진행하시겠습니까?"
+			)
+		) {
+			dispatch(callWithdrawAPI({ username: username }));
+		}
 	};
 	return (
 		<div>

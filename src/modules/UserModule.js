@@ -4,7 +4,6 @@ const initialState = [];
 
 export const GET_USER = "user/GET_USER";
 //굳이 리덕스에 넣을 이유가 없는듯.
-// export const GET_DUPLI_ID = "user/GET_DUPLI_ID";
 // export const GET_DUPLI_EMAIL = "user/GET_DUPLI_EMAIL";
 export const POST_LOGIN = "user/POST_LOGIN";
 export const POST_SINGUP = "user/POST_SIGNUP"; //회원가입 성공판별 state

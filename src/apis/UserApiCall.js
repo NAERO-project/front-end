@@ -1,8 +1,13 @@
 // 인증, 권한의 식별이 필요한 APICALL에는 window.localStorage.getItem("accessToken")
 // redux 에 있는 State 중 accessToken 을 가져와서 사용함
 //그러니까... 우리는 단순한 상품 조회외의 대부분의 API에서 이를 사용해야함
-import { useNavigate } from "react-router-dom";
-import { GET_USER, POST_LOGIN, POST_SINGUP, WITHDRAWAL_USER } from "../modules/UserModule";
+import {
+	GET_USER,
+	POST_LOGIN,
+	POST_SINGUP,
+	UPDATE_USER,
+	WITHDRAWAL_USER,
+} from "../modules/UserModule";
 const prefix = `http://${process.env.REACT_APP_RESTAPI_IP}:8080`;
 
 export const callLoginAPI = ({ form }) => {
@@ -118,4 +123,46 @@ export const callUserDetailAPI = ({ username }) => {
 		}
 	};
 };
+export const callUpdateUserAPI = ({ form }) => {
+	const requestURL = `${prefix}/api/user/update`;
+	return async (dispatch, getState) => {
+		const result = await fetch(requestURL, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "*/*",
+				Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+			},
+			body: JSON.stringify(form),
+		}).then(response => response.json());
 
+		console.log(result);
+		if (result.status === 200) {
+			dispatch({ type: UPDATE_USER, payload: result });
+		} else {
+			alert("회원정보를 수정하는데에 실패했습니다. 다시 시도해주세요");
+		}
+	};
+};
+export const callUpdateProducerAPI = ({ form }) => {
+	const requestURL = `${prefix}/api/user/update/producer`;
+	console.log(form);
+	return async (dispatch, getState) => {
+		const result = await fetch(requestURL, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "*/*",
+				Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+			},
+			body: JSON.stringify(form),
+		}).then(response => response.json());
+
+		console.log(result);
+		if (result.status === 200) {
+			dispatch({ type: UPDATE_USER, payload: result });
+		} else {
+			alert("판매자정보를 수정하는데에 실패했습니다. 다시 시도해주세요");
+		}
+	};
+};
