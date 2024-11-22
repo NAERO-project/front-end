@@ -1,0 +1,16 @@
+.adminGridLayout {
+    display: grid;
+    grid-template-columns: 280px 1fr; /* 250px 너비의 사이드바와 나머지 영역 */
+    grid-template-areas: "sidebar main";
+    height: calc(100vh - 60px); /* 헤더 높이 60px를 뺀 나머지 높이 */
+}
+
+.adminSideNav {
+    grid-area: sidebar;
+}
+
+.adminMain {
+    grid-area: main;
+    padding: var(--spacing-lg); /* 영역 내부 패딩 */
+    overflow-y: auto; /* 내용이 넘칠 경우 스크롤 가능 */
+}
