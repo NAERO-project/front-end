@@ -1,29 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { callPasswordCheck } from "../../apis/AuthApiCall";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function PasswordCheck({ setstate }) {
-	const checkFetch = useSelector(state => state.authReducer);
+	const checkFetch = useSelector(state => state.authReducer || {});
+	const dispatch = useDispatch();
+
+	const [password, setpassword] = useState("");
 
 	useEffect(() => {
+		console.log(checkFetch);
 		if (checkFetch.status === 200) {
 			setstate(true);
 		}
 	}, [checkFetch]);
 
 	const clickBtn = () => {
-		callPasswordCheck();
+		dispatch(callPasswordCheck({ password }));
 	};
 
 	return (
 		<div>
-			<button
-				onClick={() => {
-					setstate(true);
+			<input
+				type='password'
+				onChange={e => {
+					setpassword(e.target.value);
 				}}
-			>
-				비밀번호 인증
-			</button>
+			></input>
+			<button onClick={clickBtn}>비밀번호 인증</button>
 		</div>
 	);
 }
