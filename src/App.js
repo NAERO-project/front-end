@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./layouts/Layout";
 import Main from "./pages/Main";
 import Login from "./pages/user/Login";
-import MainList from "./pages/products/MainList";
 import ProducerPageLayout from "./layouts/ProducerPageLayout";
 import ProductManage from "./pages/producer/ProductManage";
 import ProductRegist from "./pages/producer/ProductRegist";
@@ -11,6 +10,8 @@ import MainBeautyList from "./pages/products/MainBeautyList";
 import MainFashionList from "./pages/products/MainFashionList";
 import ProductMore from "./pages/products/ProductMore";
 import ProductDetail from "./pages/products/ProductDetail";
+import ProductPageLayout from "./layouts/ProductPageLayout";
+import ProductCategory from "./pages/products/ProductCategory";
 
 
 function App() {
@@ -18,17 +19,16 @@ function App() {
 		<BrowserRouter>
 			<Routes>
 				<Route path='/' element={<Layout />}>
-					<Route index element={<Main />} />
+					<Route index element={<Main />}/>
+          <Route path="preview/food" element={ <MainFoodList/> }/>
+					<Route path="preview/beauty" element={ <MainBeautyList/> }/>
+					<Route path="preview/fashion" element={ <MainFashionList/> }/>
 
-					<Route path='products'>
-						<Route path="preview" element={ <MainList/> }/>
-						<Route path="preview/food" element={ <MainFoodList/> }/>
-						<Route path="preview/beauty" element={ <MainBeautyList/> }/>
-						<Route path="preview/fashion" element={ <MainFashionList/> }/>
-						<Route path="more" element={ <ProductMore/> }/>
-						<Route path="more:mediumId" element={ <ProductMore/> }/>
+					<Route path='products' element={<ProductPageLayout/>}>
+						<Route path='more' element={ <ProductMore/> }/>
+						<Route path="more/:largeId" element={ <ProductCategory/> }/>
+						<Route path="more/:largeId/:mediumId" element={ <ProductCategory/> }/>
 						<Route path=":productId" element={ <ProductDetail/> }/>
-					
 					</Route>
 
           <Route path="mypage">{/* 회원들의 마이페이지 */}</Route>

@@ -1,19 +1,16 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Product from "../../components/common/products/Product";
 import { callProductListApi } from "../../apis/ProductApiCall";
-import MainListCSS from "./MainList.module.css";
-import ProductNav from "../../components/common/products/ProductNav";
-import ProductMoreCSS from "./ProductMore.module.css";
-
+import ProductMoreCSS from "./css/ProductMore.module.css";
  
  function ProductMore(){
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    // const { category } = useParams();
     const products = useSelector(state => state.productReducer);
     const productList = products.data;
+    const params = useParams();
     console.log("productList", productList);
 
     const pageInfo = products.pageInfo;
@@ -27,30 +24,24 @@ import ProductMoreCSS from "./ProductMore.module.css";
         }
     }
 
-    // useEffect(
-    //     () =>{
-    //         dispatch(callProductListApi({
-    //             currentPage: currentPage
-    //         }))
-    //     },[currentPage]
-    // );
-
     useEffect(() => {
             fetchData();
         },[currentPage]);
 
-    const fetchData=()=>{dispatch(callProductListApi({currentPage: currentPage}))}
+    const fetchData=()=>{dispatch(callProductListApi({
+        currentPage: currentPage,
+        largeId: params.largeCategoryId
+    }))}
 
     useEffect(()=>{
         console.log(productList,"확인");
     },[productList]);
 
     return(
-        <div className={MainListCSS.main_list}>
-            <ProductNav/>
+        <div>
             <div className={ProductMoreCSS.main_product_box}>
                 {Array.isArray(productList) && productList.map((product) => (
-                    <Product key={product.productCode} product={product}/>
+                    <Product key={product.productId} product={product}/>
                 ))}
             </div>
 
@@ -63,11 +54,10 @@ import ProductMoreCSS from "./ProductMore.module.css";
                     </li>
                 ))}
                 {Array.isArray(productList) &&
-                <button onClick={() => setCurrentPage(currentPage +1)} disabled={currentPage === pageInfo.pageEnd || pageInfo.total == 0}>&gt;</button>
+                <button onClick={() => setCurrentPage(currentPage +1)} disabled={currentPage === pageInfo.pageEnd || pageInfo.total === 0}>&gt;</button>
                 }
             </div>
-        </div>
-            
+        </div>   
     );
  }
 

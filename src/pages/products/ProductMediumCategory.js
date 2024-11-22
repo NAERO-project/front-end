@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Product from "../../components/common/products/Product";
-import { callProductLargeCategoryListApi } from "../../apis/ProductApiCall";
+import { callProductMediumCategoryListApi } from "../../apis/ProductApiCall";
 import ProductMoreCSS from "./css/ProductMore.module.css"
 import ProductMediumNav from "../../components/common/products/ProductMediumNav";
 
-function ProductCategory(){
+function ProductMediumCategory(){
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const products = useSelector(state => state.productReducer);
@@ -28,11 +28,12 @@ function ProductCategory(){
 
     useEffect(() => {
             fetchData();
-        },[currentPage, largeCategoryId]);
+        },[currentPage, largeCategoryId, mediumCategoryId]);
 
-    const fetchData=()=>{dispatch(callProductLargeCategoryListApi({
+    const fetchData=()=>{dispatch(callProductMediumCategoryListApi({
         currentPage: currentPage,
-        largeId: largeCategoryId
+        largeId: largeCategoryId,
+        mediumId: mediumCategoryId
     }));
 };
 
@@ -65,4 +66,4 @@ function ProductCategory(){
     );
 }
 
-export default ProductCategory;
+export default ProductMediumCategory;

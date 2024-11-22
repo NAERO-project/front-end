@@ -1,4 +1,4 @@
-.ProductNav{
+.product_nav{
     width: 1168px;
     height: 60px;
     display: flex;
@@ -13,16 +13,15 @@ li{
     cursor: pointer;
 }
 
-li:hover{
-    border-bottom: 3px solid var(--main-color03);
-}
-
-.Nav{
+.nav{
+    display: block;
     color: var(--text04);
     font-size: 24px;
 }
 
-.Nav:hover{
+.nav:hover{
+    padding: 0 0 14px 0;
     font-weight: 500;
     color: var(--main-color03);
+    border-bottom: 3px solid var(--main-color03);
 }

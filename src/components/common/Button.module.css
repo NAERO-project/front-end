@@ -345,10 +345,10 @@
 
 
 /* 카테고리 태그 */
-.ProductTag{ 
+.product_tag{ 
     padding: 4px 10px;
     border-radius: 10px;
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 300;
     color: var(--text01);
     background-color: var(--sub-color01);
