@@ -1,7 +1,10 @@
 import GlobalCSS from "../components/common/Global.module.css";
+import MainBanner from "./banner/MainBanner";
 
 function Main(props) {
-	return <div className={GlobalCSS}>메인 페이지</div>;
+	return <div className={GlobalCSS}>
+		<MainBanner/>
+	</div>;
 }
 
 export default Main;
