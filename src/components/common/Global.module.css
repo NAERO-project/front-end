@@ -80,12 +80,13 @@ button {
   --main-color01: #7b9064;
   --main-color02: #a8b29d;
   --main-color03: #546e7a;
+  --main-color04: #41535C;
   --sub-color01: #bbdefb;
   --sub-color02: #c5e1a5;
   --sub-color03: #7fffd4;
 
   /* 텍스트 컬러 */
-  --text01: #fff;
+  --text01: #ffffff;
   --text02: #020202;
   --text03: #757575;
   --text03: #849076;

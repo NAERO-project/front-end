@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-// import './AdminPageSideNav.module.css';
+import styles from "./AdminPageSideNav.module.css";
 
 const navItems = [
     { to: '/admin/dashboard', label: '모니터링' },
@@ -7,16 +7,16 @@ const navItems = [
     { to: '/admin/seller-manage', label: '셀러관리' },
     { to: '/admin/promotion-manage', label: '홍보관리' },
     { to: '/admin/inquiry-manage', label: '1:1 문의' },
-    { to: '/admin/FAQ-manage', label: 'FAQ' },
+    { to: '/admin/FAQ-manage', label: 'FAQ 관리' },
 ];
 
 function AdminPageSideNav() {
     return (
-        <div>
+        <div className={styles.adminSideNavContainer}>
             <ul>
                 {navItems.map((item, index) => (
-                    <li key={index}>
-                        <NavLink to={item.to} className="nav-link" activeClassName="active-link">{item.label}</NavLink>
+                    <li key={index} className={styles.navItem}>
+                        <NavLink to={item.to} className={styles.navLink} activeClassName="active-link">{item.label}</NavLink>
                     </li>
                 ))}
             </ul>
