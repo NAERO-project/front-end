@@ -17,15 +17,15 @@ function Product({
 
     return(
         <div
-        className={ProductCSS.ProductBox}
+        className={ProductCSS.product_box}
         onClick={() => onClickProductHandler(productId)}>
-            <div className={ProductCSS.productImgBox}>
+            <div className={ProductCSS.product_img_box}>
                 <img src={productImg} alt={productName}/>
             </div>
-            <div className={ProductCSS.ProductTextBox}>
+            <div className={ProductCSS.product_text_box}>
                 <div>
                     <p>{productName}</p>
-                    <div className={ProductCSS.ProductIconBox}>
+                    <div className={ProductCSS.product_icon_box}>
                         <p><FaRegHeart/></p>
                         <p><LuShoppingCart/></p>
                     </div>
