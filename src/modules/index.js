@@ -5,7 +5,7 @@ import authReducer from "./AuthModule";
 
 const rootReducer = combineReducers({
 	userReducer,
-	productReducer
+	productReducer,
 	authReducer,
 });
 
