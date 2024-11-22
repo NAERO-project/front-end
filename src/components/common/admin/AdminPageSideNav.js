@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import styles from "./AdminPageSideNav.module.css";
+import styles from "./css/AdminPageSideNav.module.css"; 
 
 const navItems = [
     { to: '/admin/dashboard', label: '모니터링' },
