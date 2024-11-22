@@ -1,0 +1,20 @@
+.adminSideNavContainer {
+    background-color: var(--main-color03);
+    padding: 28px 0;
+}
+
+.navItem {
+    width: 280px;
+    padding: 18px 0;
+    text-align: center;
+    cursor: pointer;
+}
+
+.navItem:hover{
+    background-color: var(--main-color04);
+}
+
+.navLink {
+    font-size: 20px;
+    color: var(--text01);
+}

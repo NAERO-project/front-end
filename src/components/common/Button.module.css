@@ -29,6 +29,8 @@
 .main_button{
     width: 410px;
     height: 60px;
+    display: inline-block;
+
     padding: 20px 0;
     font-size: 18px;
     font-weight: 300;

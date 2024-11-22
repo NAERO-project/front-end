@@ -1,9 +1,97 @@
-.HeaderBar{
-    width: 100%;
-    height: 60px;
-    background-color: var(--header-color);
+@import "./Global.module.css";
+
+/* Layout containers */
+.HeaderBar {
+  width: 100%;
+  height: 60px;
+  background-color: var(--header-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.LogoImage{
-    cursor: pointer;
+.HeaderContent {
+  max-width: 1167px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo styles */
+.LogoImage {
+  cursor: pointer;
+  height: 40px;
+}
+
+.LogoImage img {
+  height: 100%;
+  width: auto;
+}
+
+/* Navigation styles */
+.NavLinkContainer {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+/* Navigation styles */
+.NavLinkItem {
+  display: flex;
+  align-items: center;
+  transition: all 0.1s ease;
+}
+
+.NavLinkItem:hover .Icon,
+.NavLinkItem:hover a,
+.NavLinkItem:hover .LogoutButton {
+  color: var(--sub-color03);
+}
+
+/* Link and button styles */
+.NavLinkItem a,
+.LogoutButton {
+  color: var(--text01);
+  text-decoration: none;
+  font-size: var(--font-size-md, 16px);
+  font-family: var(--font-family);
+  transition: color 0.1s ease;
+}
+
+.Icon {
+  margin-right: var(--spacing-xs, 8px);
+  color: var(--text01);
+  font-size: var(--font-size-md, 16px);
+  transition: color 0.1s ease;
+}
+
+.LogoutButton {
+  background-color: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .HeaderContent {
+    padding: 0 12px;
+  }
+
+  .NavLinkContainer {
+    gap: var(--spacing-md);
+  }
+
+  .Icon {
+    font-size: var(--font-size-sm);
+  }
+
+  .NavLinkItem a,
+  .LogoutButton {
+    font-size: var(--font-size-sm);
+  }
 }
