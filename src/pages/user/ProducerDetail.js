@@ -28,7 +28,6 @@ function ProducerDetail(props) {
 					{producer.producerName && (
 						<ProducerInfoForm producer={producer}></ProducerInfoForm>
 					)}
-					<WithdrawButton />
 				</div>
 			)}
 		</div>

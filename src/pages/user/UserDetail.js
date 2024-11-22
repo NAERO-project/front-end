@@ -29,7 +29,6 @@ function UserDetail(props) {
 			<hr style={{ border: "1px solid black" }}></hr>
 			배송지 정보
 			{!isProducer ? <NavLink to='/mypage/toproducer'>사업자 신청</NavLink> : null}
-			<WithdrawButton />
 		</div>
 	);
 }

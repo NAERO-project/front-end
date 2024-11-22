@@ -79,7 +79,8 @@ function UpdateUser(props) {
 					autoComplete='off'
 					onChange={onChangeHandler}
 				/>
-				<button onClick={fetchUpdate}>수정 요청</button> <WithdrawButton />
+				<button onClick={fetchUpdate}>수정 요청</button>{" "}
+				<WithdrawButton comment={"회원 탈퇴"} url={"/user/withdraw"} />
 			</form>
 		);
 	};

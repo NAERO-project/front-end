@@ -94,7 +94,8 @@ function UpdateProducer(props) {
 						></input>
 					</p>
 				</form>
-				<button onClick={fetchUpdate}>수정 요청</button> <WithdrawButton />
+				<button onClick={fetchUpdate}>수정 요청</button>
+				<WithdrawButton comment={"사업장 정보 삭제"} url={"/user/withdraw/producer"} />
 			</>
 		);
 	};

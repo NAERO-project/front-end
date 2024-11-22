@@ -4,18 +4,20 @@ import { useSelector, useDispatch } from "react-redux";
 import { callWithdrawAPI, callLogoutAPI } from "../../apis/UserApiCall";
 import { decodeJwt } from "../../utils/tokenUtils";
 function WithdrawButton(props) {
+	const { url, comment } = props;
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
+	console.log(url, comment);
 	const success = useSelector(state => state.userReducer);
 	const username = decodeJwt(window.localStorage.getItem("accessToken")).sub; // Local Storage 에 token 정보 확인
 
 	useEffect(() => {
 		console.log(success);
-		if (success && success.status === 202) {
-			console.log("status 가 202입니다");
-			alert("회원 탈퇴에 성공했습니다. 자동 로그아웃 됩니다.");
+		if (success && success.status === 200) {
+			window.localStorage.removeItem("accessToken");
 			callLogoutAPI();
+			alert(`${comment}에 성공했습니다. 자동 로그아웃 됩니다.`);
 			navigate("/", { replace: true });
 		}
 	}, [success]);
@@ -23,10 +25,10 @@ function WithdrawButton(props) {
 	const fetchWithdraw = () => {
 		if (
 			window.confirm(
-				"확인 버튼을 누르시면 회원탈퇴가 진행되며, 계정 복구가 불가능합니다. 진행하시겠습니까?"
+				`확인 버튼을 누르시면 ${comment}가 진행되며, 복구가 불가능합니다. 또한 바로 로그아웃됩니다. 진행하시겠습니까?`
 			)
 		) {
-			dispatch(callWithdrawAPI({ username: username }));
+			dispatch(callWithdrawAPI({ url: url, username: username }));
 		}
 	};
 	return (

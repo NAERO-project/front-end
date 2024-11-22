@@ -80,8 +80,8 @@ export const callSignupAPI = ({ form }) => {
 	};
 };
 
-export const callWithdrawAPI = ({ username }) => {
-	const requestURL = `${prefix}/api/user/withdraw/${username}`;
+export const callWithdrawAPI = ({ username, url }) => {
+	const requestURL = `${prefix}/api${url}/${username}`;
 	console.log(requestURL);
 
 	return async (dispatch, getState) => {
@@ -95,7 +95,7 @@ export const callWithdrawAPI = ({ username }) => {
 		}).then(response => response.json());
 
 		console.log(result);
-		if (result.status === 202) {
+		if (result.status === 200) {
 			dispatch({ type: WITHDRAWAL_USER, payload: result });
 		} else {
 			alert("회원 탈퇴에 실패했습니다. 잠시 후 다시 시도해주세요");
