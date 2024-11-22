@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import AdminPageSideNav from "../components/common/admin/AdminPageSideNav";
-import styles from "./AdminPageLayout.module.css";
+import styles from "./css/AdminPageLayout.module.css";
 
 function AdminPageLayout() {
     return (
