@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Product from "../../components/common/products/Product";
 import { callProductListApi } from "../../apis/ProductApiCall";
 import ProductMoreCSS from "./css/ProductMore.module.css";
+import ProductNav from "../../components/common/products/ProductNav";
  
  function ProductMore(){
     const navigate = useNavigate();
@@ -39,6 +40,7 @@ import ProductMoreCSS from "./css/ProductMore.module.css";
 
     return(
         <div>
+            <ProductNav/>
             <div className={ProductMoreCSS.main_product_box}>
                 {Array.isArray(productList) && productList.map((product) => (
                     <Product key={product.productId} product={product}/>
