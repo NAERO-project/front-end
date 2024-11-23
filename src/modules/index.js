@@ -4,6 +4,7 @@ import productReducer from "./ProductModule";
 import couponReducer from "./CouponModule";
 import {largeCategoryReducer, mediumCategoryReducer}  from "./CategoryModule";
 import orderReducer from "./OrderModule";
+import bannerReducer from "./BannerModule";
 
 const rootReducer = combineReducers({
 	userReducer,
@@ -11,7 +12,9 @@ const rootReducer = combineReducers({
 	largeCategoryReducer,
 	mediumCategoryReducer,
 	orderReducer,
-	couponReducer
+	couponReducer,
+	bannerReducer
+
 });
 
 export default rootReducer;
