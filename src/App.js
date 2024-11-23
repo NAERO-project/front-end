@@ -13,8 +13,8 @@ import ProductDetail from "./pages/products/ProductDetail";
 import ProductPageLayout from "./layouts/ProductPageLayout";
 import ProductCategory from "./pages/products/ProductCategory";
 import AdminPageLayout from "./layouts/AdminPageLayout";
-import Dashboard from "./pages/admin/Dashboard";
 import Order from "./pages/order/Order";
+import Dashboard from "./pages/admin/Dashboard/Dashboard";
 
 
 function App() {
