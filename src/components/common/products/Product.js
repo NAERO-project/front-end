@@ -32,7 +32,7 @@ function Product({
                 </div>
                 <div>
                     <p>{productPrice.toLocaleString()}원</p>
-                    <h5 className={ButtonCSS.product_tag}>{smallCategoryName}</h5>
+                    <span className={ButtonCSS.product_tag}>{smallCategoryName}</span>
                 </div>
             </div>
         </div>

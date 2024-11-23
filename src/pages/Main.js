@@ -1,11 +1,14 @@
-import GlobalCSS from "../components/common/Global.module.css";
 import MainBanner from "./banner/MainBanner";
 import MainList from "./products/MainList";
 
+import GlobalCSS from "../components/common/Global.module.css";
+
 function Main(props) {
-	return <div className={GlobalCSS}>
-		<MainList/>
-		<MainBanner/>
+	return <div>
+			<MainBanner/>
+			<div className={GlobalCSS}>
+				<MainList/>
+			</div>
 		</div>
 }
 
