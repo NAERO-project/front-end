@@ -8,13 +8,14 @@ import ModalCSS from "../../components/common/Modal.module.css"; // 모달 스�
 
 function Order() {
     const dispatch = useDispatch();
-    const orderData = useSelector((state) => state.orderReducer); // Redux에서 주문 정보 가져오기
-    const couponData = useSelector((state) => state.couponReducer); // Redux에서 주폰 정보 가져오기
-    const cartItems = useSelector((state) => state.orderReducer.cartItems); // Redux에서 cartItems 가져오기
+    const orderData = useSelector((state) => state.orderReducer);
+    const couponData = useSelector((state) => state.couponReducer);
+    const cartItems = useSelector((state) => state.orderReducer.cartItems);
     const isLogin = window.localStorage.getItem("accessToken");
     const username = isLogin ? decodeJwt(isLogin).sub : null;
     const formatNumber = (num) => num.toLocaleString("ko-KR");
 
+    const [point, setPoint] = useState(0);
     const [coupon, setCoupon] = useState([]);
     const [payRequest, setPayRequest] = useState({
         orderDTO: {
@@ -24,7 +25,9 @@ function Order() {
             addressRoad: "",
             addressDetail: "",
             deliveryNote: "",
-            couponId: "", // 쿠폰 ID 초기화
+            couponId: "",
+            couponDiscount: 0, // 쿠폰 할인 초기화
+            pointDiscount: 0, // 포인트 할인 초기화
         },
         paymentDTO: {
             paymentMethod: "카카오페이",
@@ -40,24 +43,20 @@ function Order() {
     // 주문 정보를 사전에 로드하여 Redux에 저장
     useEffect(() => {
         if (username && cartItems.length > 0) {
-            console.log("callOrderPageApi 실행");
             dispatch(callOrderPageApi({ cartItems, username }));
-        } else {
-            console.log("장바구니가 비어 있거나 username이 없습니다.");
         }
     }, [cartItems, dispatch, username]);
 
     // 주소 검색 완료 후 상태 업데이트
-    const handleComplete = (data) => {
+    const onChangeAddressHandler = (data) => {
         console.log(data);
         setPayRequest((prev) => ({
             ...prev,
             orderDTO: {
                 ...prev.orderDTO,
                 postalCode: data.zonecode,
-                addressRoad:
-                    `${data.roadAddress}(${data.bname}, ${data.buildingName})` ||
-                    "",
+                addressRoad: `${data.roadAddress}(${data.bname}, ${data.buildingName})` || "",
+                addressDetail: "",
             },
         }));
         setIsPostcodeOpen(false); // 주소 검색 창 닫기
@@ -71,8 +70,7 @@ function Order() {
                 orderDTO: {
                     ...prev.orderDTO,
                     recipientName: orderData.orderDTO.recipientName || "",
-                    recipientPhoneNumber:
-                        orderData.orderDTO.recipientPhoneNumber || "",
+                    recipientPhoneNumber: orderData.orderDTO.recipientPhoneNumber || "",
                     postalCode: orderData.orderDTO.postalCode || "",
                     addressRoad: orderData.orderDTO.addressRoad || "",
                     addressDetail: orderData.orderDTO.addressDetail || "",
@@ -91,7 +89,6 @@ function Order() {
         if (couponData) {
             setCoupon(couponData);
         }
-        console.log(coupon);
     }, [couponData]);
 
     // 입력 필드 상태 업데이트
@@ -107,7 +104,7 @@ function Order() {
     };
 
     // 쿠폰 선택 시 적용 가능 여부 확인
-    const handleCouponChange = (e) => {
+    const onChangeCouponHandler = (e) => {
         const selectedCouponId = e.target.value;
         console.log("선택된 쿠폰 ID:", selectedCouponId); // 선택된 쿠폰 ID 확인
 
@@ -128,6 +125,7 @@ function Order() {
             const isApplicable = orderData.orderPageProductDTOList.some(
                 (item) => item.producerId === selectedCoupon.producerId
             );
+
             if (isApplicable) {
                 let couponDiscount = 0;
                 const orderTotalAmount = calculateOrderTotalAmount(); // 주문 총 금액 계산
@@ -135,21 +133,10 @@ function Order() {
                 if (selectedCoupon.couponType === "price") {
                     couponDiscount = selectedCoupon.salePrice; // 고정 금액 할인
                 } else if (selectedCoupon.couponType === "percent") {
-                    console.log("orderTotalAmount", orderTotalAmount);
-                    const discountAmount =
-                        (orderTotalAmount * selectedCoupon.salePrice) / 100; // 퍼센트 할인 계산
-                    couponDiscount = Math.min(
-                        discountAmount,
-                        selectedCoupon.maxSalePrice
-                    ); // 최대 할인 금액 적용
-                    console.log("discountAmount", discountAmount);
+                    const discountAmount = (orderTotalAmount * selectedCoupon.salePrice) / 100;
+                    couponDiscount = Math.min(discountAmount, selectedCoupon.maxSalePrice);
                 }
 
-                console.log(
-                    "selectedCoupon.maxSalePrice",
-                    selectedCoupon.maxSalePrice
-                );
-                console.log("couponDiscount", couponDiscount);
                 setPayRequest((prev) => ({
                     ...prev,
                     orderDTO: {
@@ -175,13 +162,13 @@ function Order() {
     };
 
     // 결제 및 주문 데이터 전송
-    const paymentHandler = () => {
+    const onClickPaymentHandler = () => {
         const orderTotalAmount = calculateOrderTotalAmount();
-        const deliveryFee = orderData.orderDTO?.deliveryFee || 2500;
+        const deliveryFee = orderData.orderDTO?.deliveryFee || 0;
 
         // optionIds를 orderPageProductDTOList의 optionId로 초기화
         const updatedOptionIds = {};
-        orderData.orderPageProductDTOList.forEach(item => {
+        orderData.orderPageProductDTOList.forEach((item) => {
             updatedOptionIds[item.optionId] = item.count; // optionId와 수량 설정
         });
 
@@ -203,34 +190,43 @@ function Order() {
     };
 
     // 주문 총 금액 계산
-    const calculateOrderTotalAmount = () => {
-        const { optionIds } = payRequest;
-        let total = 0;
+    function calculateOrderTotalAmount() {
+        const { orderPageProductDTOList } = orderData;
 
-        // optionIds가 비어있지 않은지 확인
-        if (Object.keys(optionIds).length === 0) {
-            console.log("optionIds가 비어있습니다.");
-            return total; // 0 반환
+        console.log(payRequest);
+        console.log(orderData);
+
+        // orderPageProductDTOList가 정의되어 있는지 확인
+        if (!orderPageProductDTOList || orderPageProductDTOList.length === 0) {
+            console.log("orderPageProductDTOList가 비어있습니다.");
+            return 0; // 0 반환
         }
 
-        Object.keys(optionIds).forEach((optionId) => {
-            const count = optionIds[optionId];
-            const product = orderData.orderPageProductDTOList.find(
-                (item) => item.optionId === optionId
-            ); // 실제 상품 데이터에서 가격 가져오기
+        return orderPageProductDTOList.reduce((totalAmount, o) => {
+            const count = o.count;
+            const pricePerItem = o.amount + (o.addPrice || 0);
+            return totalAmount + count * pricePerItem;
+        }, 0);
+    }
 
-            // 상품이 존재하는지 확인
-            if (product) {
-                const pricePerItem = product.amount + (product.addPrice || 0); // 상품 가격과 추가 금액 합산
-                total += count * pricePerItem; // 총 금액 계산
-            } else {
-                console.warn(`상품을 찾을 수 없습니다: optionId=${optionId}`);
-            }
-        });
-
-        console.log("총 주문 금액:", total);
-        return total;
+    // 포인트 적용 핸들러
+    const onChangePointHandler = (e) => {
+        const inputPoint = Number(e.target.value);
+        const availablePoint = orderData?.userDTO?.userPoint || 0;
+        const validPoint = Math.min(inputPoint, availablePoint);
+        setPoint(validPoint);
     };
+
+    // 포인트가 변경될 때마다 payRequest 업데이트
+    useEffect(() => {
+        setPayRequest((prev) => ({
+            ...prev,
+            orderDTO: {
+                ...prev.orderDTO,
+                pointDiscount: point, // point 상태를 pointDiscount에 저장
+            },
+        }));
+    }, [point]); // point가 변경될 때마다 실행
 
     return (
         <div>
@@ -244,17 +240,15 @@ function Order() {
             <p>{orderData?.userDTO?.userEmail || "이메일 없음"}</p>
             <hr style={{ border: "1px solid #000" }} />
             <h3>주문 상품 정보</h3>
-            <br />
-            {orderData?.orderPageProductDTOList
-                ? orderData.orderPageProductDTOList.map((item, index) => (
-                      <div key={index}>
-                          <img src={item.productImg} alt={item.productName} />
-                          <p>{item.productName}</p>
-                          <p>{formatNumber(item.amount + item.addPrice)}원</p>
-                      </div>
-                  ))
-                : ""}
-            <hr style={{ border: "1px solid #000" }} />
+            {orderData?.orderPageProductDTOList?.map((item, index) => (
+                <div key={index}>
+                    <img src={item.productImg} alt={item.productName} />
+                    <p>{item.productName}</p>
+                    <p>구매수량: {item.count}</p>
+                    <p>{formatNumber((item.amount + item.addPrice) * item.count)} 원</p>
+                </div>
+            ))}
+            <hr />
             <h3>배송지 정보</h3>
             <br />
             <input
@@ -295,15 +289,9 @@ function Order() {
                 placeholder="상세주소"
             />
             {isPostcodeOpen && (
-                <div
-                    className={ModalCSS.Modal}
-                    onClick={() => setIsPostcodeOpen(false)} // 모달 외부 클릭 시 닫기
-                >
-                    <div
-                        className={ModalCSS.ModalContent}
-                        onClick={(e) => e.stopPropagation()} // 모달 내부 클릭 시 이벤트 버블링 방지
-                    >
-                        <Postcode onComplete={handleComplete} />
+                <div className={ModalCSS.Modal} onClick={() => setIsPostcodeOpen(false)}>
+                    <div className={ModalCSS.ModalContent} onClick={(e) => e.stopPropagation()}>
+                        <Postcode onComplete={onChangeAddressHandler} />
                     </div>
                 </div>
             )}
@@ -317,14 +305,17 @@ function Order() {
             <hr style={{ border: "1px solid #000" }} />
             <h3>결제 금액</h3>
             <br />
-            // 결제 금액
-            <p>주문 금액: {calculateOrderTotalAmount()}원</p>
-            <p>배송비: {orderData.orderDTO?.deliveryFee || 2500}원</p>
+            <p>주문 금액: {formatNumber(calculateOrderTotalAmount())}원</p>
+            <p>배송비: +{formatNumber(orderData.orderDTO?.deliveryFee || 0)}원</p>
+            <p>쿠폰 할인: -{formatNumber(payRequest.orderDTO.couponDiscount || 0)}원</p>
+            <p>포인트 할인: -{formatNumber(payRequest.orderDTO.pointDiscount || 0)}원</p>
             <p>
                 최종 주문 금액:{" "}
-                {calculateOrderTotalAmount() +
-                    (orderData.orderDTO?.deliveryFee || 2500) -
-                    (payRequest.orderDTO.couponDiscount || 0)}{" "}
+                {formatNumber(
+                    calculateOrderTotalAmount() +
+                    (orderData.orderDTO?.deliveryFee || 0) -
+                    (payRequest.orderDTO.couponDiscount || 0)
+                )}{" "}
                 원
             </p>
             <hr style={{ border: "1px solid #000" }} />
@@ -333,7 +324,7 @@ function Order() {
             <label>쿠폰 적용</label>&nbsp;&nbsp;&nbsp;&nbsp;
             <select
                 value={payRequest.orderDTO.couponId || ""} // 선택한 쿠폰 ID 관리
-                onChange={handleCouponChange} // 쿠폰 선택 시 처리
+                onChange={onChangeCouponHandler} // 쿠폰 선택 시 처리
             >
                 <option value="">적용할 쿠폰 선택</option>
                 {coupon.map((c) => (
@@ -343,10 +334,18 @@ function Order() {
                 ))}
             </select>
             <br />
+            <label>포인트 적용</label>&nbsp;&nbsp;&nbsp;&nbsp;
+            <input
+                type="number"
+                value={point}
+                onChange={onChangePointHandler} // 수정된 핸들러 사용
+                min="1"
+            />&nbsp; 잔여: {orderData?.userDTO?.userPoint || "0"}P
+            <br />
             <hr style={{ border: "1px solid #000" }} />
             <h3>결제 정보</h3>
             <br />
-            <button onClick={paymentHandler}>결제하기</button>
+            <button onClick={onClickPaymentHandler}>결제하기</button>
         </div>
     );
 }
