@@ -1,17 +1,18 @@
-import { NavLink } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
-import { decodeJwt } from '../../../utils/tokenUtils';
+import { NavLink } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import { decodeJwt } from "../../../utils/tokenUtils";
 
 function SellerPageNavBar() {
-    const token = decodeJwt(window.localStorage.getItem('accessToken'));
+    const token = decodeJwt(window.localStorage.getItem("accessToken"));
 
     if (
-		token === undefined ||
-		token === null ||
-		token.exp * 1000 < Date.now()
-	) {
-		return <Navigate to="/" />;
-	}
+        token === undefined ||
+        token === null
+        || token.exp * 1000 < Date.now()
+    ) {
+        alert("로그인 후 이용해주세요");
+        return <Navigate to="/" />;
+    }
 
     return (
         <div>
@@ -31,7 +32,6 @@ function SellerPageNavBar() {
             </ul>
         </div>
     );
-
 }
 
 export default SellerPageNavBar;

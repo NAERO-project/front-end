@@ -1,6 +1,9 @@
 import {
     GET_ORDER_PAGE,
-    POST_ORDER
+    POST_ORDER,
+    GET_MYPAGE_ORDERLIST,
+    GET_MYPAGE_ORDER_PRODUCT_LIST,
+    GET_PRODUCER_ORDER_LIST
 } from '../modules/OrderModule.js';
 
 const prefix = `http://${process.env.REACT_APP_RESTAPI_IP}:8080`;
@@ -49,35 +52,6 @@ export const callInsertOrderApi = ({ payRequest, username }) =>{
                 Accept: '*/*'
             },
             body: JSON.stringify(payRequest)
-            // body: JSON.stringify({
-			// 	orderTotalAmount: orderTotalAmount,
-			// 	orderTotalCount: orderTotalCount,
-			// 	deliveryStatus: deliveryStatus,
-			// 	orderStatus: orderStatus,
-			// 	deliveryFee: deliveryFee,
-			// 	pointDiscount: form.pointDiscount,
-			// 	couponId: couponId,
-            //     couponDiscount: form.couponDiscount,
-            //     recipientName: form.recipientName,
-            //     recipientPhoneNumber: form.recipientPhoneNumber,
-            //     postalCode: form.postalCode,
-            //     addressRoad: form.addressRoad,
-            //     addresDetail: form.addresDetail,
-            //     deliveryNote: form.deliveryNote,
-            //     amount: amount,
-            //     currency: currency,
-            //     paymentMethod: paymentMethod,
-            //     paymentStatus: paymentStatus,
-            //     impUid: impUid,
-            //     merchantUid: merchantUid,
-            //     transactionId: transactionId,
-            //     receiptUrl: requestURL
-            //     // 여기서 "optionIds": {
-            //     // "1": 2,
-            //     // "2": 3,
-            //     // "3": 1 }
-            //     // 이 부분을 어떻게 전달하지..
-			// })
         }).then((response) => response.json());
 
         if (result.status === 200) {
@@ -87,4 +61,80 @@ export const callInsertOrderApi = ({ payRequest, username }) =>{
             console.error('API 호출 실패:', result);
         }
     };
+};
+
+export const callMyPageOrderListApi = ({ currentPage, username }) => {
+    let requestURL;
+
+    if(currentPage !== undefined || currentPage !== null){
+        requestURL = `${prefix}/api/order/${username}?offset=${currentPage}`;
+    }else{
+        requestURL = `${prefix}/api/order/${username}`;
+    }
+
+	return async (dispatch, getState) => {
+		const result = await fetch(requestURL, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: '*/*',
+				Authorization:
+					'Bearer ' + window.localStorage.getItem('accessToken')
+			}
+		}).then((response) => response.json());
+
+        if(result.status === 200){
+            console.log('[OrderApiCalls] callMyPageOrderListApi RESULT : ', result);
+            dispatch({ type: GET_MYPAGE_ORDERLIST, payload: result.data });
+        }
+	};
+};
+
+export const callMyPageOrderProductListApi = ({ orderId }) => {
+	const requestURL = `${prefix}/api/order/product/${orderId}`;
+
+	return async (dispatch, getState) => {
+		const result = await fetch(requestURL, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: '*/*',
+				Authorization:
+					'Bearer ' + window.localStorage.getItem('accessToken')
+			}
+		}).then((response) => response.json());
+
+		console.log('[OrderApiCalls] callMyPageOrderProductListApi RESULT : ', result);
+		console.log('[OrderApiCalls] callMyPageOrderProductListApi RESULT.data : ', result.data);
+
+		dispatch({ type: GET_MYPAGE_ORDER_PRODUCT_LIST, payload: result.data });
+	};
+};
+
+export const callProducerOrderListPageApi = ({ currentPage, producerUsername }) => {
+
+    let requestURL;
+
+    if(currentPage !== undefined || currentPage !== null){
+        requestURL = `${prefix}/api/order/seller/${producerUsername}?offset=${currentPage}`;
+    }else{
+        requestURL = `${prefix}/api/order/seller/${producerUsername}`;
+    }
+
+	return async (dispatch, getState) => {
+		const result = await fetch(requestURL, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: '*/*',
+				Authorization:
+					'Bearer ' + window.localStorage.getItem('accessToken')
+			}
+		}).then((response) => response.json());
+
+		console.log('[OrderApiCalls] callProducerOrderListPageApi RESULT : ', result);
+		console.log('[OrderApiCalls] callProducerOrderListPageApi RESULT.data : ', result.data);
+
+		dispatch({ type: GET_PRODUCER_ORDER_LIST, payload: result.data });
+	};
 };

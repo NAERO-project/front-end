@@ -15,6 +15,7 @@ export const GET_PRODUCTS_PRODUCER = 'product/GET_PRODUCTS_PRODUCER';           
 export const POST_PRODUCTS = 'product/POST_PRODUCTS';                                   // 판매자 상품 등록
 export const PUT_PRODUCTS = 'product/PUT_PRODUCTS';                                     // 판매자 상품 수정
 export const DELETE_PRODUCTS = 'product/DELETE_PRODUCTS';                               // 판매자 상품 삭제
+export const GET_PRODUCT_BY_OPTION = 'product/GET_PRODUCT_BY_OPTION';
 
 const actions = createActions({
     [GET_PRODUCT]: () => {},
@@ -29,7 +30,8 @@ const actions = createActions({
     [GET_PRODUCTS_PRODUCER]: () => {},
     [POST_PRODUCTS]: () => {},
     [PUT_PRODUCTS]: () => {},
-    [DELETE_PRODUCTS]: () => {}
+    [DELETE_PRODUCTS]: () => {},
+    [GET_PRODUCT_BY_OPTION]: () => {}
 });
 
 const productReducer = handleActions({
@@ -70,6 +72,9 @@ const productReducer = handleActions({
         return payload
     },
     [DELETE_PRODUCTS]: (state, {payload}) => {
+        return payload
+    },
+    [GET_PRODUCT_BY_OPTION]: (state, {payload}) => {
         return payload
     }
 }, initialState);
