@@ -5,6 +5,7 @@ import couponReducer from "./CouponModule";
 import {largeCategoryReducer, mediumCategoryReducer}  from "./CategoryModule";
 import orderReducer from "./OrderModule";
 import bannerReducer from "./BannerModule";
+import authReducer from "./AuthModule";
 
 const rootReducer = combineReducers({
 	userReducer,
@@ -13,8 +14,8 @@ const rootReducer = combineReducers({
 	mediumCategoryReducer,
 	orderReducer,
 	couponReducer,
-	bannerReducer
-
+	bannerReducer,
+    authReducer,
 });
 
 export default rootReducer;

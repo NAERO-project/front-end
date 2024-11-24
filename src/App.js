@@ -13,6 +13,13 @@ import ProductDetail from "./pages/products/ProductDetail";
 import ProductPageLayout from "./layouts/ProductPageLayout";
 import ProductCategory from "./pages/products/ProductCategory";
 import AdminPageLayout from "./layouts/AdminPageLayout";
+import Signup from "./pages/user/Signup";
+import UserDetail from "./pages/user/UserDetail";
+import ProducerDetail from "./pages/user/ProducerDetail";
+import ProducerSignup from "./pages/user/ProducerSignup";
+import UpdateUser from "./pages/user/UpdateUser";
+import UpdateProducer from "./pages/user/UpdateProducer";
+import MypageLayout from "./layouts/MypageLayout";
 import Order from "./pages/order/Order";
 import Dashboard from "./pages/admin/Dashboard/Dashboard";
 
@@ -21,6 +28,12 @@ function App() {
 	return (
 		<BrowserRouter>
 			<Routes>
+				<Route path='mypage' element={<MypageLayout />}>
+					<Route path='detail' element={<UserDetail />} />
+					<Route path='update' element={<UpdateUser />} />
+					<Route path='toproducer' element={<ProducerSignup />}></Route>
+					{/* 회원들의 마이페이지 */}
+				</Route>
 				<Route path='/' element={<Layout />}>
 					<Route index element={<Main />}/>
           <Route path="preview/food" element={ <MainFoodList/> }/>
@@ -42,10 +55,16 @@ function App() {
             <Route index element={<ProductManage />} />
             <Route path="product-manage" element={<ProductManage />} />
             <Route path="product-regist" element={<ProductRegist />} />
-            {/* <Route path="order-manage" element={<OrderManage />} /> */}
+              <Route path='detail' element={<ProducerDetail />} />
+              <Route path='update' element={<UpdateProducer />} />
+
+              {/* <Route path="order-manage" element={<OrderManage />} /> */}
             {/* <Route path="coupon-manage" element={<CouponManage />} /> */}
             {/* <Route path="banner-manage" element={<BannerManage />} /> */}
           </Route>
+
+          <Route path="login" element={<Login />} />
+            <Route path='signup' element={<Signup />} />
 
           <Route path="admin" element={<AdminPageLayout />}>
             <Route index element={<Dashboard />} />
@@ -60,6 +79,7 @@ function App() {
           </Route>
 
           <Route path="login" element={<Login />} />
+            <Route path='signup' element={<Signup />} />
         </Route>
       </Routes>
     </BrowserRouter>
