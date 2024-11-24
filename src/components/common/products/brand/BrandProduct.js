@@ -1,10 +1,10 @@
 import { useNavigate, useParams } from "react-router-dom";
-import ProductCSS from "./css/Product.module.css"
+import ProductCSS from "../css/Product.module.css";
 import { FaRegHeart } from "react-icons/fa6";
 import { LuShoppingCart } from "react-icons/lu";
-import ButtonCSS from "../../common/Button.module.css";
+import ButtonCSS from "../../Button.module.css";
 
-function Product({
+function BrandProduct({
     product: { productId, productName, productPrice, productImg}
 }){
 
@@ -15,9 +15,8 @@ function Product({
     };
 
     return(
-        <div
-        className={ProductCSS.product_box}
-        onClick={() => onClickProductHandler(productId)}>
+        <div onClick={() => onClickProductHandler(productId)}
+        className={ProductCSS.product_box}>
             <div className={ProductCSS.product_img_box}>
                 <img src={productImg} alt={productName}/>
             </div>
@@ -30,7 +29,7 @@ function Product({
                     </div>
                 </div>
                 <div>
-                    <p>{productPrice.toLocaleString()}원</p>
+                <p>{productPrice ? productPrice.toLocaleString() + '원' : '가격 정보 없음'}</p>
                     <span className={ButtonCSS.product_tag}></span>
                 </div>
             </div>
@@ -38,4 +37,4 @@ function Product({
     );
 }
 
-export default Product;
+export default BrandProduct;

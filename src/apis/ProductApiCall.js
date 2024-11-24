@@ -11,6 +11,7 @@ import {
     PUT_PRODUCTS,                     
     DELETE_PRODUCTS
 } from '../modules/ProductModule.js';
+import { GET_PRODUCER_LIST_PREVIEW } from '../modules/ProductProducerModule.js';
 
 const prefix = `http://${process.env.REACT_APP_RESTAPI_IP}:8080`;
 
@@ -216,11 +217,32 @@ export const callProductPreviewFashionApi = () =>{
     };
 };
 
+/* 전체 브랜드 페이지 조회 */
+export const callProducerListApi = () =>{
+
+    let requestURL = `${prefix}/api/products/brand/home`;
+
+    console.log('[callProducerListApi] requestURL : ', requestURL);
+
+    return async (dispatch, getState) =>{
+        const result = await fetch(requestURL, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: '*/*'
+            }
+        }).then((response) => response.json());
+        console.log('[ProduceAPICalls] callProducerProductListApi RESULT : ', result);
+        if(result.status === 200){
+            dispatch({ type: GET_PRODUCER_LIST_PREVIEW, payload: result.data });
+        }
+    };
+};
 
 /* 전체 브랜드 페이지 상품 조회 (미리보기) */
-export const callProducerProductListApi = () =>{
+export const callProducerProductListApi = ({producerId}) =>{
 
-    let requestURL = `${prefix}/api/products/producer/preview`;
+    let requestURL = `${prefix}/api/products/brand/home/${producerId}`;
 
     console.log('[productAPICalls] requestURL : ', requestURL);
 
@@ -232,8 +254,8 @@ export const callProducerProductListApi = () =>{
                 Accept: '*/*'
             }
         }).then((response) => response.json());
+        console.log('[ProduceAPICalls] callProducerProductListApi RESULT : ', result);
         if(result.status === 200){
-            console.log('[ProduceAPICalls] callProducerProductListApi RESULT : ', result);
             dispatch({ type: GET_PRODUCTS_PRODUCER_PREVIEW, payload: result.data });
         }
     };

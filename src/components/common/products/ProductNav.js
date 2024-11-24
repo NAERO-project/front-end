@@ -11,16 +11,23 @@ function ProductNav({
     const navigate = useNavigate();    
     const dispatch = useDispatch();
 
+    const params = useParams();
+    const producerId = params.producerId
+
     const categoryList = useSelector(state => state.largeCategoryReducer);
     console.log("categoryList", categoryList);
 
     useEffect(() =>{
         fetchData();
-    }, []);
+    }, [producerId]);
 
 
 const fetchData=()=>{
-    dispatch(callProductCategoryApi01(largeCategoryId, largeCategoryName ))
+    dispatch(callProductCategoryApi01({
+        largeCategoryId, 
+        largeCategoryName,
+        producerId: producerId
+    } ))
     };
 
     useEffect(() =>{

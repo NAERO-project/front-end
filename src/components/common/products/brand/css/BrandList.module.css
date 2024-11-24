@@ -1,0 +1,22 @@
+.box{
+    height: 682px;
+    padding: 100px 0;
+    position: relative;
+}
+
+.txt_box{
+    text-align: center;
+}
+
+.more_button{
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    right: 70px;
+}
+
+.product_box{
+    display: flex;
+    font-display: row;
+    gap: 0 20px;
+}
