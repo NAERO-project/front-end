@@ -6,9 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { callBannerApi } from "../../apis/BannerApiCall";
 import Banner from "../../components/common/banner/Banner";
-import MainBannerCSS from "./css/MainBanner.module.css";
+import BrandBannerCSS from "./css/BrandBanner.module.css";
 
-function MainBanner(){
+function BrandBanner(){
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -28,13 +28,28 @@ function MainBanner(){
         console.log(bannerList,"확인");
     },[bannerList]);
 
+    // 배너를 3개씩 묶어 반환
+    const getBannersInGroups = banners =>{
+        const groups =[];
+        for(let i=0; i<banners.length; i+=3){
+            groups.push(banners.slice(i, i+3));
+        }
+        return groups;
+    };
+
+    const bannerGroups = getBannersInGroups(bannerList);
+
 
     return(
         <>
-            <Carousel className={MainBannerCSS.banner_box} fade interval={3000} controls={false} indicators={false}>
-                {Array.isArray(bannerList) && bannerList.map((banner) => (
-                    <Carousel.Item key={banner.bannerId}>
-                        <Banner banner={banner} />
+            <Carousel className={BrandBannerCSS.banner_box} fade interval={3000} controls={false} indicators={false}>
+                {bannerGroups.map((group, index) => (
+                    <Carousel.Item key={index}>
+                        <div className={BrandBannerCSS.banner_group}>
+                            {group.map((banner) => (
+                                <Banner key={banner.bannerId} banner={banner} />
+                            ))}
+                        </div>
                     </Carousel.Item>
                 ))}
             </Carousel>
@@ -42,4 +57,4 @@ function MainBanner(){
     );
 }
 
-export default MainBanner;
+export default BrandBanner;

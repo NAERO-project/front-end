@@ -1,9 +1,3 @@
-.banner_box{
-    width: 100%;
-    height: 600px; 
-    overflow: hidden;
-}
-
 .banner_img{
     width: 100%;
     box-sizing: border-box;

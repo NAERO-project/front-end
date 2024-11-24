@@ -1,0 +1,22 @@
+.banner_box{
+    width: 100%;
+    height: 586px; 
+    overflow: hidden;
+    background-color: red;
+}
+
+.banner_group {
+    display: flex; /* Flexbox를 사용하여 배너를 나란히 배치 */
+    justify-content: space-between; /* 배너 사이의 간격을 조정 */
+    align-items: center; /* 수직 중앙 정렬 */
+    
+}
+
+.banner_group .carousel-item {
+    width: 100%; /* 각 아이템이 전체 너비를 차지하도록 설정 */
+}
+
+.banner_group .carousel-item img {
+    width: 100%; /* 이미지가 아이템의 너비를 차지하도록 설정 */
+    height: auto; /* 비율 유지 */
+}
