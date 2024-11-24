@@ -38,6 +38,8 @@ export const callInsertOrderApi = ({ payRequest, username }) =>{
     let requestURL = `${prefix}/api/order/process?username=${username}`;
 
     console.log('[OrderApiCalls] requestURL : ', requestURL);
+    console.log('[OrderApiCalls] payRequest : ', payRequest); // payRequest 로그 추가
+    console.log("payRequest 데이터:", JSON.stringify(payRequest));
 
     return async (dispatch, getState) =>{
         const result = await fetch(requestURL, {
