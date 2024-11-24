@@ -14,10 +14,11 @@ function Order() {
     const cartItems = useSelector((state) => state.orderReducer.cartItems);
     const isLogin = window.localStorage.getItem("accessToken");
     const username = isLogin ? decodeJwt(isLogin).sub : null;
-    const formatNumber = (num) => num.toLocaleString("ko-KR");
 
     const [point, setPoint] = useState(0);
     const [coupon, setCoupon] = useState([]);
+    const [paymentMethod, setPaymentMethod] = useState(""); // 결제 수단 상태
+    const [easyPayProvider, setEasyPayProvider] = useState(""); // 간편 결제 제공자 상태
     const [payRequest, setPayRequest] = useState({
         orderDTO: {
             recipientName: "",
@@ -49,15 +50,19 @@ function Order() {
 
     const [isPostcodeOpen, setIsPostcodeOpen] = useState(false);
 
+    // 금액 포매팅 함수
+    const formatNumber = (num) => num.toLocaleString("ko-KR");
+
     // 주문 총 금액 계산
     const calculateOrderTotalAmount = useCallback(() => {
         const { orderPageProductDTOList } = orderData;
         if (!orderPageProductDTOList || orderPageProductDTOList.length === 0) {
             return 0;
         }
-        return orderPageProductDTOList.reduce((total, item) => {
-            return total + item.count * (item.amount + (item.addPrice || 0));
-        }, 0);
+        return orderPageProductDTOList.reduce(
+            (total, item) => total + item.count * (item.amount + (item.addPrice || 0)),
+            0
+        );
     }, [orderData]);
 
     // Redux 데이터 로드
@@ -76,8 +81,8 @@ function Order() {
                 orderDTO: {
                     ...prev.orderDTO,
                     ...orderData.orderDTO,
-                    deliveryStatus: "pending",
-                    orderStatus: "pending",
+                    orderStatus: prev.orderDTO.orderStatus || "pending", // 초기값 설정
+                    deliveryStatus: prev.orderDTO.deliveryStatus || "pending", // 기본값 설정
                     orderTotalAmount,
                 },
                 paymentDTO: {
@@ -108,13 +113,11 @@ function Order() {
             orderDTO: {
                 ...prev.orderDTO,
                 postalCode: data.zonecode,
-                addressRoad:
-                    `${data.roadAddress}(${data.bname}, ${data.buildingName})` ||
-                    "",
+                addressRoad: `${data.roadAddress}(${data.bname}, ${data.buildingName})` || "",
                 addressDetail: "",
             },
         }));
-        setIsPostcodeOpen(false); // 주소 검색 창 닫기
+        setIsPostcodeOpen(false);
     };
 
     // 입력 필드 상태 업데이트
@@ -123,8 +126,8 @@ function Order() {
         setPayRequest((prev) => ({
             ...prev,
             orderDTO: {
-                ...prev.orderDTO,
-                [name]: value,
+                ...prev.orderDTO, // 기존 필드 유지
+                [name]: value, // 입력 필드 업데이트
             },
         }));
     };
@@ -132,19 +135,16 @@ function Order() {
     // 쿠폰 선택 핸들러
     const onChangeCouponHandler = (e) => {
         const selectedCouponId = e.target.value;
-        const selectedCoupon = coupon.find(
-            (c) => c.couponId === selectedCouponId
-        );
+        const selectedCoupon = coupon.find((c) => c.couponId === selectedCouponId);
         if (!selectedCoupon) {
-            alert("잘못된 쿠폰입니다.");
+            alert("현재 주문건에 사용 불가한 쿠폰입니다.");
             return;
         }
 
         const discountAmount =
             selectedCoupon.couponType === "percent"
                 ? Math.min(
-                      calculateOrderTotalAmount() *
-                          (selectedCoupon.salePrice / 100),
+                      calculateOrderTotalAmount() * (selectedCoupon.salePrice / 100),
                       selectedCoupon.maxSalePrice
                   )
                 : selectedCoupon.salePrice;
@@ -189,30 +189,33 @@ function Order() {
         }
     }, [orderData?.orderPageProductDTOList]);
 
-    const paymentProviders = {
-        KAKAOPAY: {
-            storeId: "store-83b99bc8-449f-47f1-84f3-2c6a3ff42d0a",
-            channelKey: "channel-key-e6a5937e-0f6b-422a-8748-c1f5f9c509f3",
-        },
-        NICE: {
-            storeId: "store-83b99bc8-449f-47f1-84f3-2c6a3ff42d0a",
-            channelKey: "channel-key-f319586f-8110-4c7c-8a71-f4a7e8adb6ad",
-        },
-        TOSS: {
-            storeId: "store-83b99bc8-449f-47f1-84f3-2c6a3ff42d0a",
-            channelKey: "channel-key-a1486b37-abc8-4deb-af8a-7ce531cc3b3a",
-        },
-        KG_INICIS: {
-            storeId: "store-83b99bc8-449f-47f1-84f3-2c6a3ff42d0a",
-            channelKey: "channel-key-5feab618-65b4-4f5f-9368-455c3acb6196",
-        },
+    // 결제 수단 변경 핸들러
+    const handlePaymentMethodChange = (method) => {
+        setPaymentMethod(method);
+        setPayRequest((prev) => ({
+            ...prev,
+            paymentDTO: {
+                ...prev.paymentDTO,
+                paymentMethod: method,
+            },
+        }));
+
+        // if (method !== "BANK_TRANSFER") {
+        //     setAccountInfo("");
+        //     setDepositorName("");
+        // }
     };
 
-    const paymentMethodMapping = {
-        KAKAOPAY: "EASY_PAY", // 카카오페이는 EASY_PAY로 매핑
-        NICE: "CARD", // NICE Payments는 CARD로 매핑
-        TOSS: "EASY_PAY", // Toss Payments는 EASY_PAY로 매핑
-        KG_INICIS: "CARD", // KG Inicis는 CARD로 매핑
+    // 간편 결제 선택 핸들러
+    const handleEasyPay = (provider) => {
+        setEasyPayProvider(provider);
+        setPayRequest((prev) => ({
+            ...prev,
+            paymentDTO: {
+                ...prev.paymentDTO,
+                easyPayProvider: provider,
+            },
+        }));
     };
 
     // 결제 및 주문 데이터 전송
@@ -235,46 +238,149 @@ function Order() {
             },
         };
 
-        const payMethod = updatedPayRequest.paymentDTO.paymentMethod;
-        const easyPayProvider = updatedPayRequest.paymentDTO.easyPayProvider;
+        const { paymentMethod: payMethod, easyPayProvider } = updatedPayRequest.paymentDTO;
 
-        // 간편결제 방식의 필수 제공자 검증
-        if (payMethod === "EASY_PAY" && !easyPayProvider) {
-            alert("간편결제 제공자를 선택해주세요.");
+        if (!payMethod) {
+            alert("결제 수단을 선택해주세요.");
+            return;
+        }
+
+        if (payMethod === "BANK_TRANSFER") {
+            dispatch(
+                callInsertOrderApi({
+                    payRequest: updatedPayRequest,
+                    username,
+                })
+            );
+            alert("결제가 성공적으로 완료되었습니다.");
             return;
         }
 
         try {
             const response = await PortOne.requestPayment({
                 storeId: "store-83b99bc8-449f-47f1-84f3-2c6a3ff42d0a",
-                channelKey: "channel-key-f319586f-8110-4c7c-8a71-f4a7e8adb6ad",
                 paymentId: `payment-${new Date().getTime()}`,
                 orderName: "테스트 결제",
                 totalAmount: updatedPayRequest.orderDTO.orderTotalAmount,
                 currency: "KRW",
+                channelKey: "channel-key-f319586f-8110-4c7c-8a71-f4a7e8adb6ad",
                 payMethod,
-                easyPayProvider:
-                    payMethod === "EASY_PAY" ? easyPayProvider : undefined,
                 isTestMode: true,
             });
 
-            if (response.transactionType === "PAYMENT") {
-                updatedPayRequest.paymentDTO.impUid = response.paymentId;
-                updatedPayRequest.paymentDTO.transactionId = response.txId;
-                dispatch(
-                    callInsertOrderApi({
-                        payRequest: updatedPayRequest,
-                        username,
-                    })
-                );
-                alert("결제가 성공적으로 완료되었습니다.");
+            // 성공한 경우 처리
+        if (response.transactionType === "PAYMENT" && response.code !== "FAILURE_TYPE_PG") {
+            console.log("결제 성공:", response);
+            updatedPayRequest.paymentDTO.impUid = response.paymentId;
+            updatedPayRequest.paymentDTO.transactionId = response.txId;
+
+            dispatch(
+                callInsertOrderApi({
+                    payRequest: updatedPayRequest,
+                    username,
+                })
+            );
+
+            alert("결제가 성공적으로 완료되었습니다.");
+        } else {
+            // 실패한 경우 처리
+            console.error("결제 실패 또는 창 닫힘:", response);
+            if (response.code === "FAILURE_TYPE_PG") {
+                alert("결제가 취소되었습니다.");
             } else {
-                alert("결제에 실패했습니다.");
+                alert("결제 실패: " + (response.message || "알 수 없는 오류"));
             }
-        } catch (error) {
-            console.error("결제 오류:", error);
-            alert("결제 요청 중 오류가 발생했습니다.");
         }
+    } catch (error) {
+        console.error("간편 결제 오류:", error);
+        alert("간편 결제 요청 중 오류가 발생했습니다.");
+    }
+    };
+
+    const formattedCustomerIdentifier = (() => {
+        const rawPhone = orderData?.userDTO?.userPhone || "";
+        const sanitizedPhone = rawPhone.replace(/-/g, "").trim(); // 하이픈 제거 및 공백 제거
+    
+        // 10~11자리 숫자인지 확인
+        if (/^\d{10,11}$/.test(sanitizedPhone)) {
+            return sanitizedPhone;
+        } else {
+            return "01000000000"; // 기본값 설정
+        }
+    })();
+
+    // 간편 결제 진행 함수
+const processEasyPay = async (provider) => {
+    const orderTotalAmount =
+        calculateOrderTotalAmount() +
+        (orderData.orderDTO?.deliveryFee || 0) -
+        (payRequest.orderDTO.couponDiscount || 0);
+
+    const updatedPayRequest = {
+        ...payRequest,
+        orderDTO: {
+            ...payRequest.orderDTO,
+            orderTotalAmount,
+            orderTotalCount: orderData?.orderDTO.orderTotalCount || 1,
+        },
+        paymentDTO: {
+            ...payRequest.paymentDTO,
+            amount: orderTotalAmount,
+            paymentMethod: "EASY_PAY",
+        },
+    };
+
+    try {
+        const response = await PortOne.requestPayment({
+            storeId: "store-83b99bc8-449f-47f1-84f3-2c6a3ff42d0a",
+            paymentId: `payment-${new Date().getTime()}`,
+            orderName: "테스트 결제",
+            totalAmount: updatedPayRequest.orderDTO.orderTotalAmount,
+            currency: "KRW",
+            channelKey: "channel-key-f319586f-8110-4c7c-8a71-f4a7e8adb6ad",
+            payMethod: "EASY_PAY",
+            easyPay: {
+                easyPayProvider: provider,
+                availablePayMethods: provider === "NAVERPAY" ? ["CHARGE"] : undefined,
+                cashReceiptType: "PERSONAL", // 현금영수증 발급 유형 추가
+                customerIdentifier: formattedCustomerIdentifier, // 고객 식별자 (전화번호)
+            },
+            receipt_url: `${window.location.origin}/products`,
+            isTestMode: true,
+        });
+
+       // 성공한 경우 처리
+       if (response.transactionType === "PAYMENT" && response.code !== "FAILURE_TYPE_PG") {
+        console.log("결제 성공:", response);
+        updatedPayRequest.paymentDTO.impUid = response.paymentId;
+        updatedPayRequest.paymentDTO.transactionId = response.txId;
+
+        dispatch(
+            callInsertOrderApi({
+                payRequest: updatedPayRequest,
+                username,
+            })
+        );
+
+        alert("결제가 성공적으로 완료되었습니다.");
+    } else {
+        // 실패한 경우 처리
+        console.error("결제 실패 또는 창 닫힘:", response);
+        if (response.code === "FAILURE_TYPE_PG") {
+            alert("결제가 취소되었습니다.");
+        } else {
+            alert("결제 실패: " + (response.message || "알 수 없는 오류"));
+        }
+    }
+} catch (error) {
+    console.error("간편 결제 오류:", error);
+    alert("간편 결제 요청 중 오류가 발생했습니다.");
+}
+};
+
+    // 버튼 클릭 이벤트
+    const handleEasyPayClick = (provider) => {
+        processEasyPay(provider);
     };
 
     return (
@@ -413,95 +519,57 @@ function Order() {
             <br />
             <hr style={{ border: "1px solid #000" }} />
             <h3>결제 정보</h3>
-            <label>결제 수단 선택</label>
-<select
-    value={payRequest.paymentDTO.paymentMethod}
-    onChange={(e) => {
-        setPayRequest((prev) => ({
-            ...prev,
-            paymentDTO: {
-                ...prev.paymentDTO,
-                paymentMethod: e.target.value,
-                easyPayProvider: e.target.value === "EASY_PAY" ? "" : prev.paymentDTO.easyPayProvider, // 간편결제 선택 시 초기화
-            },
-        }));
-    }}
->
-    <option value="">결제 수단 선택</option>
-    <option value="CARD">신용카드</option>
-    <option value="TRANSFER">실시간 계좌이체</option>
-    <option value="VIRTUAL_ACCOUNT">가상계좌</option>
-    <option value="EASY_PAY">간편결제</option>
-</select>
+            <h3>결제 수단 선택</h3>
+            <div>
+                <label>
+                    <input
+                        type="radio"
+                        value="CARD"
+                        checked={paymentMethod === "CARD"}
+                        onChange={() => handlePaymentMethodChange("CARD")}
+                    />
+                    신용카드
+                </label>
+                <label>
+                    <input
+                        type="radio"
+                        value="TRANSFER"
+                        checked={paymentMethod === "TRANSFER"}
+                        onChange={() => handlePaymentMethodChange("TRANSFER")}
+                    />
+                    실시간 계좌이체
+                </label>
+                <label>
+                    <input
+                        type="radio"
+                        value="BANK_TRANSFER"
+                        checked={paymentMethod === "BANK_TRANSFER"}
+                        onChange={() => handlePaymentMethodChange("BANK_TRANSFER")}
+                    />
+                    무통장입금
+                </label>
+            </div>
 
-{/* 간편결제를 선택한 경우 제공자 선택 */}
-{payRequest.paymentDTO.paymentMethod === "EASY_PAY" && (
-    <div>
-        <label>간편결제 제공자 선택</label>
-        <select
-            value={payRequest.paymentDTO.easyPayProvider}
-            onChange={(e) => {
-                setPayRequest((prev) => ({
-                    ...prev,
-                    paymentDTO: {
-                        ...prev.paymentDTO,
-                        easyPayProvider: e.target.value,
-                        easyPayMethod: "", // 결제 방식 초기화
-                    },
-                }));
-            }}
-        >
-            <option value="">간편결제 제공자 선택</option>
-            <option value="KAKAOPAY">카카오페이</option>
-            <option value="NAVERPAY">네이버페이</option>
-            <option value="SSGPAY">SSG페이</option>
-        </select>
-    </div>
-)}
+            {/* 무통장입금을 선택한 경우 계좌 정보 및 입금자명 입력 */}
+            {paymentMethod === "BANK_TRANSFER" && (
+                <div>
+                    <h4>입금할 계좌 정보</h4>
+                    <input
+                        type="text"
+                        value="신한은행 100-071-391803 주식회사 네로"
+                        readOnly
+                    />
+                    <h4>입금자명</h4>
+                    <input
+                        type="text"
+                        value={orderData?.userDTO?.userFullName}
+                        readOnly
+                    />
+                </div>
+            )}
 
-{/* 네이버페이 또는 SSG페이를 선택한 경우 결제 방식 선택 */}
-{payRequest.paymentDTO.easyPayProvider === "NAVERPAY" && (
-    <div>
-        <label>네이버페이 결제 방식</label>
-        <select
-            value={payRequest.paymentDTO.easyPayMethod}
-            onChange={(e) => {
-                setPayRequest((prev) => ({
-                    ...prev,
-                    paymentDTO: {
-                        ...prev.paymentDTO,
-                        easyPayMethod: e.target.value,
-                    },
-                }));
-            }}
-        >
-            <option value="">결제 방식 선택</option>
-            <option value="CARD">카드 결제</option>
-            <option value="CHARGE">포인트/머니 결제</option>
-        </select>
-    </div>
-)}
-
-{payRequest.paymentDTO.easyPayProvider === "SSGPAY" && (
-    <div>
-        <label>SSG페이 결제 방식</label>
-        <select
-            value={payRequest.paymentDTO.easyPayMethod}
-            onChange={(e) => {
-                setPayRequest((prev) => ({
-                    ...prev,
-                    paymentDTO: {
-                        ...prev.paymentDTO,
-                        easyPayMethod: e.target.value,
-                    },
-                }));
-            }}
-        >
-            <option value="">결제 방식 선택</option>
-            <option value="TRANSFER">계좌 결제</option>
-        </select>
-    </div>
-)}
+            <button onClick={() => handleEasyPayClick("KAKAOPAY")}>카카오페이</button>
+            <button onClick={() => handleEasyPayClick("NAVERPAY")}>네이버페이</button>
             <br />
             <button onClick={onClickPaymentHandler}>결제하기</button>
         </div>
