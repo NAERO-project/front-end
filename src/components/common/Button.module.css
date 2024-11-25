@@ -96,7 +96,7 @@
 .change_button{
     width: 70px;
     height: 30px;
-    padding: 4px 0;
+    padding: 2px 0;
     font-size: 18px;
     font-weight: 300;
     text-align: center;
@@ -268,7 +268,7 @@
 .producer_button01{
     width: 125px;
     height: 50px;
-    padding: 12px 0;
+    padding: 10px 0;
     font-size: 21px;
     font-weight: 300;
     text-align: center;
@@ -334,7 +334,7 @@
 .delete_button03{
     width: 70px;
     height: 30px;
-    padding: 4px 0;
+    padding: 1px 0;
     font-size: 18px;
     font-weight: 300;
     text-align: center;

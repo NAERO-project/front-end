@@ -83,6 +83,7 @@ function App() {
             <Route path="order-update/:orderId" element={<OrderUpdate />} />
             {/* <Route path="coupon-manage" element={<CouponManage />} /> */}
             {/* <Route path="banner-manage" element={<BannerManage />} /> */}
+            {/* <Route path="products/:producerId" element={ <ProducerItem/> }/> */}
           </Route>
 
           <Route path="login" element={<Login />} />

@@ -4,6 +4,8 @@ import { useEffect, useState, useRef } from "react";
 import { decodeJwt } from '../../utils/tokenUtils';
 
 import { callProducerProductListPageApi } from "../../apis/ProductApiCall";
+import ProductManageCSS from "./css/ProductManage.module.css";
+import ButtonCSS from "../../components/common/Button.module.css";
 
 function ProductManage() {
     const navigate = useNavigate();
@@ -47,13 +49,15 @@ function ProductManage() {
 
     return (
         <>
-            <div className="">
-                <div className="">
-                    <button onClick={onClickProductInsert}>상품 등록</button>
+            <div className={ProductManageCSS.manage_box}>
+                <div className={ProductManageCSS.product_div1}>
+                    <div></div>
+                    <button className={ButtonCSS.producer_button01} onClick={onClickProductInsert}>등록</button>
                 </div>
-                <table className="">
+                
+                <table className={ProductManageCSS.manage_table}>
                     {/* 판매자의 상품 리스트 조회하는 부분 */}
-                    <colgroup>
+                    {/* <colgroup>
                         <col width="5%" />
                         <col width="30%" />
                         <col width="10%" />
@@ -62,17 +66,36 @@ function ProductManage() {
                         <col width="10%" />
                         <col width="15%" />
                         <col width="10%" />
+                    </colgroup> */}
+
+                    <colgroup>
+                        <col width="80px" />
+                        <col width="100px" />
+                        <col width="100px" />
+                        <col width="350px" />
+                        <col width="100px" />
+                        <col width="100px" />
+                        <col width="100px" />
+                        <col width="80px" />
+                        <col width="80px" />
+                        <col width="60px" />
+                        <col width="80px" />
+                        <col width="121px" />
                     </colgroup>
                     <thead>
                         <tr>
                             <th>상품번호</th>
                             <th>상품명</th>
                             <th>상품가격</th>
-                            <th>옵션 추가가격</th>
-                            <th>상품 카테고리</th>
-                            <th>상품 옵션명</th>
+                            <th>내용</th>
+                            <th>추가가격</th>
+                            <th>옵션명</th>
+                            <th>카테고리</th>
                             <th>재고</th>
                             <th>판매여부</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -85,11 +108,18 @@ function ProductManage() {
                                     <td>{p.product.productId}</td>
                                     <td>{p.product.productName}</td>
                                     <td>{p.product.productPrice}</td>
+                                    <td>{p.productDesc}</td>
                                     <td>{p.addPrice}</td>
-                                    <td>{p.product.smallCategory.smallCategoryName}</td>
                                     <td>{p.optionDesc}</td>
+                                    <td>{p.product.smallCategory.smallCategoryName}</td>
                                     <td>{p.optionQuantity}</td>
                                     <td>{p.product.productCheck}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td className={ProductManageCSS.manage_btns}>
+                                        <button className={ButtonCSS.change_button}>수정</button>
+                                        <button className={ButtonCSS.delete_button03}>삭제</button>
+                                    </td>
                                 </tr>
                             ))}
                     </tbody>
