@@ -35,12 +35,12 @@ function App() {
 						<Route path="more/:largeId" element={ <ProductCategory/> }/>
 						<Route path="more/:largeId/:mediumId" element={ <ProductCategory/> }/>
 						<Route path=":productId" element={ <ProductDetail/> }/>
+            <Route path="brand/:producerId" element={ <BrandProducer/> }/>
 					</Route>
 
           <Route path='products/brand' element={ <BrandPageLayout/> }>
               <Route path="home" element={ <BrandProductList/> }/>
               <Route path="home/:producerId" element={ <BrandProductList/> }/>
-              <Route path=":producerId" element={ <BrandProducer/> }/>
           </Route>
 
           <Route path="order" element={<Order />} />
