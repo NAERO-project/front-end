@@ -15,6 +15,7 @@ import ProductCategory from "./pages/products/ProductCategory";
 import AdminPageLayout from "./layouts/AdminPageLayout";
 import Order from "./pages/order/Order";
 import Dashboard from "./pages/admin/Dashboard";
+import MainList from "./pages/products/MainList";
 
 function App() {
 	return (
