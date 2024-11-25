@@ -9,7 +9,8 @@ import {
     GET_PRODUCTS_PRODUCER,
     POST_PRODUCTS,
     PUT_PRODUCTS,                     
-    DELETE_PRODUCTS
+    DELETE_PRODUCTS,
+    GET_PRODUCT_BY_OPTION
 } from '../modules/ProductModule.js';
 import { GET_PRODUCER_LIST_PREVIEW } from '../modules/ProductProducerModule.js';
 
@@ -364,7 +365,7 @@ export const callProductDetailApi = ({productId}) =>{
             }
         }).then((response) => response.json());
         if(result.status === 200){
-            console.log('[ProduceAPICalls] callProductDetailApi RESULT : ', result);
+            console.log('dddd[ProduceAPICalls] callProductDetailApi RESULT : ', result);
             dispatch({ type: GET_PRODUCT, payload: result.data });
         }
     };
@@ -441,3 +442,21 @@ export const callDeleteProductApi = ({ form }) =>{
     };
 };
 
+export const callGetProductIdByOptionIdApi = (optionId) => {
+    let requestURL = `${prefix}/api/products/option-id/${optionId}`;
+
+    return async (dispatch, getState) =>{
+        const result = await fetch(requestURL, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: '*/*'
+            }
+        }).then((response) => response.json());
+        if(result.status === 200){
+            console.log('yoyoyo[ProduceAPICalls] callGetProductIdByOptionIdApi RESULT : ', result);
+            console.log('[ProduceAPICalls] callGetProductIdByOptionIdApi RESULT : ', result.data);
+            dispatch({ type: GET_PRODUCT_BY_OPTION, payload: result });
+        }
+    };
+};

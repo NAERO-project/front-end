@@ -3,6 +3,8 @@ import { createActions, handleActions } from "redux-actions";
 const initialState = [];
 
 export const GET_USER = "user/GET_USER";
+//굳이 리덕스에 넣을 이유가 없는듯.
+// export const GET_DUPLI_EMAIL = "user/GET_DUPLI_EMAIL";
 export const POST_LOGIN = "user/POST_LOGIN";
 export const POST_SINGUP = "user/POST_SIGNUP"; //회원가입 성공판별 state
 export const UPDATE_USER = "user/POST_UPDATE"; //회원 정보 수정
