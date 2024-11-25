@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { callProducerListApi } from "../../../apis/ProductApiCall";
 import BrandList from "../../../components/common/products/brand/BrandList";
 import BrandProductListCSS from "./css/BrandProductList.module.css";
+import BrandBanner from "../../banner/BrandBanner";
 
 function BrandProductList() {
     const dispatch = useDispatch();
@@ -27,11 +28,15 @@ function BrandProductList() {
         });
 
     return (
-        <div className={BrandProductListCSS.brand_box}>
-            {Array.isArray(uniqueProducers) && uniqueProducers.map((brand) => (
-                <BrandList key={brand.producerId} brand={brand} />
-            ))}
-        </div>
+        <>
+            <div className={BrandProductListCSS.brand_box}>
+                <div>
+                    {Array.isArray(uniqueProducers) && uniqueProducers.map((brand) => (
+                        <BrandList key={brand.producerId} brand={brand} />
+                    ))}
+                </div>
+            </div>
+        </>
     );
 }
 

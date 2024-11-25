@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { callBannerApi } from "../../apis/BannerApiCall";
 import Banner from "../../components/common/banner/Banner";
-import BannerCSS from "../../components/common/banner/css/Banner.module.css";
+import MainBannerCSS from "./css/MainBanner.module.css";
 
 function MainBanner(){
 
@@ -31,7 +31,7 @@ function MainBanner(){
 
     return(
         <>
-            <Carousel className={BannerCSS.banner_box} fade interval={3000} controls={false} indicators={false}>
+            <Carousel className={MainBannerCSS.banner_box} fade interval={3000} controls={false} indicators={false}>
                 {Array.isArray(bannerList) && bannerList.map((banner) => (
                     <Carousel.Item key={banner.bannerId}>
                         <Banner banner={banner} />

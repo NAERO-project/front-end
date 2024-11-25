@@ -1,8 +1,9 @@
 .product_box{
     width: 277px;
-    height: 331px;
-    margin: 25px 0 15px 0;
+    /* height: 331px; */
+    /* margin: 25px 0 15px 0; */
     /* margin: 0; */
+    /* background-color: blue; */
 }
 
 .product_img_box{

@@ -11,8 +11,8 @@ function MainProductNav(){
     ]
 
     return (
-    <>
-        <ul className={MainProductNavCSS.product_nav}>
+    <div className={MainProductNavCSS.product_nav}>
+        <ul className={MainProductNavCSS.nav_ul}>
             {array.map((item) => (
                 <li>
                     <NavLink className={MainProductNavCSS.nav} to={"/" + item.url}>
@@ -21,7 +21,7 @@ function MainProductNav(){
                 </li>
             ))}
         </ul>
-    </>   
+    </div>   
     );
 }
 
