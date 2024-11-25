@@ -1,22 +1,31 @@
 .box{
     height: 682px;
+    margin: 0 auto;
     padding: 100px 0;
-    position: relative;
+    /* position: relative; */
+    /* background-color: blue ; */
 }
 
 .txt_box{
-    text-align: center;
+    width: 1167px;
+    margin: 0 auto;
+    display: flex;
+    justify-content:space-between;
+    /* background-color: red; */
 }
 
 .more_button{
-    position: absolute;
-    top: 5px;
-    bottom: 5px;
-    right: 70px;
+    margin: 8px 0;
 }
 
 .product_box{
-    display: flex;
-    font-display: row;
-    gap: 0 20px;
+    width: 1167px;
+    margin: 0 auto;
+    padding: 50px 0;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+    align-items: center;
+    gap: 20px;
 }

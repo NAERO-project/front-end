@@ -1,11 +1,11 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ProductCSS from "../css/Product.module.css";
 import { FaRegHeart } from "react-icons/fa6";
 import { LuShoppingCart } from "react-icons/lu";
 import ButtonCSS from "../../Button.module.css";
 
 function BrandProduct({
-    product: { productId, productName, productPrice, productImg}
+    product: { productId, productName, productPrice, productImg, smallCategory: {smallCategoryName}}
 }){
 
     const navigate = useNavigate();
@@ -30,7 +30,7 @@ function BrandProduct({
                 </div>
                 <div>
                 <p>{productPrice ? productPrice.toLocaleString() + '원' : '가격 정보 없음'}</p>
-                    <span className={ButtonCSS.product_tag}></span>
+                    <span className={ButtonCSS.product_tag}>{smallCategoryName}</span>
                 </div>
             </div>
         </div>

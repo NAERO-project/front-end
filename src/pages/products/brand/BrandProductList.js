@@ -28,9 +28,11 @@ function BrandProductList() {
 
     return (
         <div className={BrandProductListCSS.brand_box}>
-            {Array.isArray(uniqueProducers) && uniqueProducers.map((brand) => (
-                <BrandList key={brand.producerId} brand={brand} />
-            ))}
+            <div>
+                {Array.isArray(uniqueProducers) && uniqueProducers.map((brand) => (
+                    <BrandList key={brand.producerId} brand={brand} />
+                ))}
+            </div>
         </div>
     );
 }

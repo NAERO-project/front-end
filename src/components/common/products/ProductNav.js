@@ -35,7 +35,8 @@ const fetchData=()=>{
     }, [categoryList]);
 
     return (
-            <ul className={MainProductNavCSS.product_nav}>
+        <div className={MainProductNavCSS.product_nav}>
+            <ul className={MainProductNavCSS.nav_ul}>
             {Array.isArray(categoryList) && categoryList.map((category) => (
                     <li key={category.largeCategoryId}>
                         <NavLink 
@@ -46,6 +47,7 @@ const fetchData=()=>{
                     </li>
                 ))}
             </ul>
+        </div>
     );
 
 }
