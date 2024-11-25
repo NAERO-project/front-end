@@ -24,9 +24,9 @@ import Order from "./pages/order/Order";
 import BrandPageLayout from "./layouts/BrandPageLayout";
 import BrandProductList from "./pages/products/brand/BrandProductList";
 import BrandProducer from "./components/common/products/brand/BrandProducer";
-import OrderUpdate from "./pages/producer/OrderUpdate";
 import MyOrders from "./pages/order/MyOrders";
 import OrderManage from "./pages/producer/OrderManage";
+import OrderUpdate from "./pages/producer/OrderUpdate";
 import Dashboard from "./pages/admin/Dashboard";
 import MainList from "./pages/products/MainList";
 
@@ -77,7 +77,7 @@ function App() {
             <Route path='detail' element={<ProducerDetail />} />
             <Route path='update' element={<UpdateProducer />} />
             <Route path="order-manage" element={<OrderManage />} />
-            <Route path="order-update:orderId" element={<OrderUpdate />} />
+            <Route path="order-update/:orderId" element={<OrderUpdate />} />
             {/* <Route path="coupon-manage" element={<CouponManage />} /> */}
             {/* <Route path="banner-manage" element={<BannerManage />} /> */}
           </Route>

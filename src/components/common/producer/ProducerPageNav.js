@@ -18,7 +18,7 @@ function SellerPageNavBar() {
 
     return (
         <div className={styles.adminSideNavContainer}>
-            <ul>
+            <ul className={styles.navList}>
                 <li className={`${styles.navItem} ${
               location.pathname === "/producer/product-manage" ? styles.active : ""
             }`}>
