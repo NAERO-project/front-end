@@ -1,7 +1,6 @@
 import { combineReducers } from "redux";
 import userReducer from "./UserModule";
 import productReducer from "./ProductModule";
-<<<<<<<<< Temporary merge branch 1
 import couponReducer from "./CouponModule";
 import {largeCategoryReducer, mediumCategoryReducer}  from "./CategoryModule";
 import orderReducer from "./OrderModule";
