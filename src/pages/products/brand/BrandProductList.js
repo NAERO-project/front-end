@@ -28,12 +28,16 @@ function BrandProductList() {
         });
 
     return (
-        <div className={BrandProductListCSS.brand_box}>
-            <div>
-                {Array.isArray(uniqueProducers) && uniqueProducers.map((brand) => (
-                    <BrandList key={brand.producerId} brand={brand} />
-                ))}
+        <>
+            <div className={BrandProductListCSS.brand_box}>
+                <div>
+                    {Array.isArray(uniqueProducers) && uniqueProducers.map((brand) => (
+                        <BrandList key={brand.producerId} brand={brand} />
+                    ))}
+                </div>
             </div>
-        </div>
+        </>
     );
 }
+
+export default BrandProductList;

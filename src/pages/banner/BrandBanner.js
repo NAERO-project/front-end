@@ -12,7 +12,6 @@ function BrandBanner(){
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    // const { bannerId } = useParams();
 
     const bannerList = useSelector(state => state.bannerReducer);
 
@@ -42,12 +41,14 @@ function BrandBanner(){
 
     return(
         <>
-            <Carousel className={BrandBannerCSS.banner_box} fade interval={3000} controls={false} indicators={false}>
+            <Carousel className={BrandBannerCSS.banner_box} fade interval={3000} controls={true} indicators={true}>
                 {bannerGroups.map((group, index) => (
                     <Carousel.Item key={index}>
                         <div className={BrandBannerCSS.banner_group}>
                             {group.map((banner) => (
-                                <Banner key={banner.bannerId} banner={banner} />
+                                <div key={banner.bannerId} style={{width: '1035px'}}>
+                                    <Banner banner={banner} />
+                                </div>
                             ))}
                         </div>
                     </Carousel.Item>
