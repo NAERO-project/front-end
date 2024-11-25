@@ -3,7 +3,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import ProducerOrderProductList from "./ProducerOrderProductList";
 
-import { callOrderDetailApi } from "../../apis/OrderApiCall";
+import {
+    callOrderDetailApi,
+    callCancelOrderApi,
+} from "../../apis/OrderApiCall";
 
 function OrderUpdate() {
     const dispatch = useDispatch();
@@ -23,7 +26,24 @@ function OrderUpdate() {
         console.log("뭘 갖고 왔나???", orderDetail);
     }, []);
 
-    const onClickCancelOrderHandler = () => {};
+    const onClickCancelOrderHandler = (orderId) => {
+        let answer = window.confirm("해당 주문을 취소 하시겠습니까?");
+        if (answer) {
+            dispatch(
+                callCancelOrderApi({
+                    orderId,
+                })
+            )
+                .then(() => {
+                    alert("주문이 취소되었습니다."); // 주문 취소 완료 알림
+                    window.location.reload(); // 페이지 리로딩
+                })
+                .catch((error) => {
+                    console.error("주문 취소 중 오류 발생:", error);
+                    alert("주문 취소 실패. 관리자에게 문의하세요.");
+                });
+        }
+    };
 
     return (
         <div>
@@ -39,7 +59,7 @@ function OrderUpdate() {
                         </div>
                     </div>
                     <div className="">
-                        <p>주문자 번호: {orderDetail.userId}</p>
+                        <p>회원번호: {orderDetail.userId}</p>
                         <p>
                             총 결제 금액:{" "}
                             {orderDetail.orderTotalAmount != null
@@ -48,14 +68,21 @@ function OrderUpdate() {
                             원
                         </p>
                         <p>총 주문 수량: {orderDetail.orderTotalCount}</p>
-                        <p>주문 일시: {new Date(orderDetail.createdAt).toLocaleString()}</p>
-                        
+                        <p>
+                            주문 일시:{" "}
+                            {orderDetail?.createdAt
+                                ? orderDetail.createdAt
+                                      .replace("T", " ")
+                                      .replace("Z", "") // "T"를 공백으로, "Z"를 제거
+                                : "정보 없음"}
+                        </p>
+
                         <p>
                             배송 상태:{" "}
                             {orderDetail.deliveryStatus === "pending"
                                 ? "배송전"
                                 : orderDetail.deliveryStatus === "canceled"
-                                ? "주문취소"
+                                ? "배송취소"
                                 : orderDetail.deliveryStatus === "sent"
                                 ? "배송완료"
                                 : "상태 미지정"}
@@ -94,11 +121,15 @@ function OrderUpdate() {
                         <p>배송 요청 사항: {orderDetail.deliveryNote}</p>
                         <p>송장번호: {orderDetail.trackingNumber}</p>
                     </div>
-                    {orderDetail.deliveryStatus != "sent" && (
+                    {orderDetail?.deliveryStatus === "pending" && (
                         <div>
                             <button
                                 style={{ color: "red" }}
-                                onClick={onClickCancelOrderHandler}
+                                onClick={() => {
+                                    onClickCancelOrderHandler(
+                                        orderDetail?.orderId
+                                    );
+                                }}
                             >
                                 주문 취소
                             </button>

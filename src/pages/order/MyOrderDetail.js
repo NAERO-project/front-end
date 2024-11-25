@@ -4,7 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import OrderProductList from "./OrderProductList";
 import { decodeJwt } from "../../utils/tokenUtils";
 
-import { callOrderDetailApi, callCancelOrderApi } from "../../apis/OrderApiCall";
+import {
+    callOrderDetailApi,
+    callCancelOrderApi,
+} from "../../apis/OrderApiCall";
 import { callPaymentDetailApi } from "../../apis/PaymentApiCall";
 import { callUserDetailAPI } from "../../apis/UserApiCall";
 
@@ -49,20 +52,22 @@ function MyOrderDetail() {
         console.log("userDetail 뭘 갖고 왔나???", userDetail);
     }, []);
 
-    const onClickCancelOrderHandler = (paymentId) => {
-        let answer = window.confirm("주문 취소 하시겠습니까?");
+    const onClickCancelOrderHandler = (orderId) => {
+        let answer = window.confirm("해당 주문을 취소 하시겠습니까?");
         if (answer) {
             dispatch(
                 callCancelOrderApi({
-                    paymentId
+                    orderId,
                 })
-            ).then(() => {
-                alert("주문이 취소되었습니다."); // 주문 취소 완료 알림
-                window.location.reload(); // 페이지 리로딩
-            }).catch((error) => {
-                console.error("주문 취소 중 오류 발생:", error);
-                alert("주문이 취소 실패. 관리자에게 문의하세요.");
-            });
+            )
+                .then(() => {
+                    alert("주문이 취소되었습니다."); // 주문 취소 완료 알림
+                    window.location.reload(); // 페이지 리로딩
+                })
+                .catch((error) => {
+                    console.error("주문 취소 중 오류 발생:", error);
+                    alert("주문 취소 실패. 판매자에게 문의하세요.");
+                });
         }
     };
 
@@ -102,6 +107,14 @@ function MyOrderDetail() {
                     <div>
                         <h3>결제 정보</h3>
                         <p>
+                            주문 상태:{" "}
+                            {orderDetail?.orderStatus === "completed"
+                                ? "주문완료"
+                                : orderDetail?.orderStatus === "canceled"
+                                ? "주문취소"
+                                : ""}
+                        </p>
+                        <p>
                             결제 수단:{" "}
                             {paymentDetail?.paymentMethod === "BANK_TRANSFER"
                                 ? "무통장입금"
@@ -113,11 +126,43 @@ function MyOrderDetail() {
                                 ? "실시간 계좌이체"
                                 : ""}
                         </p>
-                        <p>총 결제 금액: {paymentDetail?.amount?.toLocaleString()}원</p>
-                        <p>총 배송비: {orderDetail?.deliveryFee?.toLocaleString()}원</p>
-                        <p>총 포인트 할인: {orderDetail?.pointDiscount?.toLocaleString()}원</p>
-                        <p>총 쿠폰 할인: {orderDetail?.couponDiscount ? orderDetail?.couponDiscount.toLocaleString() : 0}원</p>
-                        <p>결제 생성 일시: {paymentDetail?.createdAt ? new Date(paymentDetail?.createdAt).toLocaleString() : '정보 없음'}</p>
+                        <p>
+                            총 결제 금액:{" "}
+                            {paymentDetail?.amount?.toLocaleString()}원
+                        </p>
+                        <p>
+                            총 배송비:{" "}
+                            {orderDetail?.deliveryFee?.toLocaleString()}원
+                        </p>
+                        <p>
+                            총 포인트 할인:{" "}
+                            {orderDetail?.pointDiscount?.toLocaleString()}원
+                        </p>
+                        <p>
+                            총 쿠폰 할인:{" "}
+                            {orderDetail?.couponDiscount
+                                ? orderDetail?.couponDiscount.toLocaleString()
+                                : 0}
+                            원
+                        </p>
+                        <p>
+                            결제 생성 일시:{" "}
+                            {paymentDetail?.createdAt
+                                ? paymentDetail.createdAt
+                                      .replace("T", " ")
+                                      .replace("Z", "") // "T"를 공백으로, "Z"를 제거
+                                : "정보 없음"}
+                        </p>
+                        <p>
+                            배송 상태:{" "}
+                            {orderDetail?.deliveryStatus === "pending"
+                                ? "배송전"
+                                : orderDetail?.deliveryStatus === "sent"
+                                ? "배송완료"
+                                : orderDetail?.deliveryStatus === "canceled"
+                                ? "배송취소"
+                                : ""}
+                        </p>
                     </div>
                     {orderDetail?.deliveryStatus === "sent" && (
                         <div>
@@ -126,7 +171,14 @@ function MyOrderDetail() {
                     )}
                     {orderDetail?.deliveryStatus === "pending" && (
                         <div>
-                            <button style={{ color: "red" }} onClick={() => {onClickCancelOrderHandler(paymentDetail?.paymentId)}}>
+                            <button
+                                style={{ color: "red" }}
+                                onClick={() => {
+                                    onClickCancelOrderHandler(
+                                        paymentDetail?.orderId
+                                    );
+                                }}
+                            >
                                 주문 취소
                             </button>
                         </div>

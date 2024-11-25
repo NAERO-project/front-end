@@ -37,8 +37,8 @@ export const callOrderPageApi = ({ cartItems, username }) => {
     };
 };
 
-export const callCancelOrderApi = ({ paymentId }) => {
-    let requestURL = `${prefix}/api/order/cancel/${paymentId}`;
+export const callCancelOrderApi = ({ orderId }) => {
+    let requestURL = `${prefix}/api/order/cancel/${orderId}`;
 
     console.log("[OrderApiCalls] requestURL : ", requestURL);
 
@@ -55,7 +55,7 @@ export const callCancelOrderApi = ({ paymentId }) => {
 
         if (result.status === 200) {
             console.log("[OrderApiCalls] onClickCancelOrderHandler RESULT : ", result);
-            console.log("Result Data:", result.data); // 추가 로그
+            console.log("Result Data:", result.data);
             dispatch({ type: PUT_CANCEL_ORDER, payload: result.data });
         } else {
             console.error("API 호출 실패:", result);
