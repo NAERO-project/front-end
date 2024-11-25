@@ -8,6 +8,7 @@ import couponReducer from "./CouponModule";
 import {largeCategoryReducer, mediumCategoryReducer}  from "./CategoryModule";
 import orderReducer from "./OrderModule";
 import bannerReducer from "./BannerModule";
+import paymentReducer from "./PaymentModule";
 
 const rootReducer = combineReducers({
 	userReducer,
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
 	productProducerReducer,
     authReducer,
   	dashboard: dashboardReducer,
+	paymentReducer,
 });
 
 export default rootReducer;

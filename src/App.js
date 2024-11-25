@@ -29,6 +29,7 @@ import OrderManage from "./pages/producer/OrderManage";
 import OrderUpdate from "./pages/producer/OrderUpdate";
 import Dashboard from "./pages/admin/Dashboard";
 import MainList from "./pages/products/MainList";
+import MyOrderDetail from "./pages/order/MyOrderDetail";
 
 function App() {
 	return (
@@ -60,6 +61,7 @@ function App() {
             <Route path='update' element={<UpdateUser />} />
             <Route path='toproducer' element={<ProducerSignup />}></Route>
             <Route path='order' element={<MyOrders />} />
+            <Route path='order-detail/:orderId' element={<MyOrderDetail />} />
             {/* 회원들의 마이페이지 */}
 				  </Route>
 

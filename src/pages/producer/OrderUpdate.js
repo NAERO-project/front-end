@@ -11,12 +11,6 @@ function OrderUpdate() {
     const params = useParams();
     const orderDetail = useSelector((state) => state.orderReducer);
 
-    // const [modifyMode, setModifyMode] = useState(false);
-
-    const [form, setForm] = useState({});
-
-    const orderList = orderDetail.orderList || [];
-
     useEffect(() => {
         console.log("[OrderUpdate] orderId : ", params.orderId);
 
@@ -48,13 +42,14 @@ function OrderUpdate() {
                         <p>주문자 번호: {orderDetail.userId}</p>
                         <p>
                             총 결제 금액:{" "}
-                            {orderDetail.orderTotalAmount !== null
+                            {orderDetail.orderTotalAmount != null
                                 ? orderDetail.orderTotalAmount.toLocaleString()
                                 : "0"}
                             원
                         </p>
                         <p>총 주문 수량: {orderDetail.orderTotalCount}</p>
-                        <p>주문 일시: {orderDetail.createdAt}</p>
+                        <p>주문 일시: {new Date(orderDetail.createdAt).toLocaleString()}</p>
+                        
                         <p>
                             배송 상태:{" "}
                             {orderDetail.deliveryStatus === "pending"
@@ -75,14 +70,14 @@ function OrderUpdate() {
                         </p>
                         <p>
                             쿠폰 할인:{" "}
-                            {orderDetail.couponDiscount !== null
+                            {orderDetail.couponDiscount != null
                                 ? orderDetail.couponDiscount.toLocaleString()
                                 : "0"}
                             원
                         </p>
                         <p>
                             포인트 할인:{" "}
-                            {orderDetail.pointDiscount !== null
+                            {orderDetail.pointDiscount != null
                                 ? orderDetail.pointDiscount.toLocaleString()
                                 : "0"}
                             원

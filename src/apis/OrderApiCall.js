@@ -5,7 +5,8 @@ import {
     GET_MYPAGE_ORDER_PRODUCT_LIST,
     GET_PRODUCER_ORDER_LIST,
     GET_PRODUCER_ORDER_PRODUCT_LIST,
-    GET_ORDER_DETAILS
+    GET_ORDER_DETAILS,
+    PUT_CANCEL_ORDER
 } from "../modules/OrderModule.js";
 
 const prefix = `http://${process.env.REACT_APP_RESTAPI_IP}:8080`;
@@ -30,6 +31,32 @@ export const callOrderPageApi = ({ cartItems, username }) => {
             console.log("[OrderApiCalls] callOrderPageApi RESULT : ", result);
             console.log("Result Data:", result.data); // 추가 로그
             dispatch({ type: GET_ORDER_PAGE, payload: result.data });
+        } else {
+            console.error("API 호출 실패:", result);
+        }
+    };
+};
+
+export const callCancelOrderApi = ({ paymentId }) => {
+    let requestURL = `${prefix}/api/order/cancel/${paymentId}`;
+
+    console.log("[OrderApiCalls] requestURL : ", requestURL);
+
+    return async (dispatch, getState) => {
+        const result = await fetch(requestURL, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "*/*",
+                Authorization:
+					'Bearer ' + window.localStorage.getItem('accessToken')
+            },
+        }).then((response) => response.json());
+
+        if (result.status === 200) {
+            console.log("[OrderApiCalls] onClickCancelOrderHandler RESULT : ", result);
+            console.log("Result Data:", result.data); // 추가 로그
+            dispatch({ type: PUT_CANCEL_ORDER, payload: result.data });
         } else {
             console.error("API 호출 실패:", result);
         }

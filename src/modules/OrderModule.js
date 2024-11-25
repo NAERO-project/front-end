@@ -14,6 +14,7 @@ export const GET_MYPAGE_ORDER_PRODUCT_LIST = "order/GET_MYPAGE_ORDER_PRODUCT_LIS
 export const GET_PRODUCER_ORDER_LIST = "order/GET_PRODUCER_ORDER_LIST"; // 주문 내역 내 주문 상품 리스트
 export const GET_PRODUCER_ORDER_PRODUCT_LIST = "order/GET_PRODUCER_ORDER_PRODUCT_LIST"; // 주문 내역의 판매자에게 해당하는 주문 상품 리스트
 export const GET_ORDER_DETAILS = "order/GET_ORDER_DETAILS"; // 주문 내역 상세
+export const PUT_CANCEL_ORDER = "order/PUT_CANCEL_ORDER"; // 주문 취소
 
 const actions = createActions({
     [GET_ORDER_PAGE]: () => {},
@@ -24,6 +25,7 @@ const actions = createActions({
     [GET_PRODUCER_ORDER_LIST]: () => {},
     [GET_PRODUCER_ORDER_PRODUCT_LIST]: () => {},
     [GET_ORDER_DETAILS]: () => {},
+    [PUT_CANCEL_ORDER]: () => {},
 });
 
 const orderReducer = handleActions(
@@ -41,6 +43,9 @@ const orderReducer = handleActions(
             return { ...state, ...payload };
         },
         [GET_ORDER_DETAILS]: (state, { payload }) => {
+            return { ...state, ...payload };
+        },
+        [PUT_CANCEL_ORDER]: (state, { payload }) => {
             return { ...state, ...payload };
         },
         [GET_MYPAGE_ORDER_PRODUCT_LIST]: (state, { payload }) => {
