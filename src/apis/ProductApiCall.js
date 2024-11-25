@@ -44,15 +44,36 @@ export const callProductListApi = ({ currentPage }) =>{
 };
 
 
+// export const callProductCategoryApi02 = ({ largeId, mediumName }) =>{
+    
+//     let requestURL = `${prefix}/api/products/more/${largeId}/${mediumName}`;
+//     console.log('[productAPICalls] requestURL : ', requestURL);
+
+//     return async (dispatch, getState) =>{
+//         const result = await fetch(requestURL, {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 Accept: '*/*'
+//             }
+//         }).then((response) => response.json());
+//         console.log("여기?")
+//         if(result.status === 200){
+//             console.log('[ProduceAPICalls] callProductCategoryApi02 RESULT : ', result);
+//             dispatch({ type: GET_PRODUCTS_CATEGORY02, payload: result.data });
+//         }
+//     };
+// };
+
 /* 카테고리별 리스트 전체 조회 */
-export const callProductCategoryListApi = ({ currentPage, mediumId }) =>{
+export const callProductLargeCategoryListApi = ({ currentPage, largeId }) =>{
     
     let requestURL;
 
     if(currentPage !== undefined || currentPage !== null){
-        requestURL = `${prefix}/api/products/more/${mediumId}?offset=${currentPage}`;
+        requestURL = `${prefix}/api/products/more/${largeId}?offset=${currentPage}`;
     }else{
-        requestURL = `${prefix}/api/products/more/${mediumId}`;
+        requestURL = `${prefix}/api/products/more/${largeId}`;
     }
 
     console.log('[productAPICalls] requestURL : ', requestURL);
@@ -65,6 +86,36 @@ export const callProductCategoryListApi = ({ currentPage, mediumId }) =>{
                 Accept: '*/*'
             }
         }).then((response) => response.json());
+        console.log("여기?")
+        if(result.status === 200){
+            console.log('[ProduceAPICalls] callProductCategoryListApi RESULT : ', result);
+            dispatch({ type: GET_PRODUCTS, payload: result.data });
+        }
+    };
+};
+
+/* 카테고리별 리스트 전체 조회 */
+export const callProductMediumCategoryListApi = ({ currentPage, largeId, mediumId }) =>{
+    
+    let requestURL;
+
+    if(currentPage !== undefined || currentPage !== null){
+        requestURL = `${prefix}/api/products/more/${largeId}/${mediumId}?offset=${currentPage}`;
+    }else{
+        requestURL = `${prefix}/api/products/more/${largeId}/${mediumId}`;
+    }
+
+    console.log('[productAPICalls] requestURL : ', requestURL);
+
+    return async (dispatch, getState) =>{
+        const result = await fetch(requestURL, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: '*/*'
+            }
+        }).then((response) => response.json());
+        console.log("여기?")
         if(result.status === 200){
             console.log('[ProduceAPICalls] callProductCategoryListApi RESULT : ', result);
             dispatch({ type: GET_PRODUCTS, payload: result.data });
@@ -297,12 +348,9 @@ export const callProductDetailApi = ({productId}) =>{
     };
 };
 
-
 /* 판매자 상품 등록 */
 export const callProductRegistAPI = ({ form, producerUsername}) =>{
     console.log('[ProductAPICalls] callInsertProductApi Call');
-
-    console.log(producerUsername);
 
     const requestURL = `${prefix}/api/products/insert?producerUsername=${producerUsername}`;
 

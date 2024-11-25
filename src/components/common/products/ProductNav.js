@@ -1,30 +1,46 @@
-import { NavLink } from "react-router-dom";
-import ProductNavCSS from "./MainProductNav.module.css";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
+import MainProductNavCSS from "./css/MainProductNav.module.css"
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { callProductCategoryApi01 } from "../../../apis/CategoryApiCall";
 
-function ProductNav(){
+function ProductNav({
+    category: largeCategoryId, largeCategoryName 
+}){
 
-    let array =  [
-        {url: "more", content:"전체"},
-        {url: "more", content:"식품&음료"},
-        {url: "more", content:"건강&뷰티"},
-        {url: "more", content:"의류"}
-    ]
+    const navigate = useNavigate();    
+    const dispatch = useDispatch();
+
+    const categoryList = useSelector(state => state.largeCategoryReducer);
+    console.log("categoryList", categoryList);
+
+    useEffect(() =>{
+        fetchData();
+    }, []);
+
+
+const fetchData=()=>{
+    dispatch(callProductCategoryApi01(largeCategoryId, largeCategoryName ))
+    };
+
+    useEffect(() =>{
+        console.log('categoryList:', categoryList);
+    }, [categoryList]);
 
     return (
-    <div className={ProductNavCSS.ProductNavBox}>
-        <ul className={ProductNavCSS.ProductNav}>
-
-            {array.map((item) => (
-                <li className={ProductNavCSS.ProductAll}>
-                <NavLink className={ProductNavCSS.Nav} to={"/products/" + item.url}>
-                    {item.content}
-                </NavLink>
-                </li>
-            ))}
-
-        </ul>
-    </div>   
+            <ul className={MainProductNavCSS.product_nav}>
+            {Array.isArray(categoryList) && categoryList.map((category) => (
+                    <li key={category.largeCategoryId}>
+                        <NavLink 
+                            className={MainProductNavCSS.nav} 
+                            to={`/products/more/${category.largeCategoryId}`}>
+                            {category.largeCategoryName}
+                        </NavLink>
+                    </li>
+                ))}
+            </ul>
     );
+
 }
 
 export default ProductNav;

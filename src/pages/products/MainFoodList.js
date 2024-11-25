@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { callProductPreviewFoodApi } from "../../apis/ProductApiCall";
 import MainProductNav from "../../components/common/products/MainProductNav";
-import MainListCSS from "./MainList.module.css";
+import MainListCSS from "./css/MainList.module.css"
 import Product from "../../components/common/products/Product";
 import ButtonCSS from "../../components/common/Button.module.css";
 

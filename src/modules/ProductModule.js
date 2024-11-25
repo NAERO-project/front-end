@@ -4,6 +4,8 @@ const initialState = [];
 
 export const GET_PRODUCT = 'product/GET_PRODUCT';                                       // 상품 단일 조회
 export const GET_PRODUCTS = 'product/GET_PRODUCTS';                                     // 상품 리스트 전체 조회
+export const GET_PRODUCTS_CATEGORY01 = 'product/GET_PRODUCTS_CATEGORY01';                                     // 상품 리스트 전체 조회
+export const GET_PRODUCTS_CATEGORY02 = 'product/GET_PRODUCTS_CATEGORY02';                                     // 상품 리스트 전체 조회
 export const GET_PRODUCTS_PREVIEW = 'product/GET_PRODUCTS_PREVIEW';                     // 전체 상품 미리보기 조회
 export const GET_PRODUCTS_PREVIEW_FOOD = 'product/GET_PRODUCTS_PREVIEW_FOOD';           // 전체 상품 음식 미리보기 조회
 export const GET_PRODUCTS_PREVIEW_FASHION = 'product/GET_PRODUCTS_PREVIEW_FASHION';     // 전체 상품 패션 미리보기 조회
@@ -17,6 +19,8 @@ export const DELETE_PRODUCTS = 'product/DELETE_PRODUCTS';                       
 const actions = createActions({
     [GET_PRODUCT]: () => {},
     [GET_PRODUCTS]: () => {},
+    [GET_PRODUCTS_CATEGORY01]: () => {},
+    [GET_PRODUCTS_CATEGORY02]: () => {},
     [GET_PRODUCTS_PREVIEW]: () => {},
     [GET_PRODUCTS_PREVIEW_FOOD]: () => {},
     [GET_PRODUCTS_PREVIEW_FASHION]: () => {},
@@ -33,6 +37,12 @@ const productReducer = handleActions({
         return payload
     },
     [GET_PRODUCTS]: (state, {payload}) => {
+        return payload
+    },
+    [GET_PRODUCTS_CATEGORY01]: (state, {payload}) => {
+        return payload
+    },
+    [GET_PRODUCTS_CATEGORY02]: (state, {payload}) => {
         return payload
     },
     [GET_PRODUCTS_PREVIEW]: (state, {payload}) => {
