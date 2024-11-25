@@ -1,7 +1,8 @@
 .product_box{
+    width: 1168px;
+    margin: 0 auto;
     display: flex;
 }
-
 
 .product_img_box{
     width: 610px;

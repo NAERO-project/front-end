@@ -17,6 +17,7 @@ import Order from "./pages/order/Order";
 import Dashboard from "./pages/admin/Dashboard/Dashboard";
 import BrandPageLayout from "./layouts/BrandPageLayout";
 import BrandProductList from "./pages/products/brand/BrandProductList";
+import BrandProducer from "./components/common/products/brand/BrandProducer";
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
             <Route path='brand' element={ <BrandPageLayout/> }>
               <Route path="home" element={ <BrandProductList/> }/>
               <Route path="home/:producerId" element={ <BrandProductList/> }/>
+              <Route path=":producerId" element={ <BrandProducer/> }/>
             </Route>
 					</Route>
 

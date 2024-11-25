@@ -25,7 +25,9 @@ function BrandList({ brand: { producerId, producerName } }) {
         <div className={BrandListCSS.box}>
             <div className={BrandListCSS.txt_box}>
                 <h1>{producerName}</h1>
-                <Link to={`/products/brand/${producerId}`} className={`${ButtonCSS.more_button} ${BrandListCSS.more_button}`}>
+                <Link to={`/products/brand/${producerId}`}
+                className={`${ButtonCSS.more_button} ${BrandListCSS.more_button}`}
+                producerName={producerName}>
                     더보기
                     <span className={ButtonCSS.icon01}>&gt;</span>
                 </Link>
