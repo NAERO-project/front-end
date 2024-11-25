@@ -1,5 +1,5 @@
 import { GET_PRODUCTS_CATEGORY01 } from "../modules/CategoryModule";
-import { GET_PRODUCTS_CATEGORY02 } from "../modules/ProductModule";
+import { GET_PRODUCTS_CATEGORY02 } from "../modules/CategoryModule";
 
 const prefix = `http://${process.env.REACT_APP_RESTAPI_IP}:8080`;
 

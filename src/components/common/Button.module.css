@@ -152,7 +152,8 @@
 .more_button{
     width: 120px;
     height: 45px;
-    padding: 12px 0;
+    display: inline-block;
+    padding: 10px 0;
     font-size: 18px;
     font-weight: 300;
     text-align: center;
@@ -165,7 +166,7 @@
   width: 30px;
   height: 30px;
   margin: 0 0 0 10px;
-  padding: 3px 5px;
+  padding: 3px 8px;
   border-radius: 50%;
   color: #849076;
   background-color: var(--text01);

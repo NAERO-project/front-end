@@ -22,6 +22,10 @@ import UpdateProducer from "./pages/user/UpdateProducer";
 import MypageLayout from "./layouts/MypageLayout";
 import Order from "./pages/order/Order";
 import Dashboard from "./pages/admin/Dashboard/Dashboard";
+import BrandPageLayout from "./layouts/BrandPageLayout";
+import BrandProductList from "./pages/products/brand/BrandProductList";
+import BrandProducer from "./components/common/products/brand/BrandProducer";
+
 import MyOrders from "./pages/order/MyOrders";
 import OrderManage from "./pages/producer/OrderManage";
 
@@ -29,18 +33,24 @@ function App() {
 	return (
 		<BrowserRouter>
 			<Routes>
-				
+
 				<Route path='/' element={<Layout />}>
 					<Route index element={<Main />}/>
           <Route path="preview/food" element={ <MainFoodList/> }/>
 					<Route path="preview/beauty" element={ <MainBeautyList/> }/>
 					<Route path="preview/fashion" element={ <MainFashionList/> }/>
 
-					<Route path='products' element={<ProductPageLayout/>}>
+          <Route path='products' element={<ProductPageLayout/>}>
 						<Route path='more' element={ <ProductMore/> }/>
 						<Route path="more/:largeId" element={ <ProductCategory/> }/>
 						<Route path="more/:largeId/:mediumId" element={ <ProductCategory/> }/>
 						<Route path=":productId" element={ <ProductDetail/> }/>
+
+            <Route path='brand' element={ <BrandPageLayout/> }>
+              <Route path="home" element={ <BrandProductList/> }/>
+              <Route path="home/:producerId" element={ <BrandProductList/> }/>
+              <Route path=":producerId" element={ <BrandProducer/> }/>
+            </Route>
 					</Route>
 
           <Route path='mypage' element={<MypageLayout />}>
@@ -50,6 +60,10 @@ function App() {
             <Route path='order' element={<MyOrders />} />
             {/* 회원들의 마이페이지 */}
 				  </Route>
+
+          {/* <Route path='brand' element={ <BrandPageLayout/> }>
+            <Route path="home" element={ <BrandProductList/> }/>
+          </Route> */}
 
           <Route path="order" element={<Order />} />
 
