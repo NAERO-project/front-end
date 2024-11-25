@@ -15,7 +15,7 @@ function AdminPageSideNav() {
 
   return (
     <div className={styles.adminSideNavContainer}>
-      <ul>
+      <ul className={styles.navList}>
         {navItems.map((item, index) => (
           <li
             key={index}

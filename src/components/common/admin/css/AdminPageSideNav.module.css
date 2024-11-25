@@ -3,6 +3,10 @@
   padding: 28px 0;
 }
 
+.navList {
+  padding: 0;
+}
+
 .navItem {
   width: 280px;
   padding: 18px 0;

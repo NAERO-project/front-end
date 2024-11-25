@@ -28,6 +28,7 @@ import OrderUpdate from "./pages/producer/OrderUpdate";
 import MyOrders from "./pages/order/MyOrders";
 import OrderManage from "./pages/producer/OrderManage";
 import Dashboard from "./pages/admin/Dashboard";
+import MainList from "./pages/products/MainList";
 
 function App() {
 	return (

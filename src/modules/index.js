@@ -8,6 +8,10 @@ import bannerReducer from "./BannerModule";
 import productProducerReducer from "./ProductProducerModule";
 import authReducer from "./AuthModule";
 import dashboardReducer from "./DashboardModule";
+import couponReducer from "./CouponModule";
+import {largeCategoryReducer, mediumCategoryReducer}  from "./CategoryModule";
+import orderReducer from "./OrderModule";
+import bannerReducer from "./BannerModule";
 
 const rootReducer = combineReducers({
 	userReducer,
