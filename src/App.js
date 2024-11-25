@@ -21,13 +21,13 @@ import UpdateUser from "./pages/user/UpdateUser";
 import UpdateProducer from "./pages/user/UpdateProducer";
 import MypageLayout from "./layouts/MypageLayout";
 import Order from "./pages/order/Order";
-import Dashboard from "./pages/admin/Dashboard/Dashboard";
 import BrandPageLayout from "./layouts/BrandPageLayout";
 import BrandProductList from "./pages/products/brand/BrandProductList";
 import BrandProducer from "./components/common/products/brand/BrandProducer";
 
 import MyOrders from "./pages/order/MyOrders";
 import OrderManage from "./pages/producer/OrderManage";
+import Dashboard from "./pages/admin/Dashboard";
 
 function App() {
 	return (

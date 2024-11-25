@@ -7,6 +7,7 @@ import orderReducer from "./OrderModule";
 import bannerReducer from "./BannerModule";
 import productProducerReducer from "./ProductProducerModule";
 import authReducer from "./AuthModule";
+import dashboardReducer from "./DashboardModule";
 
 const rootReducer = combineReducers({
 	userReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
 	bannerReducer,
 	productProducerReducer,
     authReducer,
+  	dashboard: dashboardReducer,
 });
 
 export default rootReducer;
