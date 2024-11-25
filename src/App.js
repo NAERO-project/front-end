@@ -12,26 +12,24 @@ import MainFashionList from "./pages/products/MainFashionList";
 import ProductMore from "./pages/products/ProductMore";
 import ProductDetail from "./pages/products/ProductDetail";
 import AdminPageLayout from "./layouts/AdminPageLayout";
-import Dashboard from "./pages/admin/Dashboard/Dashboard";
-
+import Dashboard from "./pages/admin/Dashboard";
 
 function App() {
-	return (
-		<BrowserRouter>
-			<Routes>
-				<Route path='/' element={<Layout />}>
-					<Route index element={<Main />} />
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Main />} />
 
-					<Route path='products'>
-						<Route path="preview" element={ <MainList/> }/>
-						<Route path="preview/food" element={ <MainFoodList/> }/>
-						<Route path="preview/beauty" element={ <MainBeautyList/> }/>
-						<Route path="preview/fashion" element={ <MainFashionList/> }/>
-						<Route path="more" element={ <ProductMore/> }/>
-						<Route path="more:mediumId" element={ <ProductMore/> }/>
-						<Route path=":productId" element={ <ProductDetail/> }/>
-					
-					</Route>
+          <Route path="products">
+            <Route path="preview" element={<MainList />} />
+            <Route path="preview/food" element={<MainFoodList />} />
+            <Route path="preview/beauty" element={<MainBeautyList />} />
+            <Route path="preview/fashion" element={<MainFashionList />} />
+            <Route path="more" element={<ProductMore />} />
+            <Route path="more:mediumId" element={<ProductMore />} />
+            <Route path=":productId" element={<ProductDetail />} />
+          </Route>
 
           <Route path="mypage">{/* 회원들의 마이페이지 */}</Route>
 
