@@ -2,6 +2,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import { decodeJwt } from "../../../utils/tokenUtils";
 import styles from "../../common/admin/css/AdminPageSideNav.module.css";
+import ProductSideNavContainerCSS from "./css/ProducerPageNav.module.css";
 
 function SellerPageNavBar() {
     const location = useLocation();
@@ -17,27 +18,27 @@ function SellerPageNavBar() {
     }
 
     return (
-        <div className={styles.adminSideNavContainer}>
-            <ul className={styles.navList}>
-                <li className={`${styles.navItem} ${
-              location.pathname === "/producer/product-manage" ? styles.active : ""
+        <div className={ProductSideNavContainerCSS.adminSideNavContainer}>
+            <ul className={ProductSideNavContainerCSS.navList}>
+                <li className={`${ProductSideNavContainerCSS.navItem} ${
+              location.pathname === "/producer/product-manage" ? ProductSideNavContainerCSS.active : ""
             }`}>
-                    <NavLink to="/producer/product-manage" className={styles.navLink}>상품관리</NavLink>
+                    <NavLink to="/producer/product-manage" className={ProductSideNavContainerCSS.navLink}>상품관리</NavLink>
                 </li>
-                <li className={`${styles.navItem} ${
-              location.pathname === "/producer/order-manage" ? styles.active : ""
+                <li className={`${ProductSideNavContainerCSS.navItem} ${
+              location.pathname === "/producer/order-manage" ? ProductSideNavContainerCSS.active : ""
             }`}>
-                    <NavLink to="/producer/order-manage" className={styles.navLink}>주문관리</NavLink>
+                    <NavLink to="/producer/order-manage" className={ProductSideNavContainerCSS.navLink}>주문관리</NavLink>
                 </li>
-                <li className={`${styles.navItem} ${
-              location.pathname === "/producer/coupon-manage" ? styles.active : ""
+                <li className={`${ProductSideNavContainerCSS.navItem} ${
+              location.pathname === "/producer/coupon-manage" ? ProductSideNavContainerCSS.active : ""
             }`}>
-                    <NavLink to="/producer/coupon-manage" className={styles.navLink}>쿠폰관리</NavLink>
+                    <NavLink to="/producer/coupon-manage" className={ProductSideNavContainerCSS.navLink}>쿠폰관리</NavLink>
                 </li>
-                <li className={`${styles.navItem} ${
-              location.pathname === "/producer/banner-manage" ? styles.active : ""
+                <li className={`${ProductSideNavContainerCSS.navItem} ${
+              location.pathname === "/producer/banner-manage" ? ProductSideNavContainerCSS.active : ""
             }`}>
-                    <NavLink to="/producer/banner-manage" className={styles.navLink}>배너관리</NavLink>
+                    <NavLink to="/producer/banner-manage" className={ProductSideNavContainerCSS.navLink}>배너관리</NavLink>
                 </li>
             </ul>
         </div>
