@@ -5,6 +5,7 @@ import Product from "../../components/common/products/Product";
 import { callProductLargeCategoryListApi } from "../../apis/ProductApiCall";
 import ProductMoreCSS from "./css/ProductMore.module.css"
 import ProductMediumNav from "../../components/common/products/ProductMediumNav";
+import ProductNav from "../../components/common/products/ProductNav";
 
 function ProductCategory(){
     const navigate = useNavigate();
@@ -42,6 +43,7 @@ function ProductCategory(){
 
     return(
         <div>
+            <ProductNav/>
             <ProductMediumNav/>
             <div className={ProductMoreCSS.main_product_box}>
                 {Array.isArray(productList) && productList.map((product) => (

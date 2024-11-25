@@ -1,12 +1,11 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ProductCSS from "./css/Product.module.css"
 import { FaRegHeart } from "react-icons/fa6";
 import { LuShoppingCart } from "react-icons/lu";
 import ButtonCSS from "../../common/Button.module.css";
 
 function Product({
-    product: { productId, productName, productPrice, productImg, smallCategory: { smallCategoryName } }
-    
+    product: { productId, productName, productPrice, productImg}
 }){
 
     const navigate = useNavigate();
@@ -32,7 +31,7 @@ function Product({
                 </div>
                 <div>
                     <p>{productPrice.toLocaleString()}원</p>
-                    <h5 className={ButtonCSS.product_tag}>{smallCategoryName}</h5>
+                    <span className={ButtonCSS.product_tag}></span>
                 </div>
             </div>
         </div>

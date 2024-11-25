@@ -9,8 +9,10 @@ import {
     GET_PRODUCTS_PRODUCER,
     POST_PRODUCTS,
     PUT_PRODUCTS,                     
-    DELETE_PRODUCTS
+    DELETE_PRODUCTS,
+    GET_PRODUCT_BY_OPTION
 } from '../modules/ProductModule.js';
+import { GET_PRODUCER_LIST_PREVIEW } from '../modules/ProductProducerModule.js';
 
 const prefix = `http://${process.env.REACT_APP_RESTAPI_IP}:8080`;
 
@@ -216,11 +218,32 @@ export const callProductPreviewFashionApi = () =>{
     };
 };
 
+/* 전체 브랜드 페이지 조회 */
+export const callProducerListApi = () =>{
+
+    let requestURL = `${prefix}/api/products/brand/home`;
+
+    console.log('[callProducerListApi] requestURL : ', requestURL);
+
+    return async (dispatch, getState) =>{
+        const result = await fetch(requestURL, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: '*/*'
+            }
+        }).then((response) => response.json());
+        console.log('[ProduceAPICalls] callProducerProductListApi RESULT : ', result);
+        if(result.status === 200){
+            dispatch({ type: GET_PRODUCER_LIST_PREVIEW, payload: result.data });
+        }
+    };
+};
 
 /* 전체 브랜드 페이지 상품 조회 (미리보기) */
-export const callProducerProductListApi = () =>{
+export const callProducerProductListApi = ({producerId}) =>{
 
-    let requestURL = `${prefix}/api/products/producer/preview`;
+    let requestURL = `${prefix}/api/products/brand/home/${producerId}`;
 
     console.log('[productAPICalls] requestURL : ', requestURL);
 
@@ -232,8 +255,8 @@ export const callProducerProductListApi = () =>{
                 Accept: '*/*'
             }
         }).then((response) => response.json());
+        console.log('[ProduceAPICalls] callProducerProductListApi RESULT : ', result);
         if(result.status === 200){
-            console.log('[ProduceAPICalls] callProducerProductListApi RESULT : ', result);
             dispatch({ type: GET_PRODUCTS_PRODUCER_PREVIEW, payload: result.data });
         }
     };
@@ -342,7 +365,7 @@ export const callProductDetailApi = ({productId}) =>{
             }
         }).then((response) => response.json());
         if(result.status === 200){
-            console.log('[ProduceAPICalls] callProductDetailApi RESULT : ', result);
+            console.log('dddd[ProduceAPICalls] callProductDetailApi RESULT : ', result);
             dispatch({ type: GET_PRODUCT, payload: result.data });
         }
     };
@@ -419,3 +442,21 @@ export const callDeleteProductApi = ({ form }) =>{
     };
 };
 
+export const callGetProductIdByOptionIdApi = (optionId) => {
+    let requestURL = `${prefix}/api/products/option-id/${optionId}`;
+
+    return async (dispatch, getState) =>{
+        const result = await fetch(requestURL, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: '*/*'
+            }
+        }).then((response) => response.json());
+        if(result.status === 200){
+            console.log('yoyoyo[ProduceAPICalls] callGetProductIdByOptionIdApi RESULT : ', result);
+            console.log('[ProduceAPICalls] callGetProductIdByOptionIdApi RESULT : ', result.data);
+            dispatch({ type: GET_PRODUCT_BY_OPTION, payload: result });
+        }
+    };
+};

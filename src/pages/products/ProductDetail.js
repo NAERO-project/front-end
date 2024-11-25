@@ -4,6 +4,11 @@ import { useEffect, useState } from "react";
 import { decodeJwt } from "../../utils/tokenUtils";
 import { callProductDetailApi } from "../../apis/ProductApiCall";
 import { SET_CART_ITEMS } from "../../modules/OrderModule";
+import ProductDetailCSS from "./css/ProductDetail.module.css";
+
+import { FaRegHeart } from "react-icons/fa6";	
+import { LuShoppingCart } from "react-icons/lu";
+import { IoCardOutline } from "react-icons/io5";
 
 function ProductDetail() {
     const dispatch = useDispatch();
@@ -17,7 +22,7 @@ function ProductDetail() {
 
     useEffect(() => {
         dispatch(callProductDetailApi({ productId: params.productId }));
-    }, [dispatch, params.productId]);
+    }, [params.productId]);
 
     const onChangeAmountHandler = (e) => {
         setAmount(e.target.value);
@@ -57,30 +62,67 @@ function ProductDetail() {
     };
 
     return (
-        <div>
-            <p>
-                {productData == undefined
-                    ? ""
-                    : productData.productName}
-            </p>
-            <select onChange={onChangeOptionHandler} value={selectedOption}>
-                <option value="">옵션 선택</option>
-                {productData &&
-                    productData.options &&
-                    productData.options.map((option) => (
-                        <option key={option.optionId} value={option.optionId}>
-                            {option.optionDesc} (추가 금액: {option.addPrice ? option.addPrice : 0}원)
-                        </option>
-                    ))}
-            </select>
-            <input
-                type="number"
-                value={amount}
-                onChange={onChangeAmountHandler}
-                min="1"
-            />
-            <button onClick={onClickAddCartHandler}>장바구니에 추가</button>
-            <button onClick={onClickOrderHandler}>주문하기</button>
+        <div className={ProductDetailCSS.product_box}>
+            <div className={ProductDetailCSS.product_img_box}>
+                <img src={productData.productImg} alt={productData.productName}/>
+            </div>
+            <div className={ProductDetailCSS.text_box}>
+                <div className={ProductDetailCSS.content01}>
+                    {/* <div>{productData.smallCategory}</div> */}
+                    <h2>
+                        {productData == undefined
+                            ? ""
+                            : productData.productName}
+                    </h2>
+                    <h2 className={ProductDetailCSS.price}>
+                        {productData.productPrice}<span className={ProductDetailCSS.small_txt}>원</span>
+                    </h2>
+                    <button className={ProductDetailCSS.discount_btn}>
+                        <strong>할인쿠폰</strong> 다운받기
+                    </button>
+                </div>
+
+                <hr/>
+
+                <div className={ProductDetailCSS.content02}>
+                    <h3>상세설명</h3>
+                    <div className={ProductDetailCSS.product_desc}>
+                        <p>{productData.productDesc}</p>
+                    </div>
+                </div>
+
+                <hr/>
+                
+                <div className={ProductDetailCSS.content03}>
+                    <select onChange={onChangeOptionHandler} value={selectedOption}>
+                        <option value="">옵션 선택</option>
+                        {productData &&
+                            productData.options &&
+                            productData.options.map((option) => (
+                                <option key={option.optionId} value={option.optionId}>
+                                    {option.optionDesc} (추가 금액: {option.addPrice ? option.addPrice : 0}원)
+                                </option>
+                            ))}
+                    </select>
+
+                    <span className={ProductDetailCSS.amount}>
+                        <input
+                            type="number"
+                            value={amount}
+                            onChange={onChangeAmountHandler}
+                            min="1"
+                        />
+                    </span>
+
+                    <div className={ProductDetailCSS.detail_btn}>
+                        <button><FaRegHeart/> 찜하기</button>
+                        <button onClick={onClickAddCartHandler}><LuShoppingCart/> 장바구니</button>
+                        <button onClick={onClickOrderHandler}><IoCardOutline /> 바로구매</button>
+                    </div>
+                </div>
+            </div>
+            
+           
         </div>
     );
 }

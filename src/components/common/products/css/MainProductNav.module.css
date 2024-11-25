@@ -20,7 +20,7 @@ li{
 }
 
 .nav:hover{
-    padding: 0 0 14px 0;
+    padding: 0 0 7px 0;
     font-weight: 500;
     color: var(--main-color03);
     border-bottom: 3px solid var(--main-color03);
