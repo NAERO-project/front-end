@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { decodeJwt } from "../../utils/tokenUtils";
 
 import { callProducerOrderProductListApi } from "../../apis/OrderApiCall";
-import { callGetProductIdByOptionIdApi } from "../../apis/ProductApiCall";
 
 function ProducerOrderProductList({ orderId }) {
     const navigate = useNavigate();
@@ -13,10 +12,11 @@ function ProducerOrderProductList({ orderId }) {
     const isLogin = window.localStorage.getItem("accessToken"); // Local Storage 에 token 정보 확인
     const producerUsername = isLogin ? decodeJwt(isLogin).sub : null; // JWT에서 사용자 ID 추출
 
-    const orderProducts = useSelector((state) => state.orderReducer.products);
+    const orderProducts = useSelector((state) => state.orderReducer.producerProducts);
     
     useEffect(() => {
         dispatch(callProducerOrderProductListApi({ orderId, producerUsername }));
+        console.log('왜 안나오니...', orderProducts)
     }, [dispatch, orderId]);
 
     if (!orderProducts || !Array.isArray(orderProducts)) {
