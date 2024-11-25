@@ -1,10 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import MypageNavCSS from "./MypageNav.module.css";
 
 function MypageNav(props) {
 	return (
-		<div className={MypageNavCSS.NavBar}>
+		<div>
 			<NavLink to='/mypage/'>결제 내역</NavLink>
 			<NavLink to='/mypage/detail'>개인정보</NavLink>
 			<NavLink to='/mypage/update'>개인정보 수정</NavLink>

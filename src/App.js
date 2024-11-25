@@ -20,6 +20,8 @@ import ProducerSignup from "./pages/user/ProducerSignup";
 import UpdateUser from "./pages/user/UpdateUser";
 import UpdateProducer from "./pages/user/UpdateProducer";
 import MypageLayout from "./layouts/MypageLayout";
+import ProducerManage from "./pages/admin/manageusers/ProducerManage";
+import UserManage from "./pages/admin/manageusers/UserManage";
 
 
 function App() {
@@ -69,8 +71,8 @@ function App() {
             <Route index element={<Dashboard />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="product-manage" element={<ProductManage />} />
-            {/* <Route path="user-manage" element={<UserManage />} /> */}
-            {/* <Route path="producer-manage" element={<ProducerManage />} /> */}
+            <Route path="user-manage" element={<UserManage />} />
+            <Route path="producer-manage" element={<ProducerManage />} />
             {/* <Route path="promotion-manage" element={<PromotionManage />} /> */}
             {/* <Route path="order-manage" element={<OrderManage />} /> */}
             {/* <Route path="FAQ-manage" element={<FAQManage />} /> */}
