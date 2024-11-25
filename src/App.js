@@ -17,7 +17,7 @@ import Order from "./pages/order/Order";
 import Dashboard from "./pages/admin/Dashboard/Dashboard";
 import BrandPageLayout from "./layouts/BrandPageLayout";
 import BrandProductList from "./pages/products/brand/BrandProductList";
-import BrandProducer from "./components/common/products/brand/BrandProducer";
+import BrandProducer from "./components/common/products/brand/BrandProducer"; 
 
 
 function App() {
@@ -54,6 +54,7 @@ function App() {
             {/* <Route path="order-manage" element={<OrderManage />} /> */}
             {/* <Route path="coupon-manage" element={<CouponManage />} /> */}
             {/* <Route path="banner-manage" element={<BannerManage />} /> */}
+            {/* <Route path="products/:producerId" element={ <ProducerItem/> }/> */}
           </Route>
 
           <Route path="admin" element={<AdminPageLayout />}>
