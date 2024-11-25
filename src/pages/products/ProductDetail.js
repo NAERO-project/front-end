@@ -62,68 +62,69 @@ function ProductDetail() {
     };
 
     return (
-        <div className={ProductDetailCSS.product_box}>
-            <div className={ProductDetailCSS.product_img_box}>
-                <img src={productData.productImg} alt={productData.productName}/>
-            </div>
-            <div className={ProductDetailCSS.text_box}>
-                <div className={ProductDetailCSS.content01}>
-                    {/* <div>{productData.smallCategory}</div> */}
-                    <h2>
-                        {productData == undefined
-                            ? ""
-                            : productData.productName}
-                    </h2>
-                    <h2 className={ProductDetailCSS.price}>
-                        {productData.productPrice}<span className={ProductDetailCSS.small_txt}>원</span>
-                    </h2>
-                    <button className={ProductDetailCSS.discount_btn}>
-                        <strong>할인쿠폰</strong> 다운받기
-                    </button>
+        <div className={ProductDetailCSS.product_detail}>
+            <div className={ProductDetailCSS.product_box}>
+                <div className={ProductDetailCSS.product_img_box}>
+                    <img src={productData.productImg} alt={productData.productName}/>
                 </div>
+                <div className={ProductDetailCSS.text_box}>
+                    <div className={ProductDetailCSS.content01}>
+                        {/* <div>{productData.smallCategory}</div> */}
+                        <h2>
+                            {productData == undefined
+                                ? ""
+                                : productData.productName}
+                        </h2>
+                        <h2 className={ProductDetailCSS.price}>
+                            {productData.productPrice}<span className={ProductDetailCSS.small_txt}>원</span>
+                        </h2>
+                        <button className={ProductDetailCSS.discount_btn}>
+                            <strong>할인쿠폰</strong> 다운받기
+                        </button>
+                    </div>
 
-                <hr/>
+                    <hr/>
 
-                <div className={ProductDetailCSS.content02}>
-                    <h3>상세설명</h3>
-                    <div className={ProductDetailCSS.product_desc}>
-                        <p>{productData.productDesc}</p>
+                    <div className={ProductDetailCSS.content02}>
+                        <h3>상세설명</h3>
+                        <div className={ProductDetailCSS.product_desc}>
+                            <p>{productData.productDesc}</p>
+                        </div>
+                    </div>
+
+                    <hr/>
+                    
+                    <div className={ProductDetailCSS.content03}>
+                        <select onChange={onChangeOptionHandler} value={selectedOption}>
+                            <option value="">옵션 선택</option>
+                            {productData &&
+                                productData.options &&
+                                productData.options.map((option) => (
+                                    <option key={option.optionId} value={option.optionId}>
+                                        {option.optionDesc} (추가 금액: {option.addPrice ? option.addPrice : 0}원)
+                                    </option>
+                                ))}
+                        </select>
+
+                        <span className={ProductDetailCSS.amount}>
+                            <input
+                                type="number"
+                                value={amount}
+                                onChange={onChangeAmountHandler}
+                                min="1"
+                            />
+                        </span>
+
+                        <div className={ProductDetailCSS.detail_btn}>
+                            <button><FaRegHeart/> 찜하기</button>
+                            <button onClick={onClickAddCartHandler}><LuShoppingCart/> 장바구니</button>
+                            <button onClick={onClickOrderHandler}><IoCardOutline /> 바로구매</button>
+                        </div>
                     </div>
                 </div>
-
-                <hr/>
-                
-                <div className={ProductDetailCSS.content03}>
-                    <select onChange={onChangeOptionHandler} value={selectedOption}>
-                        <option value="">옵션 선택</option>
-                        {productData &&
-                            productData.options &&
-                            productData.options.map((option) => (
-                                <option key={option.optionId} value={option.optionId}>
-                                    {option.optionDesc} (추가 금액: {option.addPrice ? option.addPrice : 0}원)
-                                </option>
-                            ))}
-                    </select>
-
-                    <span className={ProductDetailCSS.amount}>
-                        <input
-                            type="number"
-                            value={amount}
-                            onChange={onChangeAmountHandler}
-                            min="1"
-                        />
-                    </span>
-
-                    <div className={ProductDetailCSS.detail_btn}>
-                        <button><FaRegHeart/> 찜하기</button>
-                        <button onClick={onClickAddCartHandler}><LuShoppingCart/> 장바구니</button>
-                        <button onClick={onClickOrderHandler}><IoCardOutline /> 바로구매</button>
-                    </div>
-                </div>
             </div>
-            
-           
         </div>
+        
     );
 }
 

@@ -5,7 +5,7 @@ import { LuShoppingCart } from "react-icons/lu";
 import ButtonCSS from "../../common/Button.module.css";
 
 function Product({
-    product: { productId, productName, productPrice, productImg}
+    product: { productId, productName, productPrice, productImg, smallCategory: {smallCategoryName}}
 }){
 
     const navigate = useNavigate();
@@ -31,7 +31,7 @@ function Product({
                 </div>
                 <div>
                     <p>{productPrice.toLocaleString()}원</p>
-                    <span className={ButtonCSS.product_tag}></span>
+                    <span className={ButtonCSS.product_tag}>{smallCategoryName}</span>
                 </div>
             </div>
         </div>
