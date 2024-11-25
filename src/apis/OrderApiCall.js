@@ -110,6 +110,26 @@ export const callMyPageOrderProductListApi = ({ orderId }) => {
 		dispatch({ type: GET_MYPAGE_ORDER_PRODUCT_LIST, payload: result.data });
 	};
 };
+export const callOrderDetailApi = ({ orderId }) => {
+	const requestURL = `${prefix}/api/order/product/${orderId}`;
+
+	return async (dispatch, getState) => {
+		const result = await fetch(requestURL, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Accept: '*/*',
+				Authorization:
+					'Bearer ' + window.localStorage.getItem('accessToken')
+			}
+		}).then((response) => response.json());
+
+		console.log('[OrderApiCalls] callOrderDetailApi RESULT : ', result);
+		console.log('[OrderApiCalls] callOrderDetailApi RESULT.data : ', result.data);
+
+		dispatch({ type: GET_MYPAGE_ORDER_PRODUCT_LIST, payload: result.data });
+	};
+};
 
 export const callProducerOrderListPageApi = ({ currentPage, producerUsername }) => {
 

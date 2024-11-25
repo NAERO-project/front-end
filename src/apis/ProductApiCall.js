@@ -365,7 +365,7 @@ export const callProductDetailApi = ({productId}) =>{
             }
         }).then((response) => response.json());
         if(result.status === 200){
-            console.log('[ProduceAPICalls] callProductDetailApi RESULT : ', result);
+            console.log('dddd[ProduceAPICalls] callProductDetailApi RESULT : ', result);
             dispatch({ type: GET_PRODUCT, payload: result.data });
         }
     };
