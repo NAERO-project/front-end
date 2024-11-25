@@ -49,6 +49,7 @@ function App() {
             <Route path="brand/:producerId" element={ <BrandProducer/> }/>
 					</Route>
 
+
           <Route path='products/brand' element={ <BrandPageLayout/> }>
               <Route path="home" element={ <BrandProductList/> }/>
               <Route path="home/:producerId" element={ <BrandProductList/> }/>
