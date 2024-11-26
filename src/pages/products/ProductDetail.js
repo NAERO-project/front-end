@@ -62,6 +62,13 @@ function ProductDetail() {
     };
 
     const onClickAddCartHandler = () => {
+        const token = decodeJwt(window.localStorage.getItem("accessToken"));
+
+        if (token === undefined || token === null) {
+            alert("로그인을 먼저해주세요");
+            return;
+        }
+
         if (!!!selectedOption) {
             alert("옵션을 선택해주세요");
             return;
@@ -82,6 +89,11 @@ function ProductDetail() {
 
         if (token === undefined || token === null) {
             alert("로그인을 먼저해주세요");
+            return;
+        }
+
+        if (!!!selectedOption) {
+            alert("옵션을 선택해주세요");
             return;
         }
 
@@ -147,10 +159,14 @@ function ProductDetail() {
                                     <option
                                         key={option.optionId}
                                         value={option.optionId}
+                                        disabled={option.optionQuantity <= 0}
+                                        style={{
+                                            color: option.optionQuantity <= 0 ? 'gray' : 'black',
+                                        }}
                                     >
-                                        {option.optionDesc} (추가 금액:{" "}
-                                        {option.addPrice ? option.addPrice : 0}
-                                        원)
+                                        {option.optionDesc} 
+                                        {option.optionQuantity <= 0 ? " (품절)" : ""} 
+                                        (추가 금액: {option.addPrice ? option.addPrice : 0} 원)
                                     </option>
                                 ))}
                         </select>

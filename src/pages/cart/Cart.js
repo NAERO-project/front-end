@@ -8,27 +8,37 @@ import {
     callCartUpdateAPI,
 } from "../../apis/CartApiCall";
 import { callCartOrderAPI } from "../../apis/OrderApiCall";
+import RequireAuth from "../../components/common/RequireAuth";
 import CartCSS from "./css/Cart.module.css";
+
+function isTokenExpired(decodedToken) {
+    const currentTime = Math.floor(Date.now() / 1000);
+    return decodedToken.exp < currentTime;
+}
 
 function Cart() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const cartData = useSelector((state) => state.cartReducer) || [];
-    const isLogin = window.localStorage.getItem("accessToken");
-    const username = isLogin ? decodeJwt(isLogin).sub : null;
 
     const [selectedItems, setSelectedItems] = useState({});
 
+    const decodedToken = decodeJwt(isLogin);
+    const isLogin = window.localStorage.getItem("accessToken");
+    const username = isLogin ? decodeJwt(isLogin).sub : null;
+
     useEffect(() => {
+        if (!isLogin || !decodedToken || isTokenExpired(decodedToken)) {
+            alert("로그인 세션이 만료되었습니다. 다시 로그인 해주세요.");
+            navigate("/login");
+            return;
+        }
+
         if (username) {
             dispatch(callCartListApi({ username }));
         }
     }, [username, dispatch]);
-
-    useEffect(() => {
-        console.log("cartData", cartData);
-    }, [cartData]);
 
     const onClickQuantityChangeHandler = (cartId, change) => {
         setSelectedItems((prev) => {
@@ -77,7 +87,13 @@ function Cart() {
             .map(([key]) => key);
         console.log("삭제할 아이템 ID:", itemsToDelete);
 
+        if (itemsToDelete.length === 0) {
+            alert("삭제할 상품을 선택하세요.");
+            return;
+        }
+
         await dispatch(callCartDeleteAPI({ cartIds: itemsToDelete }));
+        alert("장바구니 삭제 완료");
         dispatch(callCartListApi({ username })); // 삭제 후 리로딩 제대로 되게 함
     };
 
@@ -109,9 +125,9 @@ function Cart() {
             <h2 className={CartCSS.title}>장바구니</h2>
             {Array.isArray(cartData) && cartData.length > 0 ? (
                 <div>
-                    <button onClick={onClickCartDeleteHandler}>삭제</button>
+                    <button onClick={onClickCartDeleteHandler}>삭제하기</button>
                     &nbsp;&nbsp;
-                    <button onClick={onClickCartOrderHandler}>결제</button>
+                    <button onClick={onClickCartOrderHandler}>주문하기</button>
                     {cartData.map((item) => (
                         <div key={item.cartId} className={CartCSS.item}>
                             <input
@@ -123,12 +139,12 @@ function Cart() {
                             <h3>{item.productName}</h3>
                             <p>
                                 {item.optionDesc} (추가 금액:{" "}
-                                {item.addPrice.toLocaleString()}원)
+                                {(item.addPrice || 0).toLocaleString()}원)
                             </p>
                             <p>
                                 {(
                                     selectedItems[item.cartId]?.price ||
-                                    (item.productPrice + item.addPrice) *
+                                    ((item.productPrice || 0) + (item.addPrice || 0)) *
                                         item.count
                                 ).toLocaleString()}
                                 원
@@ -169,4 +185,4 @@ function Cart() {
     );
 }
 
-export default Cart;
+export default RequireAuth(Cart);

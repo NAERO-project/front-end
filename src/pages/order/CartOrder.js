@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { decodeJwt } from "../../utils/tokenUtils";
-import { callInsertOrderApi , callCartOrderAPI } from "../../apis/OrderApiCall";
+import { callInsertOrderApi , callCartOrderAPI, callOrderPageApi } from "../../apis/OrderApiCall";
 import { callUserCouponApi } from "../../apis/CouponApiCall";
+import { callCartDeleteAPI } from "../../apis/CartApiCall";
 import Postcode from "react-daum-postcode";
 import ModalCSS from "../../components/common/Modal.module.css"; // 모달 스타일
 import * as PortOne from "@portone/browser-sdk/v2"; // 결제 API
@@ -11,6 +12,7 @@ import * as PortOne from "@portone/browser-sdk/v2"; // 결제 API
 function CartOrder() {
     const dispatch = useDispatch();
     const location = useLocation();
+    const navigate = useNavigate();
     const orderData = useSelector((state) => state.orderReducer);
     const couponData = useSelector((state) => state.couponReducer);
     const { cartItems } = location.state || {}; // 상태에서 cartItems 가져오기
@@ -253,9 +255,14 @@ function CartOrder() {
                 callInsertOrderApi({
                     payRequest: updatedPayRequest,
                     username,
+                    navigate
                 })
             );
-            alert("결제가 성공적으로 완료되었습니다.");
+
+            // 결제 성공 후 장바구니에서 아이템 삭제
+            const cartIdsToDelete = cartItems.map(item => item.cartId);
+            await dispatch(callCartDeleteAPI({ cartIds: cartIdsToDelete }));
+
             return;
         }
 
@@ -263,7 +270,7 @@ function CartOrder() {
             const response = await PortOne.requestPayment({
                 storeId: "store-83b99bc8-449f-47f1-84f3-2c6a3ff42d0a",
                 paymentId: `payment-${new Date().getTime()}`,
-                orderName: "테스트 결제",
+                orderName: "naero-order",
                 totalAmount: updatedPayRequest.orderDTO.orderTotalAmount,
                 currency: "KRW",
                 channelKey: "channel-key-f319586f-8110-4c7c-8a71-f4a7e8adb6ad",
@@ -277,14 +284,18 @@ function CartOrder() {
             updatedPayRequest.paymentDTO.impUid = response.paymentId;
             updatedPayRequest.paymentDTO.transactionId = response.txId;
 
-            dispatch(
+            await dispatch(
                 callInsertOrderApi({
                     payRequest: updatedPayRequest,
                     username,
+                    navigate
                 })
             );
 
-            alert("결제가 성공적으로 완료되었습니다.");
+            // 결제 성공 후 장바구니에서 아이템 삭제
+            const cartIdsToDelete = cartItems.map(item => item.cartId);
+            await dispatch(callCartDeleteAPI({ cartIds: cartIdsToDelete }));
+
         } else {
             // 실패한 경우 처리
             console.error("결제 실패 또는 창 닫힘:", response);
@@ -337,7 +348,7 @@ const processEasyPay = async (provider) => {
         const response = await PortOne.requestPayment({
             storeId: "store-83b99bc8-449f-47f1-84f3-2c6a3ff42d0a",
             paymentId: `payment-${new Date().getTime()}`,
-            orderName: "테스트 결제",
+            orderName: "naero-order",
             totalAmount: updatedPayRequest.orderDTO.orderTotalAmount,
             currency: "KRW",
             channelKey: "channel-key-f319586f-8110-4c7c-8a71-f4a7e8adb6ad",
@@ -362,10 +373,10 @@ const processEasyPay = async (provider) => {
             callInsertOrderApi({
                 payRequest: updatedPayRequest,
                 username,
+                navigate
             })
         );
 
-        alert("결제가 성공적으로 완료되었습니다.");
     } else {
         // 실패한 경우 처리
         console.error("결제 실패 또는 창 닫힘:", response);

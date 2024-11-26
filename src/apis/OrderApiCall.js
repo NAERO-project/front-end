@@ -90,7 +90,8 @@ export const callCancelOrderApi = ({ orderId }) => {
 };
 
 // 결제
-export const callInsertOrderApi = ({ payRequest, username }) => {
+export const callInsertOrderApi = ({ payRequest, username, navigate }) => {
+
     let requestURL = `${prefix}/api/order/process?username=${username}`;
 
     console.log("[OrderApiCalls] requestURL : ", requestURL);
@@ -110,8 +111,11 @@ export const callInsertOrderApi = ({ payRequest, username }) => {
         if (result.status === 200) {
             console.log("[OrderApiCalls] callInsertOrderApi RESULT : ", result);
             dispatch({ type: POST_ORDER, payload: result.data });
-        } else {
+            alert("결제가 성공적으로 완료되었습니다.");
+            navigate(`/mypage/order-detail/${result.data.orderId}`);
+        } else if (result.status === 500)  {
             console.error("API 호출 실패:", result);
+            alert(result.data);
         }
     };
 };

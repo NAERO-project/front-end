@@ -68,7 +68,6 @@ export const callCartDeleteAPI = ({ cartIds }) => {
 		if (result.status === 200) {
             console.log("[CartApiCall] callCartDeleteAPI RESULT : ", result);
             dispatch({ type: DEL_CART, payload: result.data });
-            alert("장바구니 삭제 완료");
 		} 
 	};
 };

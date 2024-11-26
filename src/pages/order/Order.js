@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { decodeJwt } from "../../utils/tokenUtils";
 import { callOrderPageApi, callInsertOrderApi } from "../../apis/OrderApiCall";
@@ -11,6 +11,7 @@ import * as PortOne from "@portone/browser-sdk/v2"; // 결제 API
 function Order() {
     const dispatch = useDispatch();
     const location = useLocation();
+    const navigate = useNavigate();
     const orderData = useSelector((state) => state.orderReducer);
     const couponData = useSelector((state) => state.couponReducer);
     // const cartItems = useSelector((state) => state.orderReducer.cartItems);
@@ -254,9 +255,9 @@ function Order() {
                 callInsertOrderApi({
                     payRequest: updatedPayRequest,
                     username,
+                    navigate
                 })
             );
-            alert("결제가 성공적으로 완료되었습니다.");
             return;
         }
 
@@ -264,7 +265,7 @@ function Order() {
             const response = await PortOne.requestPayment({
                 storeId: "store-83b99bc8-449f-47f1-84f3-2c6a3ff42d0a",
                 paymentId: `payment-${new Date().getTime()}`,
-                orderName: "테스트 결제",
+                orderName: "naero-order",
                 totalAmount: updatedPayRequest.orderDTO.orderTotalAmount,
                 currency: "KRW",
                 channelKey: "channel-key-f319586f-8110-4c7c-8a71-f4a7e8adb6ad",
@@ -282,10 +283,9 @@ function Order() {
                 callInsertOrderApi({
                     payRequest: updatedPayRequest,
                     username,
+                    navigate
                 })
             );
-
-            alert("결제가 성공적으로 완료되었습니다.");
         } else {
             // 실패한 경우 처리
             console.error("결제 실패 또는 창 닫힘:", response);
@@ -338,7 +338,7 @@ const processEasyPay = async (provider) => {
         const response = await PortOne.requestPayment({
             storeId: "store-83b99bc8-449f-47f1-84f3-2c6a3ff42d0a",
             paymentId: `payment-${new Date().getTime()}`,
-            orderName: "테스트 결제",
+            orderName: "naero-order",
             totalAmount: updatedPayRequest.orderDTO.orderTotalAmount,
             currency: "KRW",
             channelKey: "channel-key-f319586f-8110-4c7c-8a71-f4a7e8adb6ad",
@@ -363,10 +363,9 @@ const processEasyPay = async (provider) => {
             callInsertOrderApi({
                 payRequest: updatedPayRequest,
                 username,
+                navigate
             })
         );
-
-        alert("결제가 성공적으로 완료되었습니다.");
     } else {
         // 실패한 경우 처리
         console.error("결제 실패 또는 창 닫힘:", response);
