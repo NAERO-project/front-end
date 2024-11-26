@@ -4,7 +4,7 @@ import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { callProductListPreviewApi } from "../../apis/ProductApiCall";
 import MainProductNav from "../../components/common/products/MainProductNav";
 import Product from "../../components/common/products/Product";
-import MainListCSS from "./MainList.module.css";
+import MainListCSS from "./css/MainList.module.css";
 import ButtonCSS from "../../components/common/Button.module.css";
 
 function MainList(){

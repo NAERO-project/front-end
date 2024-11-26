@@ -1,0 +1,12 @@
+.brand_box{
+    width: 100%;
+    position: relative;
+    /* background-color: red; */
+}
+
+.brand_box div:ntn-child(2n){
+    height: 682px;
+    padding: 100px 0;
+    /* position: relative; */
+    background-color: #F3F2EB;
+}
