@@ -6,7 +6,10 @@ import { callProductDetailApi } from "../../apis/ProductApiCall";
 import { SET_CART_ITEMS } from "../../modules/OrderModule";
 import ProductDetailCSS from "./css/ProductDetail.module.css";
 
-import { FaRegHeart } from "react-icons/fa6";	
+import { callUserDetailAPI } from "../../apis/UserApiCall";
+import { callCartInsertAPI } from "../../apis/CartApiCall";
+
+import { FaRegHeart } from "react-icons/fa6";
 import { LuShoppingCart } from "react-icons/lu";
 import { IoCardOutline } from "react-icons/io5";
 
@@ -15,14 +18,40 @@ function ProductDetail() {
     const navigate = useNavigate();
     const params = useParams();
     const productData = useSelector((state) => state.productReducer);
-    const cartItems = useSelector((state) => state.orderReducer.cartItems); // Redux에서 cartItems 참조
+    const user = useSelector((state) => state.userReducer.data || {}); // Redux에서 userId 가져오기
+
+    const isLogin = window.localStorage.getItem("accessToken"); // Local Storage 에 token 정보 확인
+    const username = isLogin ? decodeJwt(isLogin).sub : null; // JWT에서 사용자 ID 추출
 
     const [amount, setAmount] = useState(1);
+    const [price, setPrice] = useState(productData?.productPrice * amount);
     const [selectedOption, setSelectedOption] = useState(null); // 선택된 옵션 상태 추가
 
     useEffect(() => {
         dispatch(callProductDetailApi({ productId: params.productId }));
     }, [params.productId]);
+
+    useEffect(() => {
+        dispatch(
+            callUserDetailAPI({
+                username: username,
+            })
+        );
+
+        console.log("userDetail 뭘 갖고 왔나???", user);
+    }, []);
+
+    useEffect(() => {
+        const selectedOptionData = productData?.options?.find(
+            (option) => option.optionId === Number(selectedOption)
+        ); // 타입 변환
+        const selectedOptionPrice = selectedOptionData
+            ? selectedOptionData.addPrice
+            : 0; // 가격 설정
+        setPrice(
+            ((productData?.productPrice || 0) + selectedOptionPrice) * amount
+        ); // price 계산
+    }, [amount, selectedOption, productData]);
 
     const onChangeAmountHandler = (e) => {
         setAmount(e.target.value);
@@ -33,16 +62,19 @@ function ProductDetail() {
     };
 
     const onClickAddCartHandler = () => {
+        if (!!!selectedOption) {
+            alert("옵션을 선택해주세요");
+            return;
+        }
+
         const cartItem = {
-            userId: 1, // 사용자 ID를 1로 설정
+            userId: user?.user.userId, // 사용자 ID를 1로 설정
             count: parseInt(amount), // 수량
             optionId: selectedOption, // 선택된 옵션 ID 추가
+            price: price,
         };
 
-        // Redux에 cartItems 추가
-        const updatedCartItems = [...cartItems, cartItem];
-        console.log(updatedCartItems);
-        dispatch({ type: SET_CART_ITEMS, payload: updatedCartItems });
+        dispatch(callCartInsertAPI({ cartItem }));
     };
 
     const onClickOrderHandler = () => {
@@ -53,19 +85,25 @@ function ProductDetail() {
             return;
         }
 
-        onClickAddCartHandler(); // 장바구니에 추가
-        // Redux에 장바구니 데이터 저장
-        onClickAddCartHandler();
+        const cartItem = {
+            userId: user?.user.userId,
+            count: parseInt(amount),
+            optionId: selectedOption,
+            amount: price,
+        };
 
-        // Order 페이지로 이동
-        navigate("/order");
+        // 상태를 사용하여 주문 페이지로 이동
+        navigate("/order", { state: { cartItem } });
     };
 
     return (
         <div className={ProductDetailCSS.product_detail}>
             <div className={ProductDetailCSS.product_box}>
                 <div className={ProductDetailCSS.product_img_box}>
-                    <img src={productData.productImg} alt={productData.productName}/>
+                    <img
+                        src={productData.productImg}
+                        alt={productData.productName}
+                    />
                 </div>
                 <div className={ProductDetailCSS.text_box}>
                     <div className={ProductDetailCSS.content01}>
@@ -76,14 +114,17 @@ function ProductDetail() {
                                 : productData.productName}
                         </h2>
                         <h2 className={ProductDetailCSS.price}>
-                            {productData.productPrice}<span className={ProductDetailCSS.small_txt}>원</span>
+                            {price.toLocaleString("ko-KR")}
+                            <span className={ProductDetailCSS.small_txt}>
+                                원
+                            </span>
                         </h2>
                         <button className={ProductDetailCSS.discount_btn}>
                             <strong>할인쿠폰</strong> 다운받기
                         </button>
                     </div>
 
-                    <hr/>
+                    <hr />
 
                     <div className={ProductDetailCSS.content02}>
                         <h3>상세설명</h3>
@@ -92,16 +133,24 @@ function ProductDetail() {
                         </div>
                     </div>
 
-                    <hr/>
-                    
+                    <hr />
+
                     <div className={ProductDetailCSS.content03}>
-                        <select onChange={onChangeOptionHandler} value={selectedOption}>
+                        <select
+                            onChange={onChangeOptionHandler}
+                            value={selectedOption}
+                        >
                             <option value="">옵션 선택</option>
                             {productData &&
                                 productData.options &&
                                 productData.options.map((option) => (
-                                    <option key={option.optionId} value={option.optionId}>
-                                        {option.optionDesc} (추가 금액: {option.addPrice ? option.addPrice : 0}원)
+                                    <option
+                                        key={option.optionId}
+                                        value={option.optionId}
+                                    >
+                                        {option.optionDesc} (추가 금액:{" "}
+                                        {option.addPrice ? option.addPrice : 0}
+                                        원)
                                     </option>
                                 ))}
                         </select>
@@ -116,15 +165,20 @@ function ProductDetail() {
                         </span>
 
                         <div className={ProductDetailCSS.detail_btn}>
-                            <button><FaRegHeart/> 찜하기</button>
-                            <button onClick={onClickAddCartHandler}><LuShoppingCart/> 장바구니</button>
-                            <button onClick={onClickOrderHandler}><IoCardOutline /> 바로구매</button>
+                            <button>
+                                <FaRegHeart /> 찜하기
+                            </button>
+                            <button onClick={onClickAddCartHandler}>
+                                <LuShoppingCart /> 장바구니
+                            </button>
+                            <button onClick={onClickOrderHandler}>
+                                <IoCardOutline /> 바로구매
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
     );
 }
 

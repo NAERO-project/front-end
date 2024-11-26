@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
+import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { decodeJwt } from "../../utils/tokenUtils";
 import { callOrderPageApi, callInsertOrderApi } from "../../apis/OrderApiCall";
@@ -9,9 +10,11 @@ import * as PortOne from "@portone/browser-sdk/v2";
 
 function Order() {
     const dispatch = useDispatch();
+    const location = useLocation();
     const orderData = useSelector((state) => state.orderReducer);
     const couponData = useSelector((state) => state.couponReducer);
-    const cartItems = useSelector((state) => state.orderReducer.cartItems);
+    // const cartItems = useSelector((state) => state.orderReducer.cartItems);
+    const { cartItem } = location.state || {}; // 상태에서 cartItem 가져오기
     const isLogin = window.localStorage.getItem("accessToken");
     const username = isLogin ? decodeJwt(isLogin).sub : null;
 
@@ -67,10 +70,11 @@ function Order() {
 
     // Redux 데이터 로드
     useEffect(() => {
-        if (username && cartItems.length > 0) {
-            dispatch(callOrderPageApi({ cartItems, username }));
+        console.log('cartItem 뭔데???', cartItem);
+        if (username && cartItem) {
+            dispatch(callOrderPageApi({ cartItem, username }));
         }
-    }, [cartItems, dispatch, username]);
+    }, [cartItem, dispatch, username]);
 
     // payRequest 초기화 및 업데이트
     useEffect(() => {

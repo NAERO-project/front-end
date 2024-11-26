@@ -12,7 +12,7 @@ import {
 const prefix = `http://${process.env.REACT_APP_RESTAPI_IP}:8080`;
 
 // 주문페이지 정보 조회
-export const callOrderPageApi = ({ cartItems, username }) => {
+export const callOrderPageApi = ({ cartItem, username }) => {
     let requestURL = `${prefix}/api/order/start?username=${username}`;
 
     console.log("[OrderApiCalls] requestURL : ", requestURL);
@@ -24,7 +24,7 @@ export const callOrderPageApi = ({ cartItems, username }) => {
                 "Content-Type": "application/json",
                 Accept: "*/*",
             },
-            body: JSON.stringify(cartItems),
+            body: JSON.stringify([cartItem]), // 배열로 감싸기
         }).then((response) => response.json());
 
         if (result.status === 200) {
