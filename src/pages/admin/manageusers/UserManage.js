@@ -4,6 +4,7 @@ import FilterSearchInput from "../../../components/common/admin/FilterSearchInpu
 import FilterToggle from "../../../components/common/admin/FilterToggle";
 import UserTable from '../../../components/common/admin/UserTable';
 import { callUserSearch } from "../../../apis/ManageApiCall";
+import TablePagenation from "../../../components/common/admin/TablePagenation";
 
 const keywords = { user_id: "회원 번호" ,  username: "아이디" ,  user_fullname: "이름" }
 //필터를 동적으로 바꾸려면 시간이 조금 걸림. 일단 하드코딩 해두기
@@ -32,7 +33,7 @@ function UserManage(props) {
         setPage(1);
         dispatch(callUserSearch({ form: form, currentPage: page }));
         setChange(false)
-     }
+    }
     
     const [form, setForm] = useState({
 		filter:{},
@@ -62,7 +63,8 @@ function UserManage(props) {
             { (change === true) ? <h3>필터에 변동이 있습니다.</h3>:null}
             <FilterSearchInput keywords={ keywords} state={form} setState={setForm} handler={ clickSearchBtn } />
             <FilterToggle filters={ filters } state={form} setState={setForm}/>
-            <UserTable tableInfo={tableInfo.data } />
+            <UserTable tableInfo={tableInfo.data} />
+            <TablePagenation curpage={page} totalpage={tableInfo.totalpage } setState={ setPage}></TablePagenation>
         </div>
     );
 }

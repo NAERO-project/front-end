@@ -1,11 +1,15 @@
 import { Table } from "react-bootstrap";
 import NoInfoGuide from "../NoInfoGuide";
+import { useNavigate } from "react-router-dom";
 
 function ProducerTable(props) {
     const { tableInfo } = props;
-    const toDetail = () => { }
+    const navigate = useNavigate();
+    const toDetail = (username) => { 
+        navigate(`/admin/producer-detail/${username}`, { replace: false });
+    }
 
-    console.log(tableInfo)
+    console.log("tableInfo",tableInfo)
     return (<>{tableInfo && tableInfo.length>0? <Table striped bordered  >
         <thead>
             <tr>
@@ -18,8 +22,7 @@ function ProducerTable(props) {
         </thead>
         <tbody>
             {tableInfo.map((value, index, array) => {
-                return (<tr onClick={() => {toDetail(value.username)}
-}>
+                return (<tr onClick={() => {toDetail(value.username)}}>
                     <td>
                         {value.userId}
                     </td>

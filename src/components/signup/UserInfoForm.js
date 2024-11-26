@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 function UserInfoForm({ user }) {
 	return (
 		<div>
-			<div>주문자 정보</div>
 			<p>이름 : {user.userFullName}</p>
 
 			<p>아이디 : {user.username}</p>

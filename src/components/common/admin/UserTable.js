@@ -1,8 +1,12 @@
 import { Table } from "react-bootstrap";
 import NoInfoGuide from "./NoInfoGuide";
+import { useNavigate } from "react-router-dom";
 function UserTable(props) {
     const { tableInfo } = props;
-    const toDetail = () => { }
+    const navigate = useNavigate();
+    const toDetail = (username) => {
+        navigate(`/admin/user-detail/${username}`, { replace: false });
+    }
 
     console.log(tableInfo)
     return (<>{tableInfo && tableInfo.length>0? <Table striped bordered  >
