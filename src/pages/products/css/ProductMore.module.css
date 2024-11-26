@@ -1,0 +1,20 @@
+.main_product_box{
+    width: 1167px;
+    /* height: 1046px; */
+    margin: 0 auto;
+    padding: 50px 0;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+    align-items: center;
+    gap: 20px;
+    /* background-color: red; */
+}
+
+.product_paging{
+    list-style-type: none;
+    display: flex;
+    /* display: inline-block; */
+    margin: 0 auto;
+}

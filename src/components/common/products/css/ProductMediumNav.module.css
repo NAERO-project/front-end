@@ -1,0 +1,29 @@
+.medium_nav_box{
+    width: 1168px;
+    height: 106px;
+    margin: 0 auto;
+    padding: 15px 10px;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+.medium_nav{
+    margin: 0 30px 0 0;
+    padding: 6px 10px;
+    border-radius: 15px;
+    display: inline-block;
+    background-color: #d1d1d1;
+    cursor: pointer;
+}
+
+.medium_nav:hover{
+    margin: 0 30px 0 0;
+    padding: 6px 10px;
+    border-radius: 15px;
+    display: inline-block;
+    background-color: var(--main-color03);
+}
+
+.medium_text{
+    font-weight: 200;
+    color: var(--text01);
+}

@@ -1,0 +1,46 @@
+.banner_box{
+    width: 100%;
+    height: 586px; 
+    margin: 26px 0 0 0;
+    overflow: hidden;
+    position: relative;
+}
+
+/* .banner_box{
+    width: 100%;
+    height: 586px; 
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+    background-color: red;
+} */
+
+.banner_group{
+    display: flex;
+    flex-flow: row;
+    transition: transform 0.5s ease; /* 슬라이드 애니메이션 */
+    width: calc(1035px * 3 + 100px); /* 3개의 배너가 나란히 보이도록 설정 */
+}
+
+.banner_group div {
+    width: 1035px;
+    height: 586px;
+    margin: 0 25px;
+    /* display: flex;
+    justify-content: space-between;
+    align-items: center; */
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+/* .banner_group .carousel-item {
+    width: 30%;
+    width: 100%; 각 아이템이 전체 너비를 차지하도록 설정
+} */
+
+/* .banner_group .carousel-item img {
+    width: 100%; 이미지가 아이템의 너비를 차지하도록 설정
+    height: auto; 비율 유지
+} */

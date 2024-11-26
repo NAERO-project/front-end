@@ -1,0 +1,50 @@
+.producer_box{
+    width: 1168px;
+    margin: 0 auto;
+    padding: 70px 0 0 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.blur{
+    width: 574px;
+    height: 250px;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.producer_box .producer_img:first-child{
+    margin: 0 20px 0 0;
+    background-image: url(../../../img/naero_img//brand/brand_img.png);
+}
+
+.producer_box .producer_img:last-child{
+    margin: 0 20px 0 0;
+    background-image: url(../../../img/naero_img//brand/brand_img2.png);
+}
+
+.producer_box div{
+    width: 574px;
+    height: 250px;
+    position: relative;
+}
+
+.producer_btn{
+    width: 130px;
+    height: 40px;
+    display: inline-block;
+    text-align: center;
+    line-height: 2.5rem;
+    border: 1px solid #fff;
+    border-radius: 30px;
+    color: #fff;
+    background-color: none;
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
+}
+
+.producer_btn:hover{
+    border: 1px solid #849076;
+    color: #fff;
+    background-color: #849076;
+}

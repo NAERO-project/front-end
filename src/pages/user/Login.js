@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { callLoginAPI } from "../../apis/UserApiCall";
 import { Navigate } from "react-router-dom";
+import { POST_SINGUP } from "../../modules/UserModule";
 
 function Login(props) {
 	const navigate = useNavigate();
@@ -21,6 +22,10 @@ function Login(props) {
 		if (loginUser.status === 200) {
 			console.log("[Login] Login SUCCESS {}", loginUser);
 			navigate("/", { replace: true });
+		}
+		if (loginUser.status === 201) {
+			loginUser.status = 100; // Continue
+			dispatch({ type: POST_SINGUP, payload: loginUser });
 		}
 	});
 

@@ -1,0 +1,47 @@
+.manage_box{
+    width: 1350px;
+    margin: 0 auto;
+}
+
+.product_div1{
+    display: flex;
+    justify-content: space-between;
+}
+
+.manage_table{
+    height: 672px;
+    margin-top: 25px;
+    text-align: center;
+}
+
+thead tr{
+    height: 45px;
+    font-weight: 600;
+    background-color: #fff;
+}
+
+tbody tr:nth-child(odd){
+    background-color: #E6F1D9;
+}
+
+tbody tr:nth-child(even){
+    background-color: #fff;
+}
+
+thead th, td{
+    border: 1px solid #AABEC8;
+}   
+
+.manage_btns{
+    height: 90px;
+    padding: 0 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.manage_btns button:first-child{
+    margin: 0 0 10px 0;
+}
+
+
