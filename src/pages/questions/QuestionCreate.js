@@ -1,43 +1,45 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { callQuestionCreateApi } from '../../apis/QuestionAPICalls';
 import { useNavigate } from 'react-router-dom';
-import { addQuestion } from "../../apis/QuestionAPICalls";
+// import QuestionCreateNav from '../../components/common/questions/QuestionCreateNav';
 
 function QuestionCreate() {
-    const [questionTitle, setQuestionTitle] = useState('');
-    const [questionContent, setQuestionContent] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [form, setForm] = useState({ questionTitle: '', questionContent: '' });
+    const userId = 1;
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        dispatch(
-            addQuestion({ questionTitle, questionContent, userId: 1 }) // 사용자 ID는 1로 가정
-        ).then(() => {
-            alert('문의가 등록되었습니다.');
-            navigate('/questions');
-        });
+    const onChangeHandler = (e) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    };
+
+    const onSubmitHandler = () => {
+        if (!form.questionTitle || !form.questionContent) {
+            alert('제목과 내용을 모두 입력해야 합니다.');
+            return;
+        }
+        const userId = 1;
+        dispatch(callQuestionCreateApi({ form, userId }));
+        navigate('/questions');
     };
 
     return (
         <div>
-            <h1>문의 등록</h1>
-            <form onSubmit={handleSubmit}>
-                <label>제목</label>
-                <input
-                    type="text"
-                    value={questionTitle}
-                    onChange={(e) => setQuestionTitle(e.target.value)}
-                    required
-                />
-                <label>내용</label>
-                <textarea
-                    value={questionContent}
-                    onChange={(e) => setQuestionContent(e.target.value)}
-                    required
-                />
-                <button type="submit">등록</button>
-            </form>
+            {/* <QuestionCreateNav /> */}
+            <h1>새 문의 작성</h1>
+            <input
+                name="questionTitle"
+                placeholder="제목"
+                onChange={onChangeHandler}
+            />
+            <textarea
+                name="questionContent"
+                placeholder="내용"
+                onChange={onChangeHandler}
+            />
+            <button onClick={onSubmitHandler}>등록</button>
+            <button onClick={() => navigate(-1)}>취소</button>
         </div>
     );
 }

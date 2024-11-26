@@ -1,37 +1,46 @@
-export const GET_QUESTIONS = 'GET_QUESTIONS';
-export const GET_QUESTION = 'GET_QUESTION';
-export const POST_QUESTION = 'POST_QUESTION';
-export const PUT_QUESTION = 'PUT_QUESTION';
-export const DELETE_QUESTION = 'DELETE_QUESTION';
+import { createActions, handleActions } from "redux-actions";
 
+// 초기값
 const initialState = {
-    questions: [], // 문의 목록 초기값
-    question: null, // 개별 문의 초기값
+	questions: [],
+	questionDetail: null,
+	pageInfo: { pageEnd: 0 },
 };
 
-const questionReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case GET_QUESTIONS:
-            return { ...state, questions: action.payload };
-        case GET_QUESTION:
-            return { ...state, question: action.payload };
-        case POST_QUESTION:
-            return { ...state, questions: [...state.questions, action.payload] };
-        case PUT_QUESTION:
-            return {
-                ...state,
-                questions: state.questions.map((q) =>
-                    q.id === action.payload.id ? action.payload : q
-                ),
-            };
-        case DELETE_QUESTION:
-            return {
-                ...state,
-                questions: state.questions.filter((q) => q.id !== action.payload.id),
-            };
-        default:
-            return state;
-    }
-};
+export const GET_QUESTIONS = "GET_QUESTIONS";
+export const GET_QUESTION_DETAIL = "GET_QUESTION_DETAIL";
+export const POST_QUESTION = "POST_QUESTION";
+export const PUT_QUESTION = "PUT_QUESTION";
+export const DELETE_QUESTION = "DELETE_QUESTION";
+
+const actions = createActions({
+	[GET_QUESTIONS]: () => {},
+	[GET_QUESTION_DETAIL]: () => {},
+	[POST_QUESTION]: () => {},
+	[PUT_QUESTION]: () => {},
+	[DELETE_QUESTION]: () => {},
+});
+
+// 리듀서
+const questionReducer = handleActions(
+	{
+		[GET_QUESTIONS]: (state, { payload }) => {
+			return payload;
+		},
+		[GET_QUESTION_DETAIL]: (state, { payload }) => {
+			return payload;
+		},
+		[POST_QUESTION]: (state, { payload }) => {
+			return payload;
+		},
+		[PUT_QUESTION]: (state, { payload }) => {
+			return payload;
+		},
+		[DELETE_QUESTION]: (state, { payload }) => {
+			return payload;
+		},
+	},
+	initialState
+);
 
 export default questionReducer;
