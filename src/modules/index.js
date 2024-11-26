@@ -5,7 +5,7 @@ import productProducerReducer from "./ProductProducerModule";
 import authReducer from "./AuthModule";
 import dashboardReducer from "./DashboardModule";
 import couponReducer from "./CouponModule";
-import {largeCategoryReducer, mediumCategoryReducer}  from "./CategoryModule";
+import { largeCategoryReducer, mediumCategoryReducer } from "./CategoryModule";
 import orderReducer from "./OrderModule";
 import bannerReducer from "./BannerModule";
 import questionReducer from "./QuestionModule";
@@ -20,10 +20,10 @@ const rootReducer = combineReducers({
 	couponReducer,
 	bannerReducer,
 	productProducerReducer,
-    authReducer,
-  	dashboard: dashboardReducer,
+	authReducer,
+	dashboard: dashboardReducer,
 	questionReducer,
-	answerReducer
+	answerReducer,
 });
 
 export default rootReducer;

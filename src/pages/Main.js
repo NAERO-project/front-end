@@ -5,15 +5,17 @@ import GlobalCSS from "../components/common/Global.module.css";
 import MainProducer from "./products/MainProducer";
 
 function Main(props) {
-	return <div>
-			<MainBanner/>
+	return (
+		<div>
+			<MainBanner />
 			<div className={GlobalCSS}>
-				<MainList/>
+				<MainList />
 			</div>
 			<div>
-				<MainProducer/>
+				<MainProducer />
 			</div>
 		</div>
+	);
 }
 
 export default Main;
