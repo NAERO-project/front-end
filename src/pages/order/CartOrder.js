@@ -2,19 +2,18 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { decodeJwt } from "../../utils/tokenUtils";
-import { callOrderPageApi, callInsertOrderApi } from "../../apis/OrderApiCall";
+import { callInsertOrderApi , callCartOrderAPI } from "../../apis/OrderApiCall";
 import { callUserCouponApi } from "../../apis/CouponApiCall";
 import Postcode from "react-daum-postcode";
 import ModalCSS from "../../components/common/Modal.module.css"; // 모달 스타일
 import * as PortOne from "@portone/browser-sdk/v2"; // 결제 API
 
-function Order() {
+function CartOrder() {
     const dispatch = useDispatch();
     const location = useLocation();
     const orderData = useSelector((state) => state.orderReducer);
     const couponData = useSelector((state) => state.couponReducer);
-    // const cartItems = useSelector((state) => state.orderReducer.cartItems);
-    const { cartItem } = location.state || {}; // 상태에서 cartItem 가져오기
+    const { cartItems } = location.state || {}; // 상태에서 cartItems 가져오기
     const isLogin = window.localStorage.getItem("accessToken");
     const username = isLogin ? decodeJwt(isLogin).sub : null;
 
@@ -70,11 +69,11 @@ function Order() {
 
     // Redux 데이터 로드
     useEffect(() => {
-        console.log('cartItem 뭔데???', cartItem);
-        if (username && cartItem) {
-            dispatch(callOrderPageApi({ cartItem, username }));
+        console.log('cartItems 뭔데???', cartItems);
+        if (username && cartItems) {
+            dispatch(callCartOrderAPI({ cartItems: cartItems, username }));
         }
-    }, [cartItem, dispatch, username]);
+    }, [cartItems, dispatch, username]);
 
     // payRequest 초기화 및 업데이트
     useEffect(() => {
@@ -580,4 +579,4 @@ const processEasyPay = async (provider) => {
     );
 }
 
-export default Order;
+export default CartOrder;

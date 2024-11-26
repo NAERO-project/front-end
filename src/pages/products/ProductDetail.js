@@ -68,7 +68,7 @@ function ProductDetail() {
         }
 
         const cartItem = {
-            userId: user?.user.userId, // 사용자 ID를 1로 설정
+            userId: user?.user.userId,
             count: parseInt(amount), // 수량
             optionId: selectedOption, // 선택된 옵션 ID 추가
             price: price,

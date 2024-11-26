@@ -37,6 +37,32 @@ export const callOrderPageApi = ({ cartItem, username }) => {
     };
 };
 
+// 장바구니에서 주문페이지 정보 조회
+export const callCartOrderAPI = ({ cartItems, username }) => {
+    let requestURL = `${prefix}/api/order/start?username=${username}`;
+
+    console.log("[CartApiCalls] requestURL : ", requestURL);
+
+    return async (dispatch, getState) => {
+        const result = await fetch(requestURL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "*/*",
+            },
+            body: JSON.stringify(cartItems), // 배열로 감싸기
+        }).then((response) => response.json());
+
+        if (result.status === 200) {
+            console.log("[CartApiCalls] callCartOrderAPI RESULT : ", result);
+            console.log("Result Data:", result.data); // 추가 로그
+            dispatch({ type: GET_ORDER_PAGE, payload: result.data });
+        } else {
+            console.error("API 호출 실패:", result);
+        }
+    };
+};
+
 export const callCancelOrderApi = ({ orderId }) => {
     let requestURL = `${prefix}/api/order/cancel/${orderId}`;
 

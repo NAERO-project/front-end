@@ -31,6 +31,7 @@ import Dashboard from "./pages/admin/Dashboard";
 import MainList from "./pages/products/MainList";
 import MyOrderDetail from "./pages/order/MyOrderDetail";
 import Cart from "./pages/cart/Cart";
+import CartOrder from "./pages/order/CartOrder";
 
 function App() {
 	return (
@@ -72,7 +73,8 @@ function App() {
 
           <Route path="order" element={<Order />} />
 
-          <Route path="cart" elemet={<Cart/>} />
+          <Route path="cart" element={<Cart/>} />
+          <Route path="cart-order" element={<CartOrder/>} />
 
           <Route path="mypage">{/* 회원들의 마이페이지 */}</Route>
 
