@@ -1,92 +1,107 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
 @font-face {
-    font-family: 'Pretendard';
-    src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
-    unicode-range: U+1100-11FF, U+AC00-D7AF; /* Korean Hangul */
+  font-family: "Pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+  unicode-range: U+1100-11FF, U+AC00-D7AF; /* Korean Hangul */
 }
 
 @font-face {
-    font-family: 'Montserrat';
-    src: url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-    unicode-range: U+0020-007F; /* Basic Latin */
+  font-family: "Montserrat";
+  src: url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+  unicode-range: U+0020-007F; /* Basic Latin */
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    border: 0px solid silver;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: 0px solid silver;
 }
 
 img {
-    width: 100px;
+  width: 100px;
 }
 
 body {
-    font-family: 'Pretendard', 'Montserrat', sans-serf;
-    color: #FFFDF8;
-    background-color: var(--main-bg-color);
+  font-family: "Pretendard", "Montserrat", sans-serf;
+  background-color: var(--main-bg-color);
 }
 
-ul{
-    list-style: none;
+ul {
+  list-style: none;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
-h1{
-    font-size: 45px;
+h1 {
+  font-size: 45px;
 }
 
-h2{
-    font-size: 34px;
+h2 {
+  font-size: 34px;
 }
 
-h3{
-    font-size: 24px;
-    font-weight: 300;
+h3 {
+  font-size: 24px;
+  font-weight: 300;
 }
 
-h4{
-    font-size: 20px;
+h4 {
+  font-size: 20px;
 }
 
-h5{
-    font-size: 12px;
+h5 {
+  font-size: 12px;
 }
 
-p{
-    font-size: 18px;
+p {
+  font-size: 18px;
 }
 
-button{
-    cursor: pointer;
+button {
+  cursor: pointer;
 }
 
 /* 컬러 */
 
 :root {
-    /* 페이지 컬러 */
-    --header-color: #F5F1E7;
-    --header-color: rgb(0, 0, 0, 0.8);
-    --main-bg-color: #FFFDF8;
-    --page-bg-color: #39393A;
+  /* 페이지 컬러 */
+  --header-color: #f5f1e7;
+  --header-color: rgb(0, 0, 0, 0.8);
+  --main-bg-color: #fffdf8;
+  --page-bg-color: #39393a;
 
-    /* 포인트 컬러 */
-    --main-color01: #7B9064; 
-    --main-color02: #A8B29D;
-    --main-color03: #546E7A;
-    --sub-color01: #BBDEFB;
-    --sub-color03: #C5E1A5;
+  /* 포인트 컬러 */
+  --main-color01: #7b9064;
+  --main-color02: #a8b29d;
+  --main-color03: #546e7a;
+  --main-color04: #41535C;
+  --sub-color01: #bbdefb;
+  --sub-color02: #c5e1a5;
+  --sub-color03: #7fffd4;
 
-    /* 텍스트 컬러 */
-    --text01 : #fff;
-    --text02 : #020202;
-    --text03: #757575 ;
-    --text03: #849076 ; 
-    --text04: #d1d1d1 ; 
+  /* 텍스트 컬러 */
+  --text01: #ffffff;
+  --text02: #202020;
+  --text03: #757575;
+  --text03: #849076;
+  --text04: #d1d1d1;
+
+  /* 간격 */
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 16px;
+  --spacing-lg: 28px;
+
+  /* 폰트 사이즈 */
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 18px;
+
+  /* 폰트 패밀리 */
+  --font-family: "Pretendard", "Montserrat", sans-serif;
 }
