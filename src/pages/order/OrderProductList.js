@@ -16,20 +16,16 @@ function OrderProductList({ orderId }) {
         dispatch(callMyPageOrderProductListApi({ orderId }));
     }, [dispatch, orderId]);
 
-    // const onClickProductHandler = (optionId) => {
-    //     navigate(`/products/${optionId}`, { replace: false });
-    // };
-
     const onClickProductHandler = (optionId) => {
         // optionId로 productId 조회
         dispatch(callGetProductIdByOptionIdApi(optionId));
     };
 
-    if (productId) {
-        navigate(`/products/${productId}`, { replace: false });
-    } else {
-        console.error("상품 ID를 찾을 수 없습니다.");
-    }
+    useEffect(() => {
+        if (productId && typeof productId === 'number') {
+            navigate(`/products/${productId}`, { replace: false });
+        } 
+    }, [productId]); // productId가 변경될 때마다 실행
 
     if (!orderProducts || !Array.isArray(orderProducts)) {
         return <div>로딩중...</div>;
@@ -42,7 +38,8 @@ function OrderProductList({ orderId }) {
                     <div className='' key={product.optionId} onClick={() => onClickProductHandler(product.optionId)}>
                         <img src={product.productImg} alt="주문상품 이미지" />
                         <p>{product.productName}</p>
-                        <p>{product.amount.toLocaleString("ko-KR")}원</p>
+                        <p>주문 상품 금액: {product.amount.toLocaleString("ko-KR")}원</p>
+                        <p>주문 상품 수량: {product.count}</p>
                     </div>
                 ))
             ) : (

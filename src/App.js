@@ -29,6 +29,7 @@ import OrderManage from "./pages/producer/OrderManage";
 import OrderUpdate from "./pages/producer/OrderUpdate";
 import Dashboard from "./pages/admin/Dashboard";
 import MainList from "./pages/products/MainList";
+import MyOrderDetail from "./pages/order/MyOrderDetail";
 
 // 문의 페이지 컴포넌트
 import QuestionList from "./pages/questions/QuestionList";
@@ -46,50 +47,35 @@ function App() {
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route path="/" element={<Layout />}>
-					<Route index element={<Main />} />
-					<Route path="preview/food" element={<MainFoodList />} />
-					<Route path="preview/beauty" element={<MainBeautyList />} />
-					<Route
-						path="preview/fashion"
-						element={<MainFashionList />}
-					/>
 
-					<Route path="products" element={<ProductPageLayout />}>
-						<Route path="more" element={<ProductMore />} />
-						<Route
-							path="more/:largeId"
-							element={<ProductCategory />}
-						/>
-						<Route
-							path="more/:largeId/:mediumId"
-							element={<ProductCategory />}
-						/>
-						<Route path=":productId" element={<ProductDetail />} />
-						<Route
-							path="brand/:producerId"
-							element={<BrandProducer />}
-						/>
+				<Route path='/' element={<Layout />}>
+					<Route index element={<Main />}/>
+          <Route path="preview/food" element={ <MainFoodList/> }/>
+					<Route path="preview/beauty" element={ <MainBeautyList/> }/>
+					<Route path="preview/fashion" element={ <MainFashionList/> }/>
+
+          <Route path='products' element={<ProductPageLayout/>}>
+						<Route path='more' element={ <ProductMore/> }/>
+						<Route path="more/:largeId" element={ <ProductCategory/> }/>
+						<Route path="more/:largeId/:mediumId" element={ <ProductCategory/> }/>
+						<Route path=":productId" element={ <ProductDetail/> }/>
+            <Route path="brand/:producerId" element={ <BrandProducer/> }/>
 					</Route>
 
-					<Route path="products/brand" element={<BrandPageLayout />}>
-						<Route path="home" element={<BrandProductList />} />
-						<Route
-							path="home/:producerId"
-							element={<BrandProductList />}
-						/>
-					</Route>
 
-					<Route path="mypage" element={<MypageLayout />}>
-						<Route path="detail" element={<UserDetail />} />
-						<Route path="update" element={<UpdateUser />} />
-						<Route
-							path="toproducer"
-							element={<ProducerSignup />}
-						></Route>
-						<Route path="order" element={<MyOrders />} />
-						{/* 회원들의 마이페이지 */}
-					</Route>
+          <Route path='products/brand' element={ <BrandPageLayout/> }>
+              <Route path="home" element={ <BrandProductList/> }/>
+              <Route path="home/:producerId" element={ <BrandProductList/> }/>
+            </Route>
+
+          <Route path='mypage' element={<MypageLayout />}>
+            <Route path='detail' element={<UserDetail />} />
+            <Route path='update' element={<UpdateUser />} />
+            <Route path='toproducer' element={<ProducerSignup />}></Route>
+            <Route path='order' element={<MyOrders />} />
+            <Route path='order-detail/:orderId' element={<MyOrderDetail />} />
+            {/* 회원들의 마이페이지 */}
+				  </Route>
 
 					{/* <Route path='brand' element={ <BrandPageLayout/> }>
             <Route path="home" element={ <BrandProductList/> }/>

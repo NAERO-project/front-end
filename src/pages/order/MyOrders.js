@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { decodeJwt } from "../../utils/tokenUtils";
 import OrderProductList from "./OrderProductList";
 
@@ -22,6 +22,8 @@ function MyOrders() {
     const [start, setStart] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [pageEnd, setPageEnd] = useState(1);
+    const [loading, setLoading] = useState(true); // 로딩 상태 추가
+    const [error, setError] = useState(null); // 에러 상태 추가
 
     const pageNumber = [];
     if (pageInfo) {
@@ -31,16 +33,32 @@ function MyOrders() {
     }
 
     useEffect(() => {
-        setStart((currentPage - 1) * 5);
-        dispatch(
-            callMyPageOrderListApi({
-                currentPage: currentPage,
-                username,
-            })
-        );
-        console.log('orders!!!!', orders);
-        console.log('orderlist!!!', orderList);
-    }, [currentPage]);
+        const fetchOrders = async () => {
+            setLoading(true);
+            setError(null); // 에러 초기화
+            try {
+                dispatch(callMyPageOrderListApi({ currentPage, username }));
+            } catch (err) {
+                setError('주문 목록을 불러오는 데 실패했습니다.');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchOrders();
+    }, [dispatch, currentPage, username]);
+
+    const onClickOrderDetailHandler = (orderId) => {
+        navigate(`/mypage/order-detail/${orderId}`);
+    };
+
+    if (loading) {
+        return <div>로딩 중...</div>; // 로딩 중일 때 표시할 UI
+    }
+
+    if (error) {
+        return <div>{error}</div>; // 에러 발생 시 표시할 UI
+    }
 
     return (
         <>
@@ -63,7 +81,9 @@ function MyOrders() {
                                             "ko-KR"
                                         )}
                                         원
-                                        <hr style={{ border: "1px solid #000" }} />
+                                        <hr
+                                            style={{ border: "1px solid #000" }}
+                                        />
                                         <br />
                                         <OrderProductList
                                             key={order.orderId}
@@ -74,18 +94,22 @@ function MyOrders() {
                                     <td>
                                         {order.orderStatus === "completed"
                                             ? "주문완료"
+                                            : order.orderStatus === "canceled"
+                                            ? "주문취소"
                                             : ""}
                                     </td>
                                     <td>
                                         {order.deliveryStatus === "pending"
-                                            ? "배송 전"
+                                            ? "배송전"
                                             : order.deliveryStatus ===
                                               "canceled"
                                             ? "배송취소"
-                                            : "배송완료"}
+                                            : order.deliveryStatus === "sent"
+                                            ? "배송완료"
+                                            : ""}
                                     </td>
                                     <td>
-                                        <button className="" onClick={() => {}}>
+                                        <button className="" onClick={() => onClickOrderDetailHandler(order.orderId)}>
                                             주문 상세
                                         </button>
                                     </td>
@@ -130,7 +154,7 @@ function MyOrders() {
                         onClick={() => setCurrentPage(currentPage + 1)}
                         disabled={
                             currentPage === pageInfo.pageEnd ||
-                            pageInfo.total == 0
+                            pageInfo.total === 0
                         }
                     >
                         &gt;
