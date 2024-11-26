@@ -34,7 +34,7 @@ function ProductManage() {
         dispatch(
             callProducerProductListPageApi({
                 currentPage: currentPage,
-                producerUsername: producerUsername
+                producerUsername: producerUsername,
             })
         );
     }, [currentPage]);
@@ -43,9 +43,14 @@ function ProductManage() {
         navigate("/producer/product-regist", { replace: false });
     };
 
-    const onClickTableTr = (productCode) => {
-		// navigate(`/producer/product-update/${productCode}`, { replace: false });
-	};
+    const onClickProductUpdate = (productId)=>{
+        navigate(`/producer/product-modify/${productId}`, {replace: false});
+        // navigate(`/producer/product-modify`, {replace: false});
+    }
+
+    // const onClickTableTr = (productId) => {
+	// 	navigate(`/producer/product-update/${productId}`, { replace: false });
+	// };
 
     return (
         <>
@@ -103,7 +108,7 @@ function ProductManage() {
                             productList.map((p) => (
                                 <tr
                                     key={p.productId}
-                                    onClick={() => onClickTableTr(p.productId)}
+                                    // onClick={() => onClickTableTr(p.productId)}
                                 >
                                     <td>{p.product.productId}</td>
                                     <td>{p.product.productName}</td>
@@ -117,7 +122,7 @@ function ProductManage() {
                                     <td></td>
                                     <td></td>
                                     <td className={ProductManageCSS.manage_btns}>
-                                        <button className={ButtonCSS.change_button}>수정</button>
+                                        <button className={ButtonCSS.change_button} onClick={() =>{onClickProductUpdate(p.product.productId)}}>수정</button>
                                         <button className={ButtonCSS.delete_button03}>삭제</button>
                                     </td>
                                 </tr>

@@ -29,6 +29,7 @@ import OrderManage from "./pages/producer/OrderManage";
 import OrderUpdate from "./pages/producer/OrderUpdate";
 import Dashboard from "./pages/admin/Dashboard";
 import MainList from "./pages/products/MainList";
+import ProductUpdate from "./pages/producer/ProductUpdate";
 
 function App() {
 	return (
@@ -75,6 +76,8 @@ function App() {
             <Route index element={<ProductManage />} />
             <Route path="product-manage" element={<ProductManage />} />
             <Route path="product-regist" element={<ProductRegist />} />
+            <Route path="product-modify/:productId" element={<ProductUpdate/>} />
+            {/* <Route path="product-modify" element={<ProductModify/>} /> */}
             <Route path='detail' element={<ProducerDetail />} />
             <Route path='update' element={<UpdateProducer />} />
             <Route path="order-manage" element={<OrderManage />} />

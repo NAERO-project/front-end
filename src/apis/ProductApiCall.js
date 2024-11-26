@@ -372,7 +372,7 @@ export const callProductDetailApi = ({productId}) =>{
 };
 
 /* 판매자 상품 등록 */
-export const callProductRegistAPI = ({ form, producerUsername}) =>{
+export const callProductRegistAPI = ({ form, producerUsername }) =>{
     console.log('[ProductAPICalls] callInsertProductApi Call');
 
     const requestURL = `${prefix}/api/products/insert?producerUsername=${producerUsername}`;
@@ -396,23 +396,57 @@ export const callProductRegistAPI = ({ form, producerUsername}) =>{
 
 
 /* 판매자 상품 수정 */
-export const callUpdateProductApi = ({ form }) =>{
+// export const callUpdateProductApi = ({ formData, productImage }) =>{
+//     console.log('[ProductAPICalls] callUpdateProductApi Call');
+
+//     const requestURL = `${prefix}/api/products/update?productImage=${productImage}`;
+//     // const requestURL = `${prefix}/api/products/update`;
+//     console.log("requestURL:", requestURL);
+//     return async (dispatch, getState) =>{
+//         const result = await fetch(requestURL, {
+//             method: 'PUT',
+//             headers: {
+//                 Accept: '*/*',
+//                 Authorization:
+//                     'Bearer ' + window.localStorage.getItem('accessToken')
+//             },
+//             mode: 'cors', // CORS 허용 모드
+//             credentials: 'include', // 쿠키를 전송해야 하는 경우
+
+//             body: formData,
+//         }).then((response) => response.json());
+
+//         console.log('[ProductAPICalls] callUpdateProductApi RESULT : ', result);
+
+//         dispatch({ type: PUT_PRODUCTS, payload: result });
+//     };
+// };
+
+/* 판매자 상품 수정 */
+export const callUpdateProductApi = ({ formData, productImage }) => {
     console.log('[ProductAPICalls] callUpdateProductApi Call');
 
-    const requestURL = `${prefix}/api/products`;
+    const requestURL = `${prefix}/api/products/update`;
+    console.log("requestURL:", requestURL);
 
-    return async (dispatch, getState) =>{
+    return async (dispatch, getState) => {
         const result = await fetch(requestURL, {
             method: 'PUT',
             headers: {
                 Accept: '*/*',
-                Authorization:
-                    'Bearer ' + window.localStorage.getItem('accessToken')
+                Authorization: 'Bearer ' + window.localStorage.getItem('accessToken'),
             },
-            body: form
-        }).then((response) => response.json());
+            mode: 'cors', // CORS 허용 모드
+            credentials: 'include', // 쿠키를 전송해야 하는 경우
+            body: formData, // FormData로 요청을 보냄
+        })
+            .then((response) => response.json())
+            .catch((error) => {
+                console.error('[ProductAPICalls] Error:', error);
+                throw error;
+            });
 
-        console.log('[ProductAPICalls] callUpdateProductApi RESULT : ', result);
+        console.log('[ProductAPICalls] callUpdateProductApi RESULT:', result);
 
         dispatch({ type: PUT_PRODUCTS, payload: result });
     };
