@@ -30,6 +30,7 @@ import OrderUpdate from "./pages/producer/OrderUpdate";
 import Dashboard from "./pages/admin/Dashboard";
 import MainList from "./pages/products/MainList";
 import ProductUpdate from "./pages/producer/ProductUpdate";
+import BannerManage from "./pages/producer/BannerManage";
 
 function App() {
 	return (
@@ -83,7 +84,7 @@ function App() {
             <Route path="order-manage" element={<OrderManage />} />
             <Route path="order-update/:orderId" element={<OrderUpdate />} />
             {/* <Route path="coupon-manage" element={<CouponManage />} /> */}
-            {/* <Route path="banner-manage" element={<BannerManage />} /> */}
+            <Route path="banner-manage/:producerUsername" element={<BannerManage />} />
             {/* <Route path="products/:producerId" element={ <ProducerItem/> }/> */}
           </Route>
 
