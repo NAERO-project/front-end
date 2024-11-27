@@ -2,20 +2,20 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { decodeJwt } from "../../utils/tokenUtils";
-import { callOrderPageApi, callInsertOrderApi } from "../../apis/OrderApiCall";
+import { callInsertOrderApi , callCartOrderAPI, callOrderPageApi } from "../../apis/OrderApiCall";
 import { callUserCouponApi } from "../../apis/CouponApiCall";
+import { callCartDeleteAPI } from "../../apis/CartApiCall";
 import Postcode from "react-daum-postcode";
 import ModalCSS from "../../components/common/Modal.module.css"; // 모달 스타일
 import * as PortOne from "@portone/browser-sdk/v2"; // 결제 API
 
-function Order() {
+function CartOrder() {
     const dispatch = useDispatch();
     const location = useLocation();
     const navigate = useNavigate();
     const orderData = useSelector((state) => state.orderReducer);
     const couponData = useSelector((state) => state.couponReducer);
-    // const cartItems = useSelector((state) => state.orderReducer.cartItems);
-    const { cartItem } = location.state || {}; // 상태에서 cartItem 가져오기
+    const { cartItems } = location.state || {}; // 상태에서 cartItems 가져오기
     const isLogin = window.localStorage.getItem("accessToken");
     const username = isLogin ? decodeJwt(isLogin).sub : null;
 
@@ -71,11 +71,11 @@ function Order() {
 
     // Redux 데이터 로드
     useEffect(() => {
-        console.log('cartItem 뭔데???', cartItem);
-        if (username && cartItem) {
-            dispatch(callOrderPageApi({ cartItem, username }));
+        console.log('cartItems 뭔데???', cartItems);
+        if (username && cartItems) {
+            dispatch(callCartOrderAPI({ cartItems: cartItems, username }));
         }
-    }, [cartItem, dispatch, username]);
+    }, [cartItems, dispatch, username]);
 
     // payRequest 초기화 및 업데이트
     useEffect(() => {
@@ -258,6 +258,11 @@ function Order() {
                     navigate
                 })
             );
+
+            // 결제 성공 후 장바구니에서 아이템 삭제
+            const cartIdsToDelete = cartItems.map(item => item.cartId);
+            await dispatch(callCartDeleteAPI({ cartIds: cartIdsToDelete }));
+
             return;
         }
 
@@ -279,13 +284,18 @@ function Order() {
             updatedPayRequest.paymentDTO.impUid = response.paymentId;
             updatedPayRequest.paymentDTO.transactionId = response.txId;
 
-            dispatch(
+            await dispatch(
                 callInsertOrderApi({
                     payRequest: updatedPayRequest,
                     username,
                     navigate
                 })
             );
+
+            // 결제 성공 후 장바구니에서 아이템 삭제
+            const cartIdsToDelete = cartItems.map(item => item.cartId);
+            await dispatch(callCartDeleteAPI({ cartIds: cartIdsToDelete }));
+
         } else {
             // 실패한 경우 처리
             console.error("결제 실패 또는 창 닫힘:", response);
@@ -366,6 +376,7 @@ const processEasyPay = async (provider) => {
                 navigate
             })
         );
+
     } else {
         // 실패한 경우 처리
         console.error("결제 실패 또는 창 닫힘:", response);
@@ -579,4 +590,4 @@ const processEasyPay = async (provider) => {
     );
 }
 
-export default Order;
+export default CartOrder;

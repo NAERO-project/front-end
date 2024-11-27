@@ -1,7 +1,7 @@
 import { createActions, handleActions } from "redux-actions";
 
 const initialState = {
-    products: [],
+    products: {},
     producerProducts: [],
 };
 
