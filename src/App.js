@@ -32,7 +32,6 @@ import MainList from "./pages/products/MainList";
 import MyOrderDetail from "./pages/order/MyOrderDetail";
 import Cart from "./pages/cart/Cart";
 import CartOrder from "./pages/order/CartOrder";
-import RequireAuth from "./components/common/RequireAuth";
 
 function App() {
 	return (
@@ -63,7 +62,7 @@ function App() {
             <Route path='detail' element={<UserDetail />} />
             <Route path='update' element={<UpdateUser />} />
             <Route path='toproducer' element={<ProducerSignup />}></Route>
-            <Route path='order' element={<RequireAuth><MyOrders /></RequireAuth>} />
+            <Route path='order' element={<MyOrders />} />
             <Route path='order-detail/:orderId' element={<MyOrderDetail />} />
             {/* 회원들의 마이페이지 */}
 				  </Route>

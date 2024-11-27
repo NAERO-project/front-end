@@ -7,8 +7,6 @@ import {
     callCartDeleteAPI,
     callCartUpdateAPI,
 } from "../../apis/CartApiCall";
-import { callCartOrderAPI } from "../../apis/OrderApiCall";
-import RequireAuth from "../../components/common/RequireAuth";
 import CartCSS from "./css/Cart.module.css";
 
 function isTokenExpired(decodedToken) {
@@ -24,8 +22,8 @@ function Cart() {
 
     const [selectedItems, setSelectedItems] = useState({});
 
-    const decodedToken = decodeJwt(isLogin);
     const isLogin = window.localStorage.getItem("accessToken");
+    const decodedToken = decodeJwt(isLogin);
     const username = isLogin ? decodeJwt(isLogin).sub : null;
 
     useEffect(() => {
@@ -185,4 +183,4 @@ function Cart() {
     );
 }
 
-export default RequireAuth(Cart);
+export default Cart;
