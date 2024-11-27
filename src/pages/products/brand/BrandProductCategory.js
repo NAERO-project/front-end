@@ -10,6 +10,7 @@ import MainList from "./MainList";
 import Banner from "../../components/common/banner/Banner";
 import BrandBanner from "../banner/BrandBanner";
 import ProductMore from "./ProductMore";
+import { callProducerProductCategoryListApi } from "../../../apis/ProductApiCall";
 
 function ProductCategory(){
     const navigate = useNavigate();
@@ -18,6 +19,7 @@ function ProductCategory(){
     const productList = products.data;
     const params = useParams();                 //URL에서 파라미터 가져오기
     const largeId = params.largeId;     //largeId를 가져온다
+    const producerId = params.producerId;
     const mediumCategoryId = params.mediumId;
     console.log("productList", productList);
 
@@ -35,8 +37,9 @@ function ProductCategory(){
             fetchData();
         },[currentPage, largeId]);
 
-    const fetchData=()=>{dispatch(callProductLargeCategoryListApi({
+    const fetchData=()=>{dispatch(callProducerProductCategoryListApi({
         currentPage: currentPage,
+        producerId,
         largeId
     }));
 };
@@ -47,7 +50,6 @@ function ProductCategory(){
 
     return(
         <div>
-            <BrandBanner/>
             <ProductNav/>
             <ProductMediumNav/>
             {largeId === '1' ? (

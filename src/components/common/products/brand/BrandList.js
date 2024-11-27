@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { callProducerProductListApi } from "../../../../apis/ProductApiCall";
+import { callBrandProductListPageApi, callProducerProductListApi } from "../../../../apis/ProductApiCall";
 import BrandListCSS from "./css/BrandList.module.css";
 import ButtonCSS from "../../Button.module.css";
 import BrandProduct from "./BrandProduct";
@@ -12,10 +12,14 @@ function BrandList({ brand: { producerId, producerName } }) {
 
     useEffect(() => {
         fetchData();
+    }, []);
+
+    useEffect(() => {
+        fetchData();
     }, [producerId]);
 
     const fetchData = () => {
-        dispatch(callProducerProductListApi(producerId));
+        dispatch(callBrandProductListPageApi(producerId));
     };
 
     // producerId에 맞는 상품만 필터링
@@ -25,7 +29,7 @@ function BrandList({ brand: { producerId, producerName } }) {
         <div className={BrandListCSS.box}>
             <div className={BrandListCSS.txt_box}>
                 <h1>{producerName}</h1>
-                <Link to={`/products/brand/${producerId}`}
+                <Link to={`/products/brand/home/${producerId}`}
                 className={`${ButtonCSS.more_button} ${BrandListCSS.more_button}`}
                 producerName={producerName}>
                     더보기

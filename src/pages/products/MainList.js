@@ -6,14 +6,21 @@ import MainProductNav from "../../components/common/products/MainProductNav";
 import Product from "../../components/common/products/Product";
 import MainListCSS from "./css/MainList.module.css";
 import ButtonCSS from "../../components/common/Button.module.css";
+import ProductPreviewNav from "../../components/common/products/ProductPreviewNav";
 
 function MainList(){
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { category, productId } = useParams();
 
+    console.log("메인 리스트 시작")
     const previewList = useSelector(state => state.productReducer);
     console.log("previewList", previewList);
+
+    useEffect(() => {
+        fetchData();
+    },[]);
+
     useEffect(() => {
             fetchData();
         },[category]);
@@ -27,18 +34,10 @@ function MainList(){
 
     return(
         <div className={MainListCSS.main_list}>
-            <MainProductNav/>
             <div className={MainListCSS.main_product_box}>
                 {Array.isArray(previewList) && previewList.map((product) => (
                     <Product key={product.productId} product={product}/>
                 ))}
-            </div>
-
-            <div className={MainListCSS.more_button}>
-                <NavLink to="/products/more" className={ButtonCSS.main_button}>
-                    <span>더보기</span>
-                    <span className={ButtonCSS.icon01}>-&gt;</span>
-                </NavLink>
             </div>
         </div>
             

@@ -96,36 +96,7 @@ export const callProductLargeCategoryListApi = ({ currentPage, largeId }) =>{
     };
 };
 
-/* 카테고리별 리스트 전체 조회 */
-export const callProductMediumCategoryListApi = ({ currentPage, largeId, mediumId }) =>{
-    
-    let requestURL;
-
-    if(currentPage !== undefined || currentPage !== null){
-        requestURL = `${prefix}/api/products/more/${largeId}/${mediumId}?offset=${currentPage}`;
-    }else{
-        requestURL = `${prefix}/api/products/more/${largeId}/${mediumId}`;
-    }
-
-    console.log('[productAPICalls] requestURL : ', requestURL);
-
-    return async (dispatch, getState) =>{
-        const result = await fetch(requestURL, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: '*/*'
-            }
-        }).then((response) => response.json());
-        console.log("여기?")
-        if(result.status === 200){
-            console.log('[ProduceAPICalls] callProductCategoryListApi RESULT : ', result);
-            dispatch({ type: GET_PRODUCTS, payload: result.data });
-        }
-    };
-};
-
-
+//1
 /* 상품 리스트 미리보기 조회 */
 export const callProductListPreviewApi = () =>{
 
@@ -149,34 +120,10 @@ export const callProductListPreviewApi = () =>{
     };
 };
 
-
-/* 식품 상품 리스트 미리보기 조회 */
-export const callProductPreviewFoodApi = () =>{
-
-    let requestURL = `${prefix}/api/products/preview/food`;
-
-    console.log('[productAPICalls] requestURL : ', requestURL);
-
-    return async (dispatch, getState) =>{
-        const result = await fetch(requestURL, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: '*/*'
-            }
-        }).then((response) => response.json());
-        if(result.status === 200){
-            console.log('[ProduceAPICalls] callProductListPreviewApi RESULT : ', result);
-            dispatch({ type: GET_PRODUCTS_PREVIEW_FOOD, payload: result.data });
-        }
-    };
-};
-
-
-/* 건강&뷰티 상품 리스트 미리보기 조회 */
-export const callProductPreviewBeautyApi = () =>{
-
-    let requestURL = `${prefix}/api/products/preview/beauty`;
+/* 카테고리별 리스트 미리보기 조회 */
+export const callProductLargeCategoryPreviewListApi = ( largeId ) =>{
+    
+    let requestURL = `${prefix}/api/products/preview/${largeId}`;
 
     console.log('[productAPICalls] requestURL : ', requestURL);
 
@@ -188,35 +135,84 @@ export const callProductPreviewBeautyApi = () =>{
                 Accept: '*/*'
             }
         }).then((response) => response.json());
+        console.log("여기?")
         if(result.status === 200){
-            console.log('[ProduceAPICalls] callProductPreviewBeautyApi RESULT : ', result);
-            dispatch({ type: GET_PRODUCTS_PREVIEW_BEAUTY, payload: result.data });
+            console.log('[ProduceAPICalls] callProductLargeCategoryPreviewListApi RESULT : ', result);
+            dispatch({ type: GET_PRODUCTS_PREVIEW, payload: result.data });
         }
     };
 };
 
 
-/* 의류 상품 리스트 미리보기 조회 */
-export const callProductPreviewFashionApi = () =>{
 
-    let requestURL = `${prefix}/api/products/preview/fashion`;
 
-    console.log('[productAPICalls] requestURL : ', requestURL);
+// /* 식품 상품 리스트 미리보기 조회 */
+// export const callProductPreviewFoodApi = () =>{
 
-    return async (dispatch, getState) =>{
-        const result = await fetch(requestURL, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: '*/*'
-            }
-        }).then((response) => response.json());
-        if(result.status === 200){
-            console.log('[ProduceAPICalls] callProductPreviewFashionApi RESULT : ', result);
-            dispatch({ type: GET_PRODUCTS_PREVIEW_FASHION, payload: result.data });
-        }
-    };
-};
+//     let requestURL = `${prefix}/api/products/preview/food`;
+
+//     console.log('[productAPICalls] requestURL : ', requestURL);
+
+//     return async (dispatch, getState) =>{
+//         const result = await fetch(requestURL, {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 Accept: '*/*'
+//             }
+//         }).then((response) => response.json());
+//         if(result.status === 200){
+//             console.log('[ProduceAPICalls] callProductListPreviewApi RESULT : ', result);
+//             dispatch({ type: GET_PRODUCTS_PREVIEW_FOOD, payload: result.data });
+//         }
+//     };
+// };
+
+
+// /* 건강&뷰티 상품 리스트 미리보기 조회 */
+// export const callProductPreviewBeautyApi = () =>{
+
+//     let requestURL = `${prefix}/api/products/preview/beauty`;
+
+//     console.log('[productAPICalls] requestURL : ', requestURL);
+
+//     return async (dispatch, getState) =>{
+//         const result = await fetch(requestURL, {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 Accept: '*/*'
+//             }
+//         }).then((response) => response.json());
+//         if(result.status === 200){
+//             console.log('[ProduceAPICalls] callProductPreviewBeautyApi RESULT : ', result);
+//             dispatch({ type: GET_PRODUCTS_PREVIEW_BEAUTY, payload: result.data });
+//         }
+//     };
+// };
+
+
+// /* 의류 상품 리스트 미리보기 조회 */
+// export const callProductPreviewFashionApi = () =>{
+
+//     let requestURL = `${prefix}/api/products/preview/fashion`;
+
+//     console.log('[productAPICalls] requestURL : ', requestURL);
+
+//     return async (dispatch, getState) =>{
+//         const result = await fetch(requestURL, {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 Accept: '*/*'
+//             }
+//         }).then((response) => response.json());
+//         if(result.status === 200){
+//             console.log('[ProduceAPICalls] callProductPreviewFashionApi RESULT : ', result);
+//             dispatch({ type: GET_PRODUCTS_PREVIEW_FASHION, payload: result.data });
+//         }
+//     };
+// };
 
 /* 전체 브랜드 페이지 조회 */
 export const callProducerListApi = () =>{
@@ -297,9 +293,9 @@ export const callBrandProductListPageApi = ({ currentPage, producerId }) =>{
     let requestURL;
 
     if(currentPage !== undefined || currentPage !== null){
-        requestURL = `${prefix}/api/products/producer/${producerId}?offset=${currentPage}`;
+        requestURL = `${prefix}/api/products/brand/${producerId}?offset=${currentPage}`;
     }else{
-        requestURL = `${prefix}/api/products/producer/${producerId}`;
+        requestURL = `${prefix}/api/products/brand/${producerId}`;
     }
 
     console.log('[productAPICalls] requestURL: ', requestURL);
@@ -321,14 +317,14 @@ export const callBrandProductListPageApi = ({ currentPage, producerId }) =>{
 
 
 /* 브랜드별 페이지 카테고리별 전체 상품 조회 (페이징) */
-export const callProducerProductCategoryListApi = ({ currentPage, producerId, mediumId }) =>{
+export const callProducerProductCategoryListApi = ({ currentPage, producerId, largeId }) =>{
 
     let requestURL;
 
     if(currentPage !== undefined || currentPage !== null){
-        requestURL = `${prefix}/api/products/producer/${producerId}/${mediumId}?offset=${currentPage}`;
+        requestURL = `${prefix}/api/products/brand/${producerId}/${largeId}?offset=${currentPage}`;
     }else{
-        requestURL = `${prefix}/api/products/producer/${producerId}/${mediumId}`;
+        requestURL = `${prefix}/api/products/brand/${producerId}/${largeId}`;
     }
 
     console.log('[productAPICalls] requestURL: ', requestURL);
@@ -372,7 +368,7 @@ export const callProductDetailApi = ({productId}) =>{
 };
 
 /* 판매자 상품 등록 */
-export const callProductRegistAPI = ({ form, producerUsername }) =>{
+export const callProductRegistAPI = ({ form, producerUsername}) =>{
     console.log('[ProductAPICalls] callInsertProductApi Call');
 
     const requestURL = `${prefix}/api/products/insert?producerUsername=${producerUsername}`;
@@ -396,57 +392,23 @@ export const callProductRegistAPI = ({ form, producerUsername }) =>{
 
 
 /* 판매자 상품 수정 */
-// export const callUpdateProductApi = ({ formData, productImage }) =>{
-//     console.log('[ProductAPICalls] callUpdateProductApi Call');
-
-//     const requestURL = `${prefix}/api/products/update?productImage=${productImage}`;
-//     // const requestURL = `${prefix}/api/products/update`;
-//     console.log("requestURL:", requestURL);
-//     return async (dispatch, getState) =>{
-//         const result = await fetch(requestURL, {
-//             method: 'PUT',
-//             headers: {
-//                 Accept: '*/*',
-//                 Authorization:
-//                     'Bearer ' + window.localStorage.getItem('accessToken')
-//             },
-//             mode: 'cors', // CORS 허용 모드
-//             credentials: 'include', // 쿠키를 전송해야 하는 경우
-
-//             body: formData,
-//         }).then((response) => response.json());
-
-//         console.log('[ProductAPICalls] callUpdateProductApi RESULT : ', result);
-
-//         dispatch({ type: PUT_PRODUCTS, payload: result });
-//     };
-// };
-
-/* 판매자 상품 수정 */
-export const callUpdateProductApi = ({ formData, productImage }) => {
+export const callUpdateProductApi = ({ form }) =>{
     console.log('[ProductAPICalls] callUpdateProductApi Call');
 
-    const requestURL = `${prefix}/api/products/update`;
-    console.log("requestURL:", requestURL);
+    const requestURL = `${prefix}/api/products`;
 
-    return async (dispatch, getState) => {
+    return async (dispatch, getState) =>{
         const result = await fetch(requestURL, {
             method: 'PUT',
             headers: {
                 Accept: '*/*',
-                Authorization: 'Bearer ' + window.localStorage.getItem('accessToken'),
+                Authorization:
+                    'Bearer ' + window.localStorage.getItem('accessToken')
             },
-            mode: 'cors', // CORS 허용 모드
-            credentials: 'include', // 쿠키를 전송해야 하는 경우
-            body: formData, // FormData로 요청을 보냄
-        })
-            .then((response) => response.json())
-            .catch((error) => {
-                console.error('[ProductAPICalls] Error:', error);
-                throw error;
-            });
+            body: form
+        }).then((response) => response.json());
 
-        console.log('[ProductAPICalls] callUpdateProductApi RESULT:', result);
+        console.log('[ProductAPICalls] callUpdateProductApi RESULT : ', result);
 
         dispatch({ type: PUT_PRODUCTS, payload: result });
     };
