@@ -29,6 +29,11 @@ import OrderManage from "./pages/producer/OrderManage";
 import OrderUpdate from "./pages/producer/OrderUpdate";
 import Dashboard from "./pages/admin/Dashboard";
 import MainList from "./pages/products/MainList";
+import ProductUpdate from "./pages/producer/ProductUpdate";
+import BannerManage from "./pages/producer/BannerManage";
+import AdminBannerManage from "./pages/admin/AdminBannerManage";
+import BannerRegist from "./pages/producer/BannerRegist";
+import AdminBannerUpdate from "./pages/admin/AdminBannerUpdate";
 import MyOrderDetail from "./pages/order/MyOrderDetail";
 import Cart from "./pages/cart/Cart";
 import CartOrder from "./pages/order/CartOrder";
@@ -82,12 +87,15 @@ function App() {
             <Route index element={<ProductManage />} />
             <Route path="product-manage" element={<ProductManage />} />
             <Route path="product-regist" element={<ProductRegist />} />
+            <Route path="product-modify/:productId" element={<ProductUpdate/>} />
+            {/* <Route path="product-modify" element={<ProductModify/>} /> */}
             <Route path='detail' element={<ProducerDetail />} />
             <Route path='update' element={<UpdateProducer />} />
             <Route path="order-manage" element={<OrderManage />} />
             <Route path="order-update/:orderId" element={<OrderUpdate />} />
             {/* <Route path="coupon-manage" element={<CouponManage />} /> */}
-            {/* <Route path="banner-manage" element={<BannerManage />} /> */}
+            <Route path="banner-manage" element={<BannerManage />} />
+            <Route path="banner-regist" element={<BannerRegist/>} />
             {/* <Route path="products/:producerId" element={ <ProducerItem/> }/> */}
           </Route>
 
@@ -98,6 +106,8 @@ function App() {
             <Route index element={<Dashboard />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="product-manage" element={<ProductManage />} />
+            <Route path="banner-manage" element={<AdminBannerManage />} />
+            <Route path="banner-update/:bannerId" element={<AdminBannerUpdate />} />
             {/* <Route path="user-manage" element={<UserManage />} /> */}
             {/* <Route path="producer-manage" element={<ProducerManage />} /> */}
             {/* <Route path="promotion-manage" element={<PromotionManage />} /> */}
