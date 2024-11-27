@@ -5,16 +5,16 @@ const initialState = [];
 export const GET_USER_COUPON = "coupon/GET_USER_COUPON";
 
 const actions = createActions({
-	[GET_USER_COUPON]: () => {}
+  [GET_USER_COUPON]: () => {},
 });
 
 const couponReducer = handleActions(
-	{
-		[GET_USER_COUPON]: (state, { payload }) => {
-			return payload;
-		}
-	},
-	initialState
+  {
+    [GET_USER_COUPON]: (state, { payload }) => {
+      return payload;
+    },
+  },
+  initialState
 );
 
 export default couponReducer;

@@ -1,51 +1,136 @@
-import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { decodeJwt } from "../../utils/tokenUtils";
-
+import { useDispatch } from "react-redux";
 import { callProducerOrderProductListApi } from "../../apis/OrderApiCall";
-
-import DeliverUpdateModal from "../../components/modal/DeliverUpdateModal";
+import { callShippingStatusListApi } from "../../apis/ShippingApiCall";
+import DeliveryUpdateModal from "../../components/shipping/DeliveryUpdateModal";
+import DeliveryTrackModal from "../../components/shipping/DeliveryTrackModal";
+import styles from "./css/ProductOrderProductList.module.css";
 
 function ProducerOrderProductList({ orderId }) {
-  const navigate = useNavigate();
+  const { orderId: routeOrderId } = useParams();
+  const effectiveOrderId =
+    orderId || routeOrderId || localStorage.getItem("currentOrderId");
+
+  const isLogin = window.localStorage.getItem("accessToken");
+  const producerUsername = isLogin ? decodeJwt(isLogin).sub : null;
+
   const dispatch = useDispatch();
 
-  const isLogin = window.localStorage.getItem("accessToken"); // Local Storage 에 token 정보 확인
-  const producerUsername = isLogin ? decodeJwt(isLogin).sub : null; // JWT에서 사용자 ID 추출
+  // Local states for producer products and shipping details
+  const [orderProducts, setOrderProducts] = useState([]);
+  const [shippingStatus, setShippingStatus] = useState("");
+  const [isDeliveryUpdateModalOpen, setIsDeliveryUpdateModalOpen] =
+    useState(false);
+  const [isDeliveryTrackModalOpen, setIsDeliveryTrackModalOpen] =
+    useState(false);
+  const [currentShippingId, setCurrentShippingId] = useState(null);
 
-  const orderProducts = useSelector(
-    (state) => state.orderReducer.producerProducts
-  );
+  // Fetch producer order products
+  const fetchOrderProducts = async () => {
+    try {
+      const response = await dispatch(
+        callProducerOrderProductListApi({
+          orderId: effectiveOrderId,
+          producerUsername: producerUsername,
+        })
+      );
+
+      console.log("Order Products Response:", response);
+
+      if (response?.length > 0) {
+        setOrderProducts(response);
+
+        const shippingId = response[0].shippingId;
+        setCurrentShippingId(shippingId);
+
+        const statusResponse = await dispatch(
+          callShippingStatusListApi(shippingId)
+        );
+
+        console.log("Shipping Status Response:", statusResponse);
+
+        setShippingStatus(statusResponse?.shippingStatus || "");
+      } else {
+        console.warn("No products found for the given order ID.");
+      }
+    } catch (error) {
+      console.error("Failed to fetch order products:", error);
+    }
+  };
 
   useEffect(() => {
-    dispatch(callProducerOrderProductListApi({ orderId, producerUsername }));
-    console.log("왜 안나오니...", orderProducts);
-  }, [dispatch, orderId]);
+    if (effectiveOrderId) {
+      localStorage.setItem("currentOrderId", effectiveOrderId);
+      fetchOrderProducts();
+    }
+  }, [effectiveOrderId]);
 
-  if (!orderProducts || !Array.isArray(orderProducts)) {
-    return <div>로딩중...</div>;
-  }
+  const handleDeliveryUpdateModalClose = async (success) => {
+    setIsDeliveryUpdateModalOpen(false);
+    if (success) {
+      fetchOrderProducts();
+    }
+  };
+
+  const handleDeliveryTrackModalClose = () => {
+    setIsDeliveryTrackModalOpen(false);
+  };
 
   return (
-    <div className="">
-      {orderProducts.length > 0 ? (
+    <div className={styles["product-list"]}>
+      {orderProducts?.length > 0 ? (
         orderProducts.map((product) => (
-          <div className="" key={product.optionId}>
-            <img src={product.productImg} alt="주문상품 이미지" />
-            <p>상품 이름: {product.productName}</p>
-            <p>상품 금액: {product.amount.toLocaleString("ko-KR")}원</p>
-            <p>주문 수량: {product.count.toLocaleString("ko-KR")}</p>
+          <div className={styles["product-item"]} key={product.optionId}>
+            <div>
+              <img
+                className={styles["product-image"]}
+                src={product.productImg}
+                alt="주문상품 이미지"
+              />
+            </div>
+            <div className={styles["product-info"]}>
+              <p className={styles["product-name"]}>{product.productName}</p>
+              <p className={styles["product-amount"]}>
+                {product.amount.toLocaleString("ko-KR")}&nbsp;원
+              </p>
+              <p className={styles["product-count"]}>
+                {product.count.toLocaleString("ko-KR")}&nbsp;개
+              </p>
+            </div>
           </div>
         ))
       ) : (
-        <div>상품이 없습니다.</div>
+        <p>주문된 상품이 없습니다.</p>
       )}
-      <div className="">
-        <button onClick={() => {}}>송장등록</button>
-        <br />
-        <br />
-        <button onClick={() => {}}>배송 조회</button>
+      <div className={styles["button-container"]}>
+        <button
+          className={styles["delivery-button"]}
+          onClick={() => setIsDeliveryUpdateModalOpen(true)}
+          disabled={shippingStatus !== "pending"}
+        >
+          송장등록
+        </button>
+        <button
+          className={styles["delivery-button"]}
+          onClick={() => setIsDeliveryTrackModalOpen(true)}
+          disabled={shippingStatus !== "sent"}
+        >
+          배송 조회
+        </button>
+        {isDeliveryUpdateModalOpen && (
+          <DeliveryUpdateModal
+            orderId={effectiveOrderId}
+            onClose={handleDeliveryUpdateModalClose}
+          />
+        )}
+        {isDeliveryTrackModalOpen && (
+          <DeliveryTrackModal
+            shippingId={currentShippingId}
+            onClose={handleDeliveryTrackModalClose}
+          />
+        )}
       </div>
     </div>
   );
