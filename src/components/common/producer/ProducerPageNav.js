@@ -36,9 +36,9 @@ function SellerPageNavBar() {
                     <NavLink to="/producer/coupon-manage" className={ProductSideNavContainerCSS.navLink}>쿠폰관리</NavLink>
                 </li>
                 <li className={`${ProductSideNavContainerCSS.navItem} ${
-              location.pathname === "/producer/banner-manage/:ProducerUsername" ? ProductSideNavContainerCSS.active : ""
+              location.pathname === "/producer/banner-manage" ? ProductSideNavContainerCSS.active : ""
             }`}>
-                    <NavLink to="/producer/banner-manage/:ProducerUsername" className={ProductSideNavContainerCSS.navLink}>배너관리</NavLink>
+                    <NavLink to="/producer/banner-manage" className={ProductSideNavContainerCSS.navLink}>배너관리</NavLink>
                 </li>
             </ul>
         </div>

@@ -1,25 +1,24 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { decodeJwt } from "../../utils/tokenUtils";
 import { useEffect, useState } from "react";
-import { callProducerBannerApi } from "../../apis/BannerApiCall";
+import { callAdminBannerApi } from "../../apis/BannerApiCall";
 
-function BannerManage(){
+function AdminBannerManage(){
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const params = useParams();
-    const isLogin = window.localStorage.getItem("accessToken"); // Local Storage 에 token 정보 확인
-    const producerUsername = isLogin ? decodeJwt(isLogin).sub : null; // JWT에서 사용자 ID 추출
+    // const params = useParams();
+    // const bannerId = params.bannerId;
 
     const banners = useSelector(state => state.bannerReducer);
     const bannerList = banners.data;
 
     console.log("bannerList: ", bannerList);
+    // console.log("bannerId", bannerId);
 
     const pageInfo = banners.pageInfo;
 
-    const [start, setStart] = useState(0);
+    // const [start, setStart] = useState(0);
 
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -31,25 +30,21 @@ function BannerManage(){
     }
 
     useEffect(() => {
-        setStart((currentPage - 1) * 5);
-        dispatch(
-            callProducerBannerApi({
-                currentPage: currentPage,
-                producerUsername: producerUsername,
-            })
-        );
-    }, [currentPage]);
+            fetchData();
+        },[]);
 
-    const onClickProductInsert = () => {
-        navigate("/producer/banner-regist", { replace: false });
-    };
+    const fetchData=()=>{
+        dispatch(callAdminBannerApi({
+            currentPage: currentPage
+        }))
+    }
+
+    const onClickBannerUpdate = (bannerId) =>{
+        navigate(`/admin/banner-update/${bannerId}`)
+    }
 
     return(
         <div>
-            <div>
-                <div></div>
-                <button onClick={onClickProductInsert}>등록</button>
-            </div>
             <table>
                     {/* 판매자의 상품 리스트 조회하는 부분 */}
                     {/* <colgroup>
@@ -104,6 +99,7 @@ function BannerManage(){
                                     <td>{b.approverId}</td>
                                     <td></td>
                                     <td>
+                                        <button onClick={() =>onClickBannerUpdate(b.bannerId)}>등록</button>
                                         <button>삭제</button>
                                     </td>
                                 </tr>
@@ -114,4 +110,4 @@ function BannerManage(){
     );
 }
 
-export default BannerManage;
+export default AdminBannerManage;
