@@ -18,7 +18,6 @@ function ProductDetail() {
     const navigate = useNavigate();
     const params = useParams();
     const productData = useSelector((state) => state.productReducer);
-    const user = useSelector((state) => state.userReducer.data || {}); // Redux에서 userId 가져오기
 
     const isLogin = window.localStorage.getItem("accessToken"); // Local Storage 에 token 정보 확인
     const username = isLogin ? decodeJwt(isLogin).sub : null; // JWT에서 사용자 ID 추출
@@ -30,16 +29,6 @@ function ProductDetail() {
     useEffect(() => {
         dispatch(callProductDetailApi({ productId: params.productId }));
     }, [params.productId]);
-
-    useEffect(() => {
-        dispatch(
-            callUserDetailAPI({
-                username: username,
-            })
-        );
-
-        console.log("userDetail 뭘 갖고 왔나???", user);
-    }, []);
 
     useEffect(() => {
         const selectedOptionData = productData?.options?.find(
@@ -75,13 +64,12 @@ function ProductDetail() {
         }
 
         const cartItem = {
-            userId: user?.user.userId,
             count: parseInt(amount), // 수량
             optionId: selectedOption, // 선택된 옵션 ID 추가
             price: price,
         };
 
-        dispatch(callCartInsertAPI({ cartItem }));
+        dispatch(callCartInsertAPI({ cartItem, username }));
     };
 
     const onClickOrderHandler = () => {
@@ -98,7 +86,6 @@ function ProductDetail() {
         }
 
         const cartItem = {
-            userId: user?.user.userId,
             count: parseInt(amount),
             optionId: selectedOption,
             amount: price,
@@ -155,20 +142,22 @@ function ProductDetail() {
                             <option value="">옵션 선택</option>
                             {productData &&
                                 productData.options &&
-                                productData.options.map((option) => (
-                                    <option
-                                        key={option.optionId}
-                                        value={option.optionId}
-                                        disabled={option.optionQuantity <= 0}
-                                        style={{
-                                            color: option.optionQuantity <= 0 ? 'gray' : 'black',
-                                        }}
-                                    >
-                                        {option.optionDesc} 
-                                        {option.optionQuantity <= 0 ? " (품절)" : ""} 
-                                        (추가 금액: {option.addPrice ? option.addPrice : 0} 원)
-                                    </option>
-                                ))}
+                                productData.options
+                                    .filter(option => option.optionCheck !== "N")
+                                    .map((option) => (
+                                        <option
+                                            key={option.optionId}
+                                            value={option.optionId}
+                                            disabled={option.optionQuantity <= 0}
+                                            style={{
+                                                color: option.optionQuantity <= 0 ? 'gray' : 'black',
+                                            }}
+                                        >
+                                            {option.optionDesc} 
+                                            {option.optionQuantity <= 0 ? " (품절)" : ""} 
+                                            (추가 금액: {option.addPrice ? option.addPrice : 0} 원)
+                                        </option>
+                                    ))}
                         </select>
 
                         <span className={ProductDetailCSS.amount}>

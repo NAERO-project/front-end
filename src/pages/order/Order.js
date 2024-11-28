@@ -20,6 +20,7 @@ function Order() {
     const username = isLogin ? decodeJwt(isLogin).sub : null;
 
     const [point, setPoint] = useState(0);
+    const [userPoint, setUserPoint] = useState(0);
     const [coupon, setCoupon] = useState([]);
     const [paymentMethod, setPaymentMethod] = useState(""); // 결제 수단 상태
     const [easyPayProvider, setEasyPayProvider] = useState(""); // 간편 결제 제공자 상태
@@ -64,14 +65,15 @@ function Order() {
             return 0;
         }
         return orderPageProductDTOList.reduce(
-            (total, item) => total + item.count * (item.amount + (item.addPrice || 0)),
+            (total, item) =>
+                total + item.count * (item.amount + (item.addPrice || 0)),
             0
         );
     }, [orderData]);
 
     // Redux 데이터 로드
     useEffect(() => {
-        console.log('cartItem 뭔데???', cartItem);
+        console.log("cartItem 뭔데???", cartItem);
         if (username && cartItem) {
             dispatch(callOrderPageApi({ cartItem, username }));
         }
@@ -95,6 +97,12 @@ function Order() {
                     amount: orderTotalAmount,
                 },
             }));
+            const addPoint =  (calculateOrderTotalAmount() +
+            (orderData.orderDTO?.deliveryFee || 0) -
+            (payRequest.orderDTO.couponDiscount || 0)) * 0.1;
+            console.log("addPoint", addPoint);
+            setUserPoint(addPoint);
+            setPoint(addPoint);
         }
     }, [orderData, calculateOrderTotalAmount]);
 
@@ -118,7 +126,9 @@ function Order() {
             orderDTO: {
                 ...prev.orderDTO,
                 postalCode: data.zonecode,
-                addressRoad: `${data.roadAddress}(${data.bname}, ${data.buildingName})` || "",
+                addressRoad:
+                    `${data.roadAddress}(${data.bname}, ${data.buildingName})` ||
+                    "",
                 addressDetail: "",
             },
         }));
@@ -140,16 +150,19 @@ function Order() {
     // 쿠폰 선택 핸들러
     const onChangeCouponHandler = (e) => {
         const selectedCouponId = e.target.value;
-        const selectedCoupon = coupon.find((c) => c.couponId === selectedCouponId);
+        const selectedCoupon = coupon.find(
+            (c) => c.couponId === selectedCouponId
+        );
         if (!selectedCoupon) {
-            alert("현재 주문건에 사용 불가한 쿠폰입니다.");
+            alert("해당 주문 건에 사용 불가한 쿠폰입니다.");
             return;
         }
 
         const discountAmount =
             selectedCoupon.couponType === "percent"
                 ? Math.min(
-                      calculateOrderTotalAmount() * (selectedCoupon.salePrice / 100),
+                      calculateOrderTotalAmount() *
+                          (selectedCoupon.salePrice / 100),
                       selectedCoupon.maxSalePrice
                   )
                 : selectedCoupon.salePrice;
@@ -243,7 +256,8 @@ function Order() {
             },
         };
 
-        const { paymentMethod: payMethod, easyPayProvider } = updatedPayRequest.paymentDTO;
+        const { paymentMethod: payMethod, easyPayProvider } =
+            updatedPayRequest.paymentDTO;
 
         if (!payMethod) {
             alert("결제 수단을 선택해주세요.");
@@ -255,7 +269,7 @@ function Order() {
                 callInsertOrderApi({
                     payRequest: updatedPayRequest,
                     username,
-                    navigate
+                    navigate,
                 })
             );
             return;
@@ -274,37 +288,42 @@ function Order() {
             });
 
             // 성공한 경우 처리
-        if (response.transactionType === "PAYMENT" && response.code !== "FAILURE_TYPE_PG") {
-            console.log("결제 성공:", response);
-            updatedPayRequest.paymentDTO.impUid = response.paymentId;
-            updatedPayRequest.paymentDTO.transactionId = response.txId;
+            if (
+                response.transactionType === "PAYMENT" &&
+                response.code !== "FAILURE_TYPE_PG"
+            ) {
+                console.log("결제 성공:", response);
+                updatedPayRequest.paymentDTO.impUid = response.paymentId;
+                updatedPayRequest.paymentDTO.transactionId = response.txId;
 
-            dispatch(
-                callInsertOrderApi({
-                    payRequest: updatedPayRequest,
-                    username,
-                    navigate
-                })
-            );
-        } else {
-            // 실패한 경우 처리
-            console.error("결제 실패 또는 창 닫힘:", response);
-            if (response.code === "FAILURE_TYPE_PG") {
-                alert("결제가 취소되었습니다.");
+                dispatch(
+                    callInsertOrderApi({
+                        payRequest: updatedPayRequest,
+                        username,
+                        navigate,
+                    })
+                );
             } else {
-                alert("결제 실패: " + (response.message || "알 수 없는 오류"));
+                // 실패한 경우 처리
+                console.error("결제 실패 또는 창 닫힘:", response);
+                if (response.code === "FAILURE_TYPE_PG") {
+                    alert("결제가 취소되었습니다.");
+                } else {
+                    alert(
+                        "결제 실패: " + (response.message || "알 수 없는 오류")
+                    );
+                }
             }
+        } catch (error) {
+            console.error("간편 결제 오류:", error);
+            alert("간편 결제 요청 중 오류가 발생했습니다.");
         }
-    } catch (error) {
-        console.error("간편 결제 오류:", error);
-        alert("간편 결제 요청 중 오류가 발생했습니다.");
-    }
     };
 
     const formattedCustomerIdentifier = (() => {
         const rawPhone = orderData?.userDTO?.userPhone || "";
         const sanitizedPhone = rawPhone.replace(/-/g, "").trim(); // 하이픈 제거 및 공백 제거
-    
+
         // 10~11자리 숫자인지 확인
         if (/^\d{10,11}$/.test(sanitizedPhone)) {
             return sanitizedPhone;
@@ -314,72 +333,78 @@ function Order() {
     })();
 
     // 간편 결제 진행 함수
-const processEasyPay = async (provider) => {
-    const orderTotalAmount =
-        calculateOrderTotalAmount() +
-        (orderData.orderDTO?.deliveryFee || 0) -
-        (payRequest.orderDTO.couponDiscount || 0);
+    const processEasyPay = async (provider) => {
+        const orderTotalAmount =
+            calculateOrderTotalAmount() +
+            (orderData.orderDTO?.deliveryFee || 0) -
+            (payRequest.orderDTO.couponDiscount || 0);
 
-    const updatedPayRequest = {
-        ...payRequest,
-        orderDTO: {
-            ...payRequest.orderDTO,
-            orderTotalAmount,
-            orderTotalCount: orderData?.orderDTO.orderTotalCount || 1,
-        },
-        paymentDTO: {
-            ...payRequest.paymentDTO,
-            amount: orderTotalAmount,
-            paymentMethod: "EASY_PAY",
-        },
-    };
-
-    try {
-        const response = await PortOne.requestPayment({
-            storeId: "store-83b99bc8-449f-47f1-84f3-2c6a3ff42d0a",
-            paymentId: `payment-${new Date().getTime()}`,
-            orderName: "naero-order",
-            totalAmount: updatedPayRequest.orderDTO.orderTotalAmount,
-            currency: "KRW",
-            channelKey: "channel-key-f319586f-8110-4c7c-8a71-f4a7e8adb6ad",
-            payMethod: "EASY_PAY",
-            easyPay: {
-                easyPayProvider: provider,
-                availablePayMethods: provider === "NAVERPAY" ? ["CHARGE"] : undefined,
-                cashReceiptType: "PERSONAL", // 현금영수증 발급 유형 추가
-                customerIdentifier: formattedCustomerIdentifier, // 고객 식별자 (전화번호)
+        const updatedPayRequest = {
+            ...payRequest,
+            orderDTO: {
+                ...payRequest.orderDTO,
+                orderTotalAmount,
+                orderTotalCount: orderData?.orderDTO.orderTotalCount || 1,
             },
-            receipt_url: `${window.location.origin}/products`,
-            isTestMode: true,
-        });
+            paymentDTO: {
+                ...payRequest.paymentDTO,
+                amount: orderTotalAmount,
+                paymentMethod: "EASY_PAY",
+            },
+        };
 
-       // 성공한 경우 처리
-       if (response.transactionType === "PAYMENT" && response.code !== "FAILURE_TYPE_PG") {
-        console.log("결제 성공:", response);
-        updatedPayRequest.paymentDTO.impUid = response.paymentId;
-        updatedPayRequest.paymentDTO.transactionId = response.txId;
+        try {
+            const response = await PortOne.requestPayment({
+                storeId: "store-83b99bc8-449f-47f1-84f3-2c6a3ff42d0a",
+                paymentId: `payment-${new Date().getTime()}`,
+                orderName: "naero-order",
+                totalAmount: updatedPayRequest.orderDTO.orderTotalAmount,
+                currency: "KRW",
+                channelKey: "channel-key-f319586f-8110-4c7c-8a71-f4a7e8adb6ad",
+                payMethod: "EASY_PAY",
+                easyPay: {
+                    easyPayProvider: provider,
+                    availablePayMethods:
+                        provider === "NAVERPAY" ? ["CHARGE"] : undefined,
+                    cashReceiptType: "PERSONAL", // 현금영수증 발급 유형 추가
+                    customerIdentifier: formattedCustomerIdentifier, // 고객 식별자 (전화번호)
+                },
+                receipt_url: `${window.location.origin}/products`,
+                isTestMode: true,
+            });
 
-        dispatch(
-            callInsertOrderApi({
-                payRequest: updatedPayRequest,
-                username,
-                navigate
-            })
-        );
-    } else {
-        // 실패한 경우 처리
-        console.error("결제 실패 또는 창 닫힘:", response);
-        if (response.code === "FAILURE_TYPE_PG") {
-            alert("결제가 취소되었습니다.");
-        } else {
-            alert("결제 실패: " + (response.message || "알 수 없는 오류"));
+            // 성공한 경우 처리
+            if (
+                response.transactionType === "PAYMENT" &&
+                response.code !== "FAILURE_TYPE_PG"
+            ) {
+                console.log("결제 성공:", response);
+                updatedPayRequest.paymentDTO.impUid = response.paymentId;
+                updatedPayRequest.paymentDTO.transactionId = response.txId;
+
+                dispatch(
+                    callInsertOrderApi({
+                        payRequest: updatedPayRequest,
+                        username,
+                        navigate,
+                    })
+                );
+            } else {
+                // 실패한 경우 처리
+                console.error("결제 실패 또는 창 닫힘:", response);
+                if (response.code === "FAILURE_TYPE_PG") {
+                    alert("결제가 취소되었습니다.");
+                } else {
+                    alert(
+                        "결제 실패: " + (response.message || "알 수 없는 오류")
+                    );
+                }
+            }
+        } catch (error) {
+            console.error("간편 결제 오류:", error);
+            alert("간편 결제 요청 중 오류가 발생했습니다.");
         }
-    }
-} catch (error) {
-    console.error("간편 결제 오류:", error);
-    alert("간편 결제 요청 중 오류가 발생했습니다.");
-}
-};
+    };
 
     // 버튼 클릭 이벤트
     const handleEasyPayClick = (provider) => {
@@ -547,12 +572,13 @@ const processEasyPay = async (provider) => {
                         type="radio"
                         value="BANK_TRANSFER"
                         checked={paymentMethod === "BANK_TRANSFER"}
-                        onChange={() => handlePaymentMethodChange("BANK_TRANSFER")}
+                        onChange={() =>
+                            handlePaymentMethodChange("BANK_TRANSFER")
+                        }
                     />
                     무통장입금
                 </label>
             </div>
-
             {/* 무통장입금을 선택한 경우 계좌 정보 및 입금자명 입력 */}
             {paymentMethod === "BANK_TRANSFER" && (
                 <div>
@@ -570,10 +596,14 @@ const processEasyPay = async (provider) => {
                     />
                 </div>
             )}
-
-            <button onClick={() => handleEasyPayClick("KAKAOPAY")}>카카오페이</button>
-            <button onClick={() => handleEasyPayClick("NAVERPAY")}>네이버페이</button>
+            <button onClick={() => handleEasyPayClick("KAKAOPAY")}>
+                카카오페이
+            </button>
+            <button onClick={() => handleEasyPayClick("NAVERPAY")}>
+                네이버페이
+            </button>
             <br />
+            <div>{userPoint.toLocaleString()} 환경기여 포인트 적립 예정</div>
             <button onClick={onClickPaymentHandler}>결제하기</button>
         </div>
     );
