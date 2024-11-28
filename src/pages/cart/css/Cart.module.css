@@ -1,0 +1,20 @@
+.item {
+    border: 1px solid #9cba9c;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.content {
+    /* padding: 100px;
+    margin: 20px; */
+    width: 1167px;
+    margin: 0 auto;
+    padding: 50px 0;
+    gap: 20px;
+}
+
+.title {
+    text-align: center;
+    color:darkgray;
+    padding-bottom: 30px;
+}

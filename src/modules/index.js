@@ -9,6 +9,7 @@ import { largeCategoryReducer, mediumCategoryReducer } from "./CategoryModule";
 import orderReducer from "./OrderModule";
 import bannerReducer from "./BannerModule";
 import paymentReducer from "./PaymentModule";
+import cartReducer from "./CartModule";
 import shippingReducer from "./ShippingModule";
 
 const rootReducer = combineReducers({
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   authReducer,
   dashboard: dashboardReducer,
   paymentReducer,
+  cartReducer,
   shipping: shippingReducer,
 });
 

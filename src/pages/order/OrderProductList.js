@@ -9,23 +9,32 @@ function OrderProductList({ orderId }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const orderProducts = useSelector((state) => state.orderReducer.products);
+    const orderProducts = useSelector((state) => state.orderReducer.products || []);
     const productId = useSelector((state) => state.productReducer.data);
     
     useEffect(() => {
-        dispatch(callMyPageOrderProductListApi({ orderId }));
+        
+            console.log("orderId 제대로 보내주고 있어??:", orderId);
+            dispatch(callMyPageOrderProductListApi({ orderId }));
+        
     }, [dispatch, orderId]);
 
+    useEffect(() => {
+        console.log("이상한걸 fetch 하네???????????", orderProducts);
+    }, [orderProducts]);
+
     const onClickProductHandler = (optionId) => {
-        // optionId로 productId 조회
-        dispatch(callGetProductIdByOptionIdApi(optionId));
+        if (optionId) {
+            dispatch(callGetProductIdByOptionIdApi(optionId));
+        }
     };
 
     useEffect(() => {
         if (productId && typeof productId === 'number') {
+            console.log("Navigating to productId:", productId);
             navigate(`/products/${productId}`, { replace: false });
-        } 
-    }, [productId]); // productId가 변경될 때마다 실행
+        }
+    }, [productId]);
 
     if (!orderProducts || !Array.isArray(orderProducts)) {
         return <div>로딩중...</div>;

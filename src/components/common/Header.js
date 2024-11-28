@@ -107,7 +107,7 @@ function Header(props) {
         </div>
         <div className={HeaderCSS.NavLinkItem}>
           <LuShoppingCart className={HeaderCSS.Icon} />
-          <NavLink to="/login">장바구니</NavLink>
+          <NavLink to="/cart">장바구니</NavLink>
         </div>
         <div className={HeaderCSS.NavLinkItem}>
           <MdOutlineNotificationsActive className={HeaderCSS.Icon} />
