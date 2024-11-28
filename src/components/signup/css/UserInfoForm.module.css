@@ -1,0 +1,25 @@
+.info{
+    display: flex;
+    /* width: 522px; */
+    height: 40px;
+    margin: 10px 0;
+}
+
+.info p{
+    width: 70px;
+    margin: 0 18px 0 0;
+}
+
+.txt{
+    width: 408px;
+    height: 40px;
+    color: #828282;
+    border-radius: 30px;
+    background-color: #fff;
+    border: 1px solid #828282;
+}
+
+.txt p{
+    padding: 5px 10px;
+    width: 100%;
+}

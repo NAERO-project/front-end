@@ -10,6 +10,7 @@ import MainList from "./MainList";
 import Banner from "../../components/common/banner/Banner";
 import BrandBanner from "../banner/BrandBanner";
 import ProductMore from "./ProductMore";
+import SimpleBanner from "../../components/common/banner/SimpleBanner";
 
 function ProductCategory(){
     const navigate = useNavigate();
@@ -47,7 +48,7 @@ function ProductCategory(){
 
     return(
         <div>
-            <BrandBanner/>
+            <SimpleBanner/>
             <ProductNav/>
             <ProductMediumNav/>
             {largeId === '1' ? (

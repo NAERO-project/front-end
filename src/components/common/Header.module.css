@@ -20,6 +20,7 @@
 
 /* Logo styles */
 .LogoImage {
+  padding: 6px 0;
   cursor: pointer;
   height: 40px;
 }
@@ -43,11 +44,11 @@
   transition: all 0.1s ease;
 }
 
-.NavLinkItem:hover .Icon,
+/* .NavLinkItem:hover .Icon,
 .NavLinkItem:hover a,
 .NavLinkItem:hover .LogoutButton {
   color: var(--sub-color03);
-}
+} */
 
 /* Link and button styles */
 .NavLinkItem a,
