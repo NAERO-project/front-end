@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { callProductPreviewFoodApi } from "../../apis/ProductApiCall";
 import MainProductNav from "../../components/common/products/MainProductNav";
-import MainListCSS from "./MainList.module.css";
+import MainListCSS from "./css/MainList.module.css"
 import Product from "../../components/common/products/Product";
 import ButtonCSS from "../../components/common/Button.module.css";
+import MainBanner from "../banner/MainBanner";
 
 
 function MainFoodList(){
@@ -27,7 +28,8 @@ function MainFoodList(){
     },[previewList]);
 
     return(
-        <div className={MainListCSS.main_list}>
+        <>
+            <div className={MainListCSS.main_list}>
             <MainProductNav/>
             <div className={MainListCSS.main_product_box}>
                 {Array.isArray(previewList) && previewList.map((product) => (
@@ -42,6 +44,7 @@ function MainFoodList(){
                 </NavLink>
             </div>
         </div>
+        </>
             
     );
 }

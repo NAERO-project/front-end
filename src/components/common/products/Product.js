@@ -1,37 +1,37 @@
-import { useNavigate } from "react-router-dom";
-import ProductCSS from './Product.module.css';
+import { useNavigate, useParams } from "react-router-dom";
+import ProductCSS from "./css/Product.module.css"
 import { FaRegHeart } from "react-icons/fa6";
 import { LuShoppingCart } from "react-icons/lu";
-import GlobalCSS from "../../common/Global.module.css";
+import ButtonCSS from "../../common/Button.module.css";
 
 function Product({
-    product: { productId, productName, productPrice, productImg, smallCategoryId },
+    product: { productId, productName, productPrice, productImg, smallCategory: {smallCategoryName}}
 }){
 
     const navigate = useNavigate();
 
     const onClickProductHandler = (productId) => {
-        navigate(`/product/${productId}`, {replace: false});
+        navigate(`/products/${productId}`, {replace: false});
     };
 
     return(
         <div
-        className={ProductCSS.ProductBox}
+        className={ProductCSS.product_box}
         onClick={() => onClickProductHandler(productId)}>
-            <div className={ProductCSS.productImgBox}>
+            <div className={ProductCSS.product_img_box}>
                 <img src={productImg} alt={productName}/>
             </div>
-            <div className={ProductCSS.ProductTextBox}>
+            <div className={ProductCSS.product_text_box}>
                 <div>
                     <p>{productName}</p>
-                    <div className={ProductCSS.ProductIconBox}>
+                    <div className={ProductCSS.product_icon_box}>
                         <p><FaRegHeart/></p>
                         <p><LuShoppingCart/></p>
                     </div>
                 </div>
                 <div>
                     <p>{productPrice.toLocaleString()}원</p>
-                    <h5 className={GlobalCSS.ProductTag}>{smallCategoryId}</h5>
+                    <span className={ButtonCSS.product_tag}>{smallCategoryName}</span>
                 </div>
             </div>
         </div>

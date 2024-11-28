@@ -96,7 +96,7 @@
 .change_button{
     width: 70px;
     height: 30px;
-    padding: 4px 0;
+    padding: 2px 0;
     font-size: 18px;
     font-weight: 300;
     text-align: center;
@@ -152,7 +152,8 @@
 .more_button{
     width: 120px;
     height: 45px;
-    padding: 12px 0;
+    display: inline-block;
+    padding: 10px 0;
     font-size: 18px;
     font-weight: 300;
     text-align: center;
@@ -165,7 +166,7 @@
   width: 30px;
   height: 30px;
   margin: 0 0 0 10px;
-  padding: 3px 5px;
+  padding: 3px 8px;
   border-radius: 50%;
   color: #849076;
   background-color: var(--text01);
@@ -267,7 +268,7 @@
 .producer_button01{
     width: 125px;
     height: 50px;
-    padding: 12px 0;
+    padding: 10px 0;
     font-size: 21px;
     font-weight: 300;
     text-align: center;
@@ -333,7 +334,7 @@
 .delete_button03{
     width: 70px;
     height: 30px;
-    padding: 4px 0;
+    padding: 1px 0;
     font-size: 18px;
     font-weight: 300;
     text-align: center;
@@ -345,10 +346,10 @@
 
 
 /* 카테고리 태그 */
-.ProductTag{ 
+.product_tag{ 
     padding: 4px 10px;
     border-radius: 10px;
-    font-size: 18px;
+    font-size: 12px;
     font-weight: 300;
     color: var(--text01);
     background-color: var(--sub-color01);

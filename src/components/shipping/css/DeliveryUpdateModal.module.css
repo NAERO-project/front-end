@@ -1,0 +1,82 @@
+/* TODO: 배송 정보 수정 모달 작업 */
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #e8e8e7;
+  padding: 50px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 450px; /* Adjust width as needed */
+}
+
+.input-container {
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  border-radius: 30px;
+}
+
+.input-container label {
+  margin-left: 15px; /* Space between label and input */
+  width: 65px;
+  text-align: center;
+}
+
+.input-container .vertical-line {
+  width: 1px; /* Width of the vertical line */
+  background-color: #ccc; /* Color of the vertical line */
+  height: 20px; /* Height of the vertical line */
+  margin: 0 10px; /* Space around the vertical line */
+}
+
+.input-container input[type="text"],
+.input-container select {
+  flex: 1;
+  background-color: #fff;
+  margin-right: 15px;
+  padding: 10px 10px 10px 10px;
+  border-radius: 0px 30px 30px 0px;
+}
+
+.input-container input[type="text"]:focus,
+.input-container select:focus {
+  border: none;
+  outline: none;
+}
+
+.error-message {
+  color: red;
+  text-align: left; /* Align text to the left */
+  font-size: 14px;
+  margin: -15px 0px 15px 110px;
+}
+
+.execute-button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sub-button {
+  width: 165px;
+  padding: 10px;
+  color: #fff;
+  text-align: center;
+  border-radius: 10px;
+  background-color: #7b9064;
+}
+
+.sub-button:hover {
+  opacity: 0.8;
+}
