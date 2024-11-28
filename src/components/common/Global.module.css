@@ -93,16 +93,16 @@ button {
   --text04: #d1d1d1;
 
   /* 간격 */
-  /* --spacing-xs: 8px;
+  --spacing-xs: 8px;
   --spacing-sm: 12px;
   --spacing-md: 16px;
-  --spacing-lg: 28px; */
+  --spacing-lg: 28px;
 
   /* 폰트 사이즈 */
-  /* --font-size-sm: 14px;
+  --font-size-sm: 14px;
   --font-size-md: 16px;
-  --font-size-lg: 18px; */
+  --font-size-lg: 18px;
 
   /* 폰트 패밀리 */
-  /* --font-family: "Pretendard", "Montserrat", sans-serif; */
+  --font-family: "Pretendard", "Montserrat", sans-serif;
 }
