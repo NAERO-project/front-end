@@ -8,13 +8,21 @@ import {
     callQuestionDeleteApi,
 } from '../../apis/QuestionAPICalls'
 
+import {
+    callAnswerDetailApi
+} from '../../apis/AnswerAPICalls'
+
 function QuestionDetail() {
     
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const params = useParams();
-    const question = useSelector(state => state.questionReducer || {});
+    const question = useSelector(state => state.questionReducer || {});     
     const questionDetail = question || {};
+    const answer = useSelector(state => state.answerReducer.answer || {});
+    const answerDetail = answer || {};
+    console.log("answerDetail", answerDetail);
+    console.log("answer", answer);
     const isLogin = window.localStorage.getItem("accessToken"); // Local Storage 에 token 정보 확인
     const username = isLogin ? decodeJwt(isLogin).sub : null; 
     
@@ -25,9 +33,17 @@ function QuestionDetail() {
     // 질문 상세 정보를 가져오는 API 호출
     useEffect(() => {
         console.log('[questionDetail] questionId : ', params.questionId);
-        dispatch(callQuestionDetailApi(params.questionId, username));            
-    }, [dispatch, params.questionId, username]);
+        
+        dispatch(callQuestionDetailApi(params.questionId, params.answerId, username));            
+    }, [dispatch, params.questionId, params.answerId, username]);
 
+    useEffect(() => {
+        
+        console.log('[answerIdDetail] answerId : ', params.answerId)
+        dispatch(callAnswerDetailApi(params.answerId, params.questionId, username))
+    }, [dispatch, params.answerId, params.questionId, username])
+
+    
     const onChangeHandler = (e) => {
         setForm({
             ...form,
@@ -65,22 +81,35 @@ function QuestionDetail() {
 
     return (
         <>
+            <div>
+            <h1>답변 상세 페이지</h1>
             {questionDetail && (
                 <div>
-                    <h1>1:1 문의 상세 페이지</h1>
-                    <h1>{questionDetail.questionTitle}</h1>
-                    <p>{questionDetail.questionContent}</p>
-                    <p>{questionDetail.questionDate}</p>
-                    <p>{questionDetail.questionStatus}</p>
-                    <div>
-                        <button onClick={() => navigate(-1)}>뒤로가기</button>
-                        <button onClick={handleDelete}>삭제</button>
-                        <button onClick={() => navigate(`/mypage/questions/edit/${questionDetail.questionId}`)}>
-                            수정 페이지로 이동
-                        </button>
-                    </div>
+                    <h2>질문 제목: {questionDetail.questionTitle}</h2>
+                    <p>질문 내용: {questionDetail.questionContent}</p>
                 </div>
             )}
+            {answer ? (
+                <div>
+                    <h2>답변 제목: {answer.answerTitle}</h2>
+                    <p>답변 내용: {answer.answerContent}</p>
+                    <p>답변 날짜: {answer.answerDate}</p>
+                    <p>답변 상태: {answer.questionStatus}</p>
+                    <div>
+                        {questionDetail.questionStatus === true || questionDetail.questionStatus === 1 ? (
+                            <>
+                                <button onClick={handleDelete}>삭제</button>
+                                <button onClick={() => navigate(`/mypage/questions/edit/${questionDetail.questionId}`)}>
+                                    수정 페이지로 이동
+                                </button>
+                            </>
+                        ) : null}
+                    </div>
+                </div>
+            ) : (
+                <p>답변이 없습니다.</p>
+            )}
+        </div>
         </>
     );
 }

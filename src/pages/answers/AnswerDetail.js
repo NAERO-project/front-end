@@ -99,7 +99,6 @@ function AnswerDetail() {
                     <h2>답변 제목: {answer.answerTitle}</h2>
                     <p>답변 내용: {answer.answerContent}</p>
                     <p>답변 날짜: {answer.answerDate}</p>
-                    <p>답변 상태: {answer.questionStatus}</p>
                     <div>
                         {question.questionStatus === true || question.questionStatus === 1 ? (
                             <>

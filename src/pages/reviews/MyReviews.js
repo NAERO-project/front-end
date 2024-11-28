@@ -16,7 +16,7 @@ const MyReviews = () => {
     console.log("data", data);
     const reviews = data.reviews ? data.reviews.content : [];
     // const productId = data.reviews.data.productId
-    const productId = reviews.map(review => review.productId);
+    const productId = reviews?.map(review => review.productId);
     console.log("reviews : ", reviews);
     console.log("productId : ", productId);
 
@@ -61,7 +61,7 @@ const MyReviews = () => {
             <button onClick={handleAddReview}>리뷰 등록</button>
             <ul>
                 {reviews && reviews.length > 0 ? (
-                    reviews.map(review => (
+                    reviews?.map(review => (
                         <li key={review.reviewId} onClick={() => handleReviewClick(review.reviewId)}>
                             <p>{review.review}</p>
                             {review.reviewImage && (
@@ -89,7 +89,7 @@ const MyReviews = () => {
                         &lt;
                     </button>
                 )}
-                {pageNumber.map((num) => (
+                {pageNumber?.map((num) => (
                     <li key={num} onClick={() => setCurrentPage(num)}>
                         <button
                             style={

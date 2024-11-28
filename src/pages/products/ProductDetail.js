@@ -26,9 +26,14 @@ function ProductDetail() {
     const username = isLogin ? decodeJwt(isLogin).sub : null; // JWT에서 사용자 ID 추출
 
     // 상품 후기
-    const reviewData = useSelector((state) => state.reviewReducer.data);
+    const reviewData = useSelector((state) => state.reviewReducer);
+    
+    // console.log("reviewData", reviews);
+    // const reviewData = useSelector((state) => reviews.ProductDetail.data);
     console.log("reviewData", reviewData);
+
     const pageInfo = useSelector((state) => state.reviewReducer.pageInfo || {pageEnd: 0});
+    console.log("pageInfo", pageInfo);
 
     const [start, setStart] = useState(0);
     const [pageEnd, setPageEnd] = useState(1);
@@ -63,8 +68,9 @@ function ProductDetail() {
     }, [amount, selectedOption, productData]);
 
     useEffect(() => {
-        dispatch(callReviewsByProductAPI({ productId: params.productId, reviewData, currentPage}));
-    }, [params.productId, reviewData, currentPage]);
+        console.log("productId", params.productId, "reviewData", reviewData);
+        dispatch(callReviewsByProductAPI({ productId: params.productId, currentPage }));
+    }, [params.productId, currentPage]);
 
     const onChangeAmountHandler = (e) => {
         setAmount(e.target.value);
@@ -204,8 +210,22 @@ function ProductDetail() {
                         </div>
 
                         <div>
-
+                            <h1>상품 후기</h1>
                         </div>
+                        {reviewData.ProductReview && Array.isArray(reviewData.ProductReview.data) && reviewData.ProductReview.data.length > 0 ? ( // 후기 데이터가 존재하는 경우
+                            <div>
+                                {reviewData.ProductReview.data.map((review) => ( // ProductReview.data에서 리뷰 배열 가져오기
+                                    <div key={review.reviewId}>
+                                        <h4>{review.review}</h4>
+                                        <p>{review.date}</p>
+                                        <p>평점: {review.reviewRating}점</p>
+                                        {review.reviewImage && <img src={review.reviewImage} alt="리뷰 이미지" />} {/* 리뷰 이미지 추가 */}
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <p>상품 후기가 없습니다.</p>
+                        )}
                         <div
                             style={{
                                 listStyleType: "none",

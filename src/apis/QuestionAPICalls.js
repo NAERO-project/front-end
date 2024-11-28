@@ -37,8 +37,8 @@ export const callQuestionListApi = ({ currentPage, username }) => {
 };
 
 /* 1:1 문의 상세 조회 */
-export const callQuestionDetailApi = (questionId, username) => {
-    const requestURL = `${prefix}/questions/${username}/${questionId}`;
+export const callQuestionDetailApi = (questionId, answerId, username) => {
+    const requestURL = `${prefix}/questions/${questionId}/${username}`;
 
     console.log('[QuestionAPICalls] requestURL: ', requestURL);
 
