@@ -19,7 +19,7 @@ function ProducerDetailManage(props) {
 
 	return (
         <div style={{ color: "black" }}>
-            <NavLink>수정하기</NavLink>
+            <NavLink  to={"/admin/producer-update/"+username}>수정하기</NavLink>
 			{producer && (
 				<div>
 					{producer.producerName && (

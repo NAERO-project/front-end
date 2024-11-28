@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 
 function UserInfoForm({ user }) {
+    console.log(user)
 	return (
 		<div>
 			<p>이름 : {user.userFullName}</p>

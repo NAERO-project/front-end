@@ -13,10 +13,10 @@ function UserDetailManage(props) {
 	const user = (get.user !== undefined) ? get.user : get;
     useEffect(() => {
 		dispatch(callUserDetailManageAPI({ username: username }));
-	}, [username]);
+    }, [username]);
     return (
         <div>
-            <NavLink  >수정하기</NavLink>
+            <NavLink to={"/admin/user-update/"+username} >수정하기</NavLink>
 
             {user && (<UserInfoForm user={user}></UserInfoForm>)}
         </div>

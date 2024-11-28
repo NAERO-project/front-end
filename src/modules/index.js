@@ -7,7 +7,9 @@ import { manageDetailReducer, manageTableReducer } from "./ManageModule";
 const rootReducer = combineReducers({
 	userReducer,
 	productReducer,
-	authReducer, manageTableReducer, manageDetailReducer
+    authReducer,
+    manageTableReducer,
+    manageDetailReducer
 });
 
 export default rootReducer;

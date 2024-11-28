@@ -15,8 +15,31 @@ const actions = createActions({
 	[UPDATE_PRODUCER_DETAIL]: () => {},
 });
 
+/*
+//[{ largecategory: 1, name: 기타, midddle: [{Id:0,name:기타}]
+//},{ largecategory: 2, name: 기타, midddle:[]
+//},{ largecategory: 3, name: 기타, midddle:[]
+    }]
+    [GET_middle_state]: (state, { payload }) => {
+        //payload = {
+        //    largecategory: 1,
+        //    middlecategory: [{Id:0,name:기타}]
+        //}
+        fixstate = state
+        fixstate.map(f => { 
+            if (f.largecategory == payload.largecategory) { 
+                f.midddle =payload.middlecategory
+            }
+        }
+            
+        )
+        return {
+            fixstate
+        };
+    },
+*/;
 const manageTableReducer = handleActions(
-	{
+    {
         [GET_USER_LIST]: (state, { payload }) => {
             const curpage = payload.message.split("/")[0]
             const totalpage = payload.message.split("/")[1] 
@@ -26,7 +49,8 @@ const manageTableReducer = handleActions(
                 totalpage: totalpage
             };
 		},
-		[GET_PRODUCER_LIST]: (state, { payload }) => { const curpage = payload.message.split("/")[0]
+        [GET_PRODUCER_LIST]: (state, { payload }) => {
+            const curpage = payload.message.split("/")[0]
             const totalpage = payload.message.split("/")[1] 
             return {
                 data: payload.data,
