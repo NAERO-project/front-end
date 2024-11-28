@@ -422,7 +422,10 @@ export const callProductRegistAPI = ({ form, producerUsername}) =>{
 /* 판매자 상품 수정 */
 export const callUpdateProductApi = ({ form }) => {
     console.log("[ProductAPICalls] callUpdateProductApi Call");
-    console.log("가져왔나?", form);
+
+    for (let [key, value] of form.entries()) {
+        console.log(`2222${key}: ${value}`);
+    }
 
     const requestURL = `${prefix}/api/products/update`;
     console.log("requestURL:", requestURL);
