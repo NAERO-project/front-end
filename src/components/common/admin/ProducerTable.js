@@ -1,6 +1,7 @@
 import { Table } from "react-bootstrap";
-import NoInfoGuide from "../NoInfoGuide";
+import NoInfoGuide from "./NoInfoGuide";
 import { useNavigate } from "react-router-dom";
+import TableCSS from "./css/UserTableStyle.module.css"
 
 function ProducerTable(props) {
     const { tableInfo } = props;
@@ -10,7 +11,8 @@ function ProducerTable(props) {
     }
 
     console.log("tableInfo",tableInfo)
-    return (<>{tableInfo && tableInfo.length>0? <Table striped bordered  >
+    return (<div className={TableCSS.table_box}>{tableInfo && tableInfo.length > 0 ?
+        <table className={TableCSS.table_style} >
         <thead>
             <tr>
                 <th>회원 번호</th>
@@ -22,7 +24,8 @@ function ProducerTable(props) {
         </thead>
         <tbody>
             {tableInfo.map((value, index, array) => {
-                return (<tr onClick={() => {toDetail(value.username)}}>
+                return (<tr className={TableCSS.tr_style}
+                    onClick={() => { toDetail(value.username) }}>
                     <td>
                         {value.userId}
                     </td>
@@ -42,11 +45,11 @@ function ProducerTable(props) {
                 </tr>)
             }) }
         </tbody>
-    </Table>
+    </table>
         :
         <NoInfoGuide/>
 }
-    </>)
+    </div>)
 }
 
 

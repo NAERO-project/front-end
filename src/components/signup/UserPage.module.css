@@ -1,0 +1,121 @@
+.signup_container {
+    display: flex; /* Flexbox 활성화 */
+    flex-direction: column; /* 세로 방향으로 배치 */
+    align-items: center; /* 세로 중앙 정렬 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 470px;
+    height: auto; 
+    background: #FFFFFF;
+    border: 1px solid rgba(123, 144, 100, 0.3);
+    border-radius: 10px;
+    box-sizing: border-box;
+    color: black;
+}
+
+.logo_image{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    width: 204px;
+    height: 63px;
+    top: 20px;
+    left: calc(50% - 102px); 
+}
+
+.input_container {
+    display: flex;
+    flex-wrap: wrap; /* 자식 요소가 부모 크기를 초과하면 줄 바꿈 */
+    align-items: center;
+    justify-content: center;
+    width: 100%; /* 부모 요소의 가로 크기를 제한 */
+    max-width: 100%; /* 화면 크기를 넘지 않도록 제한 */
+    overflow-x: hidden; /* 가로 스크롤 방지 */
+    gap: 10px; /* 요소 간 간격 */
+    padding: 10px; /* 내부 여백 */
+    box-sizing: border-box; /* 테두리와 패딩 포함 */
+    margin: 20px 0px ;
+
+}
+
+.signup_input{
+    /* 아이디 입력란 */
+
+    padding-left: 50px;
+    box-sizing: border-box;
+    width: 410px;
+    height: 60px;
+
+    border: 2px solid #A8B29D;
+    border-radius: 50px;
+}
+
+.signup_input:focus{
+    border: 2.5px solid #7B9064;
+    outline: none;
+}
+
+.spacing{
+    width: 410px;
+    height: 30px;
+}
+
+.signup_button_hilight{
+    background:#7B9064;
+    border-radius: 50px;
+    margin: 5px;
+    width: 410px;
+    height: 60px;
+    color:  #ffffff;font-size: 16px;  /* 글자 크기 */
+}
+
+.signup_button_nomal{
+    background:#A8B29D;
+    border-radius: 50px;
+    margin: 5px;
+    width: 410px;
+    height: 60px;
+    color:  #ffffff;font-size: 16px;  /* 글자 크기 */
+}
+
+
+
+.signup_table{
+    border: 2.5px solid #EFEFEF;
+    border-radius: 10px;
+    border-collapse: separate;
+    border-spacing: 1px;
+}
+
+.signup_table_input {
+    width: 100%; /* 입력 필드는 부모 컬럼의 너비를 100% 차지 */
+    padding: 10px;
+    margin-right: 10px; /* 버튼과의 간격 추가 */
+    border: none; /* 기본 테두리 제거 */
+    outline: none; /* 기본 포커스 아웃라인 제거 */
+}
+
+.check_button {
+    padding: 10px 20px;
+    background-color: #7B9064;
+    border-top-right-radius: 10px;
+
+    color: white;
+    border: none;
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+}
+
+.signip_table tr {
+    height: 20px;
+}
+
+
+.signip_table_td {
+    border: none; /* 기본 테두리 제거 */
+    outline: none; /* 기본 포커스 아웃라인 제거 */
+    background-color: none;
+}
