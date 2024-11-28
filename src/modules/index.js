@@ -11,6 +11,7 @@ import bannerReducer from "./BannerModule";
 import paymentReducer from "./PaymentModule";
 import cartReducer from "./CartModule";
 import shippingReducer from "./ShippingModule";
+import { manageDetailReducer, manageTableReducer } from "./ManageModule";
 
 const rootReducer = combineReducers({
   userReducer,
@@ -26,6 +27,8 @@ const rootReducer = combineReducers({
   paymentReducer,
   cartReducer,
   shipping: shippingReducer,
+    manageTableReducer,
+    manageDetailReducer
 });
 
 export default rootReducer;

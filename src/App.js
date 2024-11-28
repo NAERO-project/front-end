@@ -32,6 +32,12 @@ import AdminBannerUpdate from "./pages/admin/AdminBannerUpdate";
 import MyOrderDetail from "./pages/order/MyOrderDetail";
 import Cart from "./pages/cart/Cart";
 import CartOrder from "./pages/order/CartOrder";
+import ProducerManage from "./pages/admin/manageusers/ProducerManage";
+import UserManage from "./pages/admin/manageusers/UserManage";
+import ProducerDetailManage from "./pages/admin/manageusers/ProducerDetailManage";
+import UserDetailManage from "./pages/admin/manageusers/UserDetailManage";
+import ProducerUpdateManage from "./pages/admin/manageusers/ProducerUpdateManage";
+import UserUpdateManage from "./pages/admin/manageusers/UserUpdateManage";
 
 function App() {
 	return (
@@ -103,8 +109,13 @@ function App() {
             <Route path="product-manage" element={<ProductManage />} />
             <Route path="banner-manage" element={<AdminBannerManage />} />
             <Route path="banner-update/:bannerId" element={<AdminBannerUpdate />} />
-            {/* <Route path="user-manage" element={<UserManage />} /> */}
-            {/* <Route path="producer-manage" element={<ProducerManage />} /> */}
+            <Route path="user-manage" element={<UserManage />} />
+            <Route path="producer-manage" element={<ProducerManage />} />
+            <Route path="producer-detail/:username" element={<ProducerDetailManage />} />
+            <Route path="user-detail/:username" element={<UserDetailManage />} />
+            <Route path="producer-update/:username" element={<ProducerUpdateManage />} />
+            <Route path="user-update/:username" element={<UserUpdateManage />} />
+            
             {/* <Route path="promotion-manage" element={<PromotionManage />} /> */}
             {/* <Route path="order-manage" element={<OrderManage />} /> */}
             {/* <Route path="FAQ-manage" element={<FAQManage />} /> */}
