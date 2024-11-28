@@ -6,6 +6,7 @@ import UserUpdateForm from "../../components/signup/UserUpdateForm";
 import WithdrawButton from "../../components/signup/WithdrawButton";
 import { decodeJwt } from "../../utils/tokenUtils";
 import { callUserDetailAPI } from "../../apis/UserApiCall";
+import UpdateUserCSS from "./css/UpdateUser.module.css";
 
 //유저 정보수정엔 단순 정보 수정 외에 비밀번호 수정도 필요함
 function UpdateUser(props) {
@@ -26,7 +27,7 @@ function UpdateUser(props) {
             navigate("/mypage/detail", { replace: true });
     } },[user])
     return <div>{!isAuthed ? <PasswordCheck setstate={setIsAuthed} /> :
-        <div><UserUpdateForm user={user.data?.user||user.data} />
+        <div className={UpdateUserCSS.box}><UserUpdateForm user={user.data?.user||user.data} />
             <WithdrawButton comment={"회원 탈퇴"} url={"/user/withdraw"} /></div>}</div>;
 }
 

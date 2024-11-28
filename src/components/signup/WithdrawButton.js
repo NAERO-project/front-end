@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { callWithdrawAPI, callLogoutAPI } from "../../apis/UserApiCall";
 import { decodeJwt } from "../../utils/tokenUtils";
+
+import WithdrawBtnCSS from "./css/WithdrawBtn.module.css";
+
 function WithdrawButton(props) {
     const { url, comment, ...etc } = props;
     const isLogin = decodeJwt(window.localStorage.getItem("accessToken"));
@@ -37,8 +40,8 @@ function WithdrawButton(props) {
 		}
 	};
 	return (
-		<div>
-			<button onClick={fetchWithdraw}>회원 탈퇴 버튼 테스트</button>
+		<div className={WithdrawBtnCSS.btn_box}>
+			<button onClick={fetchWithdraw}>회원 탈퇴</button>
 		</div>
 	);
 }
