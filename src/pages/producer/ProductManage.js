@@ -34,18 +34,27 @@ function ProductManage() {
         dispatch(
             callProducerProductListPageApi({
                 currentPage: currentPage,
-                producerUsername: producerUsername
+                producerUsername: producerUsername,
             })
         );
     }, [currentPage]);
+
+    useEffect(() => {
+        console.log("productList", productList);
+    }, [products]);
 
     const onClickProductInsert = () => {
         navigate("/producer/product-regist", { replace: false });
     };
 
-    const onClickTableTr = (productCode) => {
-		// navigate(`/producer/product-update/${productCode}`, { replace: false });
-	};
+    const onClickProductUpdate = (productId)=>{
+        navigate(`/producer/product-modify/${productId}`, {replace: false});
+        // navigate(`/producer/product-modify`, {replace: false});
+    }
+
+    // const onClickTableTr = (productId) => {
+	// 	navigate(`/producer/product-update/${productId}`, { replace: false });
+	// };
 
     return (
         <>
@@ -76,24 +85,17 @@ function ProductManage() {
                         <col width="100px" />
                         <col width="100px" />
                         <col width="100px" />
-                        <col width="80px" />
-                        <col width="80px" />
-                        <col width="60px" />
-                        <col width="80px" />
-                        <col width="121px" />
+                        <col width="100px" />
                     </colgroup>
                     <thead>
                         <tr>
                             <th>상품번호</th>
                             <th>상품명</th>
                             <th>상품가격</th>
+                            <th>상품사진</th>
                             <th>내용</th>
-                            <th>추가가격</th>
-                            <th>옵션명</th>
                             <th>카테고리</th>
-                            <th>재고</th>
                             <th>판매여부</th>
-                            <th></th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -103,22 +105,21 @@ function ProductManage() {
                             productList.map((p) => (
                                 <tr
                                     key={p.productId}
-                                    onClick={() => onClickTableTr(p.productId)}
+                                    // onClick={() => onClickTableTr(p.productId)}
                                 >
-                                    <td>{p.product.productId}</td>
-                                    <td>{p.product.productName}</td>
-                                    <td>{p.product.productPrice}</td>
+                                    <td>{p.productId}</td>
+                                    <td>{p.productName}</td>
+                                    <td>{p.productPrice}</td>
                                     <td>{p.productDesc}</td>
-                                    <td>{p.addPrice}</td>
-                                    <td>{p.optionDesc}</td>
-                                    <td>{p.product.smallCategory.smallCategoryName}</td>
-                                    <td>{p.optionQuantity}</td>
-                                    <td>{p.product.productCheck}</td>
-                                    <td></td>
-                                    <td></td>
+                                    <td><img src={p.productImage} alt="상품사진" /></td>
+                                    {/* <td>{p.addPrice}</td>
+                                    <td>{p.optionDesc}</td> */}
+                                    <td>{p.smallCategory.smallCategoryName}</td>
+                                    {/* <td>{p.optionQuantity}</td> */}
+                                    <td>{p.productCheck}</td>
                                     <td className={ProductManageCSS.manage_btns}>
-                                        <button className={ButtonCSS.change_button}>수정</button>
-                                        <button className={ButtonCSS.delete_button03}>삭제</button>
+                                        <button className={ButtonCSS.change_button} onClick={() =>{onClickProductUpdate(p.productId)}}>수정</button>
+                                        {/* <button className={ButtonCSS.delete_button03}>삭제</button> */}
                                     </td>
                                 </tr>
                             ))}

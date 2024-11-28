@@ -6,8 +6,8 @@ import {
 
 const prefix = `http://${process.env.REACT_APP_RESTAPI_IP}:8080`;
 
-export const callCartInsertAPI = ({ cartItem }) => {
-	const requestURL = `${prefix}/api/cart/insert`;
+export const callCartInsertAPI = ({ cartItem, username }) => {
+	const requestURL = `${prefix}/api/cart/insert?username=${username}`;
     console.log('cartItem에 아무것도 없어..ㅠㅠ', cartItem);
 
 	return async (dispatch, getState) => {
