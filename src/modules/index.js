@@ -27,7 +27,6 @@ const rootReducer = combineReducers({
   paymentReducer,
   cartReducer,
   shipping: shippingReducer,
-    authReducer,
     manageTableReducer,
     manageDetailReducer
 });
