@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { callUserDetailAPI } from "../../apis/UserApiCall";
 import { decodeJwt } from "../../utils/tokenUtils";
-import WithdrawButton from "../../components/signup/WithdrawButton";
 import ProducerInfoForm from "../../components/signup/ProducerInfoForm";
 
 function ProducerDetail(props) {
