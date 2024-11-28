@@ -9,6 +9,9 @@ import Postcode from "react-daum-postcode";
 import ModalCSS from "../../components/common/Modal.module.css"; // 모달 스타일
 import * as PortOne from "@portone/browser-sdk/v2"; // 결제 API
 
+import CartOrderCSS from "./css/CartOrder.module.css";
+import UserInfoCSS from "../../components/signup/css/UserInfoForm.module.css";
+
 function CartOrder() {
     const dispatch = useDispatch();
     const location = useLocation();
@@ -405,10 +408,13 @@ const processEasyPay = async (provider) => {
     };
 
     return (
-        <div>
+        <div className={CartOrderCSS.box}>
             <h1>주문 페이지</h1>
             <br />
             <hr style={{ border: "1px solid #000" }} />
+            <div className={CartOrderCSS.cart}>
+
+            </div>
             <h3>주문자 정보</h3>
             <br />
             <p>{orderData?.userDTO?.userFullName || "이름 없음"}</p>
@@ -490,9 +496,14 @@ const processEasyPay = async (provider) => {
                 onChange={onChangeHandler}
             ></textarea>
             <hr style={{ border: "1px solid #000" }} />
+
             <h3>결제 금액</h3>
             <br />
-            <p>주문 금액: {formatNumber(calculateOrderTotalAmount())}원</p>
+            <div className={UserInfoCSS.info}>
+                <p>주문 금액:</p>
+                <p style={{width: '408px', padding: '5px 10px'}} className={UserInfoCSS.txt}>{formatNumber(calculateOrderTotalAmount())}원</p>
+            </div>
+            <p>: </p>
             <p>
                 배송비: +{formatNumber(orderData.orderDTO?.deliveryFee || 0)}원
             </p>
