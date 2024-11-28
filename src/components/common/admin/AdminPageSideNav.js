@@ -4,7 +4,7 @@ import styles from "./css/AdminPageSideNav.module.css";
 const navItems = [
   { to: "/admin/dashboard", label: "모니터링" },
   { to: "/admin/user-manage", label: "회원관리" },
-  { to: "/admin/seller-manage", label: "셀러관리" },
+  { to: "/admin/producer-manage", label: "셀러관리" },
     { to: "/admin/banner-manage", label: "배너관리" },
     { to: "/admin/answers", label: "1:1 문의" },
   { to: "/admin/FAQ-manage", label: "FAQ 관리" },

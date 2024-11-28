@@ -20,6 +20,7 @@ function CartOrder() {
     const username = isLogin ? decodeJwt(isLogin).sub : null;
 
     const [point, setPoint] = useState(0);
+    const [userPoint, setUserPoint] = useState(0);
     const [coupon, setCoupon] = useState([]);
     const [paymentMethod, setPaymentMethod] = useState(""); // 결제 수단 상태
     const [easyPayProvider, setEasyPayProvider] = useState(""); // 간편 결제 제공자 상태
@@ -95,6 +96,12 @@ function CartOrder() {
                     amount: orderTotalAmount,
                 },
             }));
+            const addPoint =  (calculateOrderTotalAmount() +
+            (orderData.orderDTO?.deliveryFee || 0) -
+            (payRequest.orderDTO.couponDiscount || 0)) * 0.1;
+            console.log("addPoint", addPoint);
+            setUserPoint(addPoint);
+            setPoint(addPoint);
         }
     }, [orderData, calculateOrderTotalAmount]);
 
@@ -585,6 +592,7 @@ const processEasyPay = async (provider) => {
             <button onClick={() => handleEasyPayClick("KAKAOPAY")}>카카오페이</button>
             <button onClick={() => handleEasyPayClick("NAVERPAY")}>네이버페이</button>
             <br />
+            <div>{userPoint.toLocaleString()} 환경기여 포인트 적립 예정</div>
             <button onClick={onClickPaymentHandler}>결제하기</button>
         </div>
     );

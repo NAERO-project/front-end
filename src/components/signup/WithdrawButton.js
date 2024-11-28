@@ -4,17 +4,22 @@ import { useSelector, useDispatch } from "react-redux";
 import { callWithdrawAPI, callLogoutAPI } from "../../apis/UserApiCall";
 import { decodeJwt } from "../../utils/tokenUtils";
 function WithdrawButton(props) {
-	const { url, comment } = props;
+    const { url, comment, ...etc } = props;
+    const isLogin = decodeJwt(window.localStorage.getItem("accessToken"));
+    const isAdmin = isLogin.auth.some(a => /ROLE_.*_ADMIN/.test(a));
+    const username = etc?.username || isLogin?.sub || undefined
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-
-	console.log(url, comment);
 	const success = useSelector(state => state.userReducer);
-	const username = decodeJwt(window.localStorage.getItem("accessToken")).sub; // Local Storage 에 token 정보 확인
 
+    console.log(username)
 	useEffect(() => {
-		console.log(success);
-		if (success && success.status === 202) {
+        console.log(success);
+        if (success && success.status === 202 && isAdmin) { 
+            alert(`${comment}에 성공했습니다. 이전화면으로 돌아갑니다.`);
+            navigate(-2);
+        }
+		else if (success && success.status === 202) {
 			window.localStorage.removeItem("accessToken");
 			dispatch(callLogoutAPI());
 			alert(`${comment}에 성공했습니다. 자동 로그아웃 됩니다.`);

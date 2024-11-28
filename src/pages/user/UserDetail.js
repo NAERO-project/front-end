@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { callUserDetailAPI } from "../../apis/UserApiCall";
 import { decodeJwt } from "../../utils/tokenUtils";
-import WithdrawButton from "../../components/signup/WithdrawButton";
 import UserInfoForm from "../../components/signup/UserInfoForm";
 import { NavLink } from "react-router-dom";
 
@@ -14,10 +13,12 @@ function UserDetail(props) {
 	const username = decodeJwt(isLogin).sub;
 	const user = isProducer ? loginUser.user : loginUser;
 
+
 	useEffect(() => {
 		dispatch(callUserDetailAPI({ username: username }));
 	}, []);
 
+    console.log(loginUser, isProducer)
 	return (
 		<div style={{ color: "black" }}>
 			{user && (

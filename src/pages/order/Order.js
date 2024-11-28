@@ -97,7 +97,12 @@ function Order() {
                     amount: orderTotalAmount,
                 },
             }));
-            setUserPoint(orderTotalAmount * 0.1);
+            const addPoint =  (calculateOrderTotalAmount() +
+            (orderData.orderDTO?.deliveryFee || 0) -
+            (payRequest.orderDTO.couponDiscount || 0)) * 0.1;
+            console.log("addPoint", addPoint);
+            setUserPoint(addPoint);
+            setPoint(addPoint);
         }
     }, [orderData, calculateOrderTotalAmount]);
 

@@ -27,7 +27,7 @@ function ProductDetail() {
 
     // 상품 후기
     const reviewData = useSelector((state) => state.reviewReducer);
-    
+
     // console.log("reviewData", reviews);
     // const reviewData = useSelector((state) => reviews.ProductDetail.data);
     console.log("reviewData", reviewData);
@@ -172,20 +172,22 @@ function ProductDetail() {
                             <option value="">옵션 선택</option>
                             {productData &&
                                 productData.options &&
-                                productData.options.map((option) => (
-                                    <option
-                                        key={option.optionId}
-                                        value={option.optionId}
-                                        disabled={option.optionQuantity <= 0}
-                                        style={{
-                                            color: option.optionQuantity <= 0 ? 'gray' : 'black',
-                                        }}
-                                    >
-                                        {option.optionDesc}
-                                        {option.optionQuantity <= 0 ? " (품절)" : ""}
-                                        (추가 금액: {option.addPrice ? option.addPrice : 0} 원)
-                                    </option>
-                                ))}
+                                productData.options
+                                    .filter(option => option.optionCheck !== "N")
+                                    .map((option) => (
+                                        <option
+                                            key={option.optionId}
+                                            value={option.optionId}
+                                            disabled={option.optionQuantity <= 0}
+                                            style={{
+                                                color: option.optionQuantity <= 0 ? 'gray' : 'black',
+                                            }}
+                                        >
+                                            {option.optionDesc}
+                                            {option.optionQuantity <= 0 ? " (품절)" : ""}
+                                            (추가 금액: {option.addPrice ? option.addPrice : 0} 원)
+                                        </option>
+                                    ))}
                         </select>
 
                         <span className={ProductDetailCSS.amount}>

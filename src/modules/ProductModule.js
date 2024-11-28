@@ -5,9 +5,11 @@ const initialState = [];
 export const GET_PRODUCT = 'product/GET_PRODUCT';                                       // 상품 단일 조회
 export const GET_PRODUCTS = 'product/GET_PRODUCTS';                                     // 상품 리스트 전체 조회
 export const GET_PRODUCTS_PREVIEW = 'product/GET_PRODUCTS_PREVIEW';                     // 전체 상품 미리보기 조회
+
 export const GET_PRODUCTS_PREVIEW_FOOD = 'product/GET_PRODUCTS_PREVIEW_FOOD';           // 전체 상품 음식 미리보기 조회
 export const GET_PRODUCTS_PREVIEW_FASHION = 'product/GET_PRODUCTS_PREVIEW_FASHION';     // 전체 상품 패션 미리보기 조회
 export const GET_PRODUCTS_PREVIEW_BEAUTY = 'product/GET_PRODUCTS_PREVIEW_BEAUTY';       // 전체 상품 뷰티 미리보기 조회
+
 // export const GET_PRODUCER_LIST_PREVIEW = 'product/GET_PRODUCER_LIST_PREVIEW';           // 판매자별 조회
 export const GET_PRODUCTS_PRODUCER_PREVIEW = 'product/GET_PRODUCTS_PRODUCER_PREVIEW';   // 판매자별 상품 미리보기 조회
 export const GET_PRODUCTS_PRODUCER = 'product/GET_PRODUCTS_PRODUCER';                   // 판매자별 상품 전체 조회
