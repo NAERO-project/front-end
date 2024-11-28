@@ -25,9 +25,9 @@ function Header(props) {
   const isLogin = window.localStorage.getItem("accessToken"); // Local Storage 에 token 정보 확인
   // const username = decodeJwt(isLogin).sub;
 
-	if (isLogin && decodeJwt(isLogin).exp * 1000 < Date.now()) {
-		dispatch(callLogoutAPI());
-	}
+  if (isLogin && decodeJwt(isLogin).exp * 1000 < Date.now()) {
+    dispatch(callLogoutAPI());
+  }
 
   //로그아웃
   const onClickLogoutHandler = () => {
