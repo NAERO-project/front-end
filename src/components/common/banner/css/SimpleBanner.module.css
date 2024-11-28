@@ -1,0 +1,19 @@
+.producer_box{
+    width: 1920px;
+    margin: 0 auto;
+    padding: 70px 0 0 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.producer_box .producer_img{
+    background-position: 50% 50%;
+    background-image: url(../../../../img/naero_img/brand/bannerimg.png);
+    background-repeat: no-repeat;
+}
+
+.blur{
+    width: 1920px;
+    height: 450px;
+    background-color: rgba(0, 0, 0, 0.6);
+}

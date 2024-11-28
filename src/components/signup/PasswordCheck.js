@@ -3,6 +3,8 @@ import { callPasswordCheck } from "../../apis/AuthApiCall";
 import { useDispatch, useSelector } from "react-redux";
 import { GET_PASS_CHECK } from "../../modules/AuthModule";
 
+import PasswordCSS from "./css/PasswordCheck.module.css";
+
 function PasswordCheck({ setstate }) {
 	const checkFetch = useSelector(state => state.authReducer || {});
 	const dispatch = useDispatch();
@@ -27,7 +29,7 @@ function PasswordCheck({ setstate }) {
 	};
 
 	return (
-		<div>
+		<div className={PasswordCSS.box}>
 			<input
 				type='password'
 				onChange={e => {

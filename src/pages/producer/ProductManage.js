@@ -78,14 +78,16 @@ function ProductManage() {
                     </colgroup> */}
 
                     <colgroup>
-                        <col width="80px" />
-                        <col width="100px" />
-                        <col width="100px" />
-                        <col width="350px" />
-                        <col width="100px" />
-                        <col width="100px" />
-                        <col width="100px" />
-                        <col width="100px" />
+                        <col width="5%" />
+                        <col width="7%" />
+                        <col width="8%" />
+                        <col width="25%" />
+                        <col width="15%" />
+                        <col width="8%" />
+                        <col width="5%" />
+                        <col width="5%" />
+                        <col width="5%" />
+                        <col width="10%" />
                     </colgroup>
                     <thead>
                         <tr>
@@ -96,6 +98,7 @@ function ProductManage() {
                             <th>내용</th>
                             <th>카테고리</th>
                             <th>판매여부</th>
+                            <th></th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -117,9 +120,10 @@ function ProductManage() {
                                     <td>{p.smallCategory.smallCategoryName}</td>
                                     {/* <td>{p.optionQuantity}</td> */}
                                     <td>{p.productCheck}</td>
+                                    <td></td>
+                                    <td></td>
                                     <td className={ProductManageCSS.manage_btns}>
                                         <button className={ButtonCSS.change_button} onClick={() =>{onClickProductUpdate(p.productId)}}>수정</button>
-                                        {/* <button className={ButtonCSS.delete_button03}>삭제</button> */}
                                     </td>
                                 </tr>
                             ))}
