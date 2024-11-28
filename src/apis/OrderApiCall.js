@@ -12,7 +12,7 @@ import {
 const prefix = `http://${process.env.REACT_APP_RESTAPI_IP}:8080`;
 
 // 주문페이지 정보 조회
-export const callOrderPageApi = ({ cartItems, username }) => {
+export const callOrderPageApi = ({ cartItem, username }) => {
     let requestURL = `${prefix}/api/order/start?username=${username}`;
 
     console.log("[OrderApiCalls] requestURL : ", requestURL);
@@ -24,11 +24,37 @@ export const callOrderPageApi = ({ cartItems, username }) => {
                 "Content-Type": "application/json",
                 Accept: "*/*",
             },
-            body: JSON.stringify(cartItems),
+            body: JSON.stringify([cartItem]), // 배열로 감싸기
         }).then((response) => response.json());
 
         if (result.status === 200) {
             console.log("[OrderApiCalls] callOrderPageApi RESULT : ", result);
+            console.log("Result Data:", result.data); // 추가 로그
+            dispatch({ type: GET_ORDER_PAGE, payload: result.data });
+        } else {
+            console.error("API 호출 실패:", result);
+        }
+    };
+};
+
+// 장바구니에서 주문페이지 정보 조회
+export const callCartOrderAPI = ({ cartItems, username }) => {
+    let requestURL = `${prefix}/api/order/start?username=${username}`;
+
+    console.log("[CartApiCalls] requestURL : ", requestURL);
+
+    return async (dispatch, getState) => {
+        const result = await fetch(requestURL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "*/*",
+            },
+            body: JSON.stringify(cartItems), // 배열로 감싸기
+        }).then((response) => response.json());
+
+        if (result.status === 200) {
+            console.log("[CartApiCalls] callCartOrderAPI RESULT : ", result);
             console.log("Result Data:", result.data); // 추가 로그
             dispatch({ type: GET_ORDER_PAGE, payload: result.data });
         } else {
@@ -64,7 +90,8 @@ export const callCancelOrderApi = ({ orderId }) => {
 };
 
 // 결제
-export const callInsertOrderApi = ({ payRequest, username }) => {
+export const callInsertOrderApi = ({ payRequest, username, navigate }) => {
+
     let requestURL = `${prefix}/api/order/process?username=${username}`;
 
     console.log("[OrderApiCalls] requestURL : ", requestURL);
@@ -84,8 +111,11 @@ export const callInsertOrderApi = ({ payRequest, username }) => {
         if (result.status === 200) {
             console.log("[OrderApiCalls] callInsertOrderApi RESULT : ", result);
             dispatch({ type: POST_ORDER, payload: result.data });
-        } else {
+            alert("결제가 성공적으로 완료되었습니다.");
+            navigate(`/mypage/order-detail/${result.data.orderId}`);
+        } else if (result.status === 500)  {
             console.error("API 호출 실패:", result);
+            alert(result.data);
         }
     };
 };

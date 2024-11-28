@@ -5,10 +5,11 @@ import productProducerReducer from "./ProductProducerModule";
 import authReducer from "./AuthModule";
 import dashboardReducer from "./DashboardModule";
 import couponReducer from "./CouponModule";
-import { largeCategoryReducer, mediumCategoryReducer } from "./CategoryModule";
+import {largeCategoryReducer, mediumCategoryReducer}  from "./CategoryModule";
 import orderReducer from "./OrderModule";
 import bannerReducer from "./BannerModule";
 import paymentReducer from "./PaymentModule";
+import cartReducer from "./CartModule";
 import questionReducer from "./QuestionModule";
 import answerReducer from "./AnswerModule";
 import reviewReducer from "./ReviewModule";
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
 	questionReducer,
 	answerReducer,
 	paymentReducer,
+	cartReducer,
 	reviewReducer
 });
 

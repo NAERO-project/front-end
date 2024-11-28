@@ -10,6 +10,8 @@
     width: 277px;
     height: 250px;
     background-color: aquamarine;
+    box-sizing: border-box;
+    overflow: hidden;
     cursor: pointer;
 }
 

@@ -29,7 +29,14 @@ import OrderManage from "./pages/producer/OrderManage";
 import OrderUpdate from "./pages/producer/OrderUpdate";
 import Dashboard from "./pages/admin/Dashboard";
 import MainList from "./pages/products/MainList";
+import ProductUpdate from "./pages/producer/ProductUpdate";
+import BannerManage from "./pages/producer/BannerManage";
+import AdminBannerManage from "./pages/admin/AdminBannerManage";
+import BannerRegist from "./pages/producer/BannerRegist";
+import AdminBannerUpdate from "./pages/admin/AdminBannerUpdate";
 import MyOrderDetail from "./pages/order/MyOrderDetail";
+import Cart from "./pages/cart/Cart";
+import CartOrder from "./pages/order/CartOrder";
 
 // 문의 페이지 컴포넌트
 import QuestionList from "./pages/questions/QuestionList";
@@ -53,102 +60,79 @@ function App() {
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route path="/" element={<Layout />}>
-					<Route index element={<Main />} />
-					<Route path="preview/food" element={<MainFoodList />} />
-					<Route path="preview/beauty" element={<MainBeautyList />} />
-					<Route
-						path="preview/fashion"
-						element={<MainFashionList />}
-					/>
 
-					<Route path="products" element={<ProductPageLayout />}>
-						<Route path="more" element={<ProductMore />} />
-						<Route
-							path="more/:largeId"
-							element={<ProductCategory />}
-						/>
-						<Route
-							path="more/:largeId/:mediumId"
-							element={<ProductCategory />}
-						/>
-						<Route path=":productId" element={<ProductDetail />} />
-						<Route
-							path="brand/:producerId"
-							element={<BrandProducer />}
-						/>
+				<Route path='/' element={<Layout />}>
+					<Route index element={<Main />}/>
+          <Route path="preview/food" element={ <MainFoodList/> }/>
+					<Route path="preview/beauty" element={ <MainBeautyList/> }/>
+					<Route path="preview/fashion" element={ <MainFashionList/> }/>
+
+          <Route path='products' element={<ProductPageLayout/>}>
+						<Route path='more' element={ <ProductMore/> }/>
+						<Route path="more/:largeId" element={ <ProductCategory/> }/>
+						<Route path="more/:largeId/:mediumId" element={ <ProductCategory/> }/>
+						<Route path=":productId" element={ <ProductDetail/> }/>
+            <Route path="brand/:producerId" element={ <BrandProducer/> }/>
 					</Route>
 
-					<Route path="products/brand" element={<BrandPageLayout />}>
-						<Route path="home" element={<BrandProductList />} />
-						<Route
-							path="home/:producerId"
-							element={<BrandProductList />}
-						/>
-					</Route>
 
-					<Route path="mypage" element={<MypageLayout />}>
-						<Route path="detail" element={<UserDetail />} />
-						<Route path="update" element={<UpdateUser />} />
-						<Route
-							path="toproducer"
-							element={<ProducerSignup />}
-						></Route>
-						<Route path="order" element={<MyOrders />} />
-						<Route
-							path="order-detail/:orderId"
-							element={<MyOrderDetail />}
-						/>
-						{/* 회원들의 마이페이지 */}
-					</Route>
+          <Route path='products/brand' element={ <BrandPageLayout/> }>
+              <Route path="home" element={ <BrandProductList/> }/>
+              <Route path="home/:producerId" element={ <BrandProductList/> }/>
+            </Route>
 
-					{/* <Route path='brand' element={ <BrandPageLayout/> }>
+          <Route path='mypage' element={<MypageLayout />}>
+            <Route path='detail' element={<UserDetail />} />
+            <Route path='update' element={<UpdateUser />} />
+            <Route path='toproducer' element={<ProducerSignup />}></Route>
+            <Route path='order' element={<MyOrders />} />
+            <Route path='order-detail/:orderId' element={<MyOrderDetail />} />
+            {/* 회원들의 마이페이지 */}
+				  </Route>
+
+          {/* <Route path='brand' element={ <BrandPageLayout/> }>
             <Route path="home" element={ <BrandProductList/> }/>
           </Route> */}
 
-					<Route path="order" element={<Order />} />
+          <Route path="order" element={<Order />} />
 
-					<Route path="mypage">{/* 회원들의 마이페이지 */}</Route>
+          <Route path="cart" element={<Cart/>} />
+          <Route path="cart-order" element={<CartOrder/>} />
 
-					<Route path="producer" element={<ProducerPageLayout />}>
-						<Route index element={<ProductManage />} />
-						<Route
-							path="product-manage"
-							element={<ProductManage />}
-						/>
-						<Route
-							path="product-regist"
-							element={<ProductRegist />}
-						/>
-						<Route path="detail" element={<ProducerDetail />} />
-						<Route path="update" element={<UpdateProducer />} />
-						<Route path="order-manage" element={<OrderManage />} />
-						<Route
-							path="order-update/:orderId"
-							element={<OrderUpdate />}
-						/>
-						{/* <Route path="coupon-manage" element={<CouponManage />} /> */}
-						{/* <Route path="banner-manage" element={<BannerManage />} /> */}
-						{/* <Route path="products/:producerId" element={ <ProducerItem/> }/> */}
-					</Route>
+          <Route path="mypage">{/* 회원들의 마이페이지 */}</Route>
 
-					<Route path="login" element={<Login />} />
-					<Route path="signup" element={<Signup />} />
+          <Route path="producer" element={<ProducerPageLayout />}>
+            <Route index element={<ProductManage />} />
+            <Route path="product-manage" element={<ProductManage />} />
+            <Route path="product-regist" element={<ProductRegist />} />
+            <Route path="product-modify/:productId" element={<ProductUpdate/>} />
+            {/* <Route path="product-modify" element={<ProductModify/>} /> */}
+            <Route path='detail' element={<ProducerDetail />} />
+            <Route path='update' element={<UpdateProducer />} />
+            <Route path="order-manage" element={<OrderManage />} />
+            <Route path="order-update/:orderId" element={<OrderUpdate />} />
+            {/* <Route path="coupon-manage" element={<CouponManage />} /> */}
+            <Route path="banner-manage" element={<BannerManage />} />
+            <Route path="banner-regist" element={<BannerRegist/>} />
+            {/* <Route path="products/:producerId" element={ <ProducerItem/> }/> */}
+          </Route>
 
-					<Route path="admin" element={<AdminPageLayout />}>
-						<Route index element={<Dashboard />} />
-						<Route path="dashboard" element={<Dashboard />} />
-						<Route
-							path="product-manage"
-							element={<ProductManage />}
-						/>
-						{/* <Route path="user-manage" element={<UserManage />} /> */}
-						{/* <Route path="producer-manage" element={<ProducerManage />} /> */}
-						{/* <Route path="promotion-manage" element={<PromotionManage />} /> */}
-						{/* <Route path="order-manage" element={<OrderManage />} /> */}
-						{/* <Route path="FAQ-manage" element={<FAQManage />} /> */}
-						{/* <Route path="inquiry-manage" element={<InquiryManage />} /> */}
-					</Route>
+          <Route path="login" element={<Login />} />
+            <Route path='signup' element={<Signup />} />
+
+          <Route path="admin" element={<AdminPageLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="product-manage" element={<ProductManage />} />
+            <Route path="banner-manage" element={<AdminBannerManage />} />
+            <Route path="banner-update/:bannerId" element={<AdminBannerUpdate />} />
+            {/* <Route path="user-manage" element={<UserManage />} /> */}
+            {/* <Route path="producer-manage" element={<ProducerManage />} /> */}
+            {/* <Route path="promotion-manage" element={<PromotionManage />} /> */}
+            {/* <Route path="order-manage" element={<OrderManage />} /> */}
+            {/* <Route path="FAQ-manage" element={<FAQManage />} /> */}
+            {/* <Route path="inquiry-manage" element={<InquiryManage />} /> */}
+          </Route>
 
 					{/* 1:1 문의 관련 라우트 */}
 					<Route path="mypage/questions">
@@ -158,7 +142,7 @@ function App() {
 						<Route path="detail/:questionId" element={<QuestionDetail />} />
 					</Route>
 
-					
+
 
 					{/* 1:1 답변 관련 라우트 */}
 					<Route path="admin/answers">
@@ -175,7 +159,7 @@ function App() {
 						<Route path="detail/:productId/:reviewId" element={<ReviewDetail />} />
 						<Route path="edit/:productId/:reviewId" element={<ReviewEdit />} />
 					</Route>
-					
+
 				</Route>
 			</Routes>
 		</BrowserRouter>
