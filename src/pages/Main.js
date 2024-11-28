@@ -6,15 +6,17 @@ import MainListPreview from "./products/MainListPreview";
 import MainList from "./products/MainList";
 
 function Main(props) {
-	return <div>
+	return (
+		<div className={GlobalCSS}>
 			<MainBanner/>
-			<div className={GlobalCSS}>
+			<div>
 				<MainListPreview/>
 			</div>
 			<div>
 				<MainProducer/>
 			</div>
 		</div>
+	);
 }
 
 export default Main;

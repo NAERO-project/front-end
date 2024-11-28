@@ -38,20 +38,23 @@ const onClickHandler = (id)=>{
 
 }
     return (
-        <div className={MainProductNavCSS.product_nav}>
-            <ul className={MainProductNavCSS.nav_ul}>
-            {Array.isArray(categoryList) && categoryList.map((category) => (
-                    <li onClick={()=>onClickHandler(category.largeCategoryId)} key={category.largeCategoryId}>
-                       {category.largeCategoryName}
-                        {/* <NavLink 
-                            className={MainProductNavCSS.nav} 
-                            to={`/${category.largeCategoryId}`}>
-                            {category.largeCategoryName}
-                        </NavLink> */}
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <>
+            <div className={MainProductNavCSS.product_nav}>
+                <ul className={MainProductNavCSS.nav_ul}>
+                {Array.isArray(categoryList) && categoryList.map((category) => (
+                        <li onClick={()=>onClickHandler(category.largeCategoryId)} key={category.largeCategoryId} className={MainProductNavCSS.nav}>
+                        {category.largeCategoryName}
+                            {/* <NavLink 
+                                className={MainProductNavCSS.nav} 
+                                to={`/${category.largeCategoryId}`}>
+                                {category.largeCategoryName}
+                            </NavLink> */}
+                        </li>
+                    ))}
+                </ul>
+                {/* <div className={MainProductNavCSS.line}></div> */}
+            </div>
+        </>
     );
 
 }
