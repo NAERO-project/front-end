@@ -44,3 +44,25 @@ export const callProductCategoryApi02 = ({largeId}) =>{
         }
     };
 };
+
+
+/* 카테고리 리스트 조회 (카테고리 분리 대분류) */
+// export const callProductBrandCategoryApi01 = () =>{
+    
+//     let requestURL = `${prefix}/api/products/brand/home`;
+//     console.log('[productAPICalls] requestURL : ', requestURL);
+
+//     return async (dispatch, getState) =>{
+//         const result = await fetch(requestURL, {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 Accept: '*/*'
+//             }
+//         }).then((response) => response.json());
+//         if(result.status === 200){
+//             console.log('[ProduceAPICalls] callProductBrandCategoryApi01 RESULT : ', result);
+//             dispatch({ type: GET_PRODUCTS_CATEGORY01, payload: result.data });
+//         }
+//     };
+// };

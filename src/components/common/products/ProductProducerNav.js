@@ -2,7 +2,7 @@ import { NavLink, useNavigate, useParams } from "react-router-dom";
 import MainProductNavCSS from "./css/MainProductNav.module.css"
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { callProductCategoryApi01 } from "../../../apis/CategoryApiCall";
+import { callProductBrandCategoryApi01, callProductCategoryApi01 } from "../../../apis/CategoryApiCall";
 
 function ProductProducerNav({
     category: largeCategoryId, largeCategoryName 
@@ -17,18 +17,18 @@ function ProductProducerNav({
     const categoryList = useSelector(state => state.largeCategoryReducer);
     console.log("categoryList", categoryList);
 
-    useEffect(() =>{
-        fetchData();
-    }, [producerId]);
+    // useEffect(() =>{
+    //     fetchData();
+    // }, [producerId]);
 
 
-const fetchData=()=>{
-    dispatch(callProductCategoryApi01({
-        largeCategoryId, 
-        largeCategoryName,
-        producerId: producerId
-    } ))
-    };
+// const fetchData=()=>{
+//     dispatch(callProductBrandCategoryApi01({
+//         largeCategoryId, 
+//         largeCategoryName,
+//         producerId: producerId
+//     } ))
+//     };
 
     useEffect(() =>{
         console.log('categoryList:', categoryList);
@@ -41,7 +41,7 @@ const fetchData=()=>{
                     <li key={category.largeCategoryId}>
                         <NavLink 
                             className={MainProductNavCSS.nav} 
-                            to={`/products/brand/home/${producerId}/${category.largeCategoryId}`}>
+                            to={`/products/brand/home/${category.largeCategoryId}/${producerId}`}>
                             {category.largeCategoryName}
                         </NavLink>
                     </li>

@@ -229,7 +229,7 @@ export const callProducerListApi = () =>{
                 Accept: '*/*'
             }
         }).then((response) => response.json());
-        console.log('[ProduceAPICalls] callProducerProductListApi RESULT : ', result);
+        console.log('[ProduceAPICalls] callProducerListApi RESULT : ', result);
         if(result.status === 200){
             dispatch({ type: GET_PRODUCER_LIST_PREVIEW, payload: result.data });
         }
@@ -291,8 +291,9 @@ export const callProducerProductListPageApi = ({ currentPage, producerUsername }
 export const callBrandProductListPageApi = ({ currentPage, producerId }) =>{
 
     let requestURL;
-
-    if(currentPage !== undefined || currentPage !== null){
+    console.log("currentPage callBrandProductListPageApi:", currentPage)
+    console.log("producerId callBrandProductListPageApi:", producerId)
+    if(currentPage ){
         requestURL = `${prefix}/api/products/brand/${producerId}?offset=${currentPage}`;
     }else{
         requestURL = `${prefix}/api/products/brand/${producerId}`;

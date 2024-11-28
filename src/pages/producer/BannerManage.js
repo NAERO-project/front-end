@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { decodeJwt } from "../../utils/tokenUtils";
 import { useEffect, useState } from "react";
-import { callProducerBannerApi } from "../../apis/BannerApiCall";
+import { callBannerDeleteApi, callProducerBannerApi } from "../../apis/BannerApiCall";
 
 function BannerManage(){
 
@@ -43,6 +43,10 @@ function BannerManage(){
     const onClickProductInsert = () => {
         navigate("/producer/banner-regist", { replace: false });
     };
+
+    const onClickBannerDelete = (bannerId) =>{
+        dispatch(callBannerDeleteApi(bannerId));
+    }
 
     return(
         <div>
@@ -104,7 +108,7 @@ function BannerManage(){
                                     <td>{b.approverId}</td>
                                     <td></td>
                                     <td>
-                                        <button>삭제</button>
+                                        <button onClick={onClickBannerDelete()} >삭제</button>
                                     </td>
                                 </tr>
                             ))}
