@@ -16,8 +16,8 @@ function WithdrawButton(props) {
 	useEffect(() => {
         console.log(success);
         if (success && success.status === 202 && isAdmin) { 
-            
-			alert(`${comment}에 성공했습니다. 이전화면으로 돌아갑니다.`);
+            alert(`${comment}에 성공했습니다. 이전화면으로 돌아갑니다.`);
+            navigate(-2);
         }
 		else if (success && success.status === 202) {
 			window.localStorage.removeItem("accessToken");
