@@ -10,6 +10,9 @@ import { FaRegHeart } from "react-icons/fa6";
 import { LuShoppingCart } from "react-icons/lu";
 import { IoCardOutline } from "react-icons/io5";
 
+// 상품 후기
+import { callReviewsByProductAPI } from "../../apis/ReviewAPICall";
+
 function ProductDetail() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -17,12 +20,33 @@ function ProductDetail() {
     const productData = useSelector((state) => state.productReducer);
     const cartItems = useSelector((state) => state.orderReducer.cartItems); // Redux에서 cartItems 참조
 
+    // 상품 후기
+    const reviewData = useSelector((state) => state.reviewReducer.data);
+    console.log("reviewData", reviewData);
+    const pageInfo = useSelector((state) => state.reviewReducer.pageInfo || {pageEnd: 0});
+
+    const [start, setStart] = useState(0);
+    const [pageEnd, setPageEnd] = useState(1);
+
+    const pageNumber = [];
+    if (pageInfo) {
+        for (let i = 1; i <= pageInfo.pageEnd; i++) {
+            pageNumber.push(i);
+        }
+    }
+
+    const [currentPage, setCurrentPage] = useState(1);
+
     const [amount, setAmount] = useState(1);
     const [selectedOption, setSelectedOption] = useState(null); // 선택된 옵션 상태 추가
 
     useEffect(() => {
         dispatch(callProductDetailApi({ productId: params.productId }));
     }, [params.productId]);
+
+    useEffect(() => {
+        dispatch(callReviewsByProductAPI({ productId: params.productId, reviewData, currentPage}));
+    }, [params.productId, reviewData, currentPage]);
 
     const onChangeAmountHandler = (e) => {
         setAmount(e.target.value);
@@ -119,6 +143,53 @@ function ProductDetail() {
                             <button><FaRegHeart/> 찜하기</button>
                             <button onClick={onClickAddCartHandler}><LuShoppingCart/> 장바구니</button>
                             <button onClick={onClickOrderHandler}><IoCardOutline /> 바로구매</button>
+                        </div>
+
+                        <div>
+
+                        </div>
+                        <div
+                            style={{
+                                listStyleType: "none",
+                                display: "flex",
+                                justifyContent: "center",
+                            }}
+                        >
+                            {Array.isArray(reviewData) && (
+                                <button
+                                    onClick={() => setCurrentPage(currentPage - 1)}
+                                    disabled={currentPage === 1}
+                                    className=""
+                                >
+                                    &lt;
+                                </button>
+                            )}
+                            {pageNumber.map((num) => (
+                                <li key={num} onClick={() => setCurrentPage(num)}>
+                                    <button
+                                        style={
+                                            currentPage === num
+                                                ? { backgroundColor: "lightgreen" }
+                                                : null
+                                        }
+                                        className=""
+                                    >
+                                        {num}
+                                    </button>
+                                </li>
+                            ))}
+                            {Array.isArray(reviewData) && (
+                                <button
+                                    className=""
+                                    onClick={() => setCurrentPage(currentPage + 1)}
+                                    disabled={
+                                        currentPage === pageInfo.pageEnd ||
+                                        pageInfo.total === 0
+                                    }
+                                >
+                                    &gt;
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>

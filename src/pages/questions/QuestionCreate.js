@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { callQuestionCreateApi } from '../../apis/QuestionAPICalls';
 import { useNavigate } from 'react-router-dom';
-// import QuestionCreateNav from '../../components/common/questions/QuestionCreateNav';
+import { decodeJwt } from "../../utils/tokenUtils";
 
 function QuestionCreate() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [form, setForm] = useState({ questionTitle: '', questionContent: '' });
-    const userId = 1;
+    const isLogin = window.localStorage.getItem("accessToken"); // Local Storage 에 token 정보 확인
+    const username = isLogin ? decodeJwt(isLogin).sub : null;
 
     const onChangeHandler = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -19,14 +20,12 @@ function QuestionCreate() {
             alert('제목과 내용을 모두 입력해야 합니다.');
             return;
         }
-        const userId = 1;
-        dispatch(callQuestionCreateApi({ form, userId }));
-        navigate('/questions');
+        dispatch(callQuestionCreateApi({ form, username }));
+        navigate('/mypage/questions');
     };
 
     return (
         <div>
-            {/* <QuestionCreateNav /> */}
             <h1>새 문의 작성</h1>
             <input
                 name="questionTitle"

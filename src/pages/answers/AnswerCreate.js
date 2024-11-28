@@ -24,20 +24,18 @@ function AnswerCreate() {
         console.log("Submitting answerEmpId:", form.answerEmpId);
         console.log("Submitting questionId:", questionId);
 
-        try {
-            // API 호출
-            const response = await dispatch(callAnswerCreateApi({ questionId, answerEmpId: form.answerEmpId, answerTitle: form.answerTitle, answerContent: form.answerContent }));
-            // 응답 확인
-            if (response && response.status === 200) {
-                // 성공적으로 등록된 후 해당 질문의 답변 목록으로 이동
-                navigate(`/answers/${questionId}`);
-            } else {
-                // 응답이 성공적이지 않은 경우
-                alert('답변 등록에 실패했습니다. 다시 시도해 주세요.');
-            }
-        } catch (error) {
-            console.error("답변 등록 중 오류 발생:", error);
-            alert('답변 등록에 실패했습니다. 오류: ' + error.message);
+        
+        // API 호출
+        const response = await dispatch(callAnswerCreateApi({ questionId, answerEmpId: form.answerEmpId, answerTitle: form.answerTitle, answerContent: form.answerContent }));
+        // 응답 확인
+        console.log("response", response);
+        console.log("response.status", response.status);
+        if (response && response.status === 200) {
+            // 성공적으로 등록된 후 해당 질문의 답변 목록으로 이동
+            navigate(`/admin/answers`);
+        } else {
+            // 응답이 성공적이지 않은 경우
+            alert('답변 등록에 실패했습니다. 다시 시도해 주세요.');
         }
     };
 

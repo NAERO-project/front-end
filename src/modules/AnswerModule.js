@@ -9,14 +9,14 @@ const initialState = {
 
 export const GET_ANSWERS = "GET_ANSWERS";
 export const GET_ANSWER_DETAIL = "GET_ANSWER_DETAIL";
-export const GET_QUESTIONS = "GET_QUESTIONS";
+export const GET_ALL_QUESTIONS = "GET_ALL_QUESTIONS";
 export const POST_ANSWER = "POST_ANSWER";
 export const PUT_ANSWER = "PUT_ANSWER";
 export const DELETE_ANSWER = "DELETE_ANSWER";
 
 const actions = createActions({
     [GET_ANSWERS]: () => {},
-    [GET_QUESTIONS]: () => {},
+    [GET_ALL_QUESTIONS]: () => {},
     [GET_ANSWER_DETAIL]: () => {},
     [POST_ANSWER]: () => {},
     [PUT_ANSWER]: () => {},
@@ -29,7 +29,7 @@ const answerReducer = handleActions(
 		[GET_ANSWERS]: (state, { payload }) => {
 			return payload;
 		},
-		[GET_QUESTIONS]: (state, { payload }) => {
+		[GET_ALL_QUESTIONS]: (state, { payload }) => {
 			return payload;
 		},
 		[GET_ANSWER_DETAIL]: (state, { payload }) => {

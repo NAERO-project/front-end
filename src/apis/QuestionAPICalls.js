@@ -9,8 +9,8 @@ import {
 const prefix = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/api`;
 
 /* 1:1 문의 전체 조회 */
-export const callQuestionListApi = ({ userId, page = 1, size = 10 }) => {
-    const requestURL = `${prefix}/questions?userId=${userId}&page=${page}&size=${size}`;
+export const callQuestionListApi = ({ currentPage, username }) => {
+    const requestURL = `${prefix}/questions/list/${username}?offset=${currentPage}`;
 
     console.log('[QuestionAPICalls] requestURL: ', requestURL);
 
@@ -37,8 +37,8 @@ export const callQuestionListApi = ({ userId, page = 1, size = 10 }) => {
 };
 
 /* 1:1 문의 상세 조회 */
-export const callQuestionDetailApi = (questionId, userId) => {
-    const requestURL = `${prefix}/questions/${questionId}?userId=${userId}`;
+export const callQuestionDetailApi = (questionId, username) => {
+    const requestURL = `${prefix}/questions/${username}/${questionId}`;
 
     console.log('[QuestionAPICalls] requestURL: ', requestURL);
 
@@ -62,15 +62,15 @@ export const callQuestionDetailApi = (questionId, userId) => {
 };
 
 /* 1:1 문의 등록 */
-export const callQuestionCreateApi = ({ form, userId }) => {
-    const requestURL = `${prefix}/questions`;
+export const callQuestionCreateApi = ({ form, username }) => {
+    const requestURL = `${prefix}/questions/${username}`;
 
     console.log('[QuestionAPICalls] callQuestionCreateApi Call');
     console.log('[QuestionAPICalls] requestURL: ', requestURL); 
 
     const body = {
         ...form,
-        userId: userId
+        username: username
     };
 
     return async (dispatch, getState) => {
@@ -95,8 +95,8 @@ export const callQuestionCreateApi = ({ form, userId }) => {
 };
 
 /* 1:1 문의 수정 */
-export const callQuestionUpdateApi = ({ questionId, userId, form }) => {
-    const requestURL = `${prefix}/questions/${questionId}?userId=${userId}`;
+export const callQuestionUpdateApi = ({ questionId, username, form }) => {
+    const requestURL = `${prefix}/questions/${username}/${questionId}`;
 
     console.log('[QuestionAPICalls] callQuestionUpdateApi Call');
     console.log('[QuestionAPICalls] requestURL: ', requestURL);
@@ -123,8 +123,8 @@ export const callQuestionUpdateApi = ({ questionId, userId, form }) => {
 };
 
 /* 1:1 문의 삭제 */
-export const callQuestionDeleteApi = (questionId, userId) => {
-    const requestURL = `${prefix}/questions/${questionId}?userId=${userId}`;
+export const callQuestionDeleteApi = (questionId, username) => {
+    const requestURL = `${prefix}/questions/${username}/${questionId}`;
 
     console.log('[QuestionAPICalls] callQuestionDeleteApi Call');
     console.log('[QuestionAPICalls] requestURL: ', requestURL);
@@ -142,7 +142,7 @@ export const callQuestionDeleteApi = (questionId, userId) => {
         console.log('[QuestionAPICalls] callQuestionDeleteApi RESULT: ', result);
 
         if (result.status === 200) {
-            dispatch({ type: DELETE_QUESTION, payload: questionId });
+            dispatch({ type: DELETE_QUESTION, payload: result });
         } else {
             console.error('Error deleting question:', result);
         }

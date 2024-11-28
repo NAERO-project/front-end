@@ -11,6 +11,7 @@ import bannerReducer from "./BannerModule";
 import paymentReducer from "./PaymentModule";
 import questionReducer from "./QuestionModule";
 import answerReducer from "./AnswerModule";
+import reviewReducer from "./ReviewModule";
 
 const rootReducer = combineReducers({
 	userReducer,
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
 	questionReducer,
 	answerReducer,
 	paymentReducer,
+	reviewReducer
 });
 
 export default rootReducer;

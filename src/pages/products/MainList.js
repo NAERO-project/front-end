@@ -40,14 +40,6 @@ function MainList(){
                     <span className={ButtonCSS.icon01}>-&gt;</span>
                 </NavLink>
             </div>
-            <div className={MainListCSS.question_button}>
-                <button
-                    className={`${ButtonCSS.main_button} ${ButtonCSS.question_button}`}
-                    onClick={() => navigate("/questions")}
-                >
-                    문의 목록 보기
-                </button>
-            </div>
         </div>
             
     );

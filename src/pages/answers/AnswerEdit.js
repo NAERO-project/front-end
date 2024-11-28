@@ -45,7 +45,7 @@ function AnswerEdit() {
                 answerTitle: form.answerTitle, 
                 answerContent: form.answerContent 
             }));
-            navigate(`/questions/detail/${questionId}`);
+            navigate(`/admin/answers/detail/${questionId}/${answerId}`);
         } catch (error) {
             console.error("답변 수정 중 오류 발생:", error);
             alert('답변 수정에 실패했습니다. 오류: ' + error.message);

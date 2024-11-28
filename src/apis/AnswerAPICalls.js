@@ -1,6 +1,6 @@
 import {
     GET_ANSWERS,
-    GET_QUESTIONS,
+    GET_ALL_QUESTIONS,
     GET_ANSWER_DETAIL,
     POST_ANSWER,
     PUT_ANSWER,
@@ -15,23 +15,22 @@ import {
 const prefix = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/api/admin`;
 
 /* 1:1 문의 답변 전체 조회 */
-export const callAnswerListApi = ({ page = 1, size = 10 }) => {
-    const requestURL = `${prefix}/answers?page=${page}&size=${size}`;
+export const callAnswerListApi = ({ currentPage }) => {
+    const requestURL = `${prefix}/answers?offset=${currentPage}`;
 
     console.log('[AnswerAPICalls] requestURL: ', requestURL);
 
-    return async (dispatch) => {
+    return async (dispatch, getState) => {
         const result = await fetch(requestURL, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 Accept: '*/*',
+                Authorization: 'Bearer ' + window.localStorage.getItem('accessToken'),
             },
         }).then((response) => response.json());
 
         if (result.status === 200) {
-            console.log("--------------------1:1 문의 답변-----------------------")
-            console.log("--------------------1:1 문의 답변-----------------------")
             console.log("--------------------1:1 문의 답변-----------------------")
             console.log('[AnswerAPICalls] 1 callAnswerListApi RESULT: ', result);
             console.log('[AnswerAPICalls] callAnswerListApi RESULT: ', result.data);
@@ -43,16 +42,18 @@ export const callAnswerListApi = ({ page = 1, size = 10 }) => {
     };
 }; 
 
-export const callQuestionListApi = ({ page = 1, size = 10}) => {
-    const requestURL = `${prefix}/questions?page=${page}&size=${size}`;
+// 1:1 문의 전체 조회
+export const callQuestionListApi = ({ currentPage }) => {
+    const requestURL = `${prefix}/questions?offset=${currentPage}`;
 
     console.log('[QuestionAPICalls] requestURL: ', requestURL);
-    return async (dispatch) => {
+    return async (dispatch, getState) => {
         const result = await fetch(requestURL, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 Accept: '*/*',
+                Authorization: 'Bearer ' + window.localStorage.getItem('accessToken'),
             },
         }).then((response) => response.json());
 
@@ -62,7 +63,7 @@ export const callQuestionListApi = ({ page = 1, size = 10}) => {
             console.log("-------------------------- 1:1문의 ------------------------------")
             console.log('[QuestionAPICalls] callQuestionListApi RESULT: ', result);
             console.log('[QuestionAPICalls] callQuestionListApi RESULT: ', result.data);
-            dispatch({ type: GET_ANSWERS, payload: result.data });
+            dispatch({ type: GET_ALL_QUESTIONS, payload: result.data });
         } else {
             console.error('Error fetching answers:', result);
             dispatch({ type: 'FETCH_ANSWERS_ERROR', payload: result });
@@ -72,8 +73,8 @@ export const callQuestionListApi = ({ page = 1, size = 10}) => {
 
 
 /* 특정 문의 답변 상세 조회 */
-export const callAnswerDetailApi = (answerId, questionId) => {
-    const requestURL = `${prefix}/questions/${questionId}/answers/${answerId}`;
+export const callAnswerDetailApi = (answerId, questionId, username) => {
+    const requestURL = `${prefix}/questions/${questionId}/answers/${answerId}/${username}`;
 
     console.log('[AnswerAPICalls] requestURL: ', requestURL);
 
@@ -112,6 +113,7 @@ export const callAnswerCreateApi = ({ questionId, answerEmpId, answerTitle, answ
         if (result.status === 200) {
             console.log('[AnswerAPICalls] callAnswerCreateApi RESULT: ', result);
             dispatch({ type: POST_ANSWER, payload: result });
+            return result;
         } else {
             console.error('Error creating answer:', result);
             throw new Error(result.message || '답변 등록에 실패했습니다.');

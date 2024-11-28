@@ -43,39 +43,64 @@ import AnswerCreate from "./pages/answers/AnswerCreate";
 import AnswerEdit from "./pages/answers/AnswerEdit";
 import AnswerDetail from "./pages/answers/AnswerDetail";
 
+// 리뷰 페이지 컴포넌트
+import ReviewCreate from "./pages/reviews/ReviewCreate";
+import MyReviews from "./pages/reviews/MyReviews";
+import ReviewDetail from "./pages/reviews/ReviewDetail";
+import ReviewEdit from "./pages/reviews/ReviewEdit";
+
 function App() {
 	return (
 		<BrowserRouter>
 			<Routes>
+				<Route path="/" element={<Layout />}>
+					<Route index element={<Main />} />
+					<Route path="preview/food" element={<MainFoodList />} />
+					<Route path="preview/beauty" element={<MainBeautyList />} />
+					<Route
+						path="preview/fashion"
+						element={<MainFashionList />}
+					/>
 
-				<Route path='/' element={<Layout />}>
-					<Route index element={<Main />}/>
-          <Route path="preview/food" element={ <MainFoodList/> }/>
-					<Route path="preview/beauty" element={ <MainBeautyList/> }/>
-					<Route path="preview/fashion" element={ <MainFashionList/> }/>
-
-          <Route path='products' element={<ProductPageLayout/>}>
-						<Route path='more' element={ <ProductMore/> }/>
-						<Route path="more/:largeId" element={ <ProductCategory/> }/>
-						<Route path="more/:largeId/:mediumId" element={ <ProductCategory/> }/>
-						<Route path=":productId" element={ <ProductDetail/> }/>
-            <Route path="brand/:producerId" element={ <BrandProducer/> }/>
+					<Route path="products" element={<ProductPageLayout />}>
+						<Route path="more" element={<ProductMore />} />
+						<Route
+							path="more/:largeId"
+							element={<ProductCategory />}
+						/>
+						<Route
+							path="more/:largeId/:mediumId"
+							element={<ProductCategory />}
+						/>
+						<Route path=":productId" element={<ProductDetail />} />
+						<Route
+							path="brand/:producerId"
+							element={<BrandProducer />}
+						/>
 					</Route>
 
+					<Route path="products/brand" element={<BrandPageLayout />}>
+						<Route path="home" element={<BrandProductList />} />
+						<Route
+							path="home/:producerId"
+							element={<BrandProductList />}
+						/>
+					</Route>
 
-          <Route path='products/brand' element={ <BrandPageLayout/> }>
-              <Route path="home" element={ <BrandProductList/> }/>
-              <Route path="home/:producerId" element={ <BrandProductList/> }/>
-            </Route>
-
-          <Route path='mypage' element={<MypageLayout />}>
-            <Route path='detail' element={<UserDetail />} />
-            <Route path='update' element={<UpdateUser />} />
-            <Route path='toproducer' element={<ProducerSignup />}></Route>
-            <Route path='order' element={<MyOrders />} />
-            <Route path='order-detail/:orderId' element={<MyOrderDetail />} />
-            {/* 회원들의 마이페이지 */}
-				  </Route>
+					<Route path="mypage" element={<MypageLayout />}>
+						<Route path="detail" element={<UserDetail />} />
+						<Route path="update" element={<UpdateUser />} />
+						<Route
+							path="toproducer"
+							element={<ProducerSignup />}
+						></Route>
+						<Route path="order" element={<MyOrders />} />
+						<Route
+							path="order-detail/:orderId"
+							element={<MyOrderDetail />}
+						/>
+						{/* 회원들의 마이페이지 */}
+					</Route>
 
 					{/* <Route path='brand' element={ <BrandPageLayout/> }>
             <Route path="home" element={ <BrandProductList/> }/>
@@ -125,49 +150,32 @@ function App() {
 						{/* <Route path="inquiry-manage" element={<InquiryManage />} /> */}
 					</Route>
 
-					<Route path="login" element={<Login />} />
-					<Route path="signup" element={<Signup />} />
 					{/* 1:1 문의 관련 라우트 */}
-					<Route path="questions">
-						<Route index element={<QuestionList />} />{" "}
-						{/* 문의 목록 */}
-						<Route
-							path="create"
-							element={<QuestionCreate />}
-						/>{" "}
-						{/* 문의 생성 */}
-						<Route
-							path="edit/:questionId"
-							element={<QuestionEdit />}
-						/>{" "}
-						{/* 문의 수정 */}
-						<Route
-							path="detail/:questionId"
-							element={<QuestionDetail />}
-						/>{" "}
-						{/* 문의 상세 */}
+					<Route path="mypage/questions">
+						<Route index element={<QuestionList />} />
+						<Route path="create" element={<QuestionCreate />} />
+						<Route path="edit/:questionId" element={<QuestionEdit />} />
+						<Route path="detail/:questionId" element={<QuestionDetail />} />
 					</Route>
 
+					
+
 					{/* 1:1 답변 관련 라우트 */}
-					<Route path="answers">
-						<Route index element={<AnswerList />} />{" "}
-						{/* 답변 목록 */}
-						<Route
-							path="create/:questionId"
-							element={<AnswerCreate />}
-						/>{" "}
-						{/* 답변 생성 */}
-						<Route
-							path="edit/:questionId/:answerId"
-							element={<AnswerEdit />}
-						/>{" "}
-						{/* 답변 수정 */}
-						<Route
-							path="detail/:questionId/:answerId"
-							element={<AnswerDetail />}
-						/>{" "}
-						{/* 답변 상세 */}
+					<Route path="admin/answers">
+						<Route index element={<AnswerList />} />
+						<Route path="create/:questionId" element={<AnswerCreate />} />
+						<Route path="edit/:questionId/:answerId" element={<AnswerEdit />} />
+						<Route path="detail/:questionId/:answerId" element={<AnswerDetail />} />
 					</Route>
+
+					{/* 리뷰 관련 라우트 */}
+					<Route path="mypage/reviews">
+                    <Route path="create/:productId" element={<ReviewCreate />} />
+						<Route path="my-reviews" element={<MyReviews />} />
+						<Route path="detail/:productId/:reviewId" element={<ReviewDetail />} />
+						<Route path="edit/:productId/:reviewId" element={<ReviewEdit />} />
+					</Route>
+					
 				</Route>
 			</Routes>
 		</BrowserRouter>

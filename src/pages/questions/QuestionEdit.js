@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { callQuestionDetailApi, callQuestionUpdateApi } from '../../apis/QuestionAPICalls';
 import { useParams, useNavigate } from 'react-router-dom';
+import { decodeJwt } from "../../utils/tokenUtils";
 
 function QuestionEdit() {
     const { questionId } = useParams();
@@ -9,11 +10,12 @@ function QuestionEdit() {
     const navigate = useNavigate();
     const questionDetail = useSelector((state) => state.questionReducer.data);
     const [form, setForm] = useState({ questionTitle: '', questionContent: '' });
-    const userId = 1;
+    const isLogin = window.localStorage.getItem("accessToken"); // Local Storage 에 token 정보 확인
+    const username = isLogin ? decodeJwt(isLogin).sub : null; 
 
     useEffect(() => {
-        dispatch(callQuestionDetailApi(questionId, userId));
-    }, [dispatch, questionId, userId]);
+        dispatch(callQuestionDetailApi(questionId, username));
+    }, [dispatch, questionId, username]);
 
     useEffect(() => {
         if (questionDetail) {
@@ -29,8 +31,8 @@ function QuestionEdit() {
     };
 
     const onSubmitHandler = () => {
-        dispatch(callQuestionUpdateApi({ questionId, userId, form })).then(() => {
-            navigate(`/questions/detail/${questionId}`);
+        dispatch(callQuestionUpdateApi({ questionId, username, form })).then(() => {
+            navigate(`/mypage/questions/detail/${questionId}`);
         });
     };
 

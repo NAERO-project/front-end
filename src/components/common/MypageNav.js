@@ -38,7 +38,7 @@ function MypageNav(props) {
                     </li>
 
                     <li>
-                        <NavLink to="/mypage/">1:1 문의</NavLink>
+                        <NavLink to="/mypage/questions">1:1 문의</NavLink>
                     </li>
 
                     <li>
@@ -46,7 +46,11 @@ function MypageNav(props) {
                     </li>
 
                     <li>
-                        <NavLink to="/mypage/">상품 후기</NavLink>
+                        <NavLink to="/mypage/reviews/my-reviews">상품 후기</NavLink>
+                    </li>
+
+                    <li>
+                        <NavLink to="/mypage/inquirys">상품 문의</NavLink>
                     </li>
                 </ul>
             </div>

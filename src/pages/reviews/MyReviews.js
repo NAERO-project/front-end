@@ -1,22 +1,27 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { callQuestionListApi } from "../../apis/QuestionAPICalls";
+import { callReviewsByUserAPI } from '../../apis/ReviewAPICall';
 import { decodeJwt } from "../../utils/tokenUtils";
 
-function QuestionList() {
+const MyReviews = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const params = useParams();
 
-    // Redux 상태에서 질문 목록과 페이지 정보 가져오기
-    const data = useSelector((state) => state.questionReducer|| {});
-    const questions = data.data? data.data.content : [];
-    const questionsList = useSelector((state) => state.questionReducer.data || []);
-    const pageInfo = useSelector((state) => state.questionReducer.pageInfo || { pageEnd: 0 });
     const isLogin = window.localStorage.getItem("accessToken"); // Local Storage 에 token 정보 확인
     const username = isLogin ? decodeJwt(isLogin).sub : null;
 
+    
+    const data = useSelector(state => state.reviewReducer || {});
+    console.log("data", data);
+    const reviews = data.reviews ? data.reviews.content : [];
+    // const productId = data.reviews.data.productId
+    const productId = reviews.map(review => review.productId);
+    console.log("reviews : ", reviews);
+    console.log("productId : ", productId);
+
+    const pageInfo = useSelector((state) => state.reviewReducer.data || []);
+    console.log("pageInfo : ", pageInfo);
     const [start, setStart] = useState(0);
     const [pageEnd, setPageEnd] = useState(1);
 
@@ -26,14 +31,13 @@ function QuestionList() {
             pageNumber.push(i);
         }
     }
-
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
         if (username) {
             console.log("username", username);
             dispatch(
-                callQuestionListApi({
+                callReviewsByUserAPI({
                     currentPage: currentPage,
                     username: username,
                 })
@@ -41,35 +45,32 @@ function QuestionList() {
         }
     }, [dispatch, currentPage, username]);
 
-useEffect(()=>{
+    const handleReviewClick = (reviewId, productId) => {
+        navigate(`/mypage/reviews/detail/${productId}/${reviewId}`);
+    };
 
-    console.log("Redux questions:", questions);
-    console.log("Redux questionsList:", questionsList);
-},[questionsList])
+    const handleAddReview = () => {
+        navigate("/mypage/reviews/create");
+    };
+
+    console.log("reviews : ", reviews);
 
     return (
         <div>
-            <h1>문의 목록</h1>
-            <button onClick={() => navigate("/mypage/questions/create")}>새 문의 작성</button>
+            <h1>내가 작성한 리뷰</h1>
+            <button onClick={handleAddReview}>리뷰 등록</button>
             <ul>
-                {Array.isArray(questionsList) && questionsList.length > 0 ? (
-                    questionsList.map((question) => { 
-                        console.log(question); // question 객체 확인
-                        return (
-                            <li key={question.id}>
-                                <span
-                                    style={{ cursor: "pointer", textDecoration: "underline" }}
-                                    onClick={() => navigate(`/mypage/questions/detail/${question.questionId}`)} // 상세 페이지로 이동
-                                >
-                                    {question.questionTitle},
-                                    {question.questionDate},
-                                    {question.questionState}
-                                </span>
-                            </li>
-                        );
-                    })
+                {reviews && reviews.length > 0 ? (
+                    reviews.map(review => (
+                        <li key={review.reviewId} onClick={() => handleReviewClick(review.reviewId)}>
+                            <p>{review.review}</p>
+                            {review.reviewImage && (
+                                <img src={review.reviewImage} alt="Review" style={{ width: '100px', height: 'auto' }} />
+                            )}
+                        </li>
+                    ))
                 ) : (
-                    <li>등록된 문의가 없습니다.</li>
+                    <p>작성한 리뷰가 없습니다.</p>
                 )}
             </ul>
             <div
@@ -79,7 +80,7 @@ useEffect(()=>{
                     justifyContent: "center",
                 }}
             >
-                {Array.isArray(questionsList) && (
+                {Array.isArray(reviews) && (
                     <button
                         onClick={() => setCurrentPage(currentPage - 1)}
                         disabled={currentPage === 1}
@@ -102,7 +103,7 @@ useEffect(()=>{
                         </button>
                     </li>
                 ))}
-                {Array.isArray(questionsList) && (
+                {Array.isArray(reviews) && (
                     <button
                         className=""
                         onClick={() => setCurrentPage(currentPage + 1)}
@@ -116,7 +117,8 @@ useEffect(()=>{
                 )}
             </div>
         </div>
+        
     );
-}
+};
 
-export default QuestionList;
+export default MyReviews;
