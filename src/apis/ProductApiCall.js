@@ -420,8 +420,8 @@ export const callProductDetailApi = ({ productId }) => {
 };
 
 /* 판매자 상품 등록 */
-export const callProductRegistAPI = ({ form, producerUsername }) => {
-    console.log("[ProductAPICalls] callInsertProductApi Call");
+export const callProductRegistAPI = ({ form, producerUsername}) =>{
+    console.log('[ProductAPICalls] callInsertProductApi Call');
 
     const requestURL = `${prefix}/api/products/insert?producerUsername=${producerUsername}`;
 
@@ -443,36 +443,8 @@ export const callProductRegistAPI = ({ form, producerUsername }) => {
 };
 
 /* 판매자 상품 수정 */
-// export const callUpdateProductApi = ({ formData, productImage }) =>{
-//     console.log('[ProductAPICalls] callUpdateProductApi Call');
-
-//     const requestURL = `${prefix}/api/products/update?productImage=${productImage}`;
-//     // const requestURL = `${prefix}/api/products/update`;
-//     console.log("requestURL:", requestURL);
-//     return async (dispatch, getState) =>{
-//         const result = await fetch(requestURL, {
-//             method: 'PUT',
-//             headers: {
-//                 Accept: '*/*',
-//                 Authorization:
-//                     'Bearer ' + window.localStorage.getItem('accessToken')
-//             },
-//             mode: 'cors', // CORS 허용 모드
-//             credentials: 'include', // 쿠키를 전송해야 하는 경우
-
-//             body: formData,
-//         }).then((response) => response.json());
-
-//         console.log('[ProductAPICalls] callUpdateProductApi RESULT : ', result);
-
-//         dispatch({ type: PUT_PRODUCTS, payload: result });
-//     };
-// };
-
-/* 판매자 상품 수정 */
-export const callUpdateProductApi = ({ form }) => {
-    console.log("[ProductAPICalls] callUpdateProductApi Call");
-    console.log("가져왔나?", form);
+export const callUpdateProductApi = ({ form }) =>{
+    console.log('[ProductAPICalls] callUpdateProductApi Call');
 
     const requestURL = `${prefix}/api/products`;
 
@@ -480,25 +452,16 @@ export const callUpdateProductApi = ({ form }) => {
         const result = await fetch(requestURL, {
             method: "PUT",
             headers: {
-                Accept: "*/*",
+                Accept: '*/*',
                 Authorization:
-                    "Bearer " + window.localStorage.getItem("accessToken"),
+                    'Bearer ' + window.localStorage.getItem('accessToken')
             },
-            body: form,
-        })
-            .then((response) => response.json())
-            .catch((error) => {
-                console.error("[ProductAPICalls] Error:", error);
-                throw error;
-            });
+            body: form
+        }).then((response) => response.json());
 
-        if (result.status === 200) {
-            console.log(
-                "[ProductAPICalls] callUpdateProductApi RESULT:",
-                result
-            );
-            dispatch({ type: PUT_PRODUCTS, payload: result });
-        }
+        console.log('[ProductAPICalls] callUpdateProductApi RESULT : ', result);
+
+        dispatch({ type: PUT_PRODUCTS, payload: result });
     };
 };
 
