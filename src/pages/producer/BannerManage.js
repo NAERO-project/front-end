@@ -108,7 +108,7 @@ function BannerManage(){
                                     <td>{b.approverId}</td>
                                     <td></td>
                                     <td>
-                                        <button onClick={onClickBannerDelete()} >삭제</button>
+                                        <button  >삭제</button>
                                     </td>
                                 </tr>
                             ))}
