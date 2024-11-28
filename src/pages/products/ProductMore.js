@@ -25,6 +25,11 @@ import ProductNav from "../../components/common/products/ProductNav";
         }
     }
 
+    // 컴포넌트가 처음 렌더링될 때 데이터 fetching
+    useEffect(() => {
+        fetchData(); // 초기 데이터 fetching
+    }, []); // 빈 배열을 사용하여 컴포넌트가 처음 렌더링될 때만 호출
+
     useEffect(() => {
             fetchData();
         },[currentPage]);
@@ -40,7 +45,6 @@ import ProductNav from "../../components/common/products/ProductNav";
 
     return(
         <div>
-            <ProductNav/>
             <div className={ProductMoreCSS.main_product_box}>
                 {Array.isArray(productList) && productList.map((product) => (
                     <Product key={product.productId} product={product}/>

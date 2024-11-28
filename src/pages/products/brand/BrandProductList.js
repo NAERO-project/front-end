@@ -8,14 +8,18 @@ import BrandBanner from "../../banner/BrandBanner";
 
 function BrandProductList() {
     const dispatch = useDispatch();
-    const { producerId, producerName } = useParams();
+    const { producerId } = useParams();
 
-    const brandList = useSelector(state => state.productProducerReducer);
-    console.log("brandList", brandList);
+    const brandList = useSelector(state => state.productProducerReducer || []);
+    console.log("brandList 브랜드:", brandList);
 
     useEffect(() => {
         fetchData();
     }, []);
+
+    useEffect(() => {
+        fetchData();
+    }, [producerId]);
 
     const fetchData = () => {
         dispatch(callProducerListApi()); // 브랜드 목록 가져오기
