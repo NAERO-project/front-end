@@ -104,7 +104,7 @@ function CartOrder() {
             (payRequest.orderDTO.couponDiscount || 0)) * 0.1;
             console.log("addPoint", addPoint);
             setUserPoint(addPoint);
-            setPoint(addPoint);
+            // setPoint(addPoint);
         }
     }, [orderData, calculateOrderTotalAmount]);
 
