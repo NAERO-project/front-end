@@ -9,7 +9,8 @@
 .product_img_box{
     width: 277px;
     height: 250px;
-    background-color: rgb(213, 147, 5);
+    /* background-color: rgb(213, 147, 5); */
+    background-color: #fff;
     box-sizing: border-box;
     overflow: hidden;
     cursor: pointer;
