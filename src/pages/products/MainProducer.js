@@ -9,11 +9,11 @@ function MainProducer(){
                 <div className={MainProducerCSS.blur}></div>
                 <Link to="/products/brand/home" className={MainProducerCSS.producer_btn}>더보기</Link>
             </div>
-
+{/* 
             <div className={MainProducerCSS.producer_img}>
                 <div className={MainProducerCSS.blur}></div>
                 <Link to="/products/brand/home" className={MainProducerCSS.producer_btn}>더보기</Link>
-            </div>
+            </div> */}
         </div>
     );
 }

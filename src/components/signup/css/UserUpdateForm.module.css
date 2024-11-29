@@ -1,0 +1,44 @@
+.box{
+    width: 1102px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.form_box h3{
+    margin: 30px 0 50px 0;
+    font-weight: 500;
+    color: #D1D1D1;
+}
+
+.form_box label{
+    width: 100px;
+    margin-bottom: 10px;
+}
+
+.form_box input{
+    width: 408px;
+    height: 40px;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    color: #828282;
+    border-radius: 30px;
+    background-color: #fff;
+    border: 1px solid #828282;
+}
+
+.pass{
+    margin: 0 85px 0 0;
+}
+
+.form_box button{
+    width: 98px;
+    height: 40px;
+    padding: 0 5px;
+    margin: 0 0 0 10px;
+    border-radius: 10px;
+    color: #fff;
+    background-color: #849076;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}

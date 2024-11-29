@@ -123,58 +123,75 @@ function Cart() {
             <h2 className={CartCSS.title}>장바구니</h2>
             {Array.isArray(cartData) && cartData.length > 0 ? (
                 <div>
-                    <button onClick={onClickCartDeleteHandler}>삭제하기</button>
-                    &nbsp;&nbsp;
-                    <button onClick={onClickCartOrderHandler}>주문하기</button>
+                    <button className={CartCSS.order_btn01} onClick={onClickCartDeleteHandler}>삭제하기</button>
+                    
                     {cartData.map((item) => (
                         <div key={item.cartId} className={CartCSS.item}>
-                            <input
-                                type="checkbox"
-                                checked={!!selectedItems[item.cartId]}
-                                onChange={() => selectItemHandler(item.cartId)}
-                            />
-                            <img src={item.productImg} alt={item.productName} />
-                            <h3>{item.productName}</h3>
-                            <p>
-                                {item.optionDesc} (추가 금액:{" "}
-                                {(item.addPrice || 0).toLocaleString()}원)
-                            </p>
-                            <p>
-                                {(
-                                    selectedItems[item.cartId]?.price ||
-                                    ((item.productPrice || 0) + (item.addPrice || 0)) *
-                                        item.count
-                                ).toLocaleString()}
-                                원
-                            </p>
-                            <div>
-                                <button
-                                    onClick={() =>
-                                        onClickQuantityChangeHandler(
-                                            item.cartId,
-                                            -1
-                                        )
-                                    }
-                                >
-                                    -
-                                </button>
-                                <span>
-                                    {selectedItems[item.cartId]?.quantity ||
-                                        item.count}
-                                </span>
-                                <button
-                                    onClick={() =>
-                                        onClickQuantityChangeHandler(
-                                            item.cartId,
-                                            1
-                                        )
-                                    }
-                                >
-                                    +
-                                </button>
+                            <div className={CartCSS.div_box01}>
+                                <div className={CartCSS.img_box}>
+                                    <img src={item.productImg} alt={item.productName} />
+                                </div>
+                                
+                                <div className={CartCSS.txt}>
+                                    <h3>{item.productName}</h3>
+                                    <p>
+                                        {(
+                                            selectedItems[item.cartId]?.price ||
+                                            ((item.productPrice || 0) + (item.addPrice || 0)) *
+                                                item.count
+                                        ).toLocaleString()}
+                                        원
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div className={CartCSS.div_box02}>
+                                <p>
+                                    {item.optionDesc} (추가 금액:{" "}
+                                    {(item.addPrice || 0).toLocaleString()}원)
+                                </p>
+                            </div>
+
+                            <div className={CartCSS.div_box03}>
+                                <div className={CartCSS.btn}>
+                                    <button
+                                        onClick={() =>
+                                            onClickQuantityChangeHandler(
+                                                item.cartId,
+                                                -1
+                                            )
+                                        }
+                                    >
+                                        -
+                                    </button>
+                                    <span>
+                                        {selectedItems[item.cartId]?.quantity ||
+                                            item.count}
+                                    </span>
+                                    <button
+                                        onClick={() =>
+                                            onClickQuantityChangeHandler(
+                                                item.cartId,
+                                                1
+                                            )
+                                        }
+                                    >
+                                        +
+                                    </button>
+                                </div>
+                                <input
+
+                                    type="checkbox"
+                                    checked={!!selectedItems[item.cartId]}
+                                    onChange={() => selectItemHandler(item.cartId)}
+                                />
                             </div>
                         </div>
                     ))}
+                    <div className={CartCSS.order_btn}>
+                        <button className={CartCSS.order_btn02} onClick={onClickCartOrderHandler}>주문하기</button>
+                    </div>
+                    
                 </div>
             ) : (
                 <p>장바구니가 비어 있습니다.</p>
