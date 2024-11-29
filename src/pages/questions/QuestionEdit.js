@@ -8,7 +8,7 @@ function QuestionEdit() {
     const { questionId } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const questionDetail = useSelector((state) => state.questionReducer.data);
+    const questionDetail = useSelector((state) => state.questionReducer);
     const [form, setForm] = useState({ questionTitle: '', questionContent: '' });
     const isLogin = window.localStorage.getItem("accessToken"); // Local Storage 에 token 정보 확인
     const username = isLogin ? decodeJwt(isLogin).sub : null; 
