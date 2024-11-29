@@ -334,7 +334,7 @@ function ProductRegist() {
 
     return (
         <div className={ProductManageCSS.manage_box}>
-             
+             <button onClick={onClickProductRegistHandler}> 등록</button>
 
             <div>
 
