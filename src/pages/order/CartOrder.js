@@ -503,8 +503,9 @@ const processEasyPay = async (provider) => {
             <br />
             <input
                 type="text"
+                name="addressDetail"
                 value={payRequest.orderDTO.addressDetail}
-                readOnly
+                onChange={onChangeHandler}
                 placeholder="상세주소"
             />
             {isPostcodeOpen && (
