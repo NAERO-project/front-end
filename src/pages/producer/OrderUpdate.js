@@ -26,24 +26,24 @@ function OrderUpdate() {
     console.log("뭘 갖고 왔나???", orderDetail);
   }, []);
 
-  const onClickCancelOrderHandler = (orderId) => {
-    let answer = window.confirm("해당 주문을 취소 하시겠습니까?");
-    if (answer) {
-      dispatch(
-        callCancelOrderApi({
-          orderId,
-        })
-      )
-        .then(() => {
-          alert("주문이 취소되었습니다."); // 주문 취소 완료 알림
-          window.location.reload(); // 페이지 리로딩
-        })
-        .catch((error) => {
-          console.error("주문 취소 중 오류 발생:", error);
-          alert("주문 취소 실패. 관리자에게 문의하세요.");
-        });
-    }
-  };
+  // const onClickCancelOrderHandler = (orderId) => {
+  //   let answer = window.confirm("해당 주문을 취소 하시겠습니까?");
+  //   if (answer) {
+  //     dispatch(
+  //       callCancelOrderApi({
+  //         orderId,
+  //       })
+  //     )
+  //       .then(() => {
+  //         alert("주문이 취소되었습니다."); // 주문 취소 완료 알림
+  //         window.location.reload(); // 페이지 리로딩
+  //       })
+  //       .catch((error) => {
+  //         console.error("주문 취소 중 오류 발생:", error);
+  //         alert("주문 취소 실패. 관리자에게 문의하세요.");
+  //       });
+  //   }
+  // };
 
   return (
     <div className={styles["order-container"]}>
@@ -124,7 +124,7 @@ function OrderUpdate() {
             <div className="colon">:</div>
             <div className="value">{orderDetail.deliveryNote}</div>
           </div>
-          {orderDetail?.deliveryStatus === "pending" && (
+          {/* {orderDetail?.deliveryStatus === "pending" && (
             <div>
               <button
                 className={styles["cancel-button"]}
@@ -135,7 +135,7 @@ function OrderUpdate() {
                 주문 취소
               </button>
             </div>
-          )}
+          )} */}
         </div>
       )}
     </div>
