@@ -5,10 +5,6 @@ import Login from "./pages/user/Login";
 import ProducerPageLayout from "./layouts/ProducerPageLayout";
 import ProductManage from "./pages/producer/ProductManage";
 import ProductRegist from "./pages/producer/ProductRegist";
-import MainFoodList from "./pages/products/MainFoodList";
-import MainBeautyList from "./pages/products/MainBeautyList";
-import MainFashionList from "./pages/products/MainFashionList";
-import ProductMore from "./pages/products/ProductMore";
 import ProductDetail from "./pages/products/ProductDetail";
 import ProductPageLayout from "./layouts/ProductPageLayout";
 import ProductCategory from "./pages/products/ProductCategory";
@@ -28,7 +24,6 @@ import MyOrders from "./pages/order/MyOrders";
 import OrderManage from "./pages/producer/OrderManage";
 import OrderUpdate from "./pages/producer/OrderUpdate";
 import Dashboard from "./pages/admin/Dashboard";
-import MainList from "./pages/products/MainList";
 import ProductUpdate from "./pages/producer/ProductUpdate";
 import BannerManage from "./pages/producer/BannerManage";
 import AdminBannerManage from "./pages/admin/AdminBannerManage";
@@ -37,6 +32,12 @@ import AdminBannerUpdate from "./pages/admin/AdminBannerUpdate";
 import MyOrderDetail from "./pages/order/MyOrderDetail";
 import Cart from "./pages/cart/Cart";
 import CartOrder from "./pages/order/CartOrder";
+import ProducerManage from "./pages/admin/manageusers/ProducerManage";
+import UserManage from "./pages/admin/manageusers/UserManage";
+import ProducerDetailManage from "./pages/admin/manageusers/ProducerDetailManage";
+import UserDetailManage from "./pages/admin/manageusers/UserDetailManage";
+import ProducerUpdateManage from "./pages/admin/manageusers/ProducerUpdateManage";
+import UserUpdateManage from "./pages/admin/manageusers/UserUpdateManage";
 
 function App() {
 	return (
@@ -45,12 +46,10 @@ function App() {
 
 				<Route path='/' element={<Layout />}>
 					<Route index element={<Main />}/>
-          <Route path="preview/food" element={ <MainFoodList/> }/>
-					<Route path="preview/beauty" element={ <MainBeautyList/> }/>
-					<Route path="preview/fashion" element={ <MainFashionList/> }/>
-
+          
           <Route path='products' element={<ProductPageLayout/>}>
-						<Route path='more' element={ <ProductMore/> }/>
+						{/* <Route path='more' element={ <ProductMore/> }/> */}
+						<Route path="more" element={ <ProductCategory/> }/>
 						<Route path="more/:largeId" element={ <ProductCategory/> }/>
 						<Route path="more/:largeId/:mediumId" element={ <ProductCategory/> }/>
 						<Route path=":productId" element={ <ProductDetail/> }/>
@@ -60,7 +59,9 @@ function App() {
 
           <Route path='products/brand' element={ <BrandPageLayout/> }>
               <Route path="home" element={ <BrandProductList/> }/>
-              <Route path="home/:producerId" element={ <BrandProductList/> }/>
+              {/* <Route path="home/:producerId" element={ <BrandProductList/> }/> */}
+              <Route path="home/:producerId" element={ <BrandProducer/> }/>
+              <Route path="home/:producerId/:largeId" element={ <BrandProductList/> }/>
             </Route>
 
           <Route path='mypage' element={<MypageLayout />}>
@@ -108,8 +109,13 @@ function App() {
             <Route path="product-manage" element={<ProductManage />} />
             <Route path="banner-manage" element={<AdminBannerManage />} />
             <Route path="banner-update/:bannerId" element={<AdminBannerUpdate />} />
-            {/* <Route path="user-manage" element={<UserManage />} /> */}
-            {/* <Route path="producer-manage" element={<ProducerManage />} /> */}
+            <Route path="user-manage" element={<UserManage />} />
+            <Route path="producer-manage" element={<ProducerManage />} />
+            <Route path="producer-detail/:username" element={<ProducerDetailManage />} />
+            <Route path="user-detail/:username" element={<UserDetailManage />} />
+            <Route path="producer-update/:username" element={<ProducerUpdateManage />} />
+            <Route path="user-update/:username" element={<UserUpdateManage />} />
+            
             {/* <Route path="promotion-manage" element={<PromotionManage />} /> */}
             {/* <Route path="order-manage" element={<OrderManage />} /> */}
             {/* <Route path="FAQ-manage" element={<FAQManage />} /> */}

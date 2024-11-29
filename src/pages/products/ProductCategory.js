@@ -6,6 +6,11 @@ import { callProductLargeCategoryListApi } from "../../apis/ProductApiCall";
 import ProductMoreCSS from "./css/ProductMore.module.css"
 import ProductMediumNav from "../../components/common/products/ProductMediumNav";
 import ProductNav from "../../components/common/products/ProductNav";
+import MainList from "./MainList";
+import Banner from "../../components/common/banner/Banner";
+import BrandBanner from "../banner/BrandBanner";
+import ProductMore from "./ProductMore";
+import SimpleBanner from "../../components/common/banner/SimpleBanner";
 
 function ProductCategory(){
     const navigate = useNavigate();
@@ -13,7 +18,7 @@ function ProductCategory(){
     const products = useSelector(state => state.productReducer);
     const productList = products.data;
     const params = useParams();                 //URL에서 파라미터 가져오기
-    const largeCategoryId = params.largeId;     //largeId를 가져온다
+    const largeId = params.largeId;     //largeId를 가져온다
     const mediumCategoryId = params.mediumId;
     console.log("productList", productList);
 
@@ -29,11 +34,11 @@ function ProductCategory(){
 
     useEffect(() => {
             fetchData();
-        },[currentPage, largeCategoryId]);
+        },[currentPage, largeId]);
 
     const fetchData=()=>{dispatch(callProductLargeCategoryListApi({
         currentPage: currentPage,
-        largeId: largeCategoryId
+        largeId
     }));
 };
 
@@ -43,14 +48,19 @@ function ProductCategory(){
 
     return(
         <div>
+            <SimpleBanner/>
             <ProductNav/>
             <ProductMediumNav/>
-            <div className={ProductMoreCSS.main_product_box}>
-                {Array.isArray(productList) && productList.map((product) => (
-                    <Product key={product.productId} product={product}/>
-                ))}
-            </div>
-
+            {largeId === '1' ? (
+                <ProductMore/>
+            ) : (
+                <div className={ProductMoreCSS.main_product_box}>
+                    {Array.isArray(productList) && productList.map((product) => (
+                        <Product key={product.productId} product={product}/>
+                    ))}
+                </div>
+            )}
+            
             <div className={ProductMoreCSS.product_paging}>
                 {Array.isArray(productList) &&
                 <button onClick={() =>setCurrentPage(currentPage -1)} disabled={currentPage === 1} >&lt;</button>}

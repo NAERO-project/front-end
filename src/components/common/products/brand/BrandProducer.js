@@ -6,6 +6,7 @@ import Product from "../Product";
 import ProductNav from "../ProductNav";
 import ProductMediumNav from "../ProductMediumNav";
 import MainListCSS from "../../../../pages/products/css/MainList.module.css";
+import ProductProducerNav from "../ProductProducerNav";
 
 function BrandProducer({
     // producer: {producerId, producerName}
@@ -13,9 +14,10 @@ function BrandProducer({
 
     const dispatch = useDispatch();
     const brand = useSelector(state => state.productReducer);
-    const brandList = brand.data;
+    const brandList = brand.data || [];
     const params = useParams();
     const producerId = params.producerId;
+    const largeId = params.largeId; // largeId를 URL 파라미터로 가져옴
     console.log("brandList:", brandList);
 
     const pageInfo = brand.pageInfo;
@@ -30,12 +32,13 @@ function BrandProducer({
 
     useEffect(() =>{
         fetchData();
-    },[currentPage, producerId]);
+    },[currentPage, producerId, largeId]);
 
     const fetchData = () =>{
         dispatch(callBrandProductListPageApi({
             currentPage: currentPage,
-            producerId: producerId
+            producerId: producerId,
+            largeId: largeId
         }));
     };
 
@@ -47,8 +50,8 @@ function BrandProducer({
             <div>
                 <img src="" alt="" />
             </div>
-            <ProductNav/>
-            <ProductMediumNav/>
+            {/* <ProductProducerNav/> */}
+            {/* <ProductMediumNav/> */}
             <div className={MainListCSS.main_product_box}>
                 {Array.isArray(brandList) && brandList.map((product) => (
                     <Product key={product.productId} product={product}/>
