@@ -18,7 +18,7 @@ function OrderUpdate() {
 
   useEffect(() => {
     console.log("[OrderUpdate] orderId : ", params.orderId);
-    dispatch(
+    const intermediateOrderDetail = dispatch(
       callOrderDetailApi({
         orderId: params.orderId,
       })
