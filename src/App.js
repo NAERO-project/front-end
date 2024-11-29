@@ -39,6 +39,24 @@ import UserDetailManage from "./pages/admin/manageusers/UserDetailManage";
 import ProducerUpdateManage from "./pages/admin/manageusers/ProducerUpdateManage";
 import UserUpdateManage from "./pages/admin/manageusers/UserUpdateManage";
 
+// 문의 페이지 컴포넌트
+import QuestionList from "./pages/questions/QuestionList";
+import QuestionCreate from "./pages/questions/QuestionCreate";
+import QuestionEdit from "./pages/questions/QuestionEdit";
+import QuestionDetail from "./pages/questions/QuestionDetail";
+
+// 답변 페이지 컴포넌트
+import AnswerList from "./pages/answers/AnswerList";
+import AnswerCreate from "./pages/answers/AnswerCreate";
+import AnswerEdit from "./pages/answers/AnswerEdit";
+import AnswerDetail from "./pages/answers/AnswerDetail";
+
+// 리뷰 페이지 컴포넌트
+import ReviewCreate from "./pages/reviews/ReviewCreate";
+import MyReviews from "./pages/reviews/MyReviews";
+import ReviewDetail from "./pages/reviews/ReviewDetail";
+import ReviewEdit from "./pages/reviews/ReviewEdit";
+
 function App() {
 	return (
 		<BrowserRouter>
@@ -122,12 +140,36 @@ function App() {
             {/* <Route path="inquiry-manage" element={<InquiryManage />} /> */}
           </Route>
 
-          <Route path="login" element={<Login />} />
-            <Route path='signup' element={<Signup />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  );
+					{/* 1:1 문의 관련 라우트 */}
+					<Route path="mypage/questions">
+						<Route index element={<QuestionList />} />
+						<Route path="create" element={<QuestionCreate />} />
+						<Route path="edit/:questionId" element={<QuestionEdit />} />
+						<Route path="detail/:questionId" element={<QuestionDetail />} />
+					</Route>
+
+
+
+					{/* 1:1 답변 관련 라우트 */}
+					<Route path="admin/answers">
+						<Route index element={<AnswerList />} />
+						<Route path="create/:questionId" element={<AnswerCreate />} />
+						<Route path="edit/:questionId/:answerId" element={<AnswerEdit />} />
+						<Route path="detail/:questionId/:answerId" element={<AnswerDetail />} />
+					</Route>
+
+					{/* 리뷰 관련 라우트 */}
+					<Route path="mypage/reviews">
+                    <Route path="create/:productId" element={<ReviewCreate />} />
+						<Route path="my-reviews" element={<MyReviews />} />
+						<Route path="detail/:productId/:reviewId" element={<ReviewDetail />} />
+						<Route path="edit/:productId/:reviewId" element={<ReviewEdit />} />
+					</Route>
+
+				</Route>
+			</Routes>
+		</BrowserRouter>
+	);
 }
 
 export default App;

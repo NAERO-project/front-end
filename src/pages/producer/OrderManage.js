@@ -52,9 +52,9 @@ function ProductManage() {
                         <col width="25%" />
                         <col width="15%" />
                         <col width="8%" />
-                        <col width="5%" />
-                        <col width="5%" />
-                        <col width="10%" />
+                        {/* <col width="5%" /> */}
+                        {/* <col width="5%" />
+                        <col width="10%" /> */}
                     </colgroup>
                     <thead>
                         <tr>
@@ -64,8 +64,8 @@ function ProductManage() {
                             <th>총 주문 금액</th>
                             <th>주문 상태</th>
                             <th>배송 상태</th>
-                            <th>송장번호</th>
-                            <th></th>
+                            {/* <th>송장번호</th> */}
+                            {/* <th></th> */}
                         </tr>
                     </thead>
                     <tbody>
@@ -74,18 +74,34 @@ function ProductManage() {
                                 <tr
                                     key={o.orderId}
                                     onClick={() => onClickTableTr(o.orderId)}
-                                    style={{ cursor: 'pointer' }}
+                                    style={{ cursor: "pointer" }}
                                 >
                                     <td>{o.orderId}</td>
                                     <td>{o.userId}</td>
                                     <td>{o.orderTotalCount}</td>
-                                    <td>{o.orderTotalAmount.toLocaleString()} 원</td>
-                                    <td>{o.orderStatus}</td>
-                                    <td>{o.deliveryStatus}</td>
-                                    <td>{o.trackingNumber}</td>
                                     <td>
-                                        <button>송장등록</button>
+                                        {o.orderTotalAmount.toLocaleString()} 원
                                     </td>
+                                    <td>
+                                        {o?.orderStatus === "completed"
+                                            ? "주문완료"
+                                            : o?.orderStatus === "canceled"
+                                            ? "주문취소"
+                                            : ""}
+                                    </td>
+                                    <td>
+                                        {o?.deliveryStatus === "pending"
+                                            ? "배송전"
+                                            : o?.deliveryStatus === "sent"
+                                            ? "배송완료"
+                                            : o?.deliveryStatus === "canceled"
+                                            ? "배송취소"
+                                            : ""}
+                                    </td>
+                                    {/* <td>{o.trackingNumber}</td> */}
+                                    {/* <td>
+                                        <button>송장등록</button>
+                                    </td> */}
                                 </tr>
                             ))}
                     </tbody>

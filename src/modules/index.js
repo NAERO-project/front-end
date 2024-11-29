@@ -12,6 +12,9 @@ import paymentReducer from "./PaymentModule";
 import cartReducer from "./CartModule";
 import shippingReducer from "./ShippingModule";
 import { manageDetailReducer, manageTableReducer } from "./ManageModule";
+import questionReducer from "./QuestionModule";
+import answerReducer from "./AnswerModule";
+import reviewReducer from "./ReviewModule";
 
 const rootReducer = combineReducers({
   userReducer,
@@ -26,6 +29,9 @@ const rootReducer = combineReducers({
   dashboard: dashboardReducer,
   paymentReducer,
   cartReducer,
+    questionReducer,
+    answerReducer,
+    reviewReducer,
   shipping: shippingReducer,
     manageTableReducer,
     manageDetailReducer

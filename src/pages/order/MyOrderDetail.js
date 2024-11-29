@@ -20,10 +20,13 @@ function MyOrderDetail() {
     const params = useParams();
     const orderDetail = useSelector((state) => state.orderReducer);
     const paymentDetail = useSelector((state) => state.paymentReducer);
-    const userDetail = useSelector((state) => state.userReducer.data || {});
-
-    const isLogin = window.localStorage.getItem("accessToken"); // Local Storage 에 token 정보 확인
-    const username = isLogin ? decodeJwt(isLogin).sub : null; // JWT에서 사용자 ID 추출
+    const loginUser = useSelector((state) => state.userReducer.data || {});
+    const isLogin = window.localStorage.getItem("accessToken");
+    const isProducer = decodeJwt(isLogin).auth.some((a) =>
+        /ROLE_PRODUCER/.test(a)
+    );
+    const username = decodeJwt(isLogin).sub;
+    const user = isProducer ? loginUser.user : loginUser;
 
     useEffect(() => {
         dispatch(
@@ -46,13 +49,15 @@ function MyOrderDetail() {
     }, []);
 
     useEffect(() => {
-        dispatch(
-            callUserDetailAPI({
-                username: username,
-            })
-        );
+        if (username) {
+            dispatch(
+                callUserDetailAPI({
+                    username: username,
+                })
+            );
+        }
 
-        console.log("userDetail 뭘 갖고 왔나???", userDetail);
+        console.log("userDetail 뭘 갖고 왔나???", user);
     }, []);
 
     const onClickCancelOrderHandler = (orderId) => {
@@ -76,22 +81,29 @@ function MyOrderDetail() {
 
     return (
         <>
-            {orderDetail && paymentDetail && userDetail && (
+            {orderDetail && paymentDetail && user && (
                 <div className={MyOrderDetailCSS.box}>
                     <div className={MyOrderDetailCSS.order}>
                         <h3>주문 내역</h3>
 
                         <div className={UserInfoCSS.info}>
                             <p>결제 번호:</p>
-                            <p style={{width: '408px', padding: '5px 10px'}} className={UserInfoCSS.txt}>{paymentDetail.impUid}</p>
+                            <p
+                                style={{ width: "408px", padding: "5px 10px" }}
+                                className={UserInfoCSS.txt}
+                            >
+                                {paymentDetail.impUid}
+                            </p>
                         </div>
-                        <OrderProductList
-                            className={MyOrderDetailCSS.product}
-                            key={orderDetail.orderId}
-                            orderId={orderDetail.orderId}
-                        />
+                        <div className={MyOrderDetailCSS.hoverPointer}>
+                            <OrderProductList
+                                className={MyOrderDetailCSS.product}
+                                key={orderDetail.orderId}
+                                orderId={orderDetail.orderId}
+                            />
+                        </div>
                     </div>
-                    <hr style={{border: '1px soled #626E53'}}/>
+                    <hr style={{ border: "1px soled #626E53" }} />
 
                     <div>
                         <div className={MyOrderDetailCSS.order}>
@@ -99,20 +111,39 @@ function MyOrderDetail() {
                         </div>
                         <div className={UserInfoCSS.info}>
                             <p>주문자:</p>
-                            <p style={{width: '408px', padding: '5px 10px'}} className={UserInfoCSS.txt}>{userDetail?.user?.userFullName}</p>
+                            <p
+                                style={{ width: "408px", padding: "5px 10px" }}
+                                className={UserInfoCSS.txt}
+                            >
+                                {user?.userFullName}
+                            </p>
                         </div>
 
                         <div className={UserInfoCSS.info}>
                             <p>전화번호:</p>
-                            <p style={{width: '408px', padding: '5px 10px'}} className={UserInfoCSS.txt}>{userDetail?.user?.userPhone}</p>
+                            <p
+                                style={{ width: "408px", padding: "5px 10px" }}
+                                className={UserInfoCSS.txt}
+                            >
+                                {user?.userPhone}
+                            </p>
                         </div>
 
                         <div className={UserInfoCSS.info}>
                             <p>이메일:</p>
-                            <p style={{width: '408px', padding: '5px 10px', margin: '0 0 30px 0'}} className={UserInfoCSS.txt}>{userDetail?.user?.userEmail}</p>
+                            <p
+                                style={{
+                                    width: "408px",
+                                    padding: "5px 10px",
+                                    margin: "0 0 30px 0",
+                                }}
+                                className={UserInfoCSS.txt}
+                            >
+                                {user?.userEmail}
+                            </p>
                         </div>
                     </div>
-                    <hr style={{border: '1px soled #626E53'}}/>
+                    <hr style={{ border: "1px soled #626E53" }} />
 
                     <div>
                         <div className={MyOrderDetailCSS.order}>
@@ -120,29 +151,52 @@ function MyOrderDetail() {
                         </div>
                         <div className={UserInfoCSS.info}>
                             <p>수령자:</p>
-                            <p style={{width: '408px', padding: '5px 10px'}} className={UserInfoCSS.txt}>{orderDetail?.recipientName}</p>
+                            <p
+                                style={{ width: "408px", padding: "5px 10px" }}
+                                className={UserInfoCSS.txt}
+                            >
+                                {orderDetail?.recipientName}
+                            </p>
                         </div>
 
                         <div className={UserInfoCSS.info}>
                             <p>전화번호:</p>
-                            <p style={{width: '408px', padding: '5px 10px'}} className={UserInfoCSS.txt}>{orderDetail?.recipientPhoneNumber}</p>
+                            <p
+                                style={{ width: "408px", padding: "5px 10px" }}
+                                className={UserInfoCSS.txt}
+                            >
+                                {orderDetail?.recipientPhoneNumber}
+                            </p>
                         </div>
 
                         <div className={UserInfoCSS.info}>
                             <p>우편번호:</p>
-                            <p style={{width: '408px', padding: '5px 10px'}} className={UserInfoCSS.txt}>{orderDetail?.postalCode}</p>
+                            <p
+                                style={{ width: "408px", padding: "5px 10px" }}
+                                className={UserInfoCSS.txt}
+                            >
+                                {orderDetail?.postalCode}
+                            </p>
                         </div>
 
                         <div className={UserInfoCSS.info}>
                             <p>배송주소:</p>
-                            <p style={{width: '408px', padding: '5px 10px', margin: '0 0 30px 0'}} className={UserInfoCSS.txt}>{orderDetail?.addressRoad}{" "}
+                            <p
+                                style={{
+                                    width: "408px",
+                                    padding: "5px 10px",
+                                    margin: "0 0 30px 0",
+                                }}
+                                className={UserInfoCSS.txt}
+                            >
+                                {orderDetail?.addressRoad}{" "}
                                 {orderDetail?.addressDetail
                                     ? orderDetail?.addressDetail
-                                    : ""}</p>
+                                    : ""}
+                            </p>
                         </div>
-                       
                     </div>
-                    <hr style={{border: '1px soled #626E53'}}/>
+                    <hr style={{ border: "1px soled #626E53" }} />
 
                     <div>
                         <div className={MyOrderDetailCSS.order}>
@@ -150,99 +204,124 @@ function MyOrderDetail() {
                         </div>
 
                         <div className={UserInfoCSS.info}>
-                            <p style={{width: '80px'}}>주문 상태:</p>
-                            <p style={{width: '408px', padding: '5px 10px'}}
-                             className={UserInfoCSS.txt}>
-                            {" "}
-                            {orderDetail?.orderStatus === "completed"
-                                ? "주문완료"
-                                : orderDetail?.orderStatus === "canceled"
-                                ? "주문취소"
-                                : ""}
-                            </p>
-                        </div>
-                        
-                        <div className={UserInfoCSS.info}>
-                            <p style={{width: '80px'}}>결제 수단:</p>
-                            <p style={{width: '408px', padding: '5px 10px'}}
-                             className={UserInfoCSS.txt}>
-                            {" "}
-                            {paymentDetail?.paymentMethod === "BANK_TRANSFER"
-                                ? "무통장입금"
-                                : paymentDetail?.paymentMethod === "EASY_PAY"
-                                ? "간편결제"
-                                : paymentDetail?.paymentMethod === "CARD"
-                                ? "신용카드"
-                                : paymentDetail?.paymentMethod === "TRANSFER"
-                                ? "실시간 계좌이체"
-                                : ""}
-                            </p>
-                        </div>
-                        
-                        <div className={UserInfoCSS.info}>
-                            <p style={{width: '80px'}}>총 결제 금액:</p>
-                            <p style={{width: '408px', padding: '5px 10px'}}
-                             className={UserInfoCSS.txt}>
-                            {" "}
-                            {paymentDetail?.amount?.toLocaleString()}원
+                            <p style={{ width: "80px" }}>주문 상태:</p>
+                            <p
+                                style={{ width: "408px", padding: "5px 10px" }}
+                                className={UserInfoCSS.txt}
+                            >
+                                {" "}
+                                {orderDetail?.orderStatus === "completed"
+                                    ? "주문완료"
+                                    : orderDetail?.orderStatus === "canceled"
+                                    ? "주문취소"
+                                    : ""}
                             </p>
                         </div>
 
                         <div className={UserInfoCSS.info}>
-                            <p style={{width: '80px'}}>총 배송비:</p>
-                            <p style={{width: '408px', padding: '5px 10px'}}
-                             className={UserInfoCSS.txt}>
-                            {" "}
-                            {orderDetail?.deliveryFee?.toLocaleString()}원
+                            <p style={{ width: "80px" }}>결제 수단:</p>
+                            <p
+                                style={{ width: "408px", padding: "5px 10px" }}
+                                className={UserInfoCSS.txt}
+                            >
+                                {" "}
+                                {paymentDetail?.paymentMethod ===
+                                "BANK_TRANSFER"
+                                    ? "무통장입금"
+                                    : paymentDetail?.paymentMethod ===
+                                      "EASY_PAY"
+                                    ? "간편결제"
+                                    : paymentDetail?.paymentMethod === "CARD"
+                                    ? "신용카드"
+                                    : paymentDetail?.paymentMethod ===
+                                      "TRANSFER"
+                                    ? "실시간 계좌이체"
+                                    : ""}
                             </p>
                         </div>
 
                         <div className={UserInfoCSS.info}>
-                            <p style={{width: '80px'}}>총 포인트 <br/>할인:</p>
-                            <p style={{width: '408px', padding: '5px 10px'}}
-                             className={UserInfoCSS.txt}>
-                            {" "}
-                            {orderDetail?.pointDiscount?.toLocaleString()}원
+                            <p style={{ width: "80px" }}>총 결제 금액:</p>
+                            <p
+                                style={{ width: "408px", padding: "5px 10px" }}
+                                className={UserInfoCSS.txt}
+                            >
+                                {" "}
+                                {paymentDetail?.amount?.toLocaleString()}원
                             </p>
                         </div>
 
                         <div className={UserInfoCSS.info}>
-                            <p style={{width: '80px'}}>총 쿠폰 <br/>할인:</p>
-                            <p style={{width: '408px', padding: '5px 10px'}}
-                             className={UserInfoCSS.txt}>
-                            {" "}
-                            {orderDetail?.couponDiscount
-                                ? orderDetail?.couponDiscount.toLocaleString()
-                                : 0}
-                            원
+                            <p style={{ width: "80px" }}>총 배송비:</p>
+                            <p
+                                style={{ width: "408px", padding: "5px 10px" }}
+                                className={UserInfoCSS.txt}
+                            >
+                                {" "}
+                                {orderDetail?.deliveryFee?.toLocaleString()}원
                             </p>
                         </div>
 
                         <div className={UserInfoCSS.info}>
-                            <p style={{width: '80px'}}>결제 생성 일시:</p>
-                            <p style={{width: '408px', padding: '5px 10px'}}
-                             className={UserInfoCSS.txt}>
-                            {" "}
-                            {paymentDetail?.createdAt
-                                ? paymentDetail.createdAt
-                                      .replace("T", " ")
-                                      .replace("Z", "") // "T"를 공백으로, "Z"를 제거
-                                : "정보 없음"}
+                            <p style={{ width: "80px" }}>
+                                총 포인트 <br />
+                                할인:
+                            </p>
+                            <p
+                                style={{ width: "408px", padding: "5px 10px" }}
+                                className={UserInfoCSS.txt}
+                            >
+                                {" "}
+                                {orderDetail?.pointDiscount?.toLocaleString()}원
                             </p>
                         </div>
 
                         <div className={UserInfoCSS.info}>
-                            <p style={{width: '80px'}}>배송 상태:</p>
-                            <p style={{width: '408px', padding: '5px 10px'}}
-                             className={UserInfoCSS.txt}>
-                            {" "}
-                            {orderDetail?.deliveryStatus === "pending"
-                                ? "배송전"
-                                : orderDetail?.deliveryStatus === "sent"
-                                ? "배송완료"
-                                : orderDetail?.deliveryStatus === "canceled"
-                                ? "배송취소"
-                                : ""}
+                            <p style={{ width: "80px" }}>
+                                총 쿠폰 <br />
+                                할인:
+                            </p>
+                            <p
+                                style={{ width: "408px", padding: "5px 10px" }}
+                                className={UserInfoCSS.txt}
+                            >
+                                {" "}
+                                {orderDetail?.couponDiscount
+                                    ? orderDetail?.couponDiscount.toLocaleString()
+                                    : 0}
+                                원
+                            </p>
+                        </div>
+
+                        <div className={UserInfoCSS.info}>
+                            <p style={{ width: "80px" }}>결제 생성 일시:</p>
+                            <p
+                                style={{ width: "408px", padding: "5px 10px" }}
+                                className={UserInfoCSS.txt}
+                            >
+                                {" "}
+                                {paymentDetail?.createdAt
+                                    ? paymentDetail.createdAt
+                                          .replace("T", " ")
+                                          .replace("Z", "") // "T"를 공백으로, "Z"를 제거
+                                    : "정보 없음"}
+                            </p>
+                        </div>
+
+                        <div className={UserInfoCSS.info}>
+                            <p style={{ width: "80px" }}>배송 상태:</p>
+                            <p
+                                style={{ width: "408px", padding: "5px 10px" }}
+                                className={UserInfoCSS.txt}
+                            >
+                                {" "}
+                                {orderDetail?.deliveryStatus === "pending"
+                                    ? "배송전"
+                                    : orderDetail?.deliveryStatus === "sent"
+                                    ? "배송완료"
+                                    : orderDetail?.deliveryStatus === "canceled"
+                                    ? "배송취소"
+                                    : ""}
                             </p>
                         </div>
                     </div>
@@ -254,7 +333,13 @@ function MyOrderDetail() {
                     {orderDetail?.deliveryStatus === "pending" && (
                         <div>
                             <button
-                                style={{ padding: '5px 10px', border: '1px solid #cf5346', color: '#cf5346', backgroundColor: '#fff', borderRadius: '10px' }}
+                                style={{
+                                    padding: "5px 10px",
+                                    border: "1px solid #cf5346",
+                                    color: "#cf5346",
+                                    backgroundColor: "#fff",
+                                    borderRadius: "10px",
+                                }}
                                 onClick={() => {
                                     onClickCancelOrderHandler(
                                         paymentDetail?.orderId
