@@ -2,6 +2,7 @@ import {
   GET_SHIPPING_COM_LIST,
   GET_SHIPPING_STATUS_LIST,
   GET_SHIPPING_UPDATE_RESPONSE,
+  GET_DELIVERY_INFO,
 } from "../modules/ShippingModule";
 
 const prefix = `http://${process.env.REACT_APP_RESTAPI_IP}:8080`;
@@ -89,6 +90,33 @@ export const callShippingUpdateApi = (form) => {
       }
     } catch (error) {
       console.error("Error in callShippingUpdateApi:", error);
+      return null;
+    }
+  };
+};
+
+export const callDeliveryInfoApi = (trackingNumber, shipComCode) => {
+  const requestURL = `${prefix}/api/shipping/track-shipment?trackingNumber=${trackingNumber}&shipComCode=${shipComCode}`;
+
+  return async (dispatch) => {
+    try {
+      const result = await fetch(requestURL, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "*/*",
+        },
+      }).then((response) => response.json());
+
+      if (result.status === 200) {
+        dispatch({ type: GET_DELIVERY_INFO, payload: result.data });
+        return result.data;
+      } else {
+        console.error("Failed to fetch delivery information:", result);
+        return null;
+      }
+    } catch (error) {
+      console.error("Error in callDeliveryInfoApi:", error);
       return null;
     }
   };
