@@ -100,10 +100,10 @@ function Order() {
             }));
             const addPoint =  (calculateOrderTotalAmount() +
             (orderData.orderDTO?.deliveryFee || 0) -
-            (payRequest.orderDTO.couponDiscount || 0)) * 0.1;
+            (payRequest.orderDTO.couponDiscount || 0)) * 0.01;
             console.log("addPoint", addPoint);
             setUserPoint(addPoint);
-            setPoint(addPoint);
+            // setPoint(addPoint);
         }
     }, [orderData, calculateOrderTotalAmount]);
 
@@ -550,7 +550,7 @@ function Order() {
                 onChange={onChangePointHandler} // 수정된 핸들러 사용
                 min="1"
             />
-            &nbsp; 잔여: {orderData?.userDTO?.userPoint || "0"}P
+            &nbsp; 잔여: {orderData?.userDTO?.userPoint.toLocaleString() || "0"}P
             <br />
             <hr style={{ border: "1px solid #000" }} />
 
