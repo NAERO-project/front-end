@@ -10,9 +10,33 @@ function Signup(props) {
 	const navigate = useNavigate();
 
 	const success = useSelector(state => state.userReducer);
+	const auth = useSelector(state => state.authReducer);
 	const [passwordCheck, setPasswordCheck] = useState("");
-	const [isChecked, setIsChecked] = useState(false);
-	const email = useRef();
+    const [isChecked, setIsChecked] = useState(false);
+    const [isCheckedId, setIsCheckedId] = useState(false);
+    const [isChekedEmail, setIsChekedEmail] = useState({
+        authId: 0,
+        authSuccess:false
+    })
+    const [checkConst, setCheckConst] = useState(false)
+    
+    useEffect(() => {
+        setCheckConst(isChecked && isCheckedId && isChekedEmail)
+    },
+        [isChecked, isCheckedId, isChekedEmail])
+
+    useEffect(() => { },[])
+
+    const email = useRef();
+    
+    const emailSend = () => { 
+        
+    }
+
+    const changeButton = () => { 
+
+    }
+
 	const [form, setForm] = useState({
 		username: "",
 		password: "",
@@ -38,11 +62,19 @@ function Signup(props) {
 
 	const fetchSignup = e => {
 		e.preventDefault();
-		if (isChecked) {
+        if (!isCheckedId) {
+            alert("아이디 중복확인이 필요합니다.");
+        }
+        else if (!isChecked) {
+            alert("비밀번호가 일치하지 않습니다.");
+        }
+        else if (!isChekedEmail) {
+            alert("이메일 인증 후 회원가입이 가능합니다.");
+        }
+        else if (checkConst) { 
 			dispatch(callSignupAPI({ form: form }));
-		} else {
-			alert("비밀번호가 일치하지 않습니다.");
-		}
+
+        }
 	};
 
 	const onChangeHandler = e => {
@@ -76,7 +108,7 @@ function Signup(props) {
                                 className={UserCSS.signup_table_input}
                 type="text"
                 name="username"
-                placeholder="아이디"
+                placeholder="아이디*"
                 autoComplete="off"
                 onChange={onChangeHandler}
                 required
@@ -94,7 +126,7 @@ function Signup(props) {
                                 className={UserCSS.signup_table_input}
                 type="password"
                 name="password"
-                placeholder="패스워드"
+                placeholder="비밀번호*"
                 autoComplete="off"
                 onChange={onChangeHandler}
                 required
@@ -102,47 +134,84 @@ function Signup(props) {
         </td>
     </tr>
     <tr>
-        <td colspan="2" className={UserCSS.signip_table_td}>
+        <td   className={UserCSS.signip_table_td}>
                             <input
                                 className={UserCSS.signup_table_input}
                 type="password"
                 name="passwordCheck"
-                placeholder="비밀번호 확인"
+                placeholder="비밀번호 확인*"
                 autoComplete="off"
                 onChange={e => setPasswordCheck(e.target.value)}
                 required
             />
-        </td>
+                        </td>
+                        <td className={UserCSS.signip_table_td}>
+				{form.password && passwordCheck && (isChecked ? <> O</> : <>X</>)}
+
+                        </td>
     </tr>
-</table>
-				<input
+                </table>
+                <table className={UserCSS.signup_table}>
+
+                <colgroup>
+            <col style={{width:"70%"}}/> 
+            <col style={{width:"30%"}}/> 
+                    </colgroup>
+                    
+                    <tr >
+                        <td  colspan="2" className={UserCSS.signip_table_td}>
+                            <input 
+                                className={UserCSS.signup_table_input}
+                                
+					type='text'
+					name='userFullName'
+					placeholder='이름*'
+					autoComplete='off'
+					onChange={onChangeHandler}
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                <td  colspan="2" className={UserCSS.signip_table_td}>
+                            <input
+                                className={UserCSS.signup_table_input}
+                                
 					type='text'
 					name='userPhone'
 					placeholder='연락처'
 					autoComplete='off'
 					onChange={onChangeHandler}
 				/>
+                            </td >
+                    </tr>    
+                    <tr>
+                    <td  className={UserCSS.signip_table_td}>
 
-				{form.password && passwordCheck && (isChecked ? <> 일치</> : <>불일치</>)}
-				<input
-					type='text'
-					name='userFullName'
-					placeholder='이름'
-					autoComplete='off'
-					onChange={onChangeHandler}
-				/>
-				<input
+                            <input
+                                className={UserCSS.signup_table_input}
+                                
+                                
 					type='text'
 					name='userEmail'
-					placeholder='이메일'
+					placeholder='이메일*'
 					autoComplete='off'
 					onChange={onChangeHandler}
-					reff
-				/>
+                    required
+                            />
+                        </td>
+                        <td  className={UserCSS.signip_table_td}>
+                            <button
+                                onClick={emailSend }
+                                ref={ email }
+                                className={UserCSS.check_button2}
+                                type="button">인증번호 전송</button>
+                        </td>
+                        </tr>
+                    </table>
 				{/* <button> 이메일 중복 확인 및 인증 </button> */}
-				<button type='button' onClick={prevBtn}>
+				{/* <button type='button' onClick={prevBtn}>
 					이전
-				</button>
+				</button> */}
                 <button
                     className={UserCSS.signup_button_hilight}
                     

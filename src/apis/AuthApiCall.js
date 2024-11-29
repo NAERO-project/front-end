@@ -23,3 +23,26 @@ export const callPasswordCheck = ({ password }) => {
 		}
 	};
 };
+
+
+export const callEmailSendAPI = ({ eamil }) => {
+    const requestURL = `${prefix}/auth/email/send/${eamil}`;
+	return async (dispatch, getState) => {
+		const result = await fetch(requestURL, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "*/*",
+				Authorization: "Bearer " + window.localStorage.getItem("accessToken"),
+			},
+			
+		}).then(response => response.json());
+
+		console.log(result);
+		if (result.status === 200) {
+			dispatch({ type: GET_PASS_CHECK, payload: result });
+		} else {
+			;
+		}
+	};
+};
