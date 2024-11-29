@@ -1,7 +1,7 @@
 .producer_box{
     width: 1168px;
     margin: 0 auto;
-    padding: 70px 0 0 0;
+    padding: 70px 0 70px 0;
     display: flex;
     justify-content: space-between;
 }
@@ -17,13 +17,13 @@
     background-image: url(../../../img/naero_img//brand/brand_img.png);
 }
 
-.producer_box .producer_img:last-child{
+/* .producer_box .producer_img:last-child{
     margin: 0 20px 0 0;
     background-image: url(../../../img/naero_img//brand/brand_img2.png);
-}
+} */
 
 .producer_box div{
-    width: 574px;
+    width: 1168px;
     height: 250px;
     position: relative;
 }

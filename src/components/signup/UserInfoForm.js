@@ -9,19 +9,16 @@ function UserInfoForm({ user }) {
 			<div className={UserInfoCSS.info}>
 				<p>이름 : </p>
 				<div className={UserInfoCSS.txt}><p> {user.userFullName}</p></div>
-				
 			</div>
 
 			<div className={UserInfoCSS.info}>
 				<p>아이디 : </p>
 				<div className={UserInfoCSS.txt}> <p> {user.username}</p></div>
-				
 			</div>
 
 			<div className={UserInfoCSS.info}>
 				<p>이메일 : </p>
 				<div className={UserInfoCSS.txt}><p> {user.userEmail}</p></div>
-				
 			</div>
 
 			<div className={UserInfoCSS.info}>
