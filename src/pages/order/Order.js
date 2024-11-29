@@ -8,6 +8,7 @@ import Postcode from "react-daum-postcode";
 import ModalCSS from "../../components/common/Modal.module.css"; // 모달 스타일
 import * as PortOne from "@portone/browser-sdk/v2"; // 결제 API
 
+
 function Order() {
     const dispatch = useDispatch();
     const location = useLocation();
@@ -412,16 +413,20 @@ function Order() {
     };
 
     return (
-        <div>
+        <div style={{width: '1167px', margin: '0 auto'}}>
             <h1>주문 페이지</h1>
             <br />
             <hr style={{ border: "1px solid #000" }} />
+
+        <div>
             <h3>주문자 정보</h3>
             <br />
             <p>{orderData?.userDTO?.userFullName || "이름 없음"}</p>
             <p>{orderData?.userDTO?.userPhone || "전화번호 없음"}</p>
             <p>{orderData?.userDTO?.userEmail || "이메일 없음"}</p>
-            <hr style={{ border: "1px solid #000" }} />
+        </div>
+        <hr style={{ border: "1px solid #000" }} />
+
             <h3>주문 상품 정보</h3>
             {orderData?.orderPageProductDTOList?.map((item, index) => (
                 <div key={index}>
@@ -497,6 +502,7 @@ function Order() {
                 onChange={onChangeHandler}
             ></textarea>
             <hr style={{ border: "1px solid #000" }} />
+
             <h3>결제 금액</h3>
             <br />
             <p>주문 금액: {formatNumber(calculateOrderTotalAmount())}원</p>
@@ -521,6 +527,7 @@ function Order() {
                 원
             </p>
             <hr style={{ border: "1px solid #000" }} />
+
             <h3>할인 정보</h3>
             <br />
             <label>쿠폰 적용</label>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -546,6 +553,7 @@ function Order() {
             &nbsp; 잔여: {orderData?.userDTO?.userPoint || "0"}P
             <br />
             <hr style={{ border: "1px solid #000" }} />
+
             <h3>결제 정보</h3>
             <h3>결제 수단 선택</h3>
             <div>

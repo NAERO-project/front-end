@@ -93,12 +93,16 @@ function Header(props) {
       return AdminLogin(userFullname);
     }
 
+    
+
     const additionalContent = (
       <>
         <div className={HeaderCSS.NavLinkItem}>
-          <LuDatabase className={HeaderCSS.Icon} />
           {isProducer && (
-            <NavLink to="/producer/product-manage">판매자 페이지</NavLink>
+            <div>
+              <LuDatabase className={HeaderCSS.Icon} />
+              <NavLink to="/producer/product-manage">판매자 페이지</NavLink>
+            </div>
           )}
         </div>
         <div className={HeaderCSS.NavLinkItem}>

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { callSignupAPI } from "../../apis/UserApiCall";
 import SignupContainer from "../../components/signup/SignupContainer";
+import UserCSS from "../../components/signup/UserPage.module.css"
 
 function Signup(props) {
 	const dispatch = useDispatch();
@@ -59,34 +60,61 @@ function Signup(props) {
 
 	const signupStep2 = () => {
 		return (
-			<form>
-				<input
-					type='text'
-					name='username'
-					placeholder='아이디'
-					autoComplete='off'
-					onChange={onChangeHandler}
-					required
-				/>
-				<button type='button'>아이디 중복 확인</button>
-				<input
-					type='password'
-					name='password'
-					placeholder='패스워드'
-					autoComplete='off'
-					onChange={onChangeHandler}
-					required
-				/>
-				<input
-					type='password'
-					name='passwordCheck'
-					placeholder='비밀번호확인'
-					autoComplete='off'
-					onChange={e => {
-						setPasswordCheck(e.target.value);
-					}}
-					required
-				/>
+            <form
+            className={UserCSS.input_container}
+            >
+                <table className={UserCSS.signup_table}>
+
+            <colgroup>
+            <col style={{width:"70%"}}/> 
+            <col style={{width:"30%"}}/> 
+            </colgroup>
+                            
+    <tr >
+        <td className={UserCSS.signip_table_td}>
+                            <input
+                                className={UserCSS.signup_table_input}
+                type="text"
+                name="username"
+                placeholder="아이디"
+                autoComplete="off"
+                onChange={onChangeHandler}
+                required
+            />
+        </td>
+        <td  className={UserCSS.signip_table_td}>
+                            <button
+                                className={UserCSS.check_button}
+                                type="button">중복 확인</button>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" className={UserCSS.signip_table_td}>
+                            <input
+                                className={UserCSS.signup_table_input}
+                type="password"
+                name="password"
+                placeholder="패스워드"
+                autoComplete="off"
+                onChange={onChangeHandler}
+                required
+            />
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" className={UserCSS.signip_table_td}>
+                            <input
+                                className={UserCSS.signup_table_input}
+                type="password"
+                name="passwordCheck"
+                placeholder="비밀번호 확인"
+                autoComplete="off"
+                onChange={e => setPasswordCheck(e.target.value)}
+                required
+            />
+        </td>
+    </tr>
+</table>
 				<input
 					type='text'
 					name='userPhone'
@@ -115,14 +143,17 @@ function Signup(props) {
 				<button type='button' onClick={prevBtn}>
 					이전
 				</button>
-				<button onClick={fetchSignup}>회원 가입</button>
+                <button
+                    className={UserCSS.signup_button_hilight}
+                    
+                    onClick={fetchSignup}>회원 가입</button>
 			</form>
 		);
 	};
 
 	return (
 		<>
-			<SignupContainer>회원가입 페이지 {signupStep2(onChangeHandler)} </SignupContainer>
+			<SignupContainer> {signupStep2(onChangeHandler)} </SignupContainer>
 		</>
 	);
 }

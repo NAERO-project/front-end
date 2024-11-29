@@ -17,10 +17,10 @@ function FilterSearchInput(props) {
 
     return (
         <div>
+            <input placeholder="검색어" onChange={(e) => {setInput(e.target.value) }} type="text" /> 
             <select onChange={(e) => { setKeyword(e.target.value) }} >{keys.map((value, index, array) => {
                 return (<option value={value}>{keywords[value] }</option>)
-            }) }</select>
-            <input placeholder="검색어" onChange={(e) => {setInput(e.target.value) }} type="text" /> <button onClick={handler}>검색</button>
+            }) }</select><button onClick={handler}>검색</button>
         </div>
     );
 }

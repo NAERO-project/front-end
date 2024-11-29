@@ -51,7 +51,7 @@ import ProductNav from "../../components/common/products/ProductNav";
                 ))}
             </div>
 
-            <div className={ProductMoreCSS.product_paging}>
+            {/* <div className={ProductMoreCSS.product_paging}>
                 {Array.isArray(productList) &&
                 <button onClick={() =>setCurrentPage(currentPage -1)} disabled={currentPage === 1} >&lt;</button>}
                 {pageNumber.map((num) =>(
@@ -62,7 +62,7 @@ import ProductNav from "../../components/common/products/ProductNav";
                 {Array.isArray(productList) &&
                 <button onClick={() => setCurrentPage(currentPage +1)} disabled={currentPage === pageInfo.pageEnd || pageInfo.total === 0}>&gt;</button>
                 }
-            </div>
+            </div> */}
         </div>   
     );
  }

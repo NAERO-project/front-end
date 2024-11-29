@@ -47,50 +47,50 @@ function MypageNav(props) {
     }
 
     return (
-        <div>
-            <div>
+        <div className={MypageNavCSS.box}>
+            <div className={MypageNavCSS.my_txt}>
                 <h2>마이페이지</h2>
             </div>
-            <div>
-                <h3>{userFullname} 구매자님 안녕하세요</h3>
+
+            <div className={MypageNavCSS.my_hi}>
+                <div className={MypageNavCSS.my_name}>
+                    <h3>{userFullname} 구매자님 안녕하세요</h3>
+                </div>
+                <div>
+                    <h4>환경 기여 포인트: <br/>{userDetail?.user?.userPoint?.toLocaleString()}원</h4>
+                </div>
             </div>
-            <div>
-                <h4>환경 기여 포인트: {userDetail?.user?.userPoint?.toLocaleString()}원</h4>
-            </div>
+            
             <div className={MypageNavCSS.NavBar}>
-                <ul>
-                    <li>
-                        <NavLink to="/mypage/order">결제 내역</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/mypage/detail">개인정보</NavLink>
-                    </li>
+                    <ul>
+                        <li>
+                            <NavLink to="/mypage/order" className={MypageNavCSS.NavBar_txt}>결제 내역</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/mypage/detail" className={MypageNavCSS.NavBar_txt}>개인정보</NavLink>
+                        </li>
 
-                    <li>
-                        <NavLink to="/mypage/update">개인정보 수정</NavLink>
-                    </li>
+                        <li>
+                            <NavLink to="/mypage/update" className={MypageNavCSS.NavBar_txt}>개인정보 수정</NavLink>
+                        </li>
 
-                    <li>
-                        <NavLink to="/mypage/">찜 리스트</NavLink>
-                    </li>
+                        <li>
+                            <NavLink to="/mypage/" className={MypageNavCSS.NavBar_txt}>찜 리스트</NavLink>
+                        </li>
 
-                    <li>
-                        <NavLink to="/mypage/questions">1:1 문의</NavLink>
-                    </li>
+                        <li>
+                            <NavLink to="/mypage/questions" className={MypageNavCSS.NavBar_txt}>1:1 문의</NavLink>
+                        </li>
 
-                    <li>
-                        <NavLink to="/mypage/">쿠폰 정보</NavLink>
-                    </li>
+                        <li>
+                            <NavLink to="/mypage/" className={MypageNavCSS.NavBar_txt}>쿠폰 정보</NavLink>
+                        </li>
 
-                    <li>
-                        <NavLink to="/mypage/reviews/my-reviews">상품 후기</NavLink>
-                    </li>
-
-                    <li>
-                        <NavLink to="/mypage/inquirys">상품 문의</NavLink>
-                    </li>
-                </ul>
-            </div>
+                        <li>
+                            <NavLink to="/mypage/reviews/my-reviews" className={MypageNavCSS.NavBar_txt}>상품 후기</NavLink>
+                        </li>
+                    </ul>
+                </div>
         </div>
     );
 }

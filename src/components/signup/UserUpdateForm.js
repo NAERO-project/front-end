@@ -4,6 +4,8 @@ import { callUpdateUserAPI } from '../../apis/UserApiCall';
 import { decodeJwt } from '../../utils/tokenUtils';
 import { callUpdateUserManageAPI } from '../../apis/ManageApiCall';
 
+import UserUpdateFormCSS from "./css/UserUpdateForm.module.css";
+
 function UserUpdateForm({ user }) {
 
     const [passwordCheck, setPasswordCheck] = useState("");
@@ -50,10 +52,11 @@ function UserUpdateForm({ user }) {
         }
 	};
     return (
-        <div>
-            <form>
-                <h2> 수정할 정보만 입력해주세요 </h2>
-                <label>이름</label>
+        <div className={UserUpdateFormCSS.box}>
+            <form className={UserUpdateFormCSS.form_box}>
+                <h3> 수정할 정보만 입력해주세요 </h3>
+                
+				<label>이름</label>
                 <input
                     type='text'
                     name='userFullName'
@@ -64,6 +67,7 @@ function UserUpdateForm({ user }) {
                 <div>
                 <label>새 비밀번호</label>
 				<input
+				 	className={UserUpdateFormCSS.pass}
 					type='password'
 					name='password'
 					placeholder='비밀번호'
@@ -93,7 +97,6 @@ function UserUpdateForm({ user }) {
 					onChange={onChangeHandler}
 				/>
 				<button onClick={fetchUpdate}>수정 요청</button>{" "}
-				
 			</form>
         </div>
     );

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import FilterSearchInput from "../../../components/common/admin/FilterSearchInput";
 import FilterToggle from "../../../components/common/admin/FilterToggle";
 import { callProducerSearch } from "../../../apis/ManageApiCall";
-import ProducerTable from "../../../components/common/admin/css/ProducerTable";
+import ProducerTable from "../../../components/common/admin/ProducerTable";
 import TablePagenation from "../../../components/common/admin/TablePagenation";
 
 

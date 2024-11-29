@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { callMyPageOrderProductListApi } from "../../apis/OrderApiCall";
 import { callGetProductIdByOptionIdApi } from "../../apis/ProductApiCall";
 
+import OrderProductListCSS from "./css/OrderProductList.module.css";
+
 function OrderProductList({ orderId }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -41,14 +43,19 @@ function OrderProductList({ orderId }) {
     }
 
     return (
-        <div className=''>
+        <div>
             {orderProducts.length > 0 ? (
                 orderProducts.map(product => (
-                    <div className='' key={product.optionId} onClick={() => onClickProductHandler(product.optionId)}>
-                        <img src={product.productImg} alt="주문상품 이미지" />
-                        <p>{product.productName}</p>
-                        <p>주문 상품 금액: {product.amount.toLocaleString("ko-KR")}원</p>
-                        <p>주문 상품 수량: {product.count}</p>
+                    <div className={OrderProductListCSS.box} key={product.optionId} onClick={() => onClickProductHandler(product.optionId)}>
+                        <div className={OrderProductListCSS.img_box}>
+                            <img src={product.productImg} alt="주문상품 이미지" />
+                        </div>
+                        <div className={OrderProductListCSS.txt_box}>
+                            <p>{product.productName}</p>
+                            <p>주문 상품 금액: {product.amount.toLocaleString("ko-KR")}원</p>
+                            <p>주문 상품 수량: {product.count}</p>
+                        </div>
+                        
                     </div>
                 ))
             ) : (

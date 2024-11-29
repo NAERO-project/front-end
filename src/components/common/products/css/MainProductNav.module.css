@@ -24,13 +24,7 @@
 
 .nav_ul{
     width: 100%;
-    /* margin: 0 auto; */
-    /* display: grid;
-    grid-template-columns: repeat(4, 2fr);
-  justify-items: center; */
-  /* align-items: center; */
   display: flex;
-  /* gap: 0px 50px; */
     justify-content: space-between;
     /* margin: 0 auto; */
     /* background-color: yellow; */
@@ -51,10 +45,19 @@ li{
     font-size: 24px;
     /* background-color: violet; */
 }
- 
-.nav:hover{
-    padding: 0 0 10px 0;
+
+.class_name_txt{
+    display: block;
+    color: var(--text04);
+}
+
+.class_name_txt:hover{
     font-weight: 500;
     color: var(--main-color03);
+}
+ 
+.nav:hover{
+    /* padding: 0 0 10px 0; */
     border-bottom: 3px solid var(--main-color03);
 }
+

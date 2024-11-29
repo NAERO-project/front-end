@@ -9,7 +9,8 @@
 .product_img_box{
     width: 277px;
     height: 250px;
-    background-color: aquamarine;
+    /* background-color: rgb(213, 147, 5); */
+    background-color: #fff;
     box-sizing: border-box;
     overflow: hidden;
     cursor: pointer;
@@ -56,4 +57,13 @@
 
 .product_icon_box p:first-child:hover{
     color: red;
+}
+
+.product_tag{
+    /* padding: 4px 10px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--text01);
+    background-color: var(--sub-color01); */
 }

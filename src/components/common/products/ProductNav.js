@@ -38,9 +38,9 @@ const fetchData=()=>{
         <div className={MainProductNavCSS.product_nav}>
             <ul className={MainProductNavCSS.nav_ul}>
             {Array.isArray(categoryList) && categoryList.map((category) => (
-                    <li key={category.largeCategoryId}>
+                    <li key={category.largeCategoryId} className={MainProductNavCSS.nav}>
                         <NavLink 
-                            className={MainProductNavCSS.nav} 
+                            className={MainProductNavCSS.class_name_txt}
                             to={`/products/more/${category.largeCategoryId}`}>
                             {category.largeCategoryName}
                         </NavLink>

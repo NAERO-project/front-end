@@ -1,0 +1,19 @@
+.box {
+    width: 1100px;
+    margin: 0 auto;
+    /* background-color: red; */
+}
+
+.user {
+    margin: 30px 0 50px 0;
+}
+
+.user h3{
+    font-weight: 500;
+    color: #D1D1D1;
+}
+
+.line{
+    margin: 30px 0;
+    
+}

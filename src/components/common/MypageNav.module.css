@@ -1,10 +1,43 @@
+.box{
+	margin: 100px 0 0 0;
+}
+
+.my_txt{
+	text-align: center;
+}
+
+.my_txt h2{
+	color: #D1D1D1;
+}
+
+.my_hi{
+	width: 1100px;
+	margin: 0 auto;
+	padding: 100px 0 0 0;
+	display: flex;
+	justify-content: space-between;
+	/* background-color: red; */
+}
+
 .NavBar {
-	width: 200px;
-	height: 100%;
-	color: black;
-	position: relative;
-	top: 0;
-	left: 0;
+	width: 110px;
+	color: #202020;
+	position: absolute;
+	top: 310px;
+	left: 234px;
 	display: flex;
 	flex-direction: column;
+	margin: 0 82px 0 0;
+}
+
+.NavBar_txt{
+	color: #202020;
+}
+
+.NavBar_txt:hover{
+	border-bottom: 1px solid #2020;
+}
+
+.my_name{
+	margin: 0 572px 0 0;
 }

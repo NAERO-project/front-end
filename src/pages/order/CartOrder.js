@@ -9,6 +9,9 @@ import Postcode from "react-daum-postcode";
 import ModalCSS from "../../components/common/Modal.module.css"; // 모달 스타일
 import * as PortOne from "@portone/browser-sdk/v2"; // 결제 API
 
+import CartOrderCSS from "./css/CartOrder.module.css";
+import UserInfoCSS from "../../components/signup/css/UserInfoForm.module.css";
+
 function CartOrder() {
     const dispatch = useDispatch();
     const location = useLocation();
@@ -101,7 +104,7 @@ function CartOrder() {
             (payRequest.orderDTO.couponDiscount || 0)) * 0.1;
             console.log("addPoint", addPoint);
             setUserPoint(addPoint);
-            setPoint(addPoint);
+            // setPoint(addPoint);
         }
     }, [orderData, calculateOrderTotalAmount]);
 
@@ -405,31 +408,53 @@ const processEasyPay = async (provider) => {
     };
 
     return (
-        <div>
+        <div className={CartOrderCSS.box}>
             <h1>주문 페이지</h1>
             <br />
             <hr style={{ border: "1px solid #000" }} />
+      
             <h3>주문자 정보</h3>
+    
             <br />
-            <p>{orderData?.userDTO?.userFullName || "이름 없음"}</p>
-            <p>{orderData?.userDTO?.userPhone || "전화번호 없음"}</p>
-            <p>{orderData?.userDTO?.userEmail || "이메일 없음"}</p>
+
+            <div className={UserInfoCSS.info}>
+                <p>이름 :</p>
+                <p style={{width: '408px', padding: '5px 10px'}} className={UserInfoCSS.txt}>{orderData?.userDTO?.userFullName || "이름 없음"}</p>
+            </div>
+            
+            <div className={UserInfoCSS.info}>
+                <p style={{width: '75px'}}>전화번호 :</p>
+                <p style={{width: '408px', padding: '5px 10px'}} className={UserInfoCSS.txt}>{orderData?.userDTO?.userPhone || "전화번호 없음"}</p>
+            </div>
+            
+            <div className={UserInfoCSS.info}>
+                <p>이메일 :</p>
+                <p style={{width: '408px', padding: '5px 10px'}} className={UserInfoCSS.txt}>{orderData?.userDTO?.userEmail || "이메일 없음"}</p>
+            </div>
+            
             <hr style={{ border: "1px solid #000" }} />
             <h3>주문 상품 정보</h3>
+
             {orderData?.orderPageProductDTOList?.map((item, index) => (
-                <div key={index}>
-                    <img src={item.productImg} alt={item.productName} />
-                    <p>{item.productName}</p>
-                    <p>구매수량: {item.count}</p>
-                    <p>
-                        {formatNumber(
-                            (item.amount + item.addPrice) * item.count
-                        )}{" "}
-                        원
-                    </p>
+                <div className={CartOrderCSS.product} key={index}>
+                    <div className={CartOrderCSS.product_img}>
+                        <img src={item.productImg} alt={item.productName} />
+                    </div>
+                    
+                    <div className={CartOrderCSS.product_txt}>
+                        <p>{item.productName}</p>
+                        <p>구매수량: {item.count}</p>
+                        <p>
+                            {formatNumber(
+                                (item.amount + item.addPrice) * item.count
+                            )}{" "}
+                            원
+                        </p>
+                    </div>
+                    
                 </div>
             ))}
-            <hr />
+         
             <h3>배송지 정보</h3>
             <br />
             <input
@@ -490,9 +515,14 @@ const processEasyPay = async (provider) => {
                 onChange={onChangeHandler}
             ></textarea>
             <hr style={{ border: "1px solid #000" }} />
+
             <h3>결제 금액</h3>
             <br />
-            <p>주문 금액: {formatNumber(calculateOrderTotalAmount())}원</p>
+            <div className={UserInfoCSS.info}>
+                <p>주문 금액:</p>
+                <p style={{width: '408px', padding: '5px 10px'}} className={UserInfoCSS.txt}>{formatNumber(calculateOrderTotalAmount())}원</p>
+            </div>
+            <p>: </p>
             <p>
                 배송비: +{formatNumber(orderData.orderDTO?.deliveryFee || 0)}원
             </p>
