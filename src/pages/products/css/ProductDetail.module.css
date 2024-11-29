@@ -9,6 +9,8 @@
     width: 610px;
     height: 524px;
     margin: 0 50px 0 0;
+    box-sizing: border-box;
+    overflow: hidden;
     background-color: red;
 }
 
