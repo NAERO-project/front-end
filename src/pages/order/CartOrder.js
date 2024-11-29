@@ -235,6 +235,12 @@ function CartOrder() {
 
     // 결제 및 주문 데이터 전송
     const onClickPaymentHandler = async () => {
+        // 주소 입력 확인
+        if (!payRequest.orderDTO.postalCode || !payRequest.orderDTO.addressRoad) {
+            alert("결제 전 주소를 입력해주세요.");
+            return;
+        }
+
         const orderTotalAmount =
             calculateOrderTotalAmount() +
             (orderData.orderDTO?.deliveryFee || 0) -
@@ -335,6 +341,13 @@ function CartOrder() {
 
     // 간편 결제 진행 함수
 const processEasyPay = async (provider) => {
+
+    // 주소 입력 확인
+    if (!payRequest.orderDTO.postalCode || !payRequest.orderDTO.addressRoad) {
+        alert("결제 전 주소를 입력해주세요.");
+        return;
+    }
+
     const orderTotalAmount =
         calculateOrderTotalAmount() +
         (orderData.orderDTO?.deliveryFee || 0) -
