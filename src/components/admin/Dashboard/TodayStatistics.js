@@ -37,11 +37,12 @@ function TodayStatistics() {
               ? todaySales.data.Level
               : "Loading..."}
           </h1>
-          <p>
+          {/* <p>
             {todaySales?.data?.Ratio !== undefined
               ? todaySales.data.Ratio
               : "Loading..."}
-          </p>
+          </p> */}
+          <p>오늘의 매출액</p>
         </div>
         <div className={styles["today-quantity"]}>
           <h1>
@@ -49,11 +50,12 @@ function TodayStatistics() {
               ? todayQuantity.data.Level
               : "Loading..."}
           </h1>
-          <p>
+          {/* <p>
             {todayQuantity?.data?.Ratio !== undefined
               ? todayQuantity.data.Ratio
               : "Loading..."}
-          </p>
+          </p> */}
+          <p>오늘의 상품 총 판매량</p>
         </div>
         <div className={styles["today-items"]}>
           <h1>
@@ -61,11 +63,12 @@ function TodayStatistics() {
               ? todayItems.data.Level
               : "Loading..."}
           </h1>
-          <p>
+          {/* <p>
             {todayItems?.data?.Ratio !== undefined
               ? todayItems.data.Ratio
               : "Loading..."}
-          </p>
+          </p> */}
+          <p>오늘의 상품 판매 종류</p>
         </div>
         <div className={styles["today-members"]}>
           <h1>
@@ -73,11 +76,12 @@ function TodayStatistics() {
               ? todayMembers.data.Level
               : "Loading..."}
           </h1>
-          <p>
+          {/* <p>
             {todayMembers?.data?.Ratio !== undefined
               ? todayMembers.data.Ratio
               : "Loading..."}
-          </p>
+          </p> */}
+          <p>오늘의 신규 가입 회원 수</p>
         </div>
       </div>
     </>
