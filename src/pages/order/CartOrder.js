@@ -412,30 +412,49 @@ const processEasyPay = async (provider) => {
             <h1>주문 페이지</h1>
             <br />
             <hr style={{ border: "1px solid #000" }} />
-            <div className={CartOrderCSS.cart}>
-
-            </div>
+      
             <h3>주문자 정보</h3>
+    
             <br />
-            <p>{orderData?.userDTO?.userFullName || "이름 없음"}</p>
-            <p>{orderData?.userDTO?.userPhone || "전화번호 없음"}</p>
-            <p>{orderData?.userDTO?.userEmail || "이메일 없음"}</p>
+
+            <div className={UserInfoCSS.info}>
+                <p>이름 :</p>
+                <p style={{width: '408px', padding: '5px 10px'}} className={UserInfoCSS.txt}>{orderData?.userDTO?.userFullName || "이름 없음"}</p>
+            </div>
+            
+            <div className={UserInfoCSS.info}>
+                <p style={{width: '75px'}}>전화번호 :</p>
+                <p style={{width: '408px', padding: '5px 10px'}} className={UserInfoCSS.txt}>{orderData?.userDTO?.userPhone || "전화번호 없음"}</p>
+            </div>
+            
+            <div className={UserInfoCSS.info}>
+                <p>이메일 :</p>
+                <p style={{width: '408px', padding: '5px 10px'}} className={UserInfoCSS.txt}>{orderData?.userDTO?.userEmail || "이메일 없음"}</p>
+            </div>
+            
             <hr style={{ border: "1px solid #000" }} />
             <h3>주문 상품 정보</h3>
+
             {orderData?.orderPageProductDTOList?.map((item, index) => (
-                <div key={index}>
-                    <img src={item.productImg} alt={item.productName} />
-                    <p>{item.productName}</p>
-                    <p>구매수량: {item.count}</p>
-                    <p>
-                        {formatNumber(
-                            (item.amount + item.addPrice) * item.count
-                        )}{" "}
-                        원
-                    </p>
+                <div className={CartOrderCSS.product} key={index}>
+                    <div className={CartOrderCSS.product_img}>
+                        <img src={item.productImg} alt={item.productName} />
+                    </div>
+                    
+                    <div className={CartOrderCSS.product_txt}>
+                        <p>{item.productName}</p>
+                        <p>구매수량: {item.count}</p>
+                        <p>
+                            {formatNumber(
+                                (item.amount + item.addPrice) * item.count
+                            )}{" "}
+                            원
+                        </p>
+                    </div>
+                    
                 </div>
             ))}
-            <hr />
+         
             <h3>배송지 정보</h3>
             <br />
             <input
