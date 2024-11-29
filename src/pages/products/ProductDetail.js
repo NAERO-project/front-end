@@ -13,8 +13,8 @@ import { FaRegHeart } from "react-icons/fa6";
 import { LuShoppingCart } from "react-icons/lu";
 import { IoCardOutline } from "react-icons/io5";
 
-// 상품 후기
-import { callReviewsByProductAPI } from "../../apis/ReviewAPICall";
+// // 상품 후기
+// import { callReviewsByProductAPI } from "../../apis/ReviewAPICall";
 
 function ProductDetail() {
     const dispatch = useDispatch();
@@ -26,26 +26,26 @@ function ProductDetail() {
     const username = isLogin ? decodeJwt(isLogin).sub : null; // JWT에서 사용자 ID 추출
 
     // 상품 후기
-    const reviewData = useSelector((state) => state.reviewReducer);
+    // const reviewData = useSelector((state) => state.reviewReducer);
 
     // console.log("reviewData", reviews);
     // const reviewData = useSelector((state) => reviews.ProductDetail.data);
-    console.log("reviewData", reviewData);
+    // console.log("reviewData", reviewData);
 
-    const pageInfo = useSelector((state) => state.reviewReducer.pageInfo || {pageEnd: 0});
-    console.log("pageInfo", pageInfo);
+    // const pageInfo = useSelector((state) => state.reviewReducer.pageInfo || {pageEnd: 0});
+    // console.log("pageInfo", pageInfo);
 
-    const [start, setStart] = useState(0);
-    const [pageEnd, setPageEnd] = useState(1);
+    // const [start, setStart] = useState(0);
+    // const [pageEnd, setPageEnd] = useState(1);
 
-    const pageNumber = [];
-    if (pageInfo) {
-        for (let i = 1; i <= pageInfo.pageEnd; i++) {
-            pageNumber.push(i);
-        }
-    }
+    // const pageNumber = [];
+    // if (pageInfo) {
+    //     for (let i = 1; i <= pageInfo.pageEnd; i++) {
+    //         pageNumber.push(i);
+    //     }
+    // }
 
-    const [currentPage, setCurrentPage] = useState(1);
+    // const [currentPage, setCurrentPage] = useState(1);
 
     const [amount, setAmount] = useState(1);
     const [price, setPrice] = useState(productData?.productPrice * amount);
@@ -67,10 +67,10 @@ function ProductDetail() {
         ); // price 계산
     }, [amount, selectedOption, productData]);
 
-    useEffect(() => {
-        console.log("productId", params.productId, "reviewData", reviewData);
-        dispatch(callReviewsByProductAPI({ productId: params.productId, currentPage }));
-    }, [params.productId, currentPage]);
+    // useEffect(() => {
+    //     console.log("productId", params.productId, "reviewData", reviewData);
+    //     dispatch(callReviewsByProductAPI({ productId: params.productId, currentPage }));
+    // }, [params.productId, currentPage]);
 
     const onChangeAmountHandler = (e) => {
         setAmount(e.target.value);
@@ -211,7 +211,7 @@ function ProductDetail() {
                             </button>
                         </div>
 
-                        <div>
+                        {/* <div>
                             <h1>상품 후기</h1>
                         </div>
                         {reviewData.ProductReview && Array.isArray(reviewData.ProductReview.data) && reviewData.ProductReview.data.length > 0 ? ( // 후기 데이터가 존재하는 경우
@@ -222,13 +222,15 @@ function ProductDetail() {
                                         <p>{review.date}</p>
                                         <p>평점: {review.reviewRating}점</p>
                                         {review.reviewImage && <img src={review.reviewImage} alt="리뷰 이미지" />} {/* 리뷰 이미지 추가 */}
-                                    </div>
-                                ))}
-                            </div>
-                        ) : (
-                            <p>상품 후기가 없습니다.</p>
-                        )}
-                        <div
+                                    {/* </div> */}
+                                {/* ))} */}
+                            {/* </div> */}
+                        {/* ) : ( */}
+                            {/* <p>상품 후기가 없습니다.</p> */}
+                        {/* )} */}
+                        
+
+                        {/* <div
                             style={{
                                 listStyleType: "none",
                                 display: "flex",
@@ -270,7 +272,7 @@ function ProductDetail() {
                                     &gt;
                                 </button>
                             )}
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

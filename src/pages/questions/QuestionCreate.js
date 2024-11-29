@@ -19,7 +19,9 @@ function QuestionCreate() {
         if (!form.questionTitle || !form.questionContent) {
             alert('제목과 내용을 모두 입력해야 합니다.');
             return;
-        }
+        } else (
+            alert('1:1 문의 등록이 완료되었습니다.')
+        )
         dispatch(callQuestionCreateApi({ form, username }));
         navigate('/mypage/questions');
     };

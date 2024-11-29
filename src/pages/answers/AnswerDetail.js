@@ -91,8 +91,8 @@ function AnswerDetail() {
                 <div>
                     <h2>질문 제목: {question.questionTitle}</h2>
                     <p>질문 내용: {question.questionContent}</p>
-                    <p>최초 질문 작성 시간: {question.questionDate}</p>
-                    <p>최종 질문 작성 시간: {question.questionUpdate}</p>
+                    {/* <p>최초 질문 작성 시간: {question.questionDate}</p>
+                    <p>최종 질문 작성 시간: {question.questionUpdate}</p> */}
                 </div>
             )}
 

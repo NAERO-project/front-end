@@ -61,7 +61,7 @@ function QuestionList() {
                                 <span
                                     style={{ cursor: "pointer", textDecoration: "underline" }}
                                     onClick={() =>
-                                        navigate(`/mypage/questions/detail/${question.questionId}/${answerId}`)
+                                        navigate(`/mypage/questions/detail/${question.questionId}`)
                                     } // 상세 페이지로 이동
                                 >
                                     {question.questionTitle},
