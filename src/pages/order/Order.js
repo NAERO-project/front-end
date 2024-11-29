@@ -8,6 +8,9 @@ import Postcode from "react-daum-postcode";
 import ModalCSS from "../../components/common/Modal.module.css"; // 모달 스타일
 import * as PortOne from "@portone/browser-sdk/v2"; // 결제 API
 
+import CartOrderCSS from "./css/CartOrder.module.css";
+import UserInfoCSS from "../../components/signup/css/UserInfoForm.module.css";
+
 
 function Order() {
     const dispatch = useDispatch();
@@ -413,10 +416,9 @@ function Order() {
     };
 
     return (
-        <div style={{width: '1167px', margin: '0 auto'}}>
+        <div className={CartOrderCSS.cart_box}>
             <h1>주문 페이지</h1>
-            <br />
-            <hr style={{ border: "1px solid #000" }} />
+            <hr style={{border: '1px soled #626E53', margin: '50px 0 30px 0'}} />
 
         <div>
             <h3>주문자 정보</h3>
@@ -425,50 +427,71 @@ function Order() {
             <p>{orderData?.userDTO?.userPhone || "전화번호 없음"}</p>
             <p>{orderData?.userDTO?.userEmail || "이메일 없음"}</p>
         </div>
-        <hr style={{ border: "1px solid #000" }} />
+
+        <hr style={{border: '1px soled #626E53', margin: '50px 0 30px 0'}} />
 
             <h3>주문 상품 정보</h3>
             {orderData?.orderPageProductDTOList?.map((item, index) => (
-                <div key={index}>
-                    <img src={item.productImg} alt={item.productName} />
-                    <p>{item.productName}</p>
-                    <p>구매수량: {item.count}</p>
-                    <p>
-                        {formatNumber(
-                            (item.amount + item.addPrice) * item.count
-                        )}{" "}
-                        원
-                    </p>
+                <div className={CartOrderCSS.product} style={{boxSizing: 'border-box', overflow: 'hidden'}} key={index}>
+                    <div className={CartOrderCSS.product_img}>
+                        <img src={item.productImg} alt={item.productName} />
+                    </div>
+
+                    <div className={CartOrderCSS.product_txt}>
+                        <p>{item.productName}</p>
+                        <p>구매수량: {item.count}</p>
+                        <p>
+                            {formatNumber(
+                                (item.amount + item.addPrice) * item.count
+                            )}{" "}
+                            원
+                        </p> 
+                    </div>
                 </div>
             ))}
-            <hr />
+
+            <hr style={{border: '1px soled #626E53', margin: '50px 0 30px 0'}}/>
             <h3>배송지 정보</h3>
-            <br />
+            
+            <div style={{margin: '0 0 20px 0'}}>
+                <label style={{margin: '0 10px 0 0'}}>이름 :</label>
+                <input
+                    style={{width: '408px', padding: '5px 10px', margin: '0 30px 0 0'}} 
+                    className={UserInfoCSS.txt}
+                    type="text"
+                    name="recipientName"
+                    value={payRequest.orderDTO.recipientName}
+                    placeholder="받는 사람 이름"
+                    onChange={onChangeHandler}
+                />
+
+                <label style={{margin: '0 10px 0 0'}}>전화번호 :</label>
+                <input
+                    style={{width: '408px', padding: '5px 10px', margin: '0 30px 0 0'}} 
+                    className={UserInfoCSS.txt}
+                    type="text"
+                    name="recipientPhoneNumber"
+                    value={payRequest.orderDTO.recipientPhoneNumber}
+                    placeholder="받는 사람 전화번호"
+                    onChange={onChangeHandler}
+                />
+            </div>
+            
+            <div>
+                <input
+                    style={{width: '408px', padding: '5px 10px', margin: '0 30px 0 0'}} 
+                    className={UserInfoCSS.txt}
+                    type="text"
+                    value={payRequest.orderDTO.postalCode}
+                    readOnly
+                    placeholder="우편번호"
+                />
+                <button className={CartOrderCSS.post_btn} onClick={() => setIsPostcodeOpen(true)}>주소 검색</button>
+            </div>
+
             <input
-                type="text"
-                name="recipientName"
-                value={payRequest.orderDTO.recipientName}
-                placeholder="받는 사람 이름"
-                onChange={onChangeHandler}
-            />
-            <br />
-            <input
-                type="text"
-                name="recipientPhoneNumber"
-                value={payRequest.orderDTO.recipientPhoneNumber}
-                placeholder="받는 사람 전화번호"
-                onChange={onChangeHandler}
-            />
-            <br />
-            <input
-                type="text"
-                value={payRequest.orderDTO.postalCode}
-                readOnly
-                placeholder="우편번호"
-            />
-            <button onClick={() => setIsPostcodeOpen(true)}>주소 검색</button>
-            <br />
-            <input
+                style={{width: '408px', padding: '5px 10px'}} 
+                className={UserInfoCSS.txt}
                 type="text"
                 value={payRequest.orderDTO.addressRoad}
                 readOnly
@@ -476,6 +499,8 @@ function Order() {
             />
             <br />
             <input
+                style={{width: '408px', padding: '5px 10px'}} 
+                className={UserInfoCSS.txt}
                 type="text"
                 value={payRequest.orderDTO.addressDetail}
                 readOnly
@@ -496,123 +521,149 @@ function Order() {
             )}
             <br />
             <textarea
+                style={{width: '408px', height: '100px', padding: '5px 10px'}} 
+                className={CartOrderCSS.post_txt}
                 name="deliveryNote"
                 value={payRequest.orderDTO.deliveryNote}
                 placeholder="배송 요청사항"
                 onChange={onChangeHandler}
             ></textarea>
-            <hr style={{ border: "1px solid #000" }} />
+            <hr style={{border: '1px soled #626E53', margin: '50px 0 30px 0'}}/>
 
             <h3>결제 금액</h3>
-            <br />
-            <p>주문 금액: {formatNumber(calculateOrderTotalAmount())}원</p>
-            <p>
-                배송비: +{formatNumber(orderData.orderDTO?.deliveryFee || 0)}원
-            </p>
-            <p>
-                쿠폰 할인: -
-                {formatNumber(payRequest.orderDTO.couponDiscount || 0)}원
-            </p>
-            <p>
-                포인트 할인: -
-                {formatNumber(payRequest.orderDTO.pointDiscount || 0)}원
-            </p>
-            <p>
-                최종 주문 금액:{" "}
-                {formatNumber(
+            <div className={UserInfoCSS.info}>
+                <p style={{width: '80px'}}>주문 금액:</p>
+                <p style={{width: '408px', padding: '5px 10px'}} className={UserInfoCSS.txt}>{formatNumber(calculateOrderTotalAmount())}원</p>
+            </div>
+
+            <div className={UserInfoCSS.info}>
+                <p style={{width: '80px'}}>배송비:</p>
+                <p style={{width: '408px', padding: '5px 10px'}} className={UserInfoCSS.txt}>+{formatNumber(orderData.orderDTO?.deliveryFee || 0)}원</p>
+            </div>
+
+            <div className={UserInfoCSS.info}>
+                <p style={{width: '80px'}}>쿠폰 할인:</p>
+                <p style={{width: '408px', padding: '5px 10px'}} className={UserInfoCSS.txt}>-{formatNumber(payRequest.orderDTO.couponDiscount || 0)}원</p>
+            </div>
+
+            <div className={UserInfoCSS.info}>
+                <p style={{width: '80px'}}>포인트 할인:</p>
+                <p style={{width: '408px', padding: '5px 10px'}} className={UserInfoCSS.txt}>-{formatNumber(payRequest.orderDTO.pointDiscount || 0)}원</p>
+            </div>
+
+            <div className={UserInfoCSS.info}>
+                <p style={{width: '80px'}}>최종 주문 금액:</p>
+                <p style={{width: '408px', padding: '5px 10px'}} className={UserInfoCSS.txt}>{formatNumber(
                     calculateOrderTotalAmount() +
                         (orderData.orderDTO?.deliveryFee || 0) -
                         (payRequest.orderDTO.couponDiscount || 0)
                 )}{" "}
-                원
-            </p>
-            <hr style={{ border: "1px solid #000" }} />
+                원</p>
+            </div>
+            <hr style={{border: '1px soled #626E53', margin: '50px 0 30px 0'}}/>
 
             <h3>할인 정보</h3>
-            <br />
-            <label>쿠폰 적용</label>&nbsp;&nbsp;&nbsp;&nbsp;
-            <select
-                value={payRequest.orderDTO.couponId || ""} // 선택한 쿠폰 ID 관리
-                onChange={onChangeCouponHandler} // 쿠폰 선택 시 처리
-            >
-                <option value="">적용할 쿠폰 선택</option>
-                {coupon.map((c) => (
-                    <option key={c.couponId} value={c.couponId}>
-                        {c.couponName}
-                    </option>
-                ))}
-            </select>
-            <br />
-            <label>포인트 적용</label>&nbsp;&nbsp;&nbsp;&nbsp;
-            <input
-                type="number"
-                value={point}
-                onChange={onChangePointHandler} // 수정된 핸들러 사용
-                min="1"
-            />
-            &nbsp; 잔여: {orderData?.userDTO?.userPoint || "0"}P
-            <br />
-            <hr style={{ border: "1px solid #000" }} />
+            <div className={UserInfoCSS.info}>
+                <p style={{width: '80px'}}>쿠폰 적용</p>
+                <div style={{width: '408px', padding: '5px 10px'}} className={UserInfoCSS.txt}>
+                    <select
+                        style={{width: '100%'}}
+                        value={payRequest.orderDTO.couponId || ""} // 선택한 쿠폰 ID 관리
+                        onChange={onChangeCouponHandler} // 쿠폰 선택 시 처리
+                    >
+                        <option value="">적용할 쿠폰 선택</option>
+                        {coupon.map((c) => (
+                            <option key={c.couponId} value={c.couponId}>
+                                {c.couponName}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+            </div>
+
+            <div className={UserInfoCSS.info}>
+                <p style={{width: '85px'}}>포인트 적용</p>
+                <div>
+                    <input
+                    className={UserInfoCSS.txt}
+                    style={{width: '408px', padding: '5px 10px'}}
+                    type="number"
+                    value={point}
+                    onChange={onChangePointHandler} // 수정된 핸들러 사용
+                    min="1"
+                    />
+                </div>
+                <p style={{margin: '10px 0 0 10px'}}>잔여: {orderData?.userDTO?.userPoint || "0"}P</p>
+            </div>
+
+            <hr style={{border: '1px soled #626E53', margin: '50px 0 30px 0'}}/>
 
             <h3>결제 정보</h3>
             <h3>결제 수단 선택</h3>
             <div>
-                <label>
-                    <input
+                <span>
+                    <input 
+                        className={CartOrderCSS.radio}
                         type="radio"
                         value="CARD"
                         checked={paymentMethod === "CARD"}
                         onChange={() => handlePaymentMethodChange("CARD")}
                     />
-                    신용카드
-                </label>
-                <label>
+                    <label>신용카드</label>
+                </span>
+                <span style={{margin: '0 20px'}}>
                     <input
+                        className={CartOrderCSS.radio}
                         type="radio"
                         value="TRANSFER"
                         checked={paymentMethod === "TRANSFER"}
                         onChange={() => handlePaymentMethodChange("TRANSFER")}
                     />
-                    실시간 계좌이체
-                </label>
-                <label>
+                    <label>실시간 계좌이체</label>
+                </span>
+                <span>
                     <input
+                        className={CartOrderCSS.radio}
                         type="radio"
                         value="BANK_TRANSFER"
                         checked={paymentMethod === "BANK_TRANSFER"}
-                        onChange={() =>
-                            handlePaymentMethodChange("BANK_TRANSFER")
-                        }
+                        onChange={() => handlePaymentMethodChange("BANK_TRANSFER")}
                     />
-                    무통장입금
-                </label>
+                    <label>무통장입금</label>
+                </span>       
             </div>
+
             {/* 무통장입금을 선택한 경우 계좌 정보 및 입금자명 입력 */}
             {paymentMethod === "BANK_TRANSFER" && (
                 <div>
-                    <h4>입금할 계좌 정보</h4>
-                    <input
+                    <div className={UserInfoCSS.info}>
+                        <p style={{width: '80px'}}>입금할 계좌 정보 :</p>
+                        <input
+                        style={{width: '408px', padding: '5px 10px'}} 
+                        className={UserInfoCSS.txt}
                         type="text"
                         value="신한은행 100-071-391803 주식회사 네로"
                         readOnly
-                    />
-                    <h4>입금자명</h4>
-                    <input
+                        />
+                    </div>
+
+                    <div className={UserInfoCSS.info}>
+                        <p style={{width: '80px'}}>입금자명 :</p>
+                        <input
+                        style={{width: '408px', padding: '5px 10px'}} 
+                        className={UserInfoCSS.txt}
                         type="text"
                         value={orderData?.userDTO?.userFullName}
                         readOnly
-                    />
+                        />
+                    </div>
                 </div>
             )}
-            <button onClick={() => handleEasyPayClick("KAKAOPAY")}>
-                카카오페이
-            </button>
-            <button onClick={() => handleEasyPayClick("NAVERPAY")}>
-                네이버페이
-            </button>
-            <br />
-            <div>{userPoint.toLocaleString()} 환경기여 포인트 적립 예정</div>
-            <button onClick={onClickPaymentHandler}>결제하기</button>
+            <div style={{margin: '10px 0 20px 0'}}>{userPoint.toLocaleString()} 환경기여 포인트 적립 예정</div>
+
+<button style={{padding: '5px 10px', borderRadius: '10px' , backgroundColor: '#fee500', color: 'rgba(0, 0, 0, 85%)'}} onClick={() => handleEasyPayClick("KAKAOPAY")}>카카오페이</button>
+<button style={{padding: '5px 10px', margin: '0 20px', borderRadius: '10px', backgroundColor: '#05d686', color: '#fff'}} onClick={() => handleEasyPayClick("NAVERPAY")}>네이버페이</button>
+<button style={{padding: '5px 10px', borderRadius: '10px', backgroundColor: '#849076', color: '#fff'}} onClick={onClickPaymentHandler}>결제하기</button>
         </div>
     );
 }
