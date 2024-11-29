@@ -1,0 +1,23 @@
+.box {
+    width: 1100px;
+    margin: 0 auto;
+    /* background-color: red; */
+}
+
+.order {
+    margin: 30px 0 50px 0;
+}
+
+.order h3{
+    font-weight: 500;
+    color: #D1D1D1;
+}
+
+/* .product{
+    margin-bottom: 20px;
+} */
+
+.line{
+    margin: 30px 0;
+    
+}

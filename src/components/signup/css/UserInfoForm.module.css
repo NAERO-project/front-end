@@ -1,18 +1,19 @@
 .info{
     display: flex;
     /* width: 522px; */
-    height: 40px;
+    /* height: 40px; */
     margin: 10px 0;
 }
 
-.info p{
+.info > p{
     width: 70px;
-    margin: 0 18px 0 0;
+    margin: 5px 18px 0 0;
 }
 
 .txt{
     width: 408px;
     height: 40px;
+    /* margin-bottom: 5px; */
     color: #828282;
     border-radius: 30px;
     background-color: #fff;

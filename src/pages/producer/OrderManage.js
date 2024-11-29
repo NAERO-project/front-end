@@ -53,8 +53,8 @@ function ProductManage() {
                         <col width="15%" />
                         <col width="8%" />
                         <col width="5%" />
-                        <col width="5%" />
-                        <col width="10%" />
+                        {/* <col width="5%" />
+                        <col width="10%" /> */}
                     </colgroup>
                     <thead>
                         <tr>
@@ -65,7 +65,7 @@ function ProductManage() {
                             <th>주문 상태</th>
                             <th>배송 상태</th>
                             <th>송장번호</th>
-                            <th></th>
+                            {/* <th></th> */}
                         </tr>
                     </thead>
                     <tbody>
@@ -83,9 +83,9 @@ function ProductManage() {
                                     <td>{o.orderStatus}</td>
                                     <td>{o.deliveryStatus}</td>
                                     <td>{o.trackingNumber}</td>
-                                    <td>
+                                    {/* <td>
                                         <button>송장등록</button>
-                                    </td>
+                                    </td> */}
                                 </tr>
                             ))}
                     </tbody>
