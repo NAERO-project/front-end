@@ -5,6 +5,9 @@ import { decodeJwt } from "../../utils/tokenUtils";
 
 import { callProductRegistAPI } from "../../apis/ProductApiCall";
 
+import ProductManageCSS from "./css/ProductManage.module.css";
+import ProductRegistCSS from "./css/ProductRegist.module.css";
+
 function ProductRegist() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -330,11 +333,11 @@ function ProductRegist() {
     };
 
     return (
-        <div>
+        <div className={ProductManageCSS.manage_box}>
+             
+
             <div>
-                <button onClick={onClickProductRegistHandler}>상품 등록</button>
-            </div>
-            <div>
+
                 <div>
                     <div>
                         {imageUrl && <img src={imageUrl} alt="preview" />}
@@ -429,6 +432,7 @@ function ProductRegist() {
                                     </select>
                                 </td>
                             </tr>
+                            
                             <tr>
                                 <td>
                                     <label>상품 이름</label>

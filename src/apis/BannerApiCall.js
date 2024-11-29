@@ -1,4 +1,4 @@
-import { GET_ADMIN_BANNERS, GET_BANNERS, GET_PRODUCER_BANNERS, POST_PRODUCER_BANNER, PUT_ADMIN_BANNERS } from "../modules/BannerModule";
+import { DELETE_ADMIN_BANNERS, GET_ADMIN_BANNERS, GET_BANNERS, GET_PRODUCER_BANNERS, POST_PRODUCER_BANNER, PUT_ADMIN_BANNERS } from "../modules/BannerModule";
 
 const prefix = `http://${process.env.REACT_APP_RESTAPI_IP}:8080`;
 
@@ -123,5 +123,28 @@ export const callBannerUpdateApi = ({ form }) => {
 		console.log('[ProduceAPICalls] callBannerUpdateApi RESULT : ', result);
 
 		dispatch({ type: PUT_ADMIN_BANNERS, payload: result });
+	};
+};
+
+// 관리자 배너 삭제
+export const callBannerDeleteApi = ({ form }) => {
+	console.log('[ProduceAPICalls] callBannerUpdateApi Call');
+
+	const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/admin/banner-delete`;
+
+	return async (dispatch, getState) => {
+		const result = await fetch(requestURL, {
+			method: 'PUT',
+			headers: {
+				Accept: '*/*',
+				Authorization:
+					'Bearer ' + window.localStorage.getItem('accessToken')
+			},
+			body: form
+		}).then((response) => response.json());
+
+		console.log('[ProduceAPICalls] callBannerUpdateApi RESULT : ', result);
+
+		dispatch({ type: DELETE_ADMIN_BANNERS, payload: result });
 	};
 };

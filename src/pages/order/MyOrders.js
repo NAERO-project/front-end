@@ -6,6 +6,8 @@ import OrderProductList from "./OrderProductList";
 
 import { callMyPageOrderListApi } from "../../apis/OrderApiCall";
 
+import MyOrderCSS from "./css/MyOrder.module.css";
+
 function MyOrders() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -71,7 +73,7 @@ function MyOrders() {
 
   return (
     <>
-      <div className="">
+      <div className={MyOrderCSS.box}>
         <table className="">
           <colgroup>
             <col width="20%" />

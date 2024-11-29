@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { callProducerProductListApi } from "../../../../apis/ProductApiCall";
+import { callBrandProductListPageApi, callProducerProductListApi, callProductListPreviewApi } from "../../../../apis/ProductApiCall";
 import BrandListCSS from "./css/BrandList.module.css";
 import ButtonCSS from "../../Button.module.css";
 import BrandProduct from "./BrandProduct";
@@ -8,24 +8,43 @@ import { Link } from "react-router-dom";
 
 function BrandList({ brand: { producerId, producerName } }) {
     const dispatch = useDispatch();
-    const brandList = useSelector(state => state.productReducer);
+    const brandList = useSelector(state => state.productProducerReducer);
+    const productList = useSelector(state => state.productReducer);
+    console.log("brandList", brandList);
 
     useEffect(() => {
         fetchData();
-    }, [producerId]);
+    }, []);
+
+    // const fetchData = () => {
+    //     dispatch(callBrandProductListPageApi({producerId}));
+    // };
 
     const fetchData = () => {
-        dispatch(callProducerProductListApi(producerId));
+        dispatch(callProductListPreviewApi({producerId}));
     };
 
-    // producerId에 맞는 상품만 필터링
-    const filteredProducts = brandList.filter(product => product.producerId === producerId);
+    // // producerId에 맞는 상품만 필터링
+    // const filteredProducts = brandList?.filter(product => product.producerId === producerId);
+
+    // // brandList가 배열인지 확인하고, producerId에 맞는 상품만 필터링
+    // const filteredProducts = Array.isArray(brandList) 
+    //     ? brandList.filter(product => product.producerId === producerId) 
+    //     : []; // brandList가 배열이 아닐 경우 빈 배열로 초기화
+
+         // brandList가 배열인지 확인하고, producerId에 맞는 상품만 필터링
+    const filteredProducts = Array.isArray(productList) 
+    ? productList.filter(product => product.producerId === producerId) 
+    : []; // brandList가 배열이 아닐 경우 빈 배열로 초기화
+
+
+        console.log("jjjjfilteredProducts: ", filteredProducts)
 
     return (
         <div className={BrandListCSS.box}>
             <div className={BrandListCSS.txt_box}>
                 <h1>{producerName}</h1>
-                <Link to={`/products/brand/${producerId}`}
+                <Link to={`/products/brand/home/${producerId}`}
                 className={`${ButtonCSS.more_button} ${BrandListCSS.more_button}`}
                 producerName={producerName}>
                     더보기

@@ -34,6 +34,7 @@ function ProductUpdate() {
         optionDesc: "기본 옵션",
         addPrice: 0,
         optionQuantity: 0,
+        optionCheck: "Y"
     });
 
     const largeCategories = [
@@ -203,23 +204,40 @@ function ProductUpdate() {
         });
     };
 
+    const onChangeOptionInputHandler = (e) => {
+        const { name, value } = e.target;
+        setOption((prevOption) => ({
+            ...prevOption,
+            [name]: value,
+        }));
+    };
+
     const onAddOptionHandler = () => {
         setForm((prevForm) => ({
             ...prevForm,
-            options: [...prevForm.options, option],
+            options: [...prevForm.options, { ...option }],
         }));
         setOption({
             optionDesc: "기본 옵션",
             addPrice: 0,
             optionQuantity: 0,
+            optionCheck: "Y"
         });
     };
 
     const onDeleteOptionHandler = (index) => {
-        const newOptions = form.options.filter((_, i) => i !== index);
+        const updatedOptions = form.options.map((opt, i) => {
+            if (i === index) {
+                return {
+                    ...opt,
+                    optionCheck: "N"
+                };
+            }
+            return opt;
+        });
         setForm((prevForm) => ({
             ...prevForm,
-            options: newOptions,
+            options: updatedOptions,
         }));
     };
 
@@ -254,11 +272,23 @@ function ProductUpdate() {
         formData.append('smallCategory.smallCategoryName', form.smallCategory.smallCategoryName);
         formData.append('smallCategory.mediumCategoryId', form.smallCategory.mediumCategoryId);
 
+        console.log("뭐가 들었나...", form.options);
+
         form.options.forEach((opt, index) => {
             formData.append(`options[${index}].optionDesc`, opt.optionDesc);
             formData.append(`options[${index}].addPrice`, opt.addPrice);
             formData.append(`options[${index}].optionQuantity`, opt.optionQuantity);
+            formData.append(`options[${index}].optionCheck`, opt.optionCheck);
+            if (opt.optionId) {
+            formData.append(`options[${index}].optionId`, opt.optionId);
+            } else {
+                formData.append(`options[${index}].optionId`, "");
+            }
         });
+
+        for (let [key, value] of formData.entries()) {
+            console.log(`${key}: ${value}`);
+        }
 
         if (productImage) {
             formData.append('productImage', productImage);
@@ -332,7 +362,7 @@ function ProductUpdate() {
                             </tr>
                             <tr>
                                 <td>
-                                    <label>상품 가격</label>
+                                    <label>상푸 가격</label>
                                 </td>
                                 <td>
                                     <input
@@ -379,22 +409,22 @@ function ProductUpdate() {
                                     <input
                                         name="optionDesc"
                                         placeholder="옵션 설명"
-                                        value={option.optionDesc}
-                                        onChange={onChangeOptionHandler}
+                                        value={option.optionDesc || ""}
+                                        onChange={onChangeOptionInputHandler}
                                     />
                                     <input
                                         name="addPrice"
                                         placeholder="추가 가격"
                                         type="number"
-                                        value={option.addPrice}
-                                        onChange={onChangeOptionHandler}
+                                        value={option.addPrice || 0}
+                                        onChange={onChangeOptionInputHandler}
                                     />
                                     <input
                                         name="optionQuantity"
                                         placeholder="옵션 수량"
                                         type="number"
-                                        value={option.optionQuantity}
-                                        onChange={onChangeOptionHandler}
+                                        value={option.optionQuantity || 0}
+                                        onChange={onChangeOptionInputHandler}
                                     />
                                     <button onClick={onAddOptionHandler}>
                                         옵션 추가
@@ -406,26 +436,28 @@ function ProductUpdate() {
                                     <h4>옵션 리스트</h4>
                                     <ul>
                                         {form?.options?.map((opt, index) => (
-                                            <li key={index}>
-                                                <input
-                                                    name="optionDesc"
-                                                    value={opt.optionDesc}
-                                                    onChange={(e) => onChangeOptionHandler(e, index)}
-                                                />
-                                                <input
-                                                    name="addPrice"
-                                                    type="number"
-                                                    value={opt.addPrice}
-                                                    onChange={(e) => onChangeOptionHandler(e, index)}
-                                                />
-                                                <input
-                                                    name="optionQuantity"
-                                                    type="number"
-                                                    value={opt.optionQuantity}
-                                                    onChange={(e) => onChangeOptionHandler(e, index)}
-                                                />
-                                                <button onClick={() => onDeleteOptionHandler(index)}>삭제</button>
-                                            </li>
+                                            opt.optionCheck === "Y" && (
+                                                <li key={index}>
+                                                    <input
+                                                        name="optionDesc"
+                                                        value={opt.optionDesc}
+                                                        onChange={(e) => onChangeOptionHandler(e, index)}
+                                                    />
+                                                    <input
+                                                        name="addPrice"
+                                                        type="number"
+                                                        value={opt.addPrice}
+                                                        onChange={(e) => onChangeOptionHandler(e, index)}
+                                                    />
+                                                    <input
+                                                        name="optionQuantity"
+                                                        type="number"
+                                                        value={opt.optionQuantity}
+                                                        onChange={(e) => onChangeOptionHandler(e, index)}
+                                                    />
+                                                    <button onClick={() => onDeleteOptionHandler(index)}>삭제</button>
+                                                </li>
+                                            )
                                         ))}
                                     </ul>
                                 </td>
