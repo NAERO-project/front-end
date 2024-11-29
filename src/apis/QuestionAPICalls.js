@@ -29,8 +29,8 @@ export const callQuestionListApi = ({ currentPage, username }) => {
         if (result.status === 200) {
             console.log('[QuestionAPICalls] callQuestionListApi RESULT: ', result);
             
-            console.log('log1', result.data);
-            console.log('log2', result.data.data);
+            console.log('result.data', result.data);
+            console.log('result.data.data', result.data.data);
             dispatch({ type: GET_QUESTIONS, payload: result.data });
         }
     };
@@ -38,7 +38,7 @@ export const callQuestionListApi = ({ currentPage, username }) => {
 
 /* 1:1 문의 상세 조회 */
 export const callQuestionDetailApi = (questionId, answerId, username) => {
-    const requestURL = `${prefix}/questions/${questionId}/${username}`;
+    const requestURL = `${prefix}/questions/${questionId}/answers/${answerId}/${username}`;
 
     console.log('[QuestionAPICalls] requestURL: ', requestURL);
 

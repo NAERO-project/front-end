@@ -145,7 +145,7 @@ function App() {
 						<Route index element={<QuestionList />} />
 						<Route path="create" element={<QuestionCreate />} />
 						<Route path="edit/:questionId" element={<QuestionEdit />} />
-						<Route path="detail/:questionId" element={<QuestionDetail />} />
+						<Route path="detail/:questionId/:answerId" element={<QuestionDetail />} />
 					</Route>
 
 

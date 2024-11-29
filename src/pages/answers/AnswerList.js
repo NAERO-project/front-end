@@ -1,100 +1,95 @@
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
-import { callAnswerListApi } from "../../apis/AnswerAPICalls"; // 답변 목록 API 호출 함수
-import { callQuestionListApi } from "../../apis/AnswerAPICalls"; // 질문 목록 API 호출 함수
-import { GET_ANSWERS, GET_ALL_QUESTIONS } from "../../modules/AnswerModule"; // 액션 타입 가져오기
-import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { callAnswerListApi, callQuestionListApi } from "../../apis/AnswerAPICalls";
+import { GET_ANSWERS, GET_ALL_QUESTIONS } from "../../modules/AnswerModule";
 
 function AnswerList() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const params = useParams();
 
-    const questions = useSelector((state) => state.answerReducer.data?.content || []);
-    const questionsList = useSelector((state) => state.answerReducer || []);
-    const answers = useSelector((state) => state.answerReducer.data?.content || []); // 답변 목록 가져오기
-    const answersList = useSelector((state) => state.answerReducer || []);
+    // 질문과 답변 데이터를 각각 가져오기
+    const questionsList = useSelector((state) => state.answerReducer.questions || []);
+    const answersList = useSelector((state) => state.answerReducer.answers || []);
     const pageInfo = useSelector((state) => state.answerReducer.pageInfo || { pageEnd: 0 });
-    
-    const [start, setStart] = useState(0);
-    const [pageEnd, setPageEnd] = useState(1);
+
+    const [currentPage, setCurrentPage] = useState(1);
+
+    useEffect(() => {
+        // 답변 목록 API 호출
+        dispatch(callAnswerListApi({ currentPage }))
+            .then((response) => {
+                if (response && response.status === 200) {
+                    dispatch({ type: GET_ANSWERS, payload: response.data });
+                }
+            });
+
+        // 질문 목록 API 호출
+        dispatch(callQuestionListApi({ currentPage }))
+            .then((response) => {
+                if (response && response.status === 200) {
+                    dispatch({ type: GET_ALL_QUESTIONS, payload: response.data });
+                }
+            });
+    }, [dispatch, currentPage]);
+
+    console.log("questionsList", questionsList);
+    console.log("answersList", answersList);
 
     const pageNumber = [];
-    if (pageInfo) {
+    if (pageInfo.pageEnd > 0) {
         for (let i = 1; i <= pageInfo.pageEnd; i++) {
             pageNumber.push(i);
         }
     }
 
-
-    const [currentPage, setCurrentPage] = useState(1);
-
-    // useEffect(() => {
-    //     dispatch(
-    //         callAnswerListApi({
-    //             currentPage: currentPage
-    //         })
-    //     )
-    // }, [dispatch, currentPage]);
-
-    // useEffect(() => {
-    //     dispatch(
-    //         callQuestionListApi({
-    //             currentPage: currentPage
-    //         })
-    //     )
-    // }, [dispatch, currentPage]);
-
-    useEffect(() => {
-        // 답변 목록 API 호출
-        dispatch(callAnswerListApi({ currentPage }))
-            .then(response => {
-                dispatch({ type: GET_ANSWERS, payload: response.data }); // 답변 상태 업데이트
-            });
-
-        // 질문 목록 API 호출
-        dispatch(callQuestionListApi({ currentPage }))
-            .then(response => {
-                dispatch({ type: GET_ALL_QUESTIONS, payload: response.data }); // 질문 상태 업데이트
-            });
-    }, [dispatch, currentPage]);
-
-    console.log("questions", questions);
-    console.log("questionsList", questionsList);
-    console.log("answers", answers);
-    console.log("answersList", answersList);
     return (
-        <div>
-            <h1>답변 목록 페이지</h1>
-            {questionsList.length > 0 ? (
-                <ul>
-                    {questionsList.map((question) => (
-                        <li key={question.questionId}>
-                            <Link to={`/answers/detail/${question.questionId}`}>
-                                <h3>제목: {question.questionTitle}</h3>
-                            </Link>
-                            <p>질문 상태: {question.questionStatus === 1 ? '답변 완료' : '답변 미완료'}</p>
-                            
-                            {/* 해당 질문에 대한 답변 표시 */}
-                            {answersList.filter(answer => answer.questionId === question.questionId).length > 0 ? (
-                                <ul>
-                                    {answers.filter(answer => answer.questionId === question.questionId).map(answer => (
-                                        <li key={answer.answerId}>
-                                            <p>답변: {answer.answerContent}</p> {/* 답변 내용 표시 */}
-                                        </li>
-                                    ))}
-                                </ul>
-                            ) : (
-                                <p>답변이 없습니다.</p>
-                            )}
-                        </li>
-                    ))}
-                </ul>
-            ) : (
-                <p>등록된 질문이 없습니다.</p>
-            )}
-            <div
+<div>
+    <h1>답변 목록 페이지</h1>
+    {Array.isArray(questionsList) && questionsList.length > 0 ? (
+        <ul>
+            {questionsList.map((question) => {
+                // 각 질문에 대한 답변 필터링
+                const questionAnswers = answersList.filter(
+                    (answer) => answer.questionId === question.questionId
+                );
+
+                return (
+                    <li key={question.questionId}>
+                        {/* 질문 제목을 클릭하면 해당 질문에 대한 상세 페이지로 이동 */}
+                        <Link
+                            to={`/admin/answers/detail/${question.questionId}/${
+                                questionAnswers.length > 0 ? questionAnswers[0].answerId : "0"
+                            }`}
+                        >
+                            <h3>제목: {question.questionTitle}</h3>
+                        </Link>
+                        <p>질문 상태: {question.questionStatus === 1 ? "답변 완료" : "답변 미완료"}</p>
+
+                        {questionAnswers.length > 0 ? (
+                            <ul>
+                                {questionAnswers.map((answer) => (
+                                    <li key={answer.answerId}>
+                                        <p>답변: {answer.answerTitle}</p>
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <p>답변이 없습니다.</p>
+                        )}
+                    </li>
+                );
+            })}
+        </ul>
+    ) : (
+        <p>등록된 질문이 없습니다.</p>
+    )}
+
+
+
+
+           <div
                 style={{
                     listStyleType: "none",
                     display: "flex",
@@ -110,7 +105,7 @@ function AnswerList() {
                         &lt;
                     </button>
                 )}
-                {pageNumber.map((num) => (
+                {pageNumber?.map((num) => (
                     <li key={num} onClick={() => setCurrentPage(num)}>
                         <button
                             style={

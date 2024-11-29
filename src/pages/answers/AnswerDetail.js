@@ -6,6 +6,9 @@ import {
     callAnswerDetailApi,
     callAnswerDeleteApi
 } from '../../apis/AnswerAPICalls';
+import {
+    callQuestionDetailApi
+} from '../../apis/QuestionAPICalls';
 
 function AnswerDetail() {
     const navigate = useNavigate();
@@ -33,26 +36,24 @@ function AnswerDetail() {
         console.log("답변 ID:", params.answerId);
         console.log("질문 ID:", params.questionId);
         
-        // 답변 상세 정보 가져오기
-        dispatch(callAnswerDetailApi(params.answerId, params.questionId, username)).then((response) => {
-            console.log("답변 상세 정보:", response);
-        }).catch((error) => {
-            console.error("답변 상세 정보 가져오기 실패:", error);
-        });
+        // 질문 상세 정보 가져오기
+        if (params.questionId) {
+            dispatch(callQuestionDetailApi(params.questionId, username)).then((response) => {
+                console.log("질문 상세 정보:", response);
+            }).catch((error) => {
+                console.error("질문 상세 정보 가져오기 실패:", error);
+            });
+        }
 
-        // // 질문 ID가 있을 경우 질문 정보와 해당 답변 목록 가져오기
-        // if (params.questionId) {
-        //     dispatch(callAnswerListApi(params.questionId, username)).then((response) => {
-        //         console.log("질문 정보:", response);
-        //         // 질문 정보와 관련된 답변 목록을 상태에 저장하는 로직 추가 가능
-        //     }).catch((error) => {
-        //         console.error("질문 정보 가져오기 실패:", error);
-        //     });
-        // } else {
-        //     console.error("questionId가 정의되지 않았습니다.");
-        // }
+        // 답변이 있는 경우에만 답변 상세 정보 가져오기
+        if (params.answerId !== "none") {
+            dispatch(callAnswerDetailApi(params.answerId, params.questionId, username)).then((response) => {
+                console.log("답변 상세 정보:", response);
+            }).catch((error) => {
+                console.error("답변 상세 정보 가져오기 실패:", error);
+            });
+        }
     }, [dispatch, params.answerId, params.questionId, username]);
-
 
     const onChangeHandler = (e) => {
         setForm({
@@ -83,8 +84,6 @@ function AnswerDetail() {
         }
     };
 
-
-    console.log("answerDetail", answerDetail)
     return (
         <div>
             <h1>답변 상세 페이지</h1>
@@ -92,28 +91,41 @@ function AnswerDetail() {
                 <div>
                     <h2>질문 제목: {question.questionTitle}</h2>
                     <p>질문 내용: {question.questionContent}</p>
+                    <p>최초 질문 작성 시간: {question.questionDate}</p>
+                    <p>최종 질문 작성 시간: {question.questionUpdate}</p>
                 </div>
             )}
-            {answer ? (
+
+            {/* answerId가 "none"인 경우 답변 등록만 가능하도록 처리 */}
+            {params.answerId === "0" ? (
                 <div>
-                    <h2>답변 제목: {answer.answerTitle}</h2>
-                    <p>답변 내용: {answer.answerContent}</p>
-                    <p>답변 날짜: {answer.answerDate}</p>
-                    <div>
-                        {question.questionStatus === true || question.questionStatus === 1 ? (
-                            <>
-                                <button onClick={() => navigate(`/admin/answers/edit/${answerDetail.questionId}/${answerDetail.answerId}`)}>수정</button>
-                                <button onClick={handleDelete}>삭제</button>
-                            </>
-                        ) : (
-                            <button onClick={() => navigate(`/admin/answers/create/${answerDetail.questionId}`)}>답변 등록</button>
-                        )}
-                        <button onClick={() => navigate(-1)}>뒤로가기</button>
-                    </div>
+                    <p>답변이 없습니다.</p>
+                    <button onClick={() => navigate(`/admin/answers/create/${question.questionId}`)}>
+                        답변 등록
+                    </button>
                 </div>
             ) : (
-                <p>답변이 없습니다.</p>
+                answer && answer.questionId === question.questionId && (
+                    <div>
+                        <h2>답변 제목: {answer.answerTitle}</h2>
+                        <p>답변 내용: {answer.answerContent}</p>
+                        <p>최초 답변 작성 날짜: {answer.answerDate}</p>
+                        <p>최종 답변 작성 날짜: {answer.answerUpdate}</p>
+                        <div>
+                            <button
+                                onClick={() =>
+                                    navigate(`/admin/answers/edit/${question.questionId}/${answer.answerId}`)
+                                }
+                            >
+                                수정
+                            </button>
+                            <button onClick={handleDelete}>삭제</button>
+                        </div>
+                    </div>
+                )
             )}
+
+            <button onClick={() => navigate(-1)}>뒤로가기</button>
         </div>
     );
 }

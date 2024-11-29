@@ -2,9 +2,10 @@ import { createActions, handleActions } from 'redux-actions';
 
 // 초기값
 const initialState = {
-	answers: [],
-	answersDetail: null,
-	pageInfo: { pageEnd: 0 },
+    questions: [],
+    answers: [],
+    answersDetail: null,
+    pageInfo: { pageEnd: 0 },
 };
 
 export const GET_ANSWERS = "GET_ANSWERS";
@@ -25,27 +26,32 @@ const actions = createActions({
 
 // 리듀서
 const answerReducer = handleActions(
-	{
-		[GET_ANSWERS]: (state, { payload }) => {
-			return payload;
-		},
-		[GET_ALL_QUESTIONS]: (state, { payload }) => {
-			return payload;
-		},
-		[GET_ANSWER_DETAIL]: (state, { payload }) => {
-			return payload;
-		},
-		[POST_ANSWER]: (state, { payload }) => {
-			return payload;
-		},
-		[PUT_ANSWER]: (state, { payload }) => {
-			return payload;
-		},
-		[DELETE_ANSWER]: (state, { payload }) => {
-			return payload;
-		},
-	},
-	initialState
+    {
+        [GET_ANSWERS]: (state, { payload }) => ({
+            ...state, // 기존 상태 유지
+            answers: payload.data, // answers 필드만 업데이트
+            pageInfo: payload.pageInfo, // pageInfo 필드도 필요시 업데이트
+        }),
+        [GET_ALL_QUESTIONS]: (state, { payload }) => ({
+            ...state, // 기존 상태 유지
+            questions: payload.data, // questions 필드만 업데이트
+            pageInfo: payload.pageInfo, // pageInfo 필드도 필요시 업데이트
+        }),
+
+        [GET_ANSWER_DETAIL]: (state, { payload }) => {
+            return payload;
+        },
+        [POST_ANSWER]: (state, { payload }) => {
+            return payload;
+        },
+        [PUT_ANSWER]: (state, { payload }) => {
+            return payload;
+        },
+        [DELETE_ANSWER]: (state, { payload }) => {
+            return payload;
+        },
+    },
+    initialState
 );
 
 export default answerReducer;

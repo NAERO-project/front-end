@@ -14,13 +14,11 @@ const MyReviews = () => {
     
     const data = useSelector(state => state.reviewReducer || {});
     console.log("data", data);
-    const reviews = data.reviews ? data.reviews.content : [];
+    const reviews = data.reviews.data;
     // const productId = data.reviews.data.productId
-    const productId = reviews?.map(review => review.productId);
     console.log("reviews : ", reviews);
-    console.log("productId : ", productId);
 
-    const pageInfo = useSelector((state) => state.reviewReducer.data || []);
+    const pageInfo = useSelector((state) => state.reviewReducer.pageinfo || []);
     console.log("pageInfo : ", pageInfo);
     const [start, setStart] = useState(0);
     const [pageEnd, setPageEnd] = useState(1);
@@ -62,7 +60,7 @@ const MyReviews = () => {
             <ul>
                 {reviews && reviews.length > 0 ? (
                     reviews?.map(review => (
-                        <li key={review.reviewId} onClick={() => handleReviewClick(review.reviewId)}>
+                        <li key={review.reviewId} onClick={() => handleReviewClick(review.reviewId, review.productId)}>
                             <p>{review.review}</p>
                             {review.reviewImage && (
                                 <img src={review.reviewImage} alt="Review" style={{ width: '100px', height: 'auto' }} />
