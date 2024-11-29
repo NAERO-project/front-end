@@ -40,6 +40,9 @@ function SellerPageNavBar() {
             }`}>
                     <NavLink to="/producer/banner-manage" className={ProductSideNavContainerCSS.navLink}>배너관리</NavLink>
                 </li>
+                <li className={`${ProductSideNavContainerCSS.navItem} ${
+              location.pathname === "/producer/review" ? ProductSideNavContainerCSS.active : ""
+            }`}></li>
             </ul>
         </div>
     );

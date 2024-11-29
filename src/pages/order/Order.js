@@ -8,7 +8,6 @@ import Postcode from "react-daum-postcode";
 import ModalCSS from "../../components/common/Modal.module.css"; // 모달 스타일
 import * as PortOne from "@portone/browser-sdk/v2"; // 결제 API
 
-
 function Order() {
     const dispatch = useDispatch();
     const location = useLocation();
@@ -98,12 +97,14 @@ function Order() {
                     amount: orderTotalAmount,
                 },
             }));
-            const addPoint =  (calculateOrderTotalAmount() +
-            (orderData.orderDTO?.deliveryFee || 0) -
-            (payRequest.orderDTO.couponDiscount || 0)) * 0.1;
+            const addPoint =
+                (calculateOrderTotalAmount() +
+                    (orderData.orderDTO?.deliveryFee || 0) -
+                    (payRequest.orderDTO.couponDiscount || 0)) *
+                0.01;
             console.log("addPoint", addPoint);
             setUserPoint(addPoint);
-            setPoint(addPoint);
+            // setPoint(addPoint);
         }
     }, [orderData, calculateOrderTotalAmount]);
 
@@ -239,6 +240,15 @@ function Order() {
 
     // 결제 및 주문 데이터 전송
     const onClickPaymentHandler = async () => {
+        // 주소 입력 확인
+        if (
+            !payRequest.orderDTO.postalCode ||
+            !payRequest.orderDTO.addressRoad
+        ) {
+            alert("결제 전 주소를 입력해주세요.");
+            return;
+        }
+
         const orderTotalAmount =
             calculateOrderTotalAmount() +
             (orderData.orderDTO?.deliveryFee || 0) -
@@ -335,6 +345,15 @@ function Order() {
 
     // 간편 결제 진행 함수
     const processEasyPay = async (provider) => {
+        // 주소 입력 확인
+        if (
+            !payRequest.orderDTO.postalCode ||
+            !payRequest.orderDTO.addressRoad
+        ) {
+            alert("결제 전 주소를 입력해주세요.");
+            return;
+        }
+
         const orderTotalAmount =
             calculateOrderTotalAmount() +
             (orderData.orderDTO?.deliveryFee || 0) -
@@ -413,20 +432,18 @@ function Order() {
     };
 
     return (
-        <div style={{width: '1167px', margin: '0 auto'}}>
+        <div style={{ width: "1167px", margin: "0 auto" }}>
             <h1>주문 페이지</h1>
             <br />
             <hr style={{ border: "1px solid #000" }} />
-
-        <div>
-            <h3>주문자 정보</h3>
-            <br />
-            <p>{orderData?.userDTO?.userFullName || "이름 없음"}</p>
-            <p>{orderData?.userDTO?.userPhone || "전화번호 없음"}</p>
-            <p>{orderData?.userDTO?.userEmail || "이메일 없음"}</p>
-        </div>
-        <hr style={{ border: "1px solid #000" }} />
-
+            <div>
+                <h3>주문자 정보</h3>
+                <br />
+                <p>{orderData?.userDTO?.userFullName || "이름 없음"}</p>
+                <p>{orderData?.userDTO?.userPhone || "전화번호 없음"}</p>
+                <p>{orderData?.userDTO?.userEmail || "이메일 없음"}</p>
+            </div>
+            <hr style={{ border: "1px solid #000" }} />
             <h3>주문 상품 정보</h3>
             {orderData?.orderPageProductDTOList?.map((item, index) => (
                 <div key={index}>
@@ -477,8 +494,9 @@ function Order() {
             <br />
             <input
                 type="text"
+                name="addressDetail"
                 value={payRequest.orderDTO.addressDetail}
-                readOnly
+                onChange={onChangeHandler}
                 placeholder="상세주소"
             />
             {isPostcodeOpen && (
@@ -502,7 +520,6 @@ function Order() {
                 onChange={onChangeHandler}
             ></textarea>
             <hr style={{ border: "1px solid #000" }} />
-
             <h3>결제 금액</h3>
             <br />
             <p>주문 금액: {formatNumber(calculateOrderTotalAmount())}원</p>
@@ -527,7 +544,6 @@ function Order() {
                 원
             </p>
             <hr style={{ border: "1px solid #000" }} />
-
             <h3>할인 정보</h3>
             <br />
             <label>쿠폰 적용</label>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -550,10 +566,10 @@ function Order() {
                 onChange={onChangePointHandler} // 수정된 핸들러 사용
                 min="1"
             />
-            &nbsp; 잔여: {orderData?.userDTO?.userPoint || "0"}P
+            &nbsp; 잔여: {orderData?.userDTO?.userPoint.toLocaleString() || "0"}
+            P
             <br />
             <hr style={{ border: "1px solid #000" }} />
-
             <h3>결제 정보</h3>
             <h3>결제 수단 선택</h3>
             <div>
