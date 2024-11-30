@@ -6,7 +6,7 @@
   margin: 20px;
 }
 
-h2 {
+.order-container h2 {
   font-size: 1.8em; /* Increase font size */
   color: #333; /* Darker color for better contrast */
   margin-bottom: 20px; /* Space below the header */
@@ -51,17 +51,4 @@ h2 {
 
 .aside-info .value {
   color: gray; /* Keep values gray */
-}
-
-.cancel-button {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  background-color: yellow; /* Yellow background */
-  color: red; /* Red text color */
-  border: none;
-  padding: 5px 10px;
-  font-size: 0.8em;
-  cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: add shadow for effect */
 }

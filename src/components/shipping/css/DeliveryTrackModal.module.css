@@ -56,11 +56,6 @@
   z-index: 3;
 }
 
-.icon-button:hover {
-  background-color: #5a704c;
-  transform: scale(1.1); /* Slightly enlarge on hover */
-}
-
 .progress-bars-container {
   position: absolute;
   top: 50%; /* Vertically align with icons */
@@ -111,7 +106,7 @@
 .info-body {
   text-align: center;
   color: gray;
-  font-size: 0.9em;
+  /* font-size: 0.9em; */
 }
 
 .close-button {
@@ -122,7 +117,7 @@
   padding: 10px 20px;
   cursor: pointer;
   width: 100%;
-  font-size: 1.1em;
+  /* font-size: 1.1em; */
   font-weight: bold;
   margin-top: 20px;
 }

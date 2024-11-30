@@ -38,40 +38,45 @@ import ProducerDetailManage from "./pages/admin/manageusers/ProducerDetailManage
 import UserDetailManage from "./pages/admin/manageusers/UserDetailManage";
 import ProducerUpdateManage from "./pages/admin/manageusers/ProducerUpdateManage";
 import UserUpdateManage from "./pages/admin/manageusers/UserUpdateManage";
+import ProducerErrorPage from "./components/shipping/error/ProducerErrorPage";
 
 function App() {
-	return (
-		<BrowserRouter>
-			<Routes>
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Main />} />
 
-				<Route path='/' element={<Layout />}>
-					<Route index element={<Main />}/>
-          
-          <Route path='products' element={<ProductPageLayout/>}>
-						{/* <Route path='more' element={ <ProductMore/> }/> */}
-						<Route path="more" element={ <ProductCategory/> }/>
-						<Route path="more/:largeId" element={ <ProductCategory/> }/>
-						<Route path="more/:largeId/:mediumId" element={ <ProductCategory/> }/>
-						<Route path=":productId" element={ <ProductDetail/> }/>
-            <Route path="brand/:producerId" element={ <BrandProducer/> }/>
-					</Route>
+          <Route path="products" element={<ProductPageLayout />}>
+            {/* <Route path='more' element={ <ProductMore/> }/> */}
+            <Route path="more" element={<ProductCategory />} />
+            <Route path="more/:largeId" element={<ProductCategory />} />
+            <Route
+              path="more/:largeId/:mediumId"
+              element={<ProductCategory />}
+            />
+            <Route path=":productId" element={<ProductDetail />} />
+            <Route path="brand/:producerId" element={<BrandProducer />} />
+          </Route>
 
+          <Route path="products/brand" element={<BrandPageLayout />}>
+            <Route path="home" element={<BrandProductList />} />
+            {/* <Route path="home/:producerId" element={ <BrandProductList/> }/> */}
+            <Route path="home/:producerId" element={<BrandProducer />} />
+            <Route
+              path="home/:producerId/:largeId"
+              element={<BrandProductList />}
+            />
+          </Route>
 
-          <Route path='products/brand' element={ <BrandPageLayout/> }>
-              <Route path="home" element={ <BrandProductList/> }/>
-              {/* <Route path="home/:producerId" element={ <BrandProductList/> }/> */}
-              <Route path="home/:producerId" element={ <BrandProducer/> }/>
-              <Route path="home/:producerId/:largeId" element={ <BrandProductList/> }/>
-            </Route>
-
-          <Route path='mypage' element={<MypageLayout />}>
-            <Route path='detail' element={<UserDetail />} />
-            <Route path='update' element={<UpdateUser />} />
-            <Route path='toproducer' element={<ProducerSignup />}></Route>
-            <Route path='order' element={<MyOrders />} />
-            <Route path='order-detail/:orderId' element={<MyOrderDetail />} />
+          <Route path="mypage" element={<MypageLayout />}>
+            <Route path="detail" element={<UserDetail />} />
+            <Route path="update" element={<UpdateUser />} />
+            <Route path="toproducer" element={<ProducerSignup />}></Route>
+            <Route path="order" element={<MyOrders />} />
+            <Route path="order-detail/:orderId" element={<MyOrderDetail />} />
             {/* 회원들의 마이페이지 */}
-				  </Route>
+          </Route>
 
           {/* <Route path='brand' element={ <BrandPageLayout/> }>
             <Route path="home" element={ <BrandProductList/> }/>
@@ -79,8 +84,8 @@ function App() {
 
           <Route path="order" element={<Order />} />
 
-          <Route path="cart" element={<Cart/>} />
-          <Route path="cart-order" element={<CartOrder/>} />
+          <Route path="cart" element={<Cart />} />
+          <Route path="cart-order" element={<CartOrder />} />
 
           <Route path="mypage">{/* 회원들의 마이페이지 */}</Route>
 
@@ -88,34 +93,53 @@ function App() {
             <Route index element={<ProductManage />} />
             <Route path="product-manage" element={<ProductManage />} />
             <Route path="product-regist" element={<ProductRegist />} />
-            <Route path="product-modify/:productId" element={<ProductUpdate/>} />
+            <Route
+              path="product-modify/:productId"
+              element={<ProductUpdate />}
+            />
             {/* <Route path="product-modify" element={<ProductModify/>} /> */}
-            <Route path='detail' element={<ProducerDetail />} />
-            <Route path='update' element={<UpdateProducer />} />
+            <Route path="detail" element={<ProducerDetail />} />
+            <Route path="update" element={<UpdateProducer />} />
             <Route path="order-manage" element={<OrderManage />} />
             <Route path="order-update/:orderId" element={<OrderUpdate />} />
+            <Route path="order-update/error" element={<ProducerErrorPage />} />
             {/* <Route path="coupon-manage" element={<CouponManage />} /> */}
             <Route path="banner-manage" element={<BannerManage />} />
-            <Route path="banner-regist" element={<BannerRegist/>} />
+            <Route path="banner-regist" element={<BannerRegist />} />
             {/* <Route path="products/:producerId" element={ <ProducerItem/> }/> */}
           </Route>
 
           <Route path="login" element={<Login />} />
-            <Route path='signup' element={<Signup />} />
+          <Route path="signup" element={<Signup />} />
 
           <Route path="admin" element={<AdminPageLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="product-manage" element={<ProductManage />} />
             <Route path="banner-manage" element={<AdminBannerManage />} />
-            <Route path="banner-update/:bannerId" element={<AdminBannerUpdate />} />
+            <Route
+              path="banner-update/:bannerId"
+              element={<AdminBannerUpdate />}
+            />
             <Route path="user-manage" element={<UserManage />} />
             <Route path="producer-manage" element={<ProducerManage />} />
-            <Route path="producer-detail/:username" element={<ProducerDetailManage />} />
-            <Route path="user-detail/:username" element={<UserDetailManage />} />
-            <Route path="producer-update/:username" element={<ProducerUpdateManage />} />
-            <Route path="user-update/:username" element={<UserUpdateManage />} />
-            
+            <Route
+              path="producer-detail/:username"
+              element={<ProducerDetailManage />}
+            />
+            <Route
+              path="user-detail/:username"
+              element={<UserDetailManage />}
+            />
+            <Route
+              path="producer-update/:username"
+              element={<ProducerUpdateManage />}
+            />
+            <Route
+              path="user-update/:username"
+              element={<UserUpdateManage />}
+            />
+
             {/* <Route path="promotion-manage" element={<PromotionManage />} /> */}
             {/* <Route path="order-manage" element={<OrderManage />} /> */}
             {/* <Route path="FAQ-manage" element={<FAQManage />} /> */}
@@ -123,7 +147,7 @@ function App() {
           </Route>
 
           <Route path="login" element={<Login />} />
-            <Route path='signup' element={<Signup />} />
+          <Route path="signup" element={<Signup />} />
         </Route>
       </Routes>
     </BrowserRouter>

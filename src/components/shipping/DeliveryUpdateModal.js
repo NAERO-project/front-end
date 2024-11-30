@@ -129,12 +129,10 @@ function DeliveryUpdateModal({ orderId, onClose }) {
             value={form.trackingNumber}
             onChange={handleInputChange}
           />
-          {error.trackingNumber && (
-            <div className={styles["error-message"]}>
-              {error.trackingNumber}
-            </div>
-          )}
         </div>
+        {error.trackingNumber && (
+          <div className={styles["error-message"]}>{error.trackingNumber}</div>
+        )}
         <div className={styles["input-container"]}>
           <label>배송회사</label>
           <div className={styles["vertical-line"]}></div>
@@ -150,10 +148,10 @@ function DeliveryUpdateModal({ orderId, onClose }) {
               </option>
             ))}
           </select>
-          {error.shipComId && (
-            <div className={styles["error-message"]}>{error.shipComId}</div>
-          )}
         </div>
+        {error.shipComId && (
+          <div className={styles["error-message"]}>{error.shipComId}</div>
+        )}
         <div className={styles["execute-button-container"]}>
           <button className={styles["sub-button"]} onClick={handleSubmit}>
             등록
