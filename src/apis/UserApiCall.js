@@ -53,8 +53,8 @@ export const callLogoutAPI = () => {
 	};
 };
 
-export const callSignupAPI = ({ form }) => {
-	const requestURL = `${prefix}/auth/signup`;
+export const callSignupAPI = ({ form,authId }) => {
+	const requestURL = `${prefix}/auth/signup/${authId}`;
 
 	console.log(form);
 	return async (dispatch, getState) => {
