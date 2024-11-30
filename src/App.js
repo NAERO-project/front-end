@@ -136,6 +136,11 @@ function App() {
             <Route path="user-detail/:username" element={<UserDetailManage />} />
             <Route path="producer-update/:username" element={<ProducerUpdateManage />} />
             <Route path="user-update/:username" element={<UserUpdateManage />} />
+
+            <Route path="answers" element={<AnswerList />} />
+						<Route path="answers/create/:questionId" element={<AnswerCreate />} />
+						<Route path="answers/edit/:questionId/:answerId" element={<AnswerEdit />} />
+						<Route path="answers/detail/:questionId/:answerId" element={<AnswerDetail />} />
             
             {/* <Route path="promotion-manage" element={<PromotionManage />} /> */}
             {/* <Route path="order-manage" element={<OrderManage />} /> */}
@@ -154,20 +159,20 @@ function App() {
 
 
 					{/* 1:1 답변 관련 라우트 */}
-					<Route path="admin/answers">
+					{/* <Route path="admin/answers">
 						<Route index element={<AnswerList />} />
 						<Route path="create/:questionId" element={<AnswerCreate />} />
 						<Route path="edit/:questionId/:answerId" element={<AnswerEdit />} />
 						<Route path="detail/:questionId/:answerId" element={<AnswerDetail />} />
-					</Route>
+					</Route> */}
 
 					{/* 리뷰 관련 라우트 */}
-					<Route path="mypage/reviews">
+					{/* <Route path="mypage/reviews">
                     <Route path="create/:productId" element={<ReviewCreate />} />
 						<Route path="my-reviews" element={<MyReviews />} />
 						<Route path="detail/:productId/:reviewId" element={<ReviewDetail />} />
 						<Route path="edit/:productId/:reviewId" element={<ReviewEdit />} />
-					</Route>
+					</Route> */}
 
 				</Route>
 			</Routes>

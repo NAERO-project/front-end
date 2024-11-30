@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { callQuestionListApi } from "../../apis/QuestionAPICalls";
+import { callAnswerApi } from "../../apis/AnswerAPICalls";
 import { decodeJwt } from "../../utils/tokenUtils";
 
 function QuestionList() {
@@ -12,14 +13,14 @@ function QuestionList() {
     const questionsList = useSelector(
         (state) => state.questionReducer.data || []
     );
-    console.log("questionsList", questionsList);
-    const pageInfo = useSelector(
-        (state) => state.questionReducer.pageInfo || { pageEnd: 0 }
-    );
+    const answer = useSelector((state) => state.answerReducer);
 
     const isLogin = window.localStorage.getItem("accessToken"); // Local Storage 에 token 정보 확인
     const username = isLogin ? decodeJwt(isLogin).sub : null;
 
+    const pageInfo = useSelector(
+        (state) => state.questionReducer.pageInfo || { pageEnd: 0 }
+    );
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedQuestion, setSelectedQuestion] = useState(null);
 
@@ -35,6 +36,20 @@ function QuestionList() {
             );
         }
     }, [dispatch, currentPage, username]);
+
+    useEffect(() => {
+        // questionStatus를 이용해 답변 존재 여부 확인 후 답변 상세 정보 가져오기
+        if (
+            questionsList &&
+            (questionsList.questionStatus === true ||
+                questionsList.questionStatus === 1)
+        ) {
+            console.log("답변 존재 확인됨, 답변 불러오기...");
+            if (questionsList.questionId && username) {
+                dispatch(callAnswerApi(questionsList.questionId));
+            }
+        }
+    }, [questionsList, username]);
 
     // 질문 목록이 업데이트될 때 로그 찍기
     useEffect(() => {
@@ -100,26 +115,52 @@ function QuestionList() {
                     <div>
                         <p>제목: {selectedQuestion.questionTitle}</p>
                         <p>내용: {selectedQuestion.questionContent}</p>
-                        <p>작성일: {selectedQuestion.questionDate}</p>
-                        <p>
+                        {/* <p>작성일: {selectedQuestion.questionDate}</p> */}
+                        {/* <p>
                             상태:{" "}
                             {selectedQuestion.questionStatus === true ||
                             selectedQuestion.questionStatus === 1
                                 ? "답변 완료"
                                 : "답변 미완료"}
-                        </p>
+                        </p> */}
                     </div>
-                    <div>
-                        <button
-                            onClick={() =>
-                                navigate(
-                                    `/mypage/questions/edit/${selectedQuestion.questionId}`
-                                )
-                            }
-                        >
-                            수정
-                        </button>
-                    </div>
+                    {!!!selectedQuestion.questionStatus && (
+                        <div>
+                            <button
+                                onClick={() =>
+                                    navigate(
+                                        `/mypage/questions/edit/${selectedQuestion.questionId}`
+                                    )
+                                }
+                            >
+                                수정
+                            </button>
+                        </div>
+                    )}
+                    {selectedQuestion &&
+                    (selectedQuestion.questionStatus === true ||
+                        selectedQuestion.questionStatus === 1) ? (
+                        answer && answer.answerId ? (
+                            <div>
+                                <p>
+                                    답변 제목:{" "}
+                                    {answer.answerTitle || "답변 제목 없음"}
+                                </p>
+                                <p>
+                                    답변 내용:{" "}
+                                    {answer.answerContent || "답변 내용 없음"}
+                                </p>
+                            </div>
+                        ) : (
+                            <div>
+                                <p>답변이 없습니다.</p>
+                            </div>
+                        )
+                    ) : (
+                        <div>
+                            <p>답변이 없습니다.</p>
+                        </div>
+                    )}
                 </div>
             )}
 
