@@ -119,6 +119,16 @@
     height: 44px;
     width: 100%;
     margin-left: 2px;
+}
+.check_button3 {
+    background-color: #7B9064;
+    border: 2px solid #A8B29D;
+    color: white;
+    border: none;
+    cursor: pointer;
+    height: 44px;
+    width: 100%;
+    margin-left: 2px;
     margin-top: 6px;
 }
 
