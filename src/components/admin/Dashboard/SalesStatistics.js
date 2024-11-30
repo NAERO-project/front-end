@@ -29,6 +29,7 @@ function SalesStatistics() {
       ...prevInputs,
       [key]: value,
     }));
+    console.log("formInputsSales:", formInputsSales);
   };
 
   // Handle form submission
@@ -64,12 +65,12 @@ function SalesStatistics() {
               handleInputChange("categoryOption", e.target.value)
             }
           >
-            <option value="" disabled>
+            {/* <option value="" disabled>
               카테고리 옵션
-            </option>{" "}
+            </option>{" "} */}
             {/* Placeholder option */}
-            <option value="브랜드">브랜드</option>
             <option value="상품">상품</option>
+            <option value="브랜드">브랜드</option>
           </select>
         </div>
         <div>
@@ -77,9 +78,9 @@ function SalesStatistics() {
             value={formInputsSales.indexOption || ""}
             onChange={(e) => handleInputChange("indexOption", e.target.value)}
           >
-            <option value="" disabled>
+            {/* <option value="" disabled>
               인텍스 옵션
-            </option>{" "}
+            </option>{" "} */}
             {/* Placeholder option */}
             <option value="매출액">매출액</option>
             <option value="판매량">판매량</option>
