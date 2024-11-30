@@ -42,9 +42,9 @@ function ProductRegist() {
     });
 
     const largeCategories = [
-        { largeCategoryId: "1", largeCategoryName: "식품" },
-        { largeCategoryId: "2", largeCategoryName: "건강&생활" },
-        { largeCategoryId: "3", largeCategoryName: "패션" },
+        { largeCategoryId: "2", largeCategoryName: "식품" },
+        { largeCategoryId: "3", largeCategoryName: "헬스&뷰티" },
+        { largeCategoryId: "4", largeCategoryName: "패션" },
     ];
 
     // State for categories

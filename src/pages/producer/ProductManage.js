@@ -85,8 +85,6 @@ function ProductManage() {
                         {/* <col width="15%" /> */}
                         <col width="8%" />
                         <col width="5%" />
-                        <col width="5%" />
-                        <col width="5%" />
                         <col width="10%" />
                     </colgroup>
                     <thead>
@@ -98,8 +96,6 @@ function ProductManage() {
                             {/* <th>상품사진</th> */}
                             <th>카테고리</th>
                             <th>판매여부</th>
-                            <th></th>
-                            <th></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -118,10 +114,7 @@ function ProductManage() {
                                     {/* <td>{p.addPrice}</td>
                                     <td>{p.optionDesc}</td> */}
                                     <td>{p.smallCategory.smallCategoryName}</td>
-                                    {/* <td>{p.optionQuantity}</td> */}
                                     <td>{p.productCheck}</td>
-                                    <td></td>
-                                    <td></td>
                                     <td className={ProductManageCSS.manage_btns}>
                                         <button className={ButtonCSS.change_button} onClick={() =>{onClickProductUpdate(p.productId)}}>수정</button>
                                     </td>
