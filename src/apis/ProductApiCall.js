@@ -73,7 +73,35 @@ export const callProductLargeCategoryListApi = ({ currentPage, largeId }) =>{
     let requestURL;
 
     if(currentPage !== undefined || currentPage !== null){
-        requestURL = `${prefix}/api/products/more/${largeId}?offset=${currentPage}`;
+        requestURL = `${prefix}/api/products/more?largeId=${largeId}&offset=${currentPage}`;
+    }else{
+        requestURL = `${prefix}/api/products/more?largeId=${largeId}`;
+    }
+
+    console.log('[productAPICalls] requestURL : ', requestURL);
+
+    return async (dispatch, getState) =>{
+        const result = await fetch(requestURL, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: '*/*'
+            }
+        }).then((response) => response.json());
+        console.log("여기?")
+        if(result.status === 200){
+            console.log('[ProduceAPICalls] callProductCategoryListApi RESULT : ', result);
+            dispatch({ type: GET_PRODUCTS, payload: result.data });
+        }
+    };
+};
+
+export const callProductMediumCategoryListApi = ({ currentPage, largeId, mediumId }) =>{
+    
+    let requestURL;
+
+    if(currentPage !== undefined || currentPage !== null){
+        requestURL = `${prefix}/api/products/more?largeId=${largeId}&mediumId=${mediumId}?offset=${currentPage}`;
     }else{
         requestURL = `${prefix}/api/products/more/${largeId}`;
     }

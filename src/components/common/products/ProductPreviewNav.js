@@ -3,6 +3,7 @@ import MainProductNavCSS from "./css/MainProductNav.module.css"
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { callProductCategoryApi01 } from "../../../apis/CategoryApiCall";
+import ProductMediumNav from "./ProductMediumNav";
 
 function ProductPreviewNav({setState, state}){
     
@@ -11,7 +12,8 @@ function ProductPreviewNav({setState, state}){
     const dispatch = useDispatch();
 
     const params = useParams();
-    const producerId = params.producerId
+    const producerId = params.producerId;
+    const largeId = params.largeId;
 
     const categoryList = useSelector(state => state.largeCategoryReducer);
     console.log("categoryList", categoryList);
