@@ -9,14 +9,19 @@ function QuestionList() {
     const navigate = useNavigate();
 
     // Redux 상태에서 질문 목록과 페이지 정보 가져오기
-    const questionsList = useSelector((state) => state.questionReducer.data || []);
+    const questionsList = useSelector(
+        (state) => state.questionReducer.data || []
+    );
     console.log("questionsList", questionsList);
-    const pageInfo = useSelector((state) => state.questionReducer.pageInfo || { pageEnd: 0 });
+    const pageInfo = useSelector(
+        (state) => state.questionReducer.pageInfo || { pageEnd: 0 }
+    );
 
     const isLogin = window.localStorage.getItem("accessToken"); // Local Storage 에 token 정보 확인
     const username = isLogin ? decodeJwt(isLogin).sub : null;
 
     const [currentPage, setCurrentPage] = useState(1);
+    const [selectedQuestion, setSelectedQuestion] = useState(null);
 
     // 질문 목록을 가져오는 useEffect
     useEffect(() => {
@@ -46,31 +51,42 @@ function QuestionList() {
 
     return (
         <div>
-            <h1>문의 목록</h1>
-            <button onClick={() => navigate("/mypage/questions/create")}>새 문의 작성</button>
+            <h1>1:1 문의 목록</h1>
+            <button onClick={() => navigate("/mypage/questions/create")}>
+                새 문의 작성
+            </button>
             <ul>
                 {Array.isArray(questionsList) && questionsList.length > 0 ? (
                     questionsList.map((question) => {
                         console.log(question); // question 객체 확인
-                        
+
                         // 답변이 없으면 answerId를 "0"으로 설정
-                        const answerId = question.answerId ? question.answerId : "0";
+                        const answerId = question.answerId
+                            ? question.answerId
+                            : "0";
 
                         return (
-                            <li key={question.questionId}>
-                                <span
-                                    style={{ cursor: "pointer", textDecoration: "underline" }}
-                                    onClick={() =>
-                                        navigate(`/mypage/questions/detail/${question.questionId}`)
-                                    } // 상세 페이지로 이동
-                                >
-                                    {question.questionTitle},
-                                    {question.questionDate},
-                                    {question.questionState}
-                                </span>
-                                <p>
-                                    답변 상태 : {question.questionStatus === true || question.questionStatus === 1 ? "답변 완료" : "답변 미완료"}
-                                </p>
+                            <li
+                                key={question.questionId}
+                                onClick={() =>
+                                    setSelectedQuestion((prev) =>
+                                        prev?.questionId === question.questionId
+                                            ? null
+                                            : question
+                                    )
+                                }
+                            >
+                                <div>
+                                    <span>제목: {question.questionTitle}</span>
+                                    <span>작성일: {question.questionDate}</span>
+                                    <span>
+                                        상태:{" "}
+                                        {question.questionStatus === true ||
+                                        question.questionStatus === 1
+                                            ? "답변 완료"
+                                            : "답변 미완료"}
+                                    </span>
+                                </div>
                             </li>
                         );
                     })
@@ -78,6 +94,35 @@ function QuestionList() {
                     <li>등록된 문의가 없습니다.</li>
                 )}
             </ul>
+
+            {selectedQuestion && (
+                <div>
+                    <div>
+                        <p>제목: {selectedQuestion.questionTitle}</p>
+                        <p>내용: {selectedQuestion.questionContent}</p>
+                        <p>작성일: {selectedQuestion.questionDate}</p>
+                        <p>
+                            상태:{" "}
+                            {selectedQuestion.questionStatus === true ||
+                            selectedQuestion.questionStatus === 1
+                                ? "답변 완료"
+                                : "답변 미완료"}
+                        </p>
+                    </div>
+                    <div>
+                        <button
+                            onClick={() =>
+                                navigate(
+                                    `/mypage/questions/edit/${selectedQuestion.questionId}`
+                                )
+                            }
+                        >
+                            수정
+                        </button>
+                    </div>
+                </div>
+            )}
+
             <div
                 style={{
                     listStyleType: "none",

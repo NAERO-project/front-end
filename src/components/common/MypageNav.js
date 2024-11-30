@@ -17,12 +17,20 @@ function MypageNav(props) {
     const navigate = useNavigate();
 
     const token = decodeJwt(window.localStorage.getItem("accessToken"));
-    const isLogin = window.localStorage.getItem("accessToken"); // Local Storage 에 token 정보 확인
+    
+    const loginUser = useSelector((state) => state.userReducer.data || {});
+    const isLogin = window.localStorage.getItem("accessToken");
     const decodedToken = decodeJwt(isLogin);
-    const username = isLogin ? decodeJwt(isLogin).sub : null; // JWT에서 사용자 ID 추출
+    const isProducer = decodeJwt(isLogin).auth.some((a) =>
+        /ROLE_PRODUCER/.test(a)
+    );
+    const username = decodeJwt(isLogin).sub;
+    const userDetail = isProducer ? loginUser.user : loginUser;
+
+    // const username = isLogin ? decodeJwt(isLogin).sub : null; // JWT에서 사용자 ID 추출
     const userFullname = window.localStorage.getItem("userFullName");
 
-    const userDetail = useSelector((state) => state.userReducer.data || {});
+    // const userDetail = useSelector((state) => state.userReducer.data || {});
 
     useEffect(() => {
         if (!isLogin || !decodedToken || isTokenExpired(decodedToken)) {
@@ -54,10 +62,10 @@ function MypageNav(props) {
 
             <div className={MypageNavCSS.my_hi}>
                 <div className={MypageNavCSS.my_name}>
-                    <h3>{userFullname} 구매자님 안녕하세요</h3>
+                    <h3>{userFullname}님 안녕하세요</h3>
                 </div>
                 <div>
-                    <h4>환경 기여 포인트: <br/>{userDetail?.user?.userPoint?.toLocaleString()}원</h4>
+                    <h4>환경 기여 포인트: <br/>{userDetail?.userPoint?.toLocaleString()}원</h4>
                 </div>
             </div>
             

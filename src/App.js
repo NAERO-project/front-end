@@ -88,6 +88,11 @@ function App() {
             <Route path='toproducer' element={<ProducerSignup />}></Route>
             <Route path='order' element={<MyOrders />} />
             <Route path='order-detail/:orderId' element={<MyOrderDetail />} />
+
+            <Route path="questions" element={<QuestionList />} />
+						<Route path="questions/create" element={<QuestionCreate />} />
+						<Route path="questions/edit/:questionId" element={<QuestionEdit />} />
+						<Route path="questions/detail/:questionId" element={<QuestionDetail />} />
             {/* 회원들의 마이페이지 */}
 				  </Route>
 
@@ -99,8 +104,6 @@ function App() {
 
           <Route path="cart" element={<Cart/>} />
           <Route path="cart-order" element={<CartOrder/>} />
-
-          <Route path="mypage">{/* 회원들의 마이페이지 */}</Route>
 
           <Route path="producer" element={<ProducerPageLayout />}>
             <Route index element={<ProductManage />} />
@@ -140,13 +143,13 @@ function App() {
             {/* <Route path="inquiry-manage" element={<InquiryManage />} /> */}
           </Route>
 
-					{/* 1:1 문의 관련 라우트 */}
+					{/* 1:1 문의 관련 라우트
 					<Route path="mypage/questions">
 						<Route index element={<QuestionList />} />
 						<Route path="create" element={<QuestionCreate />} />
 						<Route path="edit/:questionId" element={<QuestionEdit />} />
 						<Route path="detail/:questionId" element={<QuestionDetail />} />
-					</Route>
+					</Route> */}
 
 
 
