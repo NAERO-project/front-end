@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { callBrandProductListPageApi, callProducerProductListApi, callProductListPreviewApi } from "../../../../apis/ProductApiCall";
+import { callBrandProductListPageApi, callProducerProductListApi, callProductListPreviewApi, callProductsListApi } from "../../../../apis/ProductApiCall";
 import BrandListCSS from "./css/BrandList.module.css";
 import ButtonCSS from "../../Button.module.css";
 import BrandProduct from "./BrandProduct";
@@ -11,6 +11,7 @@ function BrandList({ brand: { producerId, producerName } }) {
     const brandList = useSelector(state => state.productProducerReducer);
     const productList = useSelector(state => state.productReducer);
     console.log("brandList", brandList);
+    console.log("productList", productList);
 
     useEffect(() => {
         fetchData();
@@ -21,7 +22,7 @@ function BrandList({ brand: { producerId, producerName } }) {
     // };
 
     const fetchData = () => {
-        dispatch(callProductListPreviewApi(producerId));
+        dispatch(callProductsListApi(producerId));
     };
 
     // // producerId에 맞는 상품만 필터링

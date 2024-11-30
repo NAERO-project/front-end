@@ -16,6 +16,27 @@ import { GET_PRODUCER_LIST_PREVIEW } from '../modules/ProductProducerModule.js';
 
 const prefix = `http://${process.env.REACT_APP_RESTAPI_IP}:8080`;
 
+export const callProductsListApi = () =>{
+    
+    let requestURL = `${prefix}/api/products/list/home`;
+
+    console.log('[ProductAPICalls] requestURL : ', requestURL);
+
+    return async (dispatch, getState) => {
+        const result = await fetch(requestURL, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: '*/*'
+            }
+        }).then((response) => response.json());
+        if(result.status === 200){
+            console.log('[ProduceAPICalls] callProductsListApi RESULT : ', result);
+            dispatch({ type: GET_PRODUCTS, payload: result.data });
+        }
+    };
+};
+
 
 /* 메인페이지 상품 전체 조회 */
 export const callProductListApi = ({ currentPage }) =>{
