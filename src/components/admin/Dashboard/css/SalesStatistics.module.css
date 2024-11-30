@@ -1,0 +1,8 @@
+.sales-statistics-form {
+  display: flex; /* Use flexbox layout */
+  flex-direction: row; /* Arrange items in a row */
+  gap: 15px; /* Adds space between form elements */
+  align-items: center; /* Align items vertically in the center */
+  /* justify-content: space-between; */
+  flex-wrap: wrap; /* Allow items to wrap to the next line if needed */
+}

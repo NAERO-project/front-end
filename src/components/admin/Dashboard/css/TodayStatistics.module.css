@@ -1,0 +1,5 @@
+.today-statistics-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Creates 4 equal columns */
+  gap: 16px; /* Optional: Adds space between grid items */
+}

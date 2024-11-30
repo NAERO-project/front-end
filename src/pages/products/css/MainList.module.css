@@ -1,0 +1,24 @@
+.main_list{
+    width: 100%;
+    /* margin: 0 auto; */
+    /* padding: 80px 0 0 0; */
+    /* background-color: rgb(213, 124, 124); */
+}
+
+.main_product_box{
+    width: 1167px;
+    margin: 0 auto;
+    padding: 50px 0;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.more_button {
+  width: 410px;
+  margin: 0 auto;
+  padding: 50px 0 0 0;
+}

@@ -1,0 +1,19 @@
+.list label{
+    font-size: 23px;
+}
+
+.product_name{
+    width: 484px;
+    height: 55px;
+    padding: 12px 20px;
+    display: flex;
+    border-radius: 30px;
+    background-color: #E8E8E7;
+}
+
+.list .line {
+    width: 1px;
+    height: 55px;
+    padding: 2px 0;
+    background-color: #fff;
+}

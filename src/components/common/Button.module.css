@@ -1,0 +1,356 @@
+/*로그인페이지*/
+/* 회원가입 버튼 */
+.join_button{
+    width: 410px;
+    height: 60px;
+    padding: 20px 0;
+    font-size: 18px;
+    font-weight: 300;
+    text-align: center;
+    border-radius: 15px;
+    color: var(--text01);
+    background-color: #A8B29D;
+}
+
+/* 로그인 버튼 */
+.login_button{
+    width: 410px;
+    height: 60px;
+    padding: 20px 0;
+    font-size: 18px;
+    font-weight: 300;
+    text-align: center;
+    border-radius: 15px;
+    color: var(--text01);
+    background-color: #849076;
+}
+
+/*메인페이지*/
+.main_button{
+    width: 410px;
+    height: 60px;
+    display: inline-block;
+
+    padding: 20px 0;
+    font-size: 18px;
+    font-weight: 300;
+    text-align: center;
+    border-radius: 30px;
+    color: var(--text01);
+    background-color: #849076;
+}
+
+.main_button02{
+    width: 130px;
+    height: 40px;
+    padding: 9px 0;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 300;
+    border-radius: 30px;
+    border: 1px solid #849076;
+    color: #849076;
+    background-color: #fff;
+    
+}
+
+.main_button02:hover{
+    width: 130px;
+    height: 40px;
+    padding: 9px 0;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 300;
+    border-radius: 30px;
+    color: #fff;
+    background-color: #849076;
+}
+
+/* 배송조회 버튼 */
+.sub_button{
+    width: 170px;
+    height: 55px;
+    padding: 12px 0;
+    font-size: 24px;
+    font-weight: 300;
+    text-align: center;
+    border-radius: 10px;
+    color: var(--text01);
+    background-color: #849076;
+}
+
+.sub_button02{
+    width: 378px;
+    height: 38px;
+    padding: 9px 0;
+    font-size: 18px;
+    font-weight: 300;
+    text-align: center;
+    border-radius: 10px;
+    color: var(--text01);
+    background-color: #7B9064;
+}
+
+/* 상품 상세 페이지 */
+/* 수정 버튼 */
+.change_button{
+    width: 70px;
+    height: 30px;
+    padding: 2px 0;
+    font-size: 18px;
+    font-weight: 300;
+    text-align: center;
+    border-radius: 5px;
+    color: var(--text01);
+    background-color: #849076;
+}
+
+/* 삭제 버튼 */
+.delete_button{
+    width: 70px;
+    height: 30px;
+    padding: 4px 0;
+    font-size: 18px;
+    font-weight: 300;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid #849076;
+    color: #849076;
+    background-color: var(--text01);
+}
+
+/* 삭제 버튼 */
+.delete_button02{
+    width: 70px;
+    height: 30px;
+    padding: 4px 0;
+    font-size: 18px;
+    font-weight: 300;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid #CF5346;
+    color: #CF5346;
+    background-color: var(--text01);
+}
+
+
+
+/* 마이페이지 배송 조회 확인 버튼 */
+.my_check_button{
+    width: 378px;
+    height: 38px;
+    padding: 9px 0;
+    font-size: 18px;
+    font-weight: 300;
+    text-align: center;
+    border-radius: 10px;
+    color: var(--text01);
+    background-color: #7B9064;
+}
+
+/* 더보기 버튼 */
+.more_button{
+    width: 120px;
+    height: 45px;
+    display: inline-block;
+    padding: 10px 0;
+    font-size: 18px;
+    font-weight: 300;
+    text-align: center;
+    border-radius: 30px;
+    color: var(--text01);
+    background-color: #849076;
+}
+
+.icon01{
+  width: 30px;
+  height: 30px;
+  margin: 0 0 0 10px;
+  padding: 3px 8px;
+  border-radius: 50%;
+  color: #849076;
+  background-color: var(--text01);
+}
+
+/* 더보기 버튼 */
+.more_button02{
+    width: 120px;
+    height: 45px;
+    padding: 12px 0;
+    font-size: 18px;
+    font-weight: 300;
+    text-align: center;
+    border-radius: 30px;
+    background-color: var(--text01);
+    color: #849076;
+}
+
+.icon02{
+  width: 30px;
+  height: 30px;
+  margin: 0 0 0 10px;
+  padding: 3px 5px;
+  border-radius: 50%;
+  background-color: #849076;
+  color: var(--text01);
+}
+
+
+/* 관리자 버튼들 */
+/*관리자 등록 버튼*/
+.admin_button01{
+    width: 125px;
+    height: 50px;
+    padding: 12px 0;
+    font-size: 21px;
+    font-weight: 300;
+    text-align: center;
+    border-radius: 8px;
+    background-color: #41535C;
+    color: var(--text01);
+}
+
+/* 관리자 버튼 (크기 작은)*/
+.admin_button02{
+    width: 70px;
+    height: 30px;
+    padding: 5px 0;
+    font-size: 18px;
+    font-weight: 300;
+    text-align: center;
+    border-radius: 4px;
+    background-color: #41535C;
+    color: var(--text01);
+}
+
+/* 관리자 수정 버튼02 */
+.admin_button03{
+    width: 160px;
+    height: 38px;
+    padding: 8px 0;
+    font-size: 18px;
+    font-weight: 300;
+    text-align: center;
+    border-radius: 4px;
+    color: var(--text01);
+    background-color: #41535C;
+}
+
+/* 관리자 조회 버튼 */
+.admin_button04{
+    width: 93px;
+    height: 38px;
+    padding: 8px 0;
+    font-size: 18px;
+    font-weight: 300;
+    text-align: center;
+    border-radius: 4px;
+    color: var(--text01);
+    background-color: #41535C;
+}
+
+/* 관리자 조회 버튼 */
+.admin_button05{
+    width: 352px;
+    height: 38px;
+    padding: 8px 0;
+    font-size: 18px;
+    font-weight: 300;
+    text-align: center;
+    border-radius: 4px;
+    color: var(--text01);
+    background-color: #41535C;
+}
+
+
+/* 판매자 버튼들 */
+/*판매자 등록 버튼*/
+.producer_button01{
+    width: 125px;
+    height: 50px;
+    padding: 10px 0;
+    font-size: 21px;
+    font-weight: 300;
+    text-align: center;
+    border-radius: 8px;
+    background-color: #647453;
+    color: var(--text01);
+}
+
+/* 관리자 버튼 (크기 작은)*/
+.producer_button02{
+    width: 70px;
+    height: 30px;
+    padding: 5px 0;
+    font-size: 18px;
+    font-weight: 300;
+    text-align: center;
+    border-radius: 4px;
+    background-color: #647453;
+    color: var(--text01);
+}
+
+/* 관리자 수정 버튼02 */
+.producer_button03{
+    width: 160px;
+    height: 38px;
+    padding: 8px 0;
+    font-size: 18px;
+    font-weight: 300;
+    text-align: center;
+    border-radius: 4px;
+    color: var(--text01);
+    background-color: #647453;
+}
+
+/* 관리자 조회 버튼 */
+.producer_button04{
+    width: 93px;
+    height: 38px;
+    padding: 8px 0;
+    font-size: 18px;
+    font-weight: 300;
+    text-align: center;
+    border-radius: 4px;
+    color: var(--text01);
+    background-color: #647453;
+}
+
+/* 관리자 조회 버튼 */
+.producer_button05{
+    width: 352px;
+    height: 38px;
+    padding: 8px 0;
+    font-size: 18px;
+    font-weight: 300;
+    text-align: center;
+    border-radius: 4px;
+    color: var(--text01);
+    background-color: #647453;
+}
+
+
+/* 관리자, 판매자 삭제 버튼 */
+.delete_button03{
+    width: 70px;
+    height: 30px;
+    padding: 1px 0;
+    font-size: 18px;
+    font-weight: 300;
+    text-align: center;
+    border-radius: 4px;
+    border: 1px solid #CF5346;
+    color: #CF5346;
+    background-color: var(--text01);
+}
+
+
+/* 카테고리 태그 */
+.product_tag{ 
+    padding: 4px 10px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--text01);
+    background-color: var(--sub-color01);
+}
