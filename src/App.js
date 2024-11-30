@@ -38,6 +38,18 @@ import ProducerDetailManage from "./pages/admin/manageusers/ProducerDetailManage
 import UserDetailManage from "./pages/admin/manageusers/UserDetailManage";
 import ProducerUpdateManage from "./pages/admin/manageusers/ProducerUpdateManage";
 import UserUpdateManage from "./pages/admin/manageusers/UserUpdateManage";
+import QuestionList from "./pages/questions/QuestionList";
+import QuestionCreate from "./pages/questions/QuestionCreate";
+import QuestionEdit from "./pages/questions/QuestionEdit";
+import QuestionDetail from "./pages/questions/QuestionDetail";
+import AnswerList from "./pages/answers/AnswerList";
+import AnswerCreate from "./pages/answers/AnswerCreate";
+import AnswerEdit from "./pages/answers/AnswerEdit";
+import AnswerDetail from "./pages/answers/AnswerDetail";
+import ReviewCreate from "./pages/reviews/ReviewCreate";
+import MyReviews from "./pages/reviews/MyReviews";
+import ReviewDetail from "./pages/reviews/ReviewDetail";
+import ReviewEdit from "./pages/reviews/ReviewEdit";
 import ProducerErrorPage from "./components/shipping/error/ProducerErrorPage";
 
 function App() {
@@ -145,9 +157,6 @@ function App() {
             {/* <Route path="FAQ-manage" element={<FAQManage />} /> */}
             {/* <Route path="inquiry-manage" element={<InquiryManage />} /> */}
           </Route>
-
-          <Route path="login" element={<Login />} />
-          <Route path="signup" element={<Signup />} />
         </Route>
       </Routes>
     </BrowserRouter>

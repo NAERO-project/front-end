@@ -79,7 +79,7 @@ function MypageNav(props) {
                         </li>
 
                         <li>
-                            <NavLink to="/mypage/" className={MypageNavCSS.NavBar_txt}>1:1 문의</NavLink>
+                            <NavLink to="/mypage/questions" className={MypageNavCSS.NavBar_txt}>1:1 문의</NavLink>
                         </li>
 
                         <li>
@@ -87,7 +87,7 @@ function MypageNav(props) {
                         </li>
 
                         <li>
-                            <NavLink to="/mypage/" className={MypageNavCSS.NavBar_txt}>상품 후기</NavLink>
+                            <NavLink to="/mypage/reviews/my-reviews" className={MypageNavCSS.NavBar_txt}>상품 후기</NavLink>
                         </li>
                     </ul>
                 </div>
