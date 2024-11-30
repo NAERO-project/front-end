@@ -73,9 +73,9 @@ export const callProductLargeCategoryListApi = ({ currentPage, largeId }) =>{
     let requestURL;
 
     if(currentPage !== undefined || currentPage !== null){
-        requestURL = `${prefix}/api/products/more?largeId=${largeId}&offset=${currentPage}`;
+        requestURL = `${prefix}/api/products/more/${largeId}?offset=${currentPage}`;
     }else{
-        requestURL = `${prefix}/api/products/more?largeId=${largeId}`;
+        requestURL = `${prefix}/api/products/more/${largeId}`;
     }
 
     console.log('[productAPICalls] requestURL : ', requestURL);

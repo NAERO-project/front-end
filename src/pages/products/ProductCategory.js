@@ -4,9 +4,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import Product from "../../components/common/products/Product";
 import { callProductLargeCategoryListApi } from "../../apis/ProductApiCall";
 import ProductMoreCSS from "./css/ProductMore.module.css";
+// import ProductMediumNav from "../../components/common/products/ProductMediumNav";
 import ProductPreviewNav from "../../components/common/products/ProductPreviewNav";
 import ProductMore from "../products/ProductMore";
-import ProductMediumNav from "../../components/common/products/ProductMediumNav";
 
 function ProductCategory() {
     const navigate = useNavigate();
@@ -17,8 +17,8 @@ function ProductCategory() {
     const params = useParams(); // URL에서 파라미터 가져오기
     const [largeId, setLargeId] = useState(); // 상태로 설정
     const [mediumId, setMediumId] = useState(1);
-    const [currentPage, setCurrentPage] = useState(1); // 페이지 상태
 
+    const [currentPage, setCurrentPage] = useState(1);
     const pageInfo = product.pageInfo;
     const pageNumber = [];
 
@@ -28,19 +28,19 @@ function ProductCategory() {
         }
     }
 
-    // URL 파라미터가 변경될 때 largeId와 mediumId를 설정
+    useEffect(() => {
+    }, []);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [largeId]);
+
     useEffect(() => {
         const { largeId: paramLargeId, mediumId: paramMediumId } = params;
         setLargeId(Number(paramLargeId) || 1); // URL에서 가져온 값 또는 기본값
         setMediumId(Number(paramMediumId) || 1);
-    }, [params]); // params가 변경될 때마다 실행
+    }, [params]);
 
-    // largeId가 변경될 때 currentPage를 1로 초기화
-    useEffect(() => {
-        setCurrentPage(1); // largeId가 변경될 때 currentPage를 1로 초기화
-    }, [largeId]); // largeId가 변경될 때마다 실행
-
-    // currentPage, largeId, mediumId가 변경될 때마다 fetchData 호출
     useEffect(() => {
         fetchData();
     }, [currentPage, largeId, mediumId]);
@@ -50,29 +50,23 @@ function ProductCategory() {
         dispatch(callProductLargeCategoryListApi({
             currentPage,
             largeId,
-            mediumId
+            mediumId,
         }));
     };
 
-    // ProductCategory 컴포넌트가 마운트될 때 로그 출력
-    useEffect(() => {
-        console.log("ProductCategory component mounted"); // 추가된 로그
-        console.log("largeId 확인222222", largeId);
-        console.log("mediumId 확인222222", mediumId);
-    }, [largeId, mediumId]);
+    useEffect(() =>{
+        console.log("largeId22222222", largeId);
+    })
 
     return (
         <div>
             <ProductPreviewNav state={largeId} setState={setLargeId} />
-            {/* <ProductMediumNav state={mediumId} setState={setMediumId} /> */}
             {largeId === 1 ? (
                 <ProductMore />
             ) : (
                 <>
                     <div className={ProductMoreCSS.main_product_box}>
-                        {Array.isArray(productList) && productList
-                        .filter(product => product.smallCategory.mediumCategoryId === mediumId) // mediumId에 해당하는 제품만 필터링
-                        .map((product) => (
+                        {Array.isArray(productList) && productList.map((product) => (
                             <Product key={product.productId} product={product} />
                         ))}
                     </div>
@@ -90,7 +84,8 @@ function ProductCategory() {
                     </div>
                 </>
             )}
-        </div>
+                </div>
+            
     );
 }
 

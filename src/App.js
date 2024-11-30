@@ -69,7 +69,7 @@ function App() {
 						{/* <Route path='more' element={ <ProductMore/> }/> */}
 						<Route path="more" element={ <ProductCategory/> }/>
 						{/* <Route path="more" element={ <ProductCategory/> }/> */}
-						<Route path="more/:largeId/:mediumId" element={ <ProductCategory/> }/>
+						<Route path="more/:largeId" element={ <ProductCategory/> }/>
 						<Route path=":productId" element={ <ProductDetail/> }/>
             <Route path="brand/:producerId" element={ <BrandProducer/> }/>
 					</Route>
