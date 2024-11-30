@@ -65,7 +65,7 @@ function AnswerList() {
                         >
                             <h3>제목: {question.questionTitle}</h3>
                         </Link>
-                        <p>질문 상태: {question.questionStatus === 1 ? "답변 완료" : "답변 미완료"}</p>
+                        <p>질문 상태: {question.questionStatus ? "답변 완료" : "답변 미완료"}</p>
 
                         {questionAnswers.length > 0 ? (
                             <ul>

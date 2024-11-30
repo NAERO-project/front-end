@@ -37,11 +37,11 @@ function ProductUpdate() {
         optionCheck: "Y"
     });
 
-    const largeCategories = [
-        { largeCategoryId: "1", largeCategoryName: "식품" },
-        { largeCategoryId: "2", largeCategoryName: "건강&생활" },
-        { largeCategoryId: "3", largeCategoryName: "패션" },
-    ];
+    // const largeCategories = [
+    //     { largeCategoryId: "2", largeCategoryName: "식품" },
+    //     { largeCategoryId: "3", largeCategoryName: "헬스&뷰티" },
+    //     { largeCategoryId: "4", largeCategoryName: "패션" },
+    // ];
 
     const [selectedLargeCategory, setSelectedLargeCategory] = useState("");
     const [selectedMediumCategory, setSelectedMediumCategory] = useState("");
