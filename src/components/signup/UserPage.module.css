@@ -47,7 +47,6 @@
     box-sizing: border-box;
     width: 410px;
     height: 60px;
-
     border: 2px solid #A8B29D;
     border-radius: 50px;
 }
@@ -87,6 +86,7 @@
     border-radius: 10px;
     border-collapse: separate;
     border-spacing: 1px;
+    width: 320px;
 }
 
 .signup_table_input {
@@ -98,15 +98,38 @@
 }
 
 .check_button {
-    padding: 10px 20px;
     background-color: #7B9064;
     border-top-right-radius: 10px;
-
+    border: 2px solid #A8B29D;
     color: white;
     border: none;
     cursor: pointer;
-    height: 100%;
+    height: 44px;
     width: 100%;
+    margin-left: 2px;
+    margin-bottom: 6px;
+}
+.check_button2 {
+    background-color: #7B9064;
+    border-bottom-right-radius: 10px;
+    border: 2px solid #A8B29D;
+    color: white;
+    border: none;
+    cursor: pointer;
+    height: 44px;
+    width: 100%;
+    margin-left: 2px;
+}
+.check_button3 {
+    background-color: #7B9064;
+    border: 2px solid #A8B29D;
+    color: white;
+    border: none;
+    cursor: pointer;
+    height: 44px;
+    width: 100%;
+    margin-left: 2px;
+    margin-top: 6px;
 }
 
 .signip_table tr {
@@ -118,4 +141,6 @@
     border: none; /* 기본 테두리 제거 */
     outline: none; /* 기본 포커스 아웃라인 제거 */
     background-color: none;
+    text-align: center;
+    padding: 0px;
 }
