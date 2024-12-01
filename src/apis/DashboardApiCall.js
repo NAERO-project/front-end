@@ -6,6 +6,8 @@ import {
   GET_TODAY_MEMBERS,
   GET_SALES_STATISTICS,
   GET_LIKED_STATISTICS,
+  GET_PRODUCT_LIST,
+  GET_BRAND_LIST,
   UPDATE_INPUTS,
 } from "../modules/DashboardModule";
 
@@ -159,6 +161,39 @@ export const fetchLikedStatistics = (inputs) => async (dispatch) => {
       "[DashboardApiCall] fetchLikedStatistics Error : ",
       error.message
     );
+  }
+};
+
+// Fetch product list
+export const fetchProductList = () => async (dispatch) => {
+  console.log("[DashboardApiCall] fetchProductList Called");
+
+  const requestUrl = `${prefix}/api/monitoring/product-list`;
+  console.log(requestUrl);
+
+  try {
+    const response = (await axios.get(requestUrl)).data;
+    dispatch({ type: GET_PRODUCT_LIST, payload: response });
+  } catch (error) {
+    console.error(
+      "[DashboardApiCall] fetchProductList Error : ",
+      error.message
+    );
+  }
+};
+
+// Fetch brand list
+export const fetchBrandList = () => async (dispatch) => {
+  console.log("[DashboardApiCall] fetchBrandList Called");
+
+  const requestUrl = `${prefix}/api/monitoring/producer-list`;
+  console.log(requestUrl);
+
+  try {
+    const response = (await axios.get(requestUrl)).data;
+    dispatch({ type: GET_BRAND_LIST, payload: response });
+  } catch (error) {
+    console.error("[DashboardApiCall] fetchBrandList Error : ", error.message);
   }
 };
 

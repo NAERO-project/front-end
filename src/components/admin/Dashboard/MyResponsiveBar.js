@@ -12,7 +12,7 @@ const MyResponsiveBar = ({ data }) => {
         data={[...data].reverse()}
         keys={["ratio"]} // database에서 가져온 값
         indexBy="name" // database에서 가져온 값
-        margin={{ top: 30, right: 80, bottom: 30, left: 130 }}
+        margin={{ top: 30, right: 50, bottom: 30, left: 100 }}
         padding={0.5}
         layout="horizontal"
         valueScale={{ type: "linear", min: 0, max: maxValue }}

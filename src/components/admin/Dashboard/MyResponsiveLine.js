@@ -18,7 +18,7 @@ const MyResponsiveLine = ({ data }) => {
     <ResponsiveContainer width="100%" height={400}>
       <LineChart
         data={data}
-        margin={{ top: 20, right: 20, bottom: 0, left: 20 }}
+        margin={{ top: 20, right: 20, bottom: 0, left: 0 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis

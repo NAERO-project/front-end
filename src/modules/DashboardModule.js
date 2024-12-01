@@ -7,10 +7,29 @@ const initialState = {
   todayQuantity: { data: null },
   todayItems: { data: null },
   todayMembers: { data: null },
-  salesStatistics: { inputs: {}, data: null },
+  salesStatistics: {
+    inputs: {
+      categoryOption: "상품",
+      indexOption: "매출액",
+      startDate: "",
+      endDate: "",
+      specification: "",
+    },
+    data: null,
+  },
   topSales: { data: null }, // Uses data from salesStatistics
-  likedStatistics: { inputs: {}, data: null },
+  likedStatistics: {
+    inputs: {
+      categoryOption: "상품",
+      startDate: "",
+      endDate: "",
+      specification: "",
+    },
+    data: null,
+  },
   topLiked: { data: null }, // Uses data from likedStatistics
+  productList: { data: null }, // New: Holds the fetched product list
+  brandList: { data: null }, // New: Holds the fetched brand list
 };
 
 // Action types for the dashboard module
@@ -22,6 +41,8 @@ export const GET_TODAY_MEMBERS = "dashboard/GET_TODAY_MEMBERS";
 export const GET_SALES_STATISTICS = "dashboard/GET_SALES_STATISTICS";
 export const GET_LIKED_STATISTICS = "dashboard/GET_LIKED_STATISTICS";
 export const UPDATE_INPUTS = "dashboard/UPDATE_INPUTS";
+export const GET_PRODUCT_LIST = "dashboard/GET_PRODUCT_LIST"; // New action type
+export const GET_BRAND_LIST = "dashboard/GET_BRAND_LIST"; // New action type
 
 // Action creators for the dashboard module
 const actions = createActions({
@@ -33,6 +54,8 @@ const actions = createActions({
   GET_SALES_STATISTICS: () => {},
   GET_LIKED_STATISTICS: () => {},
   UPDATE_INPUTS: () => {},
+  GET_PRODUCT_LIST: () => {}, // New action creator
+  GET_BRAND_LIST: () => {}, // New action creator
 });
 
 // Reducer for the dashboard module
@@ -70,6 +93,14 @@ const dashboardReducer = handleActions(
         ...state,
         [componentId]: { ...state[componentId], inputs },
       };
+    },
+    // New: Handle fetching the product list
+    [GET_PRODUCT_LIST]: (state, action) => {
+      return { ...state, productList: { data: action.payload } };
+    },
+    // New: Handle fetching the brand list
+    [GET_BRAND_LIST]: (state, action) => {
+      return { ...state, brandList: { data: action.payload } };
     },
   },
   initialState
