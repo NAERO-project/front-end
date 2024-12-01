@@ -127,20 +127,19 @@ export const callBannerUpdateApi = ({ form }) => {
 };
 
 // 관리자 배너 삭제
-export const callBannerDeleteApi = ({ form }) => {
+export const callBannerDeleteApi = ({bannerId}) => {
 	console.log('[ProduceAPICalls] callBannerUpdateApi Call');
 
-	const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/admin/banner-delete`;
+	const requestURL = `http://${process.env.REACT_APP_RESTAPI_IP}:8080/admin/banner-delete/${bannerId}`;
 
 	return async (dispatch, getState) => {
 		const result = await fetch(requestURL, {
-			method: 'PUT',
+			method: 'DELETE',
 			headers: {
 				Accept: '*/*',
 				Authorization:
 					'Bearer ' + window.localStorage.getItem('accessToken')
-			},
-			body: form
+			}
 		}).then((response) => response.json());
 
 		console.log('[ProduceAPICalls] callBannerUpdateApi RESULT : ', result);
