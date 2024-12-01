@@ -1,0 +1,65 @@
+/* Container for the entire component */
+.top-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px; /* Rounded corners */
+  width: 100%;
+}
+
+/* Name styling */
+.top-container h4 {
+  margin: 8px 0;
+}
+
+/* Title styling */
+.top-title {
+  margin-bottom: 8px;
+  text-align: left;
+  font-weight: 500;
+}
+
+/* Crown Icon */
+.top-container svg {
+  font-size: 36px;
+  color: #ffc107; /* Gold color for the crown */
+  margin-bottom: 8px;
+}
+
+/* Radial Chart Container */
+.recharts-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* Percentage Text */
+.top-container p {
+  font-size: 36px; /* Slightly smaller font for balance */
+  font-weight: 600;
+  color: #7b9064; /* Match the chart color for consistency */
+  text-align: center;
+  margin-top: -8px; /* Reduce spacing between the chart and percentage */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .top-container {
+    padding: 16px;
+    max-width: 100%; /* Allow the container to stretch on smaller screens */
+  }
+
+  .top-title {
+    font-size: 16px;
+  }
+
+  .top-container h4 {
+    font-size: 14px;
+  }
+
+  .top-container p {
+    font-size: 32px;
+  }
+}
