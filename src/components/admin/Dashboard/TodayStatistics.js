@@ -50,7 +50,7 @@ function TodayStatistics() {
           </div>
           <p>매출 총액</p>
           <p>
-            24시간 전보다{" "}
+            24시간 전보다 &nbsp;
             {todaySales?.data?.Ratio !== undefined ? (
               <span>
                 {todaySales.data.Ratio > 0 ? (
@@ -79,7 +79,7 @@ function TodayStatistics() {
 
           <p>주문 수량</p>
           <p>
-            24시간 전보다{" "}
+            24시간 전보다 &nbsp;
             {todayQuantity?.data?.Ratio !== undefined ? (
               <span>
                 {todayQuantity.data.Ratio > 0 ? (
@@ -107,7 +107,7 @@ function TodayStatistics() {
           </div>
           <p>판매 상품</p>
           <p>
-            24시간 전보다{" "}
+            24시간 전보다 &nbsp;
             {todayItems?.data?.Ratio !== undefined ? (
               <span>
                 {todayItems.data.Ratio > 0 ? (
@@ -135,7 +135,7 @@ function TodayStatistics() {
           </div>
           <p>신규 회원</p>
           <p>
-            24시간 전보다{" "}
+            24시간 전보다 &nbsp;
             {todayMembers?.data?.Ratio !== undefined ? (
               <span>
                 {todayMembers.data.Ratio > 0 ? (
