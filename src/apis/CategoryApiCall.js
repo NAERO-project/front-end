@@ -1,4 +1,4 @@
-import { GET_PRODUCTS_CATEGORY01 } from "../modules/CategoryModule";
+import { GET_PRODUCTS_CATEGORY01, SET_MEDIUM_CATEGORIES } from "../modules/CategoryModule";
 import { GET_PRODUCTS_CATEGORY02 } from "../modules/CategoryModule";
 
 const prefix = `http://${process.env.REACT_APP_RESTAPI_IP}:8080`;
@@ -38,6 +38,7 @@ export const callProductCategoryApi02 = ({largeId}) =>{
                 Accept: '*/*'
             }
         }).then((response) => response.json());
+        console.log("왜 안떠?????????????????????/")
         if(result.status === 200){
             console.log('[ProduceAPICalls] callProductCategoryApi02 RESULT : ', result);
             dispatch({ type: GET_PRODUCTS_CATEGORY02, payload: result.data });

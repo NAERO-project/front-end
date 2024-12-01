@@ -3,77 +3,89 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Product from "../../components/common/products/Product";
 import { callProductLargeCategoryListApi } from "../../apis/ProductApiCall";
-import ProductMoreCSS from "./css/ProductMore.module.css"
-import ProductMediumNav from "../../components/common/products/ProductMediumNav";
-import ProductNav from "../../components/common/products/ProductNav";
-import MainList from "./MainList";
-import Banner from "../../components/common/banner/Banner";
-import BrandBanner from "../banner/BrandBanner";
-import ProductMore from "./ProductMore";
-import SimpleBanner from "../../components/common/banner/SimpleBanner";
+import ProductMoreCSS from "./css/ProductMore.module.css";
+// import ProductMediumNav from "../../components/common/products/ProductMediumNav";
+import ProductPreviewNav from "../../components/common/products/ProductPreviewNav";
+import ProductMore from "../products/ProductMore";
 
-function ProductCategory(){
+function ProductCategory() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const products = useSelector(state => state.productReducer);
-    const productList = products.data;
-    const params = useParams();                 //URL에서 파라미터 가져오기
-    const largeId = params.largeId;     //largeId를 가져온다
-    const mediumCategoryId = params.mediumId;
-    console.log("productList", productList);
+    const product = useSelector(state => state.productReducer);
+    const productList = product.data;
 
-    const pageInfo = products.pageInfo;
+    const params = useParams(); // URL에서 파라미터 가져오기
+    const [largeId, setLargeId] = useState(); // 상태로 설정
+    const [mediumId, setMediumId] = useState(1);
+
     const [currentPage, setCurrentPage] = useState(1);
+    const pageInfo = product.pageInfo;
     const pageNumber = [];
 
-    if(pageInfo){
-        for(let i =1; i <= pageInfo.pageEnd; i++){
+    if (pageInfo) {
+        for (let i = 1; i <= pageInfo.pageEnd; i++) {
             pageNumber.push(i);
         }
     }
 
     useEffect(() => {
-            fetchData();
-        },[currentPage, largeId]);
+    }, []);
 
-    const fetchData=()=>{dispatch(callProductLargeCategoryListApi({
-        currentPage: currentPage,
-        largeId
-    }));
-};
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [largeId]);
 
-    useEffect(()=>{
-        console.log(productList,"확인");
-    }, [productList]);
+    useEffect(() => {
+        const { largeId: paramLargeId, mediumId: paramMediumId } = params;
+        setLargeId(Number(paramLargeId) || 1); // URL에서 가져온 값 또는 기본값
+        setMediumId(Number(paramMediumId) || 1);
+    }, [params]);
 
-    return(
+    useEffect(() => {
+        fetchData();
+    }, [currentPage, largeId, mediumId]);
+
+    const fetchData = () => {
+        console.log("Fetching data with:", { currentPage, largeId, mediumId }); // 추가된 로그
+        dispatch(callProductLargeCategoryListApi({
+            currentPage,
+            largeId,
+            mediumId,
+        }));
+    };
+
+    useEffect(() =>{
+        console.log("largeId22222222", largeId);
+    })
+
+    return (
         <div>
-            <SimpleBanner/>
-            <ProductNav/>
-            <ProductMediumNav/>
-            {largeId === '1' ? (
-                <ProductMore/>
+            <ProductPreviewNav state={largeId} setState={setLargeId} />
+            {largeId === 1 ? (
+                <ProductMore />
             ) : (
-                <div className={ProductMoreCSS.main_product_box}>
-                    {Array.isArray(productList) && productList.map((product) => (
-                        <Product key={product.productId} product={product}/>
-                    ))}
-                </div>
+                <>
+                    <div className={ProductMoreCSS.main_product_box}>
+                        {Array.isArray(productList) && productList.map((product) => (
+                            <Product key={product.productId} product={product} />
+                        ))}
+                    </div>
+                    <div className={ProductMoreCSS.product_paging}>
+                        {Array.isArray(productList) &&
+                            <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>&lt;</button>}
+                        {pageNumber.map((num) => (
+                            <li key={num} onClick={() => setCurrentPage(num)}>
+                                <button>{num}</button>
+                            </li>
+                        ))}
+                        {Array.isArray(productList) &&
+                            <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === pageInfo.pageEnd || pageInfo.total === 0}>&gt;</button>
+                        }
+                    </div>
+                </>
             )}
+                </div>
             
-            <div className={ProductMoreCSS.product_paging}>
-                {Array.isArray(productList) &&
-                <button onClick={() =>setCurrentPage(currentPage -1)} disabled={currentPage === 1} >&lt;</button>}
-                {pageNumber.map((num) =>(
-                    <li key={num} onClick={() => setCurrentPage(num)}>
-                        <button>{num}</button>
-                    </li>
-                ))}
-                {Array.isArray(productList) &&
-                <button onClick={() => setCurrentPage(currentPage +1)} disabled={currentPage === pageInfo.pageEnd || pageInfo.total === 0}>&gt;</button>
-                }
-            </div>
-        </div>
     );
 }
 
