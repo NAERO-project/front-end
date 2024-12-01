@@ -51,13 +51,21 @@ li{
     color: var(--text04);
 }
 
-.class_name_txt:hover{
+/* .class_name_txt:hover{
     font-weight: 500;
     color: var(--main-color03);
-}
+} */
  
 .nav:hover{
     /* padding: 0 0 10px 0; */
-    border-bottom: 3px solid var(--main-color03);
+    font-weight: 600;
+    border-bottom: 2px solid var(--main-color03);
+    color: var(--main-color03);
+}
+
+.active{
+    font-weight: 600;
+    border-bottom: 2px solid var(--main-color03);
+    color: var(--main-color03);
 }
 

@@ -7,6 +7,7 @@ import ProductNav from "../ProductNav";
 import ProductMediumNav from "../ProductMediumNav";
 import MainListCSS from "../../../../pages/products/css/MainList.module.css";
 import ProductProducerNav from "../ProductProducerNav";
+import Footer from "../../Footer";
 
 function BrandProducer({
     // producer: {producerId, producerName}
@@ -57,6 +58,7 @@ function BrandProducer({
                     <Product key={product.productId} product={product}/>
                 ))}
             </div>
+            <Footer/>
         </div>
     );
 }

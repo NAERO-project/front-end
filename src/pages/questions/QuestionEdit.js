@@ -4,6 +4,9 @@ import { callQuestionDetailApi, callQuestionDeleteApi, callQuestionUpdateApi } f
 import { useParams, useNavigate } from 'react-router-dom';
 import { decodeJwt } from "../../utils/tokenUtils";
 
+import QuestionEditCSS from "./css/QuestionEdit.module.css";
+import UserInfoCSS from "../../components/signup/css/UserInfoForm.module.css";
+
 function QuestionEdit() {
     const { questionId } = useParams();
     const dispatch = useDispatch();
@@ -52,23 +55,53 @@ function QuestionEdit() {
     console.log('questionDetail', questionDetail);
     console.log('form', form);
     return (
-        <div>
-            <h1>문의 수정</h1>
-            <input
-                name="questionTitle"
-                value={form.questionTitle}
-                onChange={onChangeHandler}
-                placeholder="제목을 입력하세요"
-            />
-            <textarea
-                name="questionContent"
-                value={form.questionContent}
-                onChange={onChangeHandler}
-                placeholder="내용을 입력하세요"
-            />
-            <button onClick={onSubmitHandler}>수정</button>
-            <button onClick={handleDelete}>삭제</button>
-            <button onClick={() => navigate(-1)}>취소</button>
+        <div className={QuestionEditCSS.box}>
+            <div className={QuestionEditCSS.edit}>
+                <div>
+                    <h3>문의 수정</h3>
+                </div>
+
+                <div>
+                    <button className={QuestionEditCSS.btn01} onClick={handleDelete}>삭제</button>
+                    <button className={QuestionEditCSS.btn02} onClick={() => navigate(-1)}>취소</button>
+                </div>
+            </div>
+
+            <div className={UserInfoCSS.info}>
+				<label style={{margin: '10px 20px 0 0'}}>제목</label>
+
+                <div className={UserInfoCSS.txt}>
+                    <input
+                        name="questionTitle"
+                        value={form.questionTitle}
+                        onChange={onChangeHandler}
+                        // placeholder="제목을 입력하세요"
+                    />
+                </div>
+			</div>
+
+            <div className={UserInfoCSS.info}>
+				<label style={{margin: '10px 20px 0 0'}}>내용</label>
+
+                <div className={UserInfoCSS.txt} style={{width: '90%', height: '500px'}}>
+                    <textarea 
+                        style={{width: '100%', height: '500px', padding: '20px'}}
+                        name="questionContent"
+                        value={form.questionContent}
+                        onChange={onChangeHandler}
+                        // placeholder="내용을 입력하세요"
+                    />
+                </div>
+			</div>
+
+            <div className={QuestionEditCSS.btn_box} >
+                <button
+                className={QuestionEditCSS.btn03} 
+                onClick={onSubmitHandler}>
+                    수정
+                </button>
+            </div>
+            
         </div>
     );
 }

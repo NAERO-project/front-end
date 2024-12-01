@@ -4,6 +4,9 @@ import { callQuestionCreateApi } from '../../apis/QuestionAPICalls';
 import { useNavigate } from 'react-router-dom';
 import { decodeJwt } from "../../utils/tokenUtils";
 
+import QuestionCreateCSS from "./css/QuestionCreate.module.css";
+import UserInfoCSS from "../../components/signup/css/UserInfoForm.module.css";
+
 function QuestionCreate() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -27,20 +30,42 @@ function QuestionCreate() {
     };
 
     return (
-        <div>
-            <h1>새 문의 작성</h1>
-            <input
-                name="questionTitle"
-                placeholder="제목"
-                onChange={onChangeHandler}
-            />
-            <textarea
-                name="questionContent"
-                placeholder="내용"
-                onChange={onChangeHandler}
-            />
-            <button onClick={onSubmitHandler}>등록</button>
-            <button onClick={() => navigate(-1)}>취소</button>
+        <div className={QuestionCreateCSS.box}>
+            <div className={QuestionCreateCSS.create}>
+                <div>
+                    <h3>1:1 문의</h3>
+                </div>  
+
+                <div>
+                    <button className={QuestionCreateCSS.btn01} onClick={onSubmitHandler}>등록</button>
+                    <button className={QuestionCreateCSS.btn02} onClick={() => navigate(-1)}>취소</button>
+                </div>
+            </div>
+
+            <div className={UserInfoCSS.info}>
+				<label style={{margin: '10px 20px 0 0'}}>제목</label>
+
+                <div className={UserInfoCSS.txt}>
+                    <input
+                        name="questionTitle"
+                        // placeholder="제목"
+                        onChange={onChangeHandler}
+                    />
+                </div>
+			</div>
+
+            <div className={UserInfoCSS.info}>
+				<label style={{margin: '10px 20px 0 0'}}>내용</label>
+
+                <div className={UserInfoCSS.txt} style={{width: '90%', height: '500px'}}>
+                <textarea 
+                    style={{width: '100%', height: '500px', padding: '20px'}}
+                    name="questionContent"
+                    // placeholder="내용"
+                    onChange={onChangeHandler}
+                />
+            </div>
+			</div>
         </div>
     );
 }

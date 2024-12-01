@@ -6,6 +6,7 @@ import { decodeJwt } from "../../utils/tokenUtils";
 import { Navigate } from "react-router-dom";
 
 import { callUserDetailAPI } from "../../apis/UserApiCall";
+import Footer from "./Footer";
 
 function isTokenExpired(decodedToken) {
     const currentTime = Math.floor(Date.now() / 1000);
