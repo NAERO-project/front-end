@@ -5,6 +5,7 @@ import { callProducerListApi } from "../../../apis/ProductApiCall";
 import BrandList from "../../../components/common/products/brand/BrandList";
 import BrandProductListCSS from "./css/BrandProductList.module.css";
 import BrandBanner from "../../banner/BrandBanner";
+import Footer from "../../../components/common/Footer";
 
 function BrandProductList() {
     const dispatch = useDispatch();
@@ -40,6 +41,7 @@ function BrandProductList() {
                     ))}
                 </div>
             </div>
+            <Footer/>
         </>
     );
 }

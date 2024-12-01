@@ -13,8 +13,19 @@
 }
 
 .product_paging{
+    width: 240px;
     list-style-type: none;
     display: flex;
-    /* display: inline-block; */
+    flex-flow: row;
     margin: 0 auto;
+}
+
+.product_paging > button{
+    background-color: none;
+}
+
+.product_paging li{
+    margin: 0 10px;
+    padding: 5px 10px;
+    border: 1px solid #b3b3b3 ;
 }

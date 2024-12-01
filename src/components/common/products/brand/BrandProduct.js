@@ -3,6 +3,7 @@ import ProductCSS from "../css/Product.module.css";
 import { FaRegHeart } from "react-icons/fa6";
 import { LuShoppingCart } from "react-icons/lu";
 import ButtonCSS from "../../Button.module.css";
+import Footer from "../../Footer";
 
 function BrandProduct({
     product: { productId, productName, productPrice, productImg, smallCategory: {smallCategoryName}}
@@ -30,7 +31,7 @@ function BrandProduct({
                 </div>
                 <div>
                 <p>{productPrice ? productPrice.toLocaleString() + '원' : '가격 정보 없음'}</p>
-                    <span className={ButtonCSS.product_tag}>{smallCategoryName}</span>
+                    <span style={{padding: '4px 10px', borderRadius: '10px', fontWeight: '300', color: '#fff', backgroundColor: '#bbdefb'}}>{smallCategoryName}</span>
                 </div>
             </div>
         </div>

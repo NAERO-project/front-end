@@ -5,6 +5,7 @@ import Product from "../../components/common/products/Product";
 import { callProductListApi } from "../../apis/ProductApiCall";
 import ProductMoreCSS from "./css/ProductMore.module.css";
 import ProductNav from "../../components/common/products/ProductNav";
+import Footer from "../../components/common/Footer";
  
  function ProductMore(){
     const navigate = useNavigate();
@@ -63,6 +64,7 @@ import ProductNav from "../../components/common/products/ProductNav";
                     <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === pageInfo.pageEnd || pageInfo.total === 0}>&gt;</button>
                 }
             </div>
+            <Footer/>
         </div>   
     );
  }

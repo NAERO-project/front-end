@@ -11,6 +11,7 @@ import Banner from "../../components/common/banner/Banner";
 import BrandBanner from "../banner/BrandBanner";
 import ProductMore from "./ProductMore";
 import { callProducerProductCategoryListApi } from "../../../apis/ProductApiCall";
+import Footer from "../../../components/common/Footer";
 
 function ProductCategory(){
     const navigate = useNavigate();

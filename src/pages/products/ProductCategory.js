@@ -7,6 +7,7 @@ import ProductMoreCSS from "./css/ProductMore.module.css";
 // import ProductMediumNav from "../../components/common/products/ProductMediumNav";
 import ProductPreviewNav from "../../components/common/products/ProductPreviewNav";
 import ProductMore from "../products/ProductMore";
+import Footer from "../../components/common/Footer";
 
 function ProductCategory() {
     const navigate = useNavigate();
@@ -70,6 +71,7 @@ function ProductCategory() {
                             <Product key={product.productId} product={product} />
                         ))}
                     </div>
+                    
                     <div className={ProductMoreCSS.product_paging}>
                         {Array.isArray(productList) &&
                             <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>&lt;</button>}
@@ -82,9 +84,10 @@ function ProductCategory() {
                             <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === pageInfo.pageEnd || pageInfo.total === 0}>&gt;</button>
                         }
                     </div>
+                    <Footer/>
                 </>
             )}
-                </div>
+        </div>
             
     );
 }

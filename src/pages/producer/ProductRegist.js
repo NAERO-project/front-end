@@ -381,6 +381,7 @@ function ProductRegist() {
                             <tr>
                                 <td>
                                     <label>중분류</label>
+                                    
                                 </td>
                                 <td>
                                     <select

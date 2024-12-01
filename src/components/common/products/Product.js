@@ -30,7 +30,9 @@ function Product({
                 </div>
                 <div>
                     <p>{productPrice.toLocaleString()}원</p>
-                    <span className={ProductCSS.product_tag}>{smallCategoryName}</span>
+                    <span 
+                        style={{padding: '4px 10px', borderRadius: '10px', fontWeight: '300', color: '#fff', backgroundColor: '#bbdefb'}}
+                    >{smallCategoryName}</span>
                 </div>
             </div>
         </div>

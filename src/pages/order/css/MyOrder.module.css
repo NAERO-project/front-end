@@ -1,5 +1,40 @@
 .box{
-    width: 1102px;
+    width: 1106px;
     margin: 0 auto;
     padding: 50px 0 0 0;
+}
+
+.my_table{
+    width: 100%;
+    background-color: #ddd;
+}
+
+.my_tbody td:nth-child(1){
+    display: flex;
+    justify-content: space-around;
+    line-height: 4.5em;
+}
+
+.my_tbody td{
+    height: 70px;
+    text-align: center;
+}
+
+.my_tbody tr:nth-child(odd){
+    background-color: #a8b29d;
+}
+
+.my_tbody tr:nth-child(even){
+    background-color: #fff;
+}
+
+.my_tbody th, td{
+    border: 1px solid #757575;
+} 
+
+.detail_btn{
+    /* width: 170px;
+    height: 55px; */
+    padding: 10px 25px;
+    background-color: inherit;
 }

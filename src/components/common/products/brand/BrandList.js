@@ -5,6 +5,7 @@ import BrandListCSS from "./css/BrandList.module.css";
 import ButtonCSS from "../../Button.module.css";
 import BrandProduct from "./BrandProduct";
 import { Link } from "react-router-dom";
+import Footer from "../../Footer";
 
 function BrandList({ brand: { producerId, producerName } }) {
     const dispatch = useDispatch();

@@ -7,7 +7,8 @@ import OrderProductList from "./OrderProductList";
 import { callMyPageOrderListApi } from "../../apis/OrderApiCall";
 
 import MyOrderCSS from "./css/MyOrder.module.css";
-
+import ProductMoreCSS from "../products/css/ProductMore.module.css";
+import Footer from "../../components/common/Footer";
 
 function MyOrders() {
   const navigate = useNavigate();
@@ -75,21 +76,25 @@ function MyOrders() {
   return (
     <>
       <div className={MyOrderCSS.box}>
-        <table className="">
+        <table className={MyOrderCSS.my_table}>
           <colgroup>
-            <col width="20%" />
-            <col width="20%" />
+            <col width="40%" />
+            <col width="10%" />
+            <col width="40%" />
             <col width="20%" />
           </colgroup>
-          <tbody>
+          <tbody className={MyOrderCSS.my_tbody}>
             {orderList &&
               orderList.map((order) => {
                 console.log("왜이래진짜.........:", order.orderId);
                 return (
                   <tr key={order.orderId}>
                     <td>
+                      <div>
                       주문 번호: {order.orderId}
-                      <br />총 결제 금액:{" "}
+                      </div>
+                      <div>
+                      총 결제 금액:{" "}
                       {order.orderTotalAmount.toLocaleString("ko-KR")}원
                       {/* <hr
                                                 style={{ border: "1px solid #000" }}
@@ -100,6 +105,7 @@ function MyOrders() {
                                                 orderId={order.orderId}
                                             />
                                             <br /> */}
+                      </div>
                     </td>
                     <td>
                       {order.orderStatus === "completed"
@@ -116,7 +122,7 @@ function MyOrders() {
                     </td>
                     <td>
                       <button
-                        className=""
+                        className={MyOrderCSS.detail_btn}
                         onClick={() => onClickOrderDetailHandler(order.orderId)}
                       >
                         주문 상세
@@ -128,14 +134,9 @@ function MyOrders() {
           </tbody>
         </table>
       </div>
-      <div
-        style={{
-          listStyleType: "none",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        {Array.isArray(orderList) && (
+
+      <div className={ProductMoreCSS.product_paging} style={{padding: '50px 0 0 0'}}>
+      {Array.isArray(orderList) && (
           <button
             onClick={() => setCurrentPage(currentPage - 1)}
             disabled={currentPage === 1}
