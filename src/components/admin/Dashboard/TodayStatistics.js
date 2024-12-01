@@ -7,6 +7,11 @@ import {
   fetchTodayMembers,
 } from "../../../apis/DashboardApiCall";
 import styles from "./css/TodayStatistics.module.css";
+import { FaArrowUp, FaArrowDown } from "react-icons/fa"; // Icons for upward and downward arrows
+import { TbReportMoney } from "react-icons/tb";
+import { BiPurchaseTag } from "react-icons/bi";
+import { AiOutlineProduct } from "react-icons/ai";
+import { FaRegUser } from "react-icons/fa";
 
 function TodayStatistics() {
   const dispatch = useDispatch();
@@ -32,56 +37,118 @@ function TodayStatistics() {
       <h4 className={styles.title}>오늘의 통계 </h4>
       <div className={styles["today-statistics-container"]}>
         <div className={styles["today-sales"]}>
-          <h1>
-            {todaySales?.data?.Level !== undefined
-              ? todaySales.data.Level
-              : "Loading..."}
-          </h1>
-          {/* <p>
-            {todaySales?.data?.Ratio !== undefined
-              ? todaySales.data.Ratio
-              : "Loading..."}
-          </p> */}
-          <p>오늘의 매출액</p>
+          <div className={styles["stat-icon-container"]}>
+            <h1>
+              {todaySales?.data?.Level !== undefined
+                ? `${new Intl.NumberFormat("ko-KR", {
+                    style: "currency",
+                    currency: "KRW",
+                  }).format(todaySales.data.Level)}`
+                : "Loading..."}
+            </h1>
+            <TbReportMoney className={styles["stat-icon"]} />
+          </div>
+          <p>매출 총액</p>
+          <p>
+            24시간 전보다{" "}
+            {todaySales?.data?.Ratio !== undefined ? (
+              <span>
+                {todaySales.data.Ratio > 0 ? (
+                  <FaArrowUp style={{ color: "green", marginRight: "4px" }} /> // Upward arrow for positive ratio
+                ) : todaySales.data.Ratio < 0 ? (
+                  <FaArrowDown style={{ color: "red", marginRight: "4px" }} /> // Downward arrow for negative ratio
+                ) : null}
+                {`${Math.abs(todaySales.data.Ratio * 100).toFixed(2)}%`}{" "}
+              </span>
+            ) : (
+              "Loading..."
+            )}
+          </p>
         </div>
         <div className={styles["today-quantity"]}>
-          <h1>
-            {todayQuantity?.data?.Level !== undefined
-              ? todayQuantity.data.Level
-              : "Loading..."}
-          </h1>
-          {/* <p>
-            {todayQuantity?.data?.Ratio !== undefined
-              ? todayQuantity.data.Ratio
-              : "Loading..."}
-          </p> */}
-          <p>오늘의 상품 총 판매량</p>
+          <div className={styles["stat-icon-container"]}>
+            <h1>
+              {todayQuantity?.data?.Level !== undefined
+                ? `${new Intl.NumberFormat("ko-KR").format(
+                    todayQuantity.data.Level
+                  )}` // Format in #,000 format
+                : "Loading..."}
+            </h1>
+            <BiPurchaseTag className={styles["stat-icon"]} />
+          </div>
+
+          <p>주문 수량</p>
+          <p>
+            24시간 전보다{" "}
+            {todayQuantity?.data?.Ratio !== undefined ? (
+              <span>
+                {todayQuantity.data.Ratio > 0 ? (
+                  <FaArrowUp style={{ color: "green", marginRight: "4px" }} /> // Upward arrow for positive ratio
+                ) : todayQuantity.data.Ratio < 0 ? (
+                  <FaArrowDown style={{ color: "red", marginRight: "4px" }} /> // Downward arrow for negative ratio
+                ) : null}
+                {`${Math.abs(todayQuantity.data.Ratio * 100).toFixed(2)}%`}{" "}
+              </span>
+            ) : (
+              "Loading..."
+            )}
+          </p>
         </div>
         <div className={styles["today-items"]}>
-          <h1>
-            {todayItems?.data?.Level !== undefined
-              ? todayItems.data.Level
-              : "Loading..."}
-          </h1>
-          {/* <p>
-            {todayItems?.data?.Ratio !== undefined
-              ? todayItems.data.Ratio
-              : "Loading..."}
-          </p> */}
-          <p>오늘의 상품 판매 종류</p>
+          <div className={styles["stat-icon-container"]}>
+            <h1>
+              {todayItems?.data?.Level !== undefined
+                ? `${new Intl.NumberFormat("ko-KR").format(
+                    todayItems.data.Level
+                  )}` // Format in #,000 format
+                : "Loading..."}
+            </h1>
+            <AiOutlineProduct className={styles["stat-icon"]} />
+          </div>
+          <p>판매 상품</p>
+          <p>
+            24시간 전보다{" "}
+            {todayItems?.data?.Ratio !== undefined ? (
+              <span>
+                {todayItems.data.Ratio > 0 ? (
+                  <FaArrowUp style={{ color: "green", marginRight: "4px" }} />
+                ) : todayItems.data.Ratio < 0 ? (
+                  <FaArrowDown style={{ color: "red", marginRight: "4px" }} />
+                ) : null}
+                {`${Math.abs(todayItems.data.Ratio * 100).toFixed(2)}%`}{" "}
+              </span>
+            ) : (
+              "Loading..."
+            )}
+          </p>
         </div>
         <div className={styles["today-members"]}>
-          <h1>
-            {todayMembers?.data?.Level !== undefined
-              ? todayMembers.data.Level
-              : "Loading..."}
-          </h1>
-          {/* <p>
-            {todayMembers?.data?.Ratio !== undefined
-              ? todayMembers.data.Ratio
-              : "Loading..."}
-          </p> */}
-          <p>오늘의 신규 가입 회원 수</p>
+          <div className={styles["stat-icon-container"]}>
+            <h1>
+              {todayMembers?.data?.Level !== undefined
+                ? `${new Intl.NumberFormat("ko-KR").format(
+                    todayMembers.data.Level
+                  )}` // Format in #,000 format
+                : "Loading..."}
+            </h1>
+            <FaRegUser className={styles["stat-icon"]} />
+          </div>
+          <p>신규 회원</p>
+          <p>
+            24시간 전보다{" "}
+            {todayMembers?.data?.Ratio !== undefined ? (
+              <span>
+                {todayMembers.data.Ratio > 0 ? (
+                  <FaArrowUp style={{ color: "green", marginRight: "4px" }} />
+                ) : todayMembers.data.Ratio < 0 ? (
+                  <FaArrowDown style={{ color: "red", marginRight: "4px" }} />
+                ) : null}
+                {`${Math.abs(todayMembers.data.Ratio * 100).toFixed(2)}%`}{" "}
+              </span>
+            ) : (
+              "Loading..."
+            )}
+          </p>
         </div>
       </div>
     </>
