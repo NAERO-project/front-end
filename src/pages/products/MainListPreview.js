@@ -18,7 +18,7 @@ function MainListPreview(){
 
     const params = useParams();                 //URL에서 파라미터 가져오기
     const [largeId, setLargeId] = useState(1)     //largeId를 가져온다
-    const mediumCategoryId = params.mediumId;
+    // const mediumCategoryId = params.mediumId;
 
     
     useEffect(()=>{
@@ -64,7 +64,7 @@ function MainListPreview(){
                     <span>더보기</span>
                     <span className={ButtonCSS.icon01}>-&gt;</span>
                 </button> */}
-                <NavLink to={`/products/more/${largeId}`} className={ButtonCSS.main_button}>
+                <NavLink to={`/products/more`} className={ButtonCSS.main_button}>
                     <span>더보기</span>
                     <span className={ButtonCSS.icon01}>-&gt;</span>
                 </NavLink>

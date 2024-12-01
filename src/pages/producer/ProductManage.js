@@ -82,7 +82,7 @@ function ProductManage() {
                         <col width="7%" />
                         <col width="8%" />
                         <col width="25%" />
-                        <col width="15%" />
+                        {/* <col width="15%" /> */}
                         <col width="8%" />
                         <col width="5%" />
                         <col width="10%" />
@@ -92,8 +92,8 @@ function ProductManage() {
                             <th>상품번호</th>
                             <th>상품명</th>
                             <th>상품가격</th>
-                            <th>상품사진</th>
                             <th>내용</th>
+                            {/* <th>상품사진</th> */}
                             <th>카테고리</th>
                             <th>판매여부</th>
                             <th></th>
@@ -110,7 +110,9 @@ function ProductManage() {
                                     <td>{p.productName}</td>
                                     <td>{p.productPrice}</td>
                                     <td>{p.productDesc}</td>
-                                    <td><img src={p.productImage} alt="상품사진" /></td>
+                                    {/* <td><img src={p.productImage} alt="상품사진" /></td> */}
+                                    {/* <td>{p.addPrice}</td>
+                                    <td>{p.optionDesc}</td> */}
                                     <td>{p.smallCategory.smallCategoryName}</td>
                                     <td>{p.productCheck}</td>
                                     <td className={ProductManageCSS.manage_btns}>

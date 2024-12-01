@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { callAdminBannerApi } from "../../apis/BannerApiCall";
+import { callAdminBannerApi, callBannerDeleteApi } from "../../apis/BannerApiCall";
 
 function AdminBannerManage(){
 
@@ -42,6 +42,13 @@ function AdminBannerManage(){
     const onClickBannerUpdate = (bannerId) =>{
         navigate(`/admin/banner-update/${bannerId}`)
     }
+
+    const onClickBannerDelete = bannerId =>{
+        dispatch(callBannerDeleteApi(bannerId)).then(() =>{
+            console.log('delete bannerId', bannerId)
+            fetchData();
+        });
+    };
 
     return(
         <div>
@@ -100,7 +107,7 @@ function AdminBannerManage(){
                                     <td></td>
                                     <td>
                                         <button onClick={() =>onClickBannerUpdate(b.bannerId)}>등록</button>
-                                        <button>삭제</button>
+                                        <button onClick={() =>onClickBannerDelete(b.bannerId)}>삭제</button>
                                     </td>
                                 </tr>
                             ))}
