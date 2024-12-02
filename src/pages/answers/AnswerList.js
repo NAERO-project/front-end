@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { callAnswerListApi, callQuestionListApi } from "../../apis/AnswerAPICalls";
 import { GET_ANSWERS, GET_ALL_QUESTIONS } from "../../modules/AnswerModule";
+
+import AnswerListCSS from "./css/AnswerList.module.css";
+import ProductMoreCSS from "../products/css/ProductMore.module.css";
 
 function AnswerList() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // 질문과 답변 데이터를 각각 가져오기
     const questionsList = useSelector((state) => state.answerReducer.questions || []);
     const answersList = useSelector((state) => state.answerReducer.answers || []);
     const pageInfo = useSelector((state) => state.answerReducer.pageInfo || { pageEnd: 0 });
@@ -17,7 +18,6 @@ function AnswerList() {
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
-        // 답변 목록 API 호출
         dispatch(callAnswerListApi({ currentPage }))
             .then((response) => {
                 if (response && response.status === 200) {
@@ -25,7 +25,6 @@ function AnswerList() {
                 }
             });
 
-        // 질문 목록 API 호출
         dispatch(callQuestionListApi({ currentPage }))
             .then((response) => {
                 if (response && response.status === 200) {
@@ -34,68 +33,54 @@ function AnswerList() {
             });
     }, [dispatch, currentPage]);
 
-    console.log("questionsList", questionsList);
-    console.log("answersList", answersList);
-
     const pageNumber = [];
     if (pageInfo.pageEnd > 0) {
         for (let i = 1; i <= pageInfo.pageEnd; i++) {
             pageNumber.push(i);
         }
     }
-// 
+
     return (
-<div>
-    <h1>답변 목록 페이지</h1>
-    {Array.isArray(questionsList) && questionsList.length > 0 ? (
-        <ul>
-            {questionsList.map((question) => {
-                // 각 질문에 대한 답변 필터링
-                const questionAnswers = answersList.filter(
-                    (answer) => answer.questionId === question.questionId
-                );
+        <div className={AnswerListCSS.box}>
+            {Array.isArray(questionsList) && questionsList.length > 0 ? (
+                <ul>
+                    {questionsList.map((question) => {
+                        const questionAnswers = answersList.filter(
+                            (answer) => answer.questionId === question.questionId
+                        );
 
-                return (
-                    <li key={question.questionId}>
-                        {/* 질문 제목을 클릭하면 해당 질문에 대한 상세 페이지로 이동 */}
-                        <Link
-                            to={`/admin/answers/detail/${question.questionId}/${
-                                questionAnswers.length > 0 ? questionAnswers[0].answerId : "0"
-                            }`}
-                        >
-                            <h3>제목: {question.questionTitle}</h3>
-                        </Link>
-                        <p>질문 상태: {question.questionStatus ? "답변 완료" : "답변 미완료"}</p>
+                        return (
+                            <li className={AnswerListCSS.li_box} key={question.questionId}>
+                                <Link className={AnswerListCSS.link}
+                                    to={`/admin/answers/detail/${question.questionId}/${
+                                        questionAnswers.length > 0 ? questionAnswers[0].answerId : "0"
+                                    }`}
+                                >
+                                    <h4 style={{ width: '450px', padding: '12px 0 0 0' }}>{question.questionTitle}</h4>
+                                </Link>
+                                <div style={{width: '1px', height: '50px', backgroundColor: '#41535c'}}></div>
+                                <p>{question.questionStatus ? "답변 완료" : "답변 미완료"}</p>
+                                <div style={{width: '1px', height: '50px', backgroundColor: '#41535c'}}></div>
+                                {questionAnswers.length > 0 ? (
+                                    <ul>
+                                        {questionAnswers.map((answer) => (
+                                            <li style={{width: '500px'}} key={answer.answerId}>
+                                                <p>답변: {answer.answerTitle}</p>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                ) : (
+                                    <p style={{width: '500px'}}>답변이 없습니다.</p>
+                                )}
+                            </li>
+                        );
+                    })}
+                </ul>
+            ) : (
+                <p>등록된 질문이 없습니다.</p>
+            )}
 
-                        {questionAnswers.length > 0 ? (
-                            <ul>
-                                {questionAnswers.map((answer) => (
-                                    <li key={answer.answerId}>
-                                        <p>답변: {answer.answerTitle}</p>
-                                    </li>
-                                ))}
-                            </ul>
-                        ) : (
-                            <p>답변이 없습니다.</p>
-                        )}
-                    </li>
-                );
-            })}
-        </ul>
-    ) : (
-        <p>등록된 질문이 없습니다.</p>
-    )}
-
-
-
-
-           <div
-                style={{
-                    listStyleType: "none",
-                    display: "flex",
-                    justifyContent: "center",
-                }}
-            >
+            <div className={ProductMoreCSS.product_paging} style={{padding: '50px 0 0 0'}}>
                 {Array.isArray(questionsList) && (
                     <button
                         onClick={() => setCurrentPage(currentPage - 1)}
@@ -105,12 +90,18 @@ function AnswerList() {
                         &lt;
                     </button>
                 )}
-                {pageNumber?.map((num) => (
-                    <li key={num} onClick={() => setCurrentPage(num)}>
+                {pageNumber.map((num) => (
+                    <li key={num}
+                    style={
+                        currentPage === num
+                            ? { backgroundColor: "#647453" }
+                            : null
+                    }
+                    onClick={() => setCurrentPage(num)}>
                         <button
                             style={
                                 currentPage === num
-                                    ? { backgroundColor: "lightgreen" }
+                                    ? { color: "#fff", fontWeight: '500' }
                                     : null
                             }
                             className=""
@@ -125,7 +116,7 @@ function AnswerList() {
                         onClick={() => setCurrentPage(currentPage + 1)}
                         disabled={
                             currentPage === pageInfo.pageEnd ||
-                            pageInfo.total === 0
+                            pageInfo.total == 0
                         }
                     >
                         &gt;

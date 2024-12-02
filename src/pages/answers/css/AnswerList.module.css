@@ -1,0 +1,51 @@
+.box {
+    padding: 20px;
+    background-color: #f9f9f9; /* 배경색 */
+    border-radius: 8px; /* 모서리 둥글게 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+}
+
+.li_box {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px; /* 각 질문 간격 */
+    padding: 10px;
+    border: 1px solid #ddd; /* 테두리 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    background-color: #fff; /* 흰색 배경 */
+    transition: background-color 0.3s; /* 배경색 변화 효과 */
+}
+
+.li_box:hover {
+    background-color: #f0f0f0; /* 마우스 오버 시 배경색 변화 */
+}
+
+.link {
+    text-decoration: none; /* 링크 밑줄 제거 */
+    color: #41535c; /* 링크 색상 */
+    font-weight: bold; /* 글자 두껍게 */
+}
+
+/* .link:hover {
+    color: #2c3e50; 마우스 오버 시 링크 색상 변화
+} */
+
+button {
+    padding: 5px 10px; /* 버튼 패딩 */
+    margin: 0 5px; /* 버튼 간격 */
+    border: none; /* 테두리 없음 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    background-color: #41535c; /* 버튼 배경색 */
+    color: white; /* 버튼 텍스트 색상 */
+    cursor: pointer; /* 커서 포인터 */
+    transition: background-color 0.3s; /* 배경색 변화 효과 */
+}
+
+/* button:hover {
+    background-color: #34495e; 마우스 오버 시 버튼 색상 변화
+} */
+
+button:disabled {
+    background-color: #ccc; /* 비활성화된 버튼 색상 */
+    cursor: not-allowed; /* 비활성화된 버튼 커서 */
+}
