@@ -223,7 +223,6 @@ return (
                 )}
             </div>
         </div>
-        <Footer/>
     </>
         
     );
