@@ -6,6 +6,7 @@ import { decodeJwt } from "../../utils/tokenUtils";
 
 import QuestionCreateCSS from "./css/QuestionCreate.module.css";
 import UserInfoCSS from "../../components/signup/css/UserInfoForm.module.css";
+import Footer from '../../components/common/Footer';
 
 function QuestionCreate() {
     const dispatch = useDispatch();
@@ -30,7 +31,8 @@ function QuestionCreate() {
     };
 
     return (
-        <div className={QuestionCreateCSS.box}>
+        <>
+                <div className={QuestionCreateCSS.box}>
             <div className={QuestionCreateCSS.create}>
                 <div>
                     <h3>1:1 문의</h3>
@@ -67,6 +69,9 @@ function QuestionCreate() {
             </div>
 			</div>
         </div>
+        <Footer/>
+        </>
+        
     );
 }
 

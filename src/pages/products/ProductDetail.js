@@ -13,6 +13,8 @@ import { FaRegHeart } from "react-icons/fa6";
 import { LuShoppingCart } from "react-icons/lu";
 import { IoCardOutline } from "react-icons/io5";
 
+import Footer from "../../components/common/Footer";
+
 // // 상품 후기
 // import { callReviewsByProductAPI } from "../../apis/ReviewAPICall";
 
@@ -276,6 +278,7 @@ function ProductDetail() {
                     </div>
                 </div>
             </div>
+            <Footer/>
         </div>
     );
 }

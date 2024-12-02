@@ -3,6 +3,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { decodeJwt } from "../../utils/tokenUtils";
 import { useEffect, useState } from "react";
 import { callBannerDeleteApi, callProducerBannerApi } from "../../apis/BannerApiCall";
+import BannerRegist from "./BannerRegist";
+import BannerManageCSS from "./css/BannerManage.module.css";
+import ProductMoreCSS from "../products/css/ProductMore.module.css";
 
 function BannerManage(){
 
@@ -22,6 +25,8 @@ function BannerManage(){
     const [start, setStart] = useState(0);
 
     const [currentPage, setCurrentPage] = useState(1);
+
+    const [isModalOpen, setModalOpen] = useState(false); // 모달 상태 관리
 
     const pageNumber = [];
     if (pageInfo) {
@@ -45,8 +50,20 @@ function BannerManage(){
     }, [currentPage]);
 
     const onClickProductInsert = () => {
-        navigate("/producer/banner-regist", { replace: false });
+        setModalOpen(true); // 모달 열기
     };
+
+    const handleCloseModal = (success) => {
+        setModalOpen(false); // 모달 닫기
+        if (success) {
+            // 성공적으로 등록된 경우 추가 로직
+            dispatch(callProducerBannerApi({ currentPage, producerUsername })); // 배너 목록 새로고침
+        }
+    };
+
+    // const onClickProductInsert = () => {
+    //     navigate("/producer/banner-regist", { replace: false });
+    // };
 
 
 
@@ -54,7 +71,7 @@ function BannerManage(){
         <div>
             <div>
                 <div></div>
-                <button onClick={onClickProductInsert}>등록</button>
+                <button className={BannerManageCSS.create_btn} onClick={onClickProductInsert}>등록</button>
             </div>
             <table>
                     {/* 판매자의 상품 리스트 조회하는 부분 */}
@@ -115,13 +132,18 @@ function BannerManage(){
                                     <td>{b.bannerAcceptStatus}</td>
                                     <td>{b.approverId}</td>
                                     {/* <td></td> */}
-                                    <td>
-                                        <button>삭제</button>
+                                    <td className={BannerManageCSS.table_banner}>
+                                        <button className={BannerManageCSS.delete_btn}>삭제</button>
                                     </td>
                                 </tr>
                             ))}
                     </tbody>
                 </table>
+
+                {/* 모달 컴포넌트 추가 */}
+            {isModalOpen && (
+                <BannerRegist onClose={handleCloseModal} />
+            )}
         </div>
     );
 }

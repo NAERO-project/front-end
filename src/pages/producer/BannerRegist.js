@@ -4,7 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { decodeJwt } from "../../utils/tokenUtils";
 import { callInsertBannerApi } from "../../apis/BannerApiCall";
 
-function BannerRegist(){
+import BannerRegistCSS from "./css/BannerRegist.module.css";
+
+function BannerRegist({onClose}){
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -74,35 +76,39 @@ function BannerRegist(){
         );
 
         alert("등록되었습니다.");
+        onClose(true); // 모달 닫기
         navigate("/producer/banner-manage", { replace: true });
         // window.location.reload();
     };
 
 
     return(
-        <div>
-            <div>
-                <button onClick={onClickBannerRegistHandler}>배너 등록</button>
-            </div>
-            <div>
+        <>
+            
+            <div className={BannerRegistCSS.box}>
+                <div className={BannerRegistCSS.banner}>
+                    {imageUrl && <img src={imageUrl} alt="preview" />}
+                    <input
+                        className={BannerRegistCSS.img_box}
+                        style={{ display: "none" }}
+                        type="file"
+                        name="bannerImg"
+                        accept="image/jpg,image/png,image/jpeg,image/gif"
+                        onChange={onChangeImageUpload}
+                        ref={imageInput}
+                    />
+                    <button  className={BannerRegistCSS.regist_btn01} onClick={onClickImageUpload}>
+                        이미지 등록
+                    </button>
+                </div>
                 <div>
-                    <div>
-                        {imageUrl && <img src={imageUrl} alt="preview" />}
-                        <input
-                            style={{ display: "none" }}
-                            type="file"
-                            name="bannerImg"
-                            accept="image/jpg,image/png,image/jpeg,image/gif"
-                            onChange={onChangeImageUpload}
-                            ref={imageInput}
-                        />
-                        <button onClick={onClickImageUpload}>
-                            배너 이미지 업로드
-                        </button>
-                    </div>
+                    <button className={BannerRegistCSS.regist_btn} onClick={onClickBannerRegistHandler}>배너 등록</button>
+                    <button className={BannerRegistCSS.close_btn} onClick={() => onClose(false)}>닫기</button> {/* 닫기 버튼 추가 */}
                 </div>
             </div>
-        </div>
+            <div className={BannerRegistCSS.blur}></div>
+        </>
+        
     );
 }
 

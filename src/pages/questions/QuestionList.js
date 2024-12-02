@@ -7,6 +7,7 @@ import { decodeJwt } from "../../utils/tokenUtils";
 
 import QuestionListCSS from "./css/QuestionListCSS.module.css";
 import ProductMoreCSS from "../products/css/ProductMore.module.css";
+import Footer from "../../components/common/Footer";
 
 function QuestionList() {
     const dispatch = useDispatch();
@@ -69,6 +70,7 @@ function QuestionList() {
 
 
 return (
+    <>
         <div className={QuestionListCSS.box}>
             <div className={QuestionListCSS.question}>
                 <div>
@@ -88,7 +90,7 @@ return (
                     <col width="30%" />
                     <col width="30%" />
                 </colgroup>
-                <thead>
+                <thead className={QuestionListCSS.question_thead}>
                     <tr>
                         <th>제목</th>
                         <th>작성일</th>
@@ -215,6 +217,9 @@ return (
                 )}
             </div>
         </div>
+        <Footer/>
+    </>
+        
     );
 }
 
