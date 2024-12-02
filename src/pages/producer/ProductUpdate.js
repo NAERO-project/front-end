@@ -4,6 +4,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { decodeJwt } from "../../utils/tokenUtils";
 import { callProductDetailApi, callUpdateProductApi } from "../../apis/ProductApiCall";
 
+
+import ProductManageCSS from "./css/ProductManage.module.css";
+import ProductRegistCSS from "./css/ProductRegist.module.css";
+import UserInfoCSS from "../../components/signup/css/UserInfoForm.module.css";
+
 function ProductUpdate() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -303,138 +308,140 @@ function ProductUpdate() {
     };
 
     return (
-        <div>
+        <div className={ProductManageCSS.manage_box} style={{padding: '114px 0 0 0'}}>
             <div>
-                <h2>상품 수정</h2>
-                <div>
-                    <div>
-                        {imageUrl && <img src={imageUrl} alt="상품 이미지" />}
-                        <input
-                            type="file"
-                            ref={imageInput}
-                            style={{ display: "none" }}
-                            onChange={onChangeImageUpload}
+
+                <div className={UserInfoCSS.info}>
+                    <p>상품 이름</p>
+                    <div className={UserInfoCSS.txt}>
+                    <input
+                        value={form.productName}
+                        name="productName"
+                        onChange={onChangeHandler}
                         />
-                        <button onClick={onClickImageUpload}>
-                            상품 이미지 업로드
+                    </div>
+                </div>
+
+            <div style={{display: 'flex', flexFlow: 'row'}}>
+                <div style={{margin: '0 15px 0 0'}} className={UserInfoCSS.info}>
+                    <p>상품 가격</p>
+                    <div className={UserInfoCSS.txt}>
+                        <input
+                            name="productPrice"
+                            type="number"
+                            value={form.productPrice}
+                            onChange={onChangeHandler}
+                        />
+                    </div>
+                </div>
+            </div>
+
+
+                <div style={{display: 'flex', flexFlow: 'row'}}>
+                    <div className={UserInfoCSS.info}>
+                        <label>판매 여부</label>
+                    </div>
+                    <div >
+                        <label className={UserInfoCSS.txt} style={{width: '100px', padding: '5px, 10px', margin: '0 15px'}}>
+                            <input
+                                type="radio"
+                                name="productCheck"
+                                checked={form.productCheck === "Y"}
+                                value="Y"
+                                onChange={onChangeHandler}
+                                style={{cursor: 'pointer'}}
+                            />{" "}
+                            Y
+                        </label>
+                        <label className={UserInfoCSS.txt} style={{width: '100px', padding: '5px, 10px'}}>
+                            <input
+                                type="radio"
+                                name="productCheck"
+                                checked={form.productCheck === "N"}
+                                value="N"
+                                onChange={onChangeHandler}
+                                style={{cursor: 'pointer'}}
+                            />{" "}
+                            N
+                        </label>
+                    </div>
+                </div>
+
+
+                <div className={UserInfoCSS.info} style={{width: '400px'}}>
+                    <p>소분류</p>
+                    <div className={UserInfoCSS.txt}>
+                    <select
+                            style={{width: '95%', padding: '5px 10px'}}
+                            name="smallCategory"
+                            value={form?.smallCategory?.smallCategoryId}
+                            onChange={onChangeSmallCategoryHandler}
+                            disabled={!selectedMediumCategory}
+                        >
+                            <option value="">소분류 선택</option>{" "}
+                            {/* 기본 선택 옵션 */}
+                            <option value="">소분류 선택</option>
+                            {Array.isArray(smallCategories) &&
+                                smallCategories?.map((category) => (
+                                    <option
+                                        key={category.smallCategoryId}
+                                        value={category.smallCategoryId}
+                                    >
+                                        {category.smallCategoryName}
+                                    </option>
+                                ))}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div className={UserInfoCSS.info}>
+				<p>옵션 추가</p>
+				<div>
+                    <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                        <div className={UserInfoCSS.txt} style={{width: '250px'}}>
+                        <input
+                            
+                            name="optionDesc"
+                            placeholder="옵션 설명"
+                            value={option.optionDesc || ""}
+                            onChange={onChangeOptionInputHandler}
+                        />
+                        </div>
+
+                        <div className={UserInfoCSS.txt} style={{width: '250px', margin: '0 30px'}}>
+                        <input
+                            name="addPrice"
+                            placeholder="추가 가격"
+                            type="number"
+                            value={option.addPrice || 0}
+                            onChange={onChangeOptionHandler}
+                        />
+                        </div>
+                        
+                        <div className={UserInfoCSS.txt} style={{width: '250px'}}>
+                        <input
+                            name="optionQuantity"
+                            placeholder="옵션 수량"
+                            type="number"
+                            value={option.optionQuantity || 0}
+                            onChange={onChangeOptionHandler}
+                        />
+                        </div>
+                        
+
+                        <button onClick={onAddOptionHandler} style={{width: '93px', height: '38px', borderRadius: '5px', color: '#fff', backgroundColor: '#647453', margin: '0 0 0 10px'}}>
+                            옵션 추가
                         </button>
                     </div>
                 </div>
-                <div>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <label>소분류</label>
-                                </td>
-                                <td>
-                                    <select
-                                        name="smallCategory"
-                                        value={form?.smallCategory?.smallCategoryId}
-                                        onChange={onChangeSmallCategoryHandler}
-                                        disabled={!selectedMediumCategory}
-                                    >
-                                        <option value="">소분류 선택</option>
-                                        {Array.isArray(smallCategories) &&
-                                            smallCategories?.map((category) => (
-                                                <option
-                                                    key={category.smallCategoryId}
-                                                    value={category.smallCategoryId}
-                                                >
-                                                    {category.smallCategoryName}
-                                                </option>
-                                            ))}
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>상품 이름</label>
-                                </td>
-                                <td>
-                                    <input
-                                        name="productName"
-                                        placeholder="상품 이름"
-                                        value={form.productName}
-                                        onChange={onChangeHandler}
-                                    />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>상푸 가격</label>
-                                </td>
-                                <td>
-                                    <input
-                                        name="productPrice"
-                                        placeholder="상품 가격"
-                                        type="number"
-                                        value={form.productPrice}
-                                        onChange={onChangeHandler}
-                                    />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>판매 여부</label>
-                                </td>
-                                <td>
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            name="productCheck"
-                                            value="Y"
-                                            checked={form.productCheck === "Y"}
-                                            onChange={onChangeHandler}
-                                        />{" "}
-                                        Y
-                                    </label>
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            name="productCheck"
-                                            value="N"
-                                            checked={form.productCheck === "N"}
-                                            onChange={onChangeHandler}
-                                        />{" "}
-                                        N
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>옵션 추가</label>
-                                </td>
-                                <td>
-                                    <input
-                                        name="optionDesc"
-                                        placeholder="옵션 설명"
-                                        value={option.optionDesc || ""}
-                                        onChange={onChangeOptionInputHandler}
-                                    />
-                                    <input
-                                        name="addPrice"
-                                        placeholder="추가 가격"
-                                        type="number"
-                                        value={option.addPrice || 0}
-                                        onChange={onChangeOptionInputHandler}
-                                    />
-                                    <input
-                                        name="optionQuantity"
-                                        placeholder="옵션 수량"
-                                        type="number"
-                                        value={option.optionQuantity || 0}
-                                        onChange={onChangeOptionInputHandler}
-                                    />
-                                    <button onClick={onAddOptionHandler}>
-                                        옵션 추가
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colSpan="2">
-                                    <h4>옵션 리스트</h4>
-                                    <ul>
+			</div>   
+
+
+            <div style={{width: '100%'}}>
+                            <td colSpan="2" style={{width: '1000px', borderRadius: '15px', padding: '20px'}}>
+                                <h4 style={{fontWeight: '400', color: '#222',}}>옵션 리스트</h4>
+                                <ul>
                                         {form?.options?.map((opt, index) => (
                                             opt.optionCheck === "Y" && (
                                                 <li key={index}>
@@ -460,33 +467,45 @@ function ProductUpdate() {
                                             )
                                         ))}
                                     </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>상품 설명</label>
-                                </td>
-                                <td>
-                                    <textarea
-                                        name="productDesc"
-                                        placeholder="상품 설명"
-                                        value={form.productDesc}
-                                        onChange={onChangeHandler}
-                                    ></textarea>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colSpan="2">
-                                    <button onClick={onSaveHandler}>
-                                        상품 수정 저장하기
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                            </td>
+                        </div>     
+
+                
+                <div style={{width: '500px', height: '112px', backgroundColor: '#fff', position: 'relative', border: '1px solid #222', borderRadius: '15px', overflow: 'hidden', margin: '20px 0'}}>
+                <div style={{width: '100px'}}>
+                    {imageUrl && <img src={imageUrl} alt="preview" />}
+                    <input
+                        style={{ display: "none" }}
+                        type="file"
+                        ref={imageInput}
+                            onChange={onChangeImageUpload}
+                    />
+                    <button style={{width: '100px', height: '40px', color: '#fff', backgroundColor: '#647453', borderRadius: '5px', position: 'absolute', bottom: '20px', right: '20px'}} onClick={onClickImageUpload}>
+                        업로드
+                    </button>
+                </div>
+                </div>
+
+                <div>
+                    <p>상품 설명</p>
+                    
+                    <div style={{width: '100%', height: '100px', overflow: 'scroll'}}>
+                    <textarea
+                            style={{width: '100%', height: '100%'}}
+                            name="productDesc"
+                            placeholder="상품 설명"
+                            value={form.productDesc}
+                            onChange={onChangeHandler}
+                    ></textarea>
+                    </div>
+                </div>
+
+
+               
+                <div style={{margin: '30px 0 0 1220px'}}>
+                    <button style={{width: '125px', height: '50px', fontSize:'21px', borderRadius: '5px', backgroundColor: '#647453', color: '#fff'}} onClick={onSaveHandler}>저장</button>
                 </div>
             </div>
-        </div>
     );
 }
 

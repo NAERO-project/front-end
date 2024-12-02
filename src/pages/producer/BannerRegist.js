@@ -88,18 +88,21 @@ function BannerRegist({onClose}){
             <div className={BannerRegistCSS.box}>
                 <div className={BannerRegistCSS.banner}>
                     {imageUrl && <img src={imageUrl} alt="preview" />}
-                    <input
-                        className={BannerRegistCSS.img_box}
-                        style={{ display: "none" }}
-                        type="file"
-                        name="bannerImg"
-                        accept="image/jpg,image/png,image/jpeg,image/gif"
-                        onChange={onChangeImageUpload}
-                        ref={imageInput}
-                    />
-                    <button  className={BannerRegistCSS.regist_btn01} onClick={onClickImageUpload}>
+                    <div>
+                        <input
+                            className={BannerRegistCSS.img_box}
+                            style={{ width: '100%', borderRadius: '5px', border: '1px solid #647453' }}
+                            type="file"
+                            name="bannerImg"
+                            accept="image/jpg,image/png,image/jpeg,image/gif"
+                            onChange={onChangeImageUpload}
+                            ref={imageInput}
+                        />   
+                    </div>
+                    
+                    {/* <button  className={BannerRegistCSS.regist_btn01} onClick={onClickImageUpload}>
                         이미지 등록
-                    </button>
+                    </button> */}
                 </div>
                 <div>
                     <button className={BannerRegistCSS.regist_btn} onClick={onClickBannerRegistHandler}>배너 등록</button>

@@ -334,7 +334,7 @@ function ProductRegist() {
     };
 
     return (
-        <div className={ProductManageCSS.manage_box}>
+        <div className={ProductManageCSS.manage_box} style={{padding: '114px 0 0 0'}}>
             <div>
 
             <div className={UserInfoCSS.info}>
@@ -342,45 +342,45 @@ function ProductRegist() {
 				<div className={UserInfoCSS.txt}>
                 <input
                         name="productName"
-                        placeholder="상품 이름"
                         onChange={onChangeHandler}
                     />
                 </div>
 			</div>
 
-        <div style={{display: 'flex', justifyContent: 'space-between'}}>
-            <div className={UserInfoCSS.info}>
+        <div style={{display: 'flex', flexFlow: 'row'}}>
+            <div style={{margin: '0 15px 0 0'}} className={UserInfoCSS.info}>
 				<p>상품 가격</p>
 				<div className={UserInfoCSS.txt}>
                     <input
                         name="productPrice"
-                        placeholder="상품 가격"
                         type="number"
                         onChange={onChangeHandler}
                     />
                 </div>
 			</div>
 
-            <div>
-                <div>
+            <div style={{display: 'flex', flexFlow: 'row'}}>
+                <div className={UserInfoCSS.info}>
                     <label>판매 여부</label>
                 </div>
-                <div>
-                    <label>
+                <div >
+                    <label className={UserInfoCSS.txt} style={{width: '100px', padding: '5px, 10px', margin: '0 15px'}}>
                         <input
                             type="radio"
                             name="productCheck"
                             value="Y"
                             onChange={onChangeHandler}
+                            style={{cursor: 'pointer'}}
                         />{" "}
                         Y
                     </label>
-                    <label>
+                    <label className={UserInfoCSS.txt} style={{width: '100px', padding: '5px, 10px'}}>
                         <input
                             type="radio"
                             name="productCheck"
                             value="N"
                             onChange={onChangeHandler}
+                            style={{cursor: 'pointer'}}
                         />{" "}
                         N
                     </label>
@@ -389,14 +389,16 @@ function ProductRegist() {
         </div>
             
 
+        
+
 
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                <div>
-                    <div>
-                        <label>대분류</label>
-                    </div>
-                    <div>
+
+                <div className={UserInfoCSS.info} style={{width: '400px'}}>
+                    <p>대분류</p>
+                    <div className={UserInfoCSS.txt}>
                         <select
+                            style={{width: '95%', padding: '5px 10px'}}
                             value={selectedLargeCategory}
                             onChange={onChangeLargeCategoryHandler}
                         >
@@ -413,12 +415,11 @@ function ProductRegist() {
                     </div>
                 </div>
 
-                <div>
-                    <div>
-                        <label>중분류</label>
-                    </div>
-                    <div>
+                <div className={UserInfoCSS.info} style={{width: '400px'}}>
+                    <p>중분류</p>
+                    <div className={UserInfoCSS.txt} >
                         <select
+                            style={{width: '95%', padding: '5px 10px'}}
                             value={selectedMediumCategory}
                             onChange={onChangeMediumCategoryHandler}
                             disabled={!selectedLargeCategory}
@@ -440,13 +441,11 @@ function ProductRegist() {
                     </div>
                 </div>
 
-
-                <div>
-                    <div>
-                        <label>소분류</label>
-                    </div>
-                    <div>
-                        <select
+                <div className={UserInfoCSS.info} style={{width: '400px'}}>
+                    <p>소분류</p>
+                    <div className={UserInfoCSS.txt}>
+                    <select
+                            style={{width: '95%', padding: '5px 10px'}}
                             name="smallCategory"
                             onChange={onChangeSmallCategoryHandler}
                             disabled={!selectedMediumCategory} // 중분류가 선택되지 않으면 비활성화
@@ -476,12 +475,17 @@ function ProductRegist() {
 				<p>옵션 추가</p>
 				<div>
                     <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                        <div className={UserInfoCSS.txt} style={{width: '250px'}}>
                         <input
+                            
                             name="optionDesc"
                             placeholder="옵션 설명"
                             value={option.optionDesc}
                             onChange={onChangeOptionHandler}
                         />
+                        </div>
+
+                        <div className={UserInfoCSS.txt} style={{width: '250px', margin: '0 30px'}}>
                         <input
                             name="addPrice"
                             placeholder="추가 가격"
@@ -489,6 +493,9 @@ function ProductRegist() {
                             value={option.addPrice}
                             onChange={onChangeOptionHandler}
                         />
+                        </div>
+                        
+                        <div className={UserInfoCSS.txt} style={{width: '250px'}}>
                         <input
                             name="optionQuantity"
                             placeholder="옵션 수량"
@@ -496,8 +503,10 @@ function ProductRegist() {
                             value={option.optionQuantity}
                             onChange={onChangeOptionHandler}
                         />
+                        </div>
+                        
 
-                        <button onClick={onAddOptionHandler}>
+                        <button onClick={onAddOptionHandler} style={{width: '93px', height: '38px', borderRadius: '5px', color: '#fff', backgroundColor: '#647453', margin: '0 0 0 10px'}}>
                             옵션 추가
                         </button>
                     </div>
@@ -505,7 +514,7 @@ function ProductRegist() {
 			</div>
 
             <div style={{width: '100%'}}>
-                <td colSpan="2" style={{width: '100%', borderRadius: '15px', padding: '20px'}}>
+                <td colSpan="2" style={{width: '1000px', borderRadius: '15px', padding: '20px'}}>
                     <h4 style={{fontWeight: '400', color: '#222',}}>옵션 리스트</h4>
                     <ul>
                         {form.options.map((opt, index) => (
@@ -519,8 +528,8 @@ function ProductRegist() {
                 </td>
             </div>
 
-            <div style={{width: '100%', height: '112px', backgroundColor: 'red'}}>
-                <div>
+            <div style={{width: '500px', height: '112px', backgroundColor: '#fff', position: 'relative', border: '1px solid #222', borderRadius: '15px', overflow: 'hidden', margin: '20px 0'}}>
+                <div style={{width: '100px'}}>
                     {imageUrl && <img src={imageUrl} alt="preview" />}
                     <input
                         style={{ display: "none" }}
@@ -530,29 +539,30 @@ function ProductRegist() {
                         onChange={onChangeImageUpload}
                         ref={imageInput}
                     />
-                    <button style={{width: '125px', height: '50px', backgroundColor: '#647453'}} onClick={onClickImageUpload}>
+                    <button style={{width: '100px', height: '40px', color: '#fff', backgroundColor: '#647453', borderRadius: '5px', position: 'absolute', bottom: '20px', right: '20px'}} onClick={onClickImageUpload}>
                         업로드
                     </button>
                 </div>
             </div>
 
+
             <div>
-                <div>
-                    <label>상품 설명</label>
-                </div>
-                <div>
-                    <textarea
+                <p>상품 설명</p>
+				
+				<div style={{width: '100%', height: '100px', overflow: 'scroll'}}>
+                <textarea
+                        style={{width: '100%', height: '100%'}}
                         name="productDesc"
                         placeholder="상품 설명"
                         onChange={onChangeHandler}
-                    ></textarea>
+                ></textarea>
                 </div>
-            </div>
+			</div>
 
 
             </div>
-            <div>
-                <button onClick={onClickProductRegistHandler}> 등록</button>
+            <div style={{margin: '30px 0 0 1220px'}}>
+                <button style={{width: '125px', height: '50px', fontSize:'21px', borderRadius: '5px', backgroundColor: '#647453', color: '#fff'}} onClick={onClickProductRegistHandler}> 등록</button>
             </div>
         </div>
     );
