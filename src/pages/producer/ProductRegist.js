@@ -530,8 +530,8 @@ function ProductRegist() {
                         onChange={onChangeImageUpload}
                         ref={imageInput}
                     />
-                    <button onClick={onClickImageUpload}>
-                        상품 이미지 업로드
+                    <button style={{width: '125px', height: '50px', backgroundColor: '#647453'}} onClick={onClickImageUpload}>
+                        업로드
                     </button>
                 </div>
             </div>
