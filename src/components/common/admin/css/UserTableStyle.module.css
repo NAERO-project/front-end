@@ -18,20 +18,71 @@
     padding: 3px 10px;
 }
 
+tbody tr:nth-child(odd){
+    background-color: #D9E8EF;
+}
+
+tbody tr:nth-child(even){
+    background-color: #fff;
+}
+
 .tr_style:hover{
     background-color: #f5f5f5; /* 행 배경색 변경 */
     cursor: pointer; /* 포인터 커서 */
     color: #333; /* 텍스트 색상 변경 */
 }
 
+.filter_btn{
+    width: 130px;
+    height: 50px;
+    margin: 10px 0;
+    font-size: 21px;
+    border-radius: 5px;
+    color: #41535C;
+    background-color: #fff;
+    border: 1px solid #41535C;
+}
+
 .filter_box{
-    display: flex;
-    position: relative
+    width: 374px;
+    height: 190px;
+    /* display: flex;
+    flex-grow: row; */
+    position: relative;
+    border: 1px solid #41535C;
+    border-radius: 5px;
+    background-color: #fff;
+    /* color: red; */
+}
+
+.filter_list{
+    padding: 10px;
+}
+
+.name{
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 0;
+    color: #ddd;
 }
 
 .filter_item_box{
+    display: flex;
+    flex-flow: row;
+}
+
+.filter_item_box button:nth-child(odd){
+    width: 60px;
+    height: 25px;
+    font-size: 12px;
+    border: 1px solid #cf5346;
+    color: #cf5346;
+    background-color: #fff;
+}
+
+.filter_item{
     padding: 1px;
-    margin: 1px;
+    margin: 0 10px 0 0;
 }
 
 .filter_button{
@@ -39,7 +90,19 @@
 }
 
 .filter_remove_position {
-    position: absolute; /* 부모 요소를 기준으로 위치 조정 */
-    right: 10px; /* 부모의 오른쪽 끝에서 10px 이동 */
-    bottom: 10px;
+    /* position: absolute; 부모 요소를 기준으로 위치 조정
+    right: 10px; 부모의 오른쪽 끝에서 10px 이동
+    bottom: 10px; */
+    /* display: flex; */
+    width: 334px;
+    height: 30px;
+    text-align: center;
+    /* margin: 0 auto; */
+    /* padding: 0 0 0 5px; */
+    border-radius: 5px;
+    margin: 0 auto;
+    font-size: 12px;
+    color: #fff;
+    background-color: #cf5346;
 }
+

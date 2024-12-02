@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { callAdminBannerApi, callBannerDeleteApi } from "../../apis/BannerApiCall";
+import AdminBannerUpdate from "./AdminBannerUpdate";
 
 function AdminBannerManage(){
 
@@ -22,6 +23,10 @@ function AdminBannerManage(){
 
     const [currentPage, setCurrentPage] = useState(1);
 
+    const [isModalOpen, setModalOpen] = useState(false); // 모달 상태 관리
+    const [selectedBannerId, setSelectedBannerId] = useState(null); // 선택된 배너 ID
+
+
     const pageNumber = [];
     if (pageInfo) {
         for (let i = 1; i <= pageInfo.pageEnd; i++) {
@@ -39,15 +44,20 @@ function AdminBannerManage(){
         }))
     }
 
-    const onClickBannerUpdate = (bannerId) =>{
-        navigate(`/admin/banner-update/${bannerId}`)
-    }
+    // const onClickBannerUpdate = (bannerId) =>{
+    //     navigate(`/admin/banner-update/${bannerId}`)
+    // }
 
     const onClickBannerDelete = bannerId =>{
         dispatch(callBannerDeleteApi(bannerId)).then(() =>{
             console.log('delete bannerId', bannerId)
             fetchData();
         });
+    };
+
+    const onClickBannerUpdate = (bannerId) => {
+        setSelectedBannerId(bannerId); // 선택된 배너 ID 설정
+        setModalOpen(true); // 모달 열기
     };
 
     return(
@@ -105,14 +115,21 @@ function AdminBannerManage(){
                                     <td>{b.bannerAcceptStatus}</td>
                                     <td>{b.approverId}</td>
                                     <td></td>
-                                    <td>
-                                        <button onClick={() =>onClickBannerUpdate(b.bannerId)}>등록</button>
-                                        <button onClick={() =>onClickBannerDelete(b.bannerId)}>삭제</button>
+                                    <td style={{padding: '5px 10px'}}>
+                                        <button style={{width: '70px', height: '30px', backgroundColor: '#41535c', color: '#fff', borderRadius: '5px'}} onClick={() =>onClickBannerUpdate(b.bannerId)}>등록</button>
+                                        {/* <button onClick={() =>onClickBannerDelete(b.bannerId)}>삭제</button> */}
                                     </td>
                                 </tr>
                             ))}
                     </tbody>
                 </table>
+
+                {/* 모달 컴포넌트 추가 */}
+            {isModalOpen && (
+                <div className="modal">
+                    <AdminBannerUpdate bannerId={selectedBannerId} onClose={() => setModalOpen(false)} /> {/* 모달 닫기 */}
+                </div>
+            )}
         </div>
     );
 }

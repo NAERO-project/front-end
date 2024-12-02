@@ -43,7 +43,7 @@ function AnswerList() {
             pageNumber.push(i);
         }
     }
-
+// 
     return (
 <div>
     <h1>답변 목록 페이지</h1>

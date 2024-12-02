@@ -1,5 +1,6 @@
 import { useState } from "react";
-import TableCSS from "./css/UserTableStyle.module.css"
+import  TableCSS from "./css/UserTableStyle.module.css"
+import FilterToggleCSS from "./css/AdminFilterToggle.module.css";
 
 function FilterModal(props) {
     const {state, setState, filters } = props
@@ -31,7 +32,7 @@ function FilterModal(props) {
 
     return (
         <div>
-            <button onClick={() => { setToggle(!toggle) }}> {toggleButton() }</button>
+            <button className={TableCSS.filter_btn} onClick={() => { setToggle(!toggle) }}> {toggleButton() }</button>
             {toggle &&  <div className={TableCSS.filter_box}>
                 {
                 filterKeyword.map((colum, index, array) => {
@@ -41,9 +42,18 @@ function FilterModal(props) {
                 const values = filters[colum].value
                 // console.log("keys", keys)
                 return (
-                    <div>
-                        <p className={TableCSS.filter_item_box}>{filters[colum].name}</p>
-                        <button onClick={() => {
+                    <div className={TableCSS.filter_list} key={colum}>
+                        <div>
+                        <div className={TableCSS.name}>
+                            <p className={TableCSS.filter_item_box}>{filters[colum].name}</p>
+                        </div>
+                      
+                        <div className={TableCSS.filter_item_box}>{
+                            keys.map((value, index) => {
+                                return (<p  className={TableCSS.filter_item}><input type="radio" name={colum} value={value} onChange={checkHandler} /><label>{values[value]}</label></p>)
+                            })}
+                        
+                        <button className={TableCSS.btn2} onClick={() => {
                             const radios = document.getElementsByName(colum);
                             console.log(radios);
                             if (state.filter[colum]) {
@@ -61,10 +71,14 @@ function FilterModal(props) {
                                 });
                             }
                         }}>필터 해제</button>
-                        {
-                            keys.map((value, index) => {
-                                return (<p  className={TableCSS.filter_item_box}><input type="radio" name={colum} value={value} onChange={checkHandler} /><label>{values[value]}</label></p>)
-                            })}
+                        
+                        </div>
+                        </div>
+                        
+
+                        
+                        
+                        
                     </div>)
             })
                 }

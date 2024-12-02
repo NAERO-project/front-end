@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { callBannerUpdateApi } from "../../apis/BannerApiCall";
 
-function AdminBannerUpdate(){
+function AdminBannerUpdate({bannerId, onClose}){
 
     const dispatch = useDispatch();
-    const params = useParams();
-    const bannerId = params.bannerId;
+    // const params = useParams();
+    // const bannerId = params.bannerId;
 
     const banners = useSelector(state => state.bannerReducer);
     const bannerList = banners.data;
@@ -43,6 +43,7 @@ function AdminBannerUpdate(){
         }));
 
         alert('배너 등록했습니다.');
+        onClose(); // 모달 닫기
         navigate('/admin/banner-manage', {replace: true});
     }
 
@@ -65,6 +66,7 @@ function AdminBannerUpdate(){
             <div>
                 <button onClick={onClickBannerUpdateHandler}>배너 등록</button>
             </div>
+            <button onClick={onClose}>닫기</button> {/* 닫기 버튼 추가 */}
         </div>
     );
 }
