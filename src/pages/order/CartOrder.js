@@ -102,7 +102,7 @@ function CartOrder() {
             }));
             const addPoint =  (calculateOrderTotalAmount() +
             (orderData.orderDTO?.deliveryFee || 0) -
-            (payRequest.orderDTO.couponDiscount || 0)) * 0.01;
+            (parseInt(payRequest.orderDTO.couponDiscount, 10) || 0)) * 0.01;
             console.log("addPoint", addPoint);
             setUserPoint(addPoint);
             // setPoint(addPoint);
@@ -475,7 +475,7 @@ const processEasyPay = async (provider) => {
                 <h3>배송지 정보</h3>
 
                 <div style={{margin: '0 0 20px 0'}}>
-                    <label style={{margin: '0 10px 0 0'}}>이름 :</label>
+                    <label style={{margin: '0 30px 0 0'}}>이름 :</label>
                     <input
                         style={{width: '408px', padding: '5px 10px', margin: '0 30px 0 0'}} 
                         className={UserInfoCSS.txt}
@@ -486,7 +486,7 @@ const processEasyPay = async (provider) => {
                         onChange={onChangeHandler}
                     />
 
-                    <label style={{margin: '0 10px 0 0'}}>전화번호 :</label>
+                    <label style={{margin: '0 30px 0 0'}}>전화번호 :</label>
                     <input
                         style={{width: '408px', padding: '5px 10px', margin: '0 30px 0 0'}} 
                         className={UserInfoCSS.txt}
@@ -499,6 +499,7 @@ const processEasyPay = async (provider) => {
                 </div>
                 
                 <div style={{margin: '0 0 20px 0'}}>
+                <label style={{margin: '0 10px 0 0'}}>우편번호 :</label>
                     <input
                         style={{width: '408px', padding: '5px 10px', margin: '0 30px 0 0'}} 
                         className={UserInfoCSS.txt}
@@ -511,6 +512,7 @@ const processEasyPay = async (provider) => {
                 </div>
                 
                 
+                <label style={{margin: '0 23px 0 0'}}>도로명 :</label>
                 <input
                     style={{width: '408px', padding: '5px 10px', margin: '0 0 20px 0'}} 
                     className={UserInfoCSS.txt}
@@ -520,6 +522,7 @@ const processEasyPay = async (provider) => {
                     placeholder="주소를 입력하세요"
                 />
                 <br />
+                <label style={{margin: '0 15px 0 0'}}>상세주소 :</label>
                 <input
                     style={{width: '408px', padding: '5px 10px', margin: '0 0 20px 0'}} 
                     className={UserInfoCSS.txt}

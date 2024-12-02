@@ -39,7 +39,7 @@ function QuestionList() {
                 })
             );
         }
-    }, [dispatch, currentPage, username]);
+    }, [questionsList, currentPage, username]);
 
     useEffect(() => {
         // questionStatus를 이용해 답변 존재 여부 확인 후 답변 상세 정보 가져오기
