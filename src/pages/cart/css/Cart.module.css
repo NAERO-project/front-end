@@ -37,7 +37,7 @@
     height: 137px;
     box-sizing: border-box;
     overflow: hidden;
-    background-color: red;
+    /* background-color: red; */
 }
 
 .txt{
@@ -45,8 +45,8 @@
     display: flex;
     flex-direction: row;
     position: absolute;
-    bottom: -10px;
-    left: 130px;
+    top: 55px;
+    left: 135px;
     /* right: 0; */
 }
 
@@ -55,9 +55,18 @@
 }
 
 .div_box02{
+    width: 470px;
+    padding: 6px 10px;
+    border-radius: 30px;
+    color: #777;
+    background-color: #ddd;
     position: absolute;
-    top: 20px;
-    left: 500px;
+    bottom: 0;
+    left: 155px;
+}
+
+.div_box02 p{
+    font-size: 18px;
 }
 
 .div_box03{
@@ -66,16 +75,39 @@
     width: 124px;
     height: 32px;
     bottom: 20px;
-    right: 0;
+    right: 20px;
+}
+
+.div_box03 .btn{
+    width: 100px;
+    height: 32px;
+    margin: 0 20px 0 0;
+    /* padding: 5px 0 0 0; */
+    border: 1px solid #777;
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+}
+
+.btn button{
+    width: 25px;
 }
 
 .div_box03 >input{
     background-color: red;
 }
 
-.order_btn{
-    /* background-color: red; */
-    margin: 0 auto;
+.checkbox{
+    margin: 5px 0 0 0;
+}
+
+/* 버튼을 가운데로 정렬하기 위한 스타일 추가 */
+.order_btn {
+    display: flex;
+    justify-content: center; /* 수평 가운데 정렬 */
+    margin: 20px auto; /* 위 아래 여백 및 가운데 정렬 */
+    padding: 50px 0 0 0;
+    width: 100%; /* 필요에 따라 조정 */
 }
 
 .order_btn01{
@@ -91,6 +123,7 @@
 .order_btn02{
     width: 410px;
     height: 60px;
+    display: inline-block;
     text-align: center;
     padding: 20px 5px;
     border-radius: 30px;

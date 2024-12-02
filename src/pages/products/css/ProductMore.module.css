@@ -20,11 +20,16 @@
     margin: 0 auto;
 }
 
+.product_paging li > button{
+    background-color: transparent;
+}
+
 .product_paging > button{
-    background-color: none;
+    background-color: transparent;
 }
 
 .product_paging li{
+    width: 45px;
     margin: 0 10px;
     padding: 5px 10px;
     border: 1px solid #b3b3b3 ;

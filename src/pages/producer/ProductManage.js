@@ -6,6 +6,7 @@ import { decodeJwt } from '../../utils/tokenUtils';
 import { callProducerProductListPageApi } from "../../apis/ProductApiCall";
 import ProductManageCSS from "./css/ProductManage.module.css";
 import ButtonCSS from "../../components/common/Button.module.css";
+import ProductMoreCSS from "../products/css/ProductMore.module.css";
 
 function ProductManage() {
     const navigate = useNavigate();
@@ -99,7 +100,7 @@ function ProductManage() {
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className={ProductManageCSS.producer_tbody}>
                         {Array.isArray(productList) &&
                             productList.map((p) => (
                                 <tr
@@ -123,13 +124,7 @@ function ProductManage() {
                     </tbody>
                 </table>
             </div>
-            <div
-                style={{
-                    listStyleType: "none",
-                    display: "flex",
-                    justifyContent: "center",
-                }}
-            >
+            <div className={ProductMoreCSS.product_paging} style={{padding: '50px 0 0 0'}}>
                 {Array.isArray(productList) && (
                     <button
                         onClick={() => setCurrentPage(currentPage - 1)}
@@ -140,11 +135,17 @@ function ProductManage() {
                     </button>
                 )}
                 {pageNumber.map((num) => (
-                    <li key={num} onClick={() => setCurrentPage(num)}>
+                    <li key={num}
+                    style={
+                        currentPage === num
+                            ? { backgroundColor: "#647453" }
+                            : null
+                    }
+                    onClick={() => setCurrentPage(num)}>
                         <button
                             style={
                                 currentPage === num
-                                    ? { backgroundColor: "lightgreen" }
+                                    ? { color: "#fff", fontWeight: '500' }
                                     : null
                             }
                             className=""

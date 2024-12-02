@@ -7,6 +7,7 @@ import { callProductRegistAPI } from "../../apis/ProductApiCall";
 
 import ProductManageCSS from "./css/ProductManage.module.css";
 import ProductRegistCSS from "./css/ProductRegist.module.css";
+import UserInfoCSS from "../../components/signup/css/UserInfoForm.module.css";
 
 function ProductRegist() {
     const dispatch = useDispatch();
@@ -333,216 +334,235 @@ function ProductRegist() {
     };
 
     return (
-        <div className={ProductManageCSS.manage_box}>
-             <button onClick={onClickProductRegistHandler}> 등록</button>
-
-            <div>
-
-                <div>
-                    <div>
-                        {imageUrl && <img src={imageUrl} alt="preview" />}
-                        <input
-                            style={{ display: "none" }}
-                            type="file"
-                            name="productImg"
-                            accept="image/jpg,image/png,image/jpeg,image/gif"
-                            onChange={onChangeImageUpload}
-                            ref={imageInput}
+        <div className={ProductManageCSS.manage_box} style={{padding: '114px 0 0 0'}}>
+            <div >
+                
+                <div className={UserInfoCSS.info}>
+                    <p>상품 이름</p>
+                    <div className={UserInfoCSS.txt}>
+                    <input
+                            name="productName"
+                            onChange={onChangeHandler}
                         />
-                        <button onClick={onClickImageUpload}>
-                            상품 이미지 업로드
+                    </div>
+                </div>
+
+            <div style={{display: 'flex', flexFlow: 'row'}}>
+            <div style={{margin: '0 15px 0 0'}} className={UserInfoCSS.info}>
+				<p>상품 가격</p>
+				<div className={UserInfoCSS.txt}>
+                    <input
+                        name="productPrice"
+                        type="number"
+                        onChange={onChangeHandler}
+                    />
+                </div>
+			</div>
+
+            <div style={{display: 'flex', flexFlow: 'row', marginTop: '20px'}}>
+                <div className={UserInfoCSS.info}>
+                    <label>판매 여부</label>
+                </div>
+                <div >
+                    <label className={UserInfoCSS.txt} style={{width: '100px', padding: '5px, 10px', margin: '0 15px'}}>
+                        <input
+                            type="radio"
+                            name="productCheck"
+                            value="Y"
+                            onChange={onChangeHandler}
+                            style={{cursor: 'pointer'}}
+                        />{" "}
+                        Y
+                    </label>
+                    <label className={UserInfoCSS.txt} style={{width: '100px', padding: '5px, 10px'}}>
+                        <input
+                            type="radio"
+                            name="productCheck"
+                            value="N"
+                            onChange={onChangeHandler}
+                            style={{cursor: 'pointer'}}
+                        />{" "}
+                        N
+                    </label>
+                </div>
+            </div>
+        </div>
+            
+
+        
+
+
+            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+
+                <div className={UserInfoCSS.info} style={{width: '400px'}}>
+                    <p>대분류</p>
+                    <div className={UserInfoCSS.txt}>
+                        <select
+                            style={{width: '95%', padding: '5px 10px'}}
+                            value={selectedLargeCategory}
+                            onChange={onChangeLargeCategoryHandler}
+                        >
+                            <option value="">대분류 선택</option>
+                            {largeCategories.map((category) => (
+                                <option
+                                    key={category.largeCategoryId}
+                                    value={category.largeCategoryId}
+                                >
+                                    {category.largeCategoryName}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
+
+                <div className={UserInfoCSS.info} style={{width: '400px'}}>
+                    <p>중분류</p>
+                    <div className={UserInfoCSS.txt} >
+                        <select
+                            style={{width: '95%', padding: '5px 10px'}}
+                            value={selectedMediumCategory}
+                            onChange={onChangeMediumCategoryHandler}
+                            disabled={!selectedLargeCategory}
+                        >
+                            <option value="" disabled>
+                                중분류 선택
+                            </option>
+                            {mediumCategories.map((category) => (
+                                <option
+                                    key={category.mediumCategoryId}
+                                    value={
+                                        category.mediumCategoryId
+                                    }
+                                >
+                                    {category.mediumCategoryName}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
+
+                <div className={UserInfoCSS.info} style={{width: '400px'}}>
+                    <p>소분류</p>
+                    <div className={UserInfoCSS.txt}>
+                    <select
+                            style={{width: '95%', padding: '5px 10px'}}
+                            name="smallCategory"
+                            onChange={onChangeSmallCategoryHandler}
+                            disabled={!selectedMediumCategory} // 중분류가 선택되지 않으면 비활성화
+                        >
+                            <option value="">소분류 선택</option>{" "}
+                            {/* 기본 선택 옵션 */}
+                            {Array.isArray(smallCategories) &&
+                                smallCategories.map((category) => (
+                                    <option
+                                        key={
+                                            category.smallCategoryId
+                                        }
+                                        value={
+                                            category.smallCategoryId
+                                        } // 소분류 ID를 value로 설정
+                                    >
+                                        {category.smallCategoryName}
+                                    </option>
+                                ))}
+                        </select>
+                    </div>
+                </div>
+            </div> 
+
+
+            <div className={UserInfoCSS.info}>
+				<p>옵션 추가</p>
+				<div>
+                    <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                        <div className={UserInfoCSS.txt} style={{width: '250px'}}>
+                        <input
+                            
+                            name="optionDesc"
+                            placeholder="옵션 설명"
+                            value={option.optionDesc}
+                            onChange={onChangeOptionHandler}
+                        />
+                        </div>
+
+                        <div className={UserInfoCSS.txt} style={{width: '250px', margin: '0 30px'}}>
+                        <input
+                            name="addPrice"
+                            placeholder="추가 가격"
+                            type="number"
+                            value={option.addPrice}
+                            onChange={onChangeOptionHandler}
+                        />
+                        </div>
+                        
+                        <div className={UserInfoCSS.txt} style={{width: '250px'}}>
+                        <input
+                            name="optionQuantity"
+                            placeholder="옵션 수량"
+                            type="number"
+                            value={option.optionQuantity}
+                            onChange={onChangeOptionHandler}
+                        />
+                        </div>
+                        
+
+                        <button onClick={onAddOptionHandler} style={{width: '93px', height: '38px', borderRadius: '5px', color: '#fff', backgroundColor: '#647453', margin: '0 0 0 10px'}}>
+                            옵션 추가
                         </button>
                     </div>
                 </div>
-                <div>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <label>대분류</label>
-                                </td>
-                                <td>
-                                    <select
-                                        value={selectedLargeCategory}
-                                        onChange={onChangeLargeCategoryHandler}
-                                    >
-                                        <option value="">대분류 선택</option>
-                                        {largeCategories.map((category) => (
-                                            <option
-                                                key={category.largeCategoryId}
-                                                value={category.largeCategoryId}
-                                            >
-                                                {category.largeCategoryName}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>중분류</label>
-                                    
-                                </td>
-                                <td>
-                                    <select
-                                        value={selectedMediumCategory}
-                                        onChange={onChangeMediumCategoryHandler}
-                                        disabled={!selectedLargeCategory}
-                                    >
-                                        <option value="" disabled>
-                                            중분류 선택
-                                        </option>
-                                        {mediumCategories.map((category) => (
-                                            <option
-                                                key={category.mediumCategoryId}
-                                                value={
-                                                    category.mediumCategoryId
-                                                }
-                                            >
-                                                {category.mediumCategoryName}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>소분류</label>
-                                </td>
-                                <td>
-                                    <select
-                                        name="smallCategory"
-                                        onChange={onChangeSmallCategoryHandler}
-                                        disabled={!selectedMediumCategory} // 중분류가 선택되지 않으면 비활성화
-                                    >
-                                        <option value="">소분류 선택</option>{" "}
-                                        {/* 기본 선택 옵션 */}
-                                        {Array.isArray(smallCategories) &&
-                                            smallCategories.map((category) => (
-                                                <option
-                                                    key={
-                                                        category.smallCategoryId
-                                                    }
-                                                    value={
-                                                        category.smallCategoryId
-                                                    } // 소분류 ID를 value로 설정
-                                                >
-                                                    {category.smallCategoryName}
-                                                </option>
-                                            ))}
-                                    </select>
-                                </td>
-                            </tr>
-                            
-                            <tr>
-                                <td>
-                                    <label>상품 이름</label>
-                                </td>
-                                <td>
-                                    <input
-                                        name="productName"
-                                        placeholder="상품 이름"
-                                        onChange={onChangeHandler}
-                                    />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>상품 가격</label>
-                                </td>
-                                <td>
-                                    <input
-                                        name="productPrice"
-                                        placeholder="상품 가격"
-                                        type="number"
-                                        onChange={onChangeHandler}
-                                    />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>판매 여부</label>
-                                </td>
-                                <td>
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            name="productCheck"
-                                            value="Y"
-                                            onChange={onChangeHandler}
-                                        />{" "}
-                                        Y
-                                    </label>
-                                    <label>
-                                        <input
-                                            type="radio"
-                                            name="productCheck"
-                                            value="N"
-                                            onChange={onChangeHandler}
-                                        />{" "}
-                                        N
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>옵션 추가</label>
-                                </td>
-                                <td>
-                                    <input
-                                        name="optionDesc"
-                                        placeholder="옵션 설명"
-                                        value={option.optionDesc}
-                                        onChange={onChangeOptionHandler}
-                                    />
-                                    <input
-                                        name="addPrice"
-                                        placeholder="추가 가격"
-                                        type="number"
-                                        value={option.addPrice}
-                                        onChange={onChangeOptionHandler}
-                                    />
-                                    <input
-                                        name="optionQuantity"
-                                        placeholder="옵션 수량"
-                                        type="number"
-                                        value={option.optionQuantity}
-                                        onChange={onChangeOptionHandler}
-                                    />
-                                    <button onClick={onAddOptionHandler}>
-                                        옵션 추가
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colSpan="2">
-                                    <h4>옵션 리스트</h4>
-                                    <ul>
-                                        {form.options.map((opt, index) => (
-                                            <li key={index}>
-                                                옵션 내용: {opt.optionDesc} |
-                                                추가 가격: {opt.addPrice} |
-                                                수량: {opt.optionQuantity}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>상품 설명</label>
-                                </td>
-                                <td>
-                                    <textarea
-                                        name="productDesc"
-                                        placeholder="상품 설명"
-                                        onChange={onChangeHandler}
-                                    ></textarea>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+			</div>
+
+            <div style={{width: '100%'}}>
+                <td colSpan="2" style={{width: '1000px', borderRadius: '15px', padding: '20px'}}>
+                    <h4 style={{fontWeight: '400', color: '#222',}}>옵션 리스트</h4>
+                    <ul>
+                        {form.options.map((opt, index) => (
+                            <li key={index}>
+                                옵션 내용: {opt.optionDesc} |
+                                추가 가격: {opt.addPrice} |
+                                수량: {opt.optionQuantity}
+                            </li>
+                        ))}
+                    </ul>
+                </td>
+            </div>
+
+            <div style={{width: '500px', height: '112px', backgroundColor: '#fff', position: 'relative', border: '1px solid #222', borderRadius: '15px', overflow: 'hidden', margin: '20px 0'}}>
+                <div style={{width: '100px'}}>
+                    {imageUrl && <img src={imageUrl} alt="preview" />}
+                    <input
+                        style={{ display: "none" }}
+                        type="file"
+                        name="productImg"
+                        accept="image/jpg,image/png,image/jpeg,image/gif"
+                        onChange={onChangeImageUpload}
+                        ref={imageInput}
+                    />
+                    <button style={{width: '100px', height: '40px', color: '#fff', backgroundColor: '#647453', borderRadius: '5px', position: 'absolute', bottom: '20px', right: '20px'}} onClick={onClickImageUpload}>
+                        업로드
+                    </button>
                 </div>
+            </div>
+
+
+            <div>
+                <p>상품 설명</p>
+				
+				<div style={{width: '100%', height: '100px', overflow: 'scroll'}}>
+                <textarea
+                        style={{width: '100%', height: '100%'}}
+                        name="productDesc"
+                        placeholder="상품 설명"
+                        onChange={onChangeHandler}
+                ></textarea>
+                </div>
+			</div>
+
+
+            </div>
+            <div style={{margin: '30px 0 0 1220px'}}>
+                <button style={{width: '125px', height: '50px', fontSize:'21px', borderRadius: '5px', backgroundColor: '#647453', color: '#fff'}} onClick={onClickProductRegistHandler}> 등록</button>
             </div>
         </div>
     );

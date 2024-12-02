@@ -4,6 +4,10 @@ import { useEffect, useState, useRef } from "react";
 import { decodeJwt } from "../../utils/tokenUtils";
 
 import { callProducerOrderListPageApi } from "../../apis/OrderApiCall";
+import ProductManageCSS from "./css/ProductManage.module.css";
+
+import ProductMoreCSS from "../products/css/ProductMore.module.css";
+import OrderManageCSS from "./css/OrderManage.module.css";
 
 function ProductManage() {
     const navigate = useNavigate();
@@ -43,7 +47,7 @@ function ProductManage() {
 
     return (
         <>
-            <div className="">
+            <div className={OrderManageCSS.box}>
                 <table className="">
                     <colgroup>
                         <col width="5%" />
@@ -58,17 +62,16 @@ function ProductManage() {
                     </colgroup>
                     <thead>
                         <tr>
-                            <th>주문번호</th>
-                            <th>회원번호</th>
-                            <th>총 주문 수량</th>
-                            <th>총 주문 금액</th>
-                            <th>주문 상태</th>
-                            <th>배송 상태</th>
+                            <th style={{textAlign: 'center'}}>주문번호</th>
+                            <th style={{textAlign: 'center'}}>회원번호</th>
+                            <th style={{textAlign: 'center'}}>총 주문 수량</th>
+                            <th style={{textAlign: 'center'}}>총 주문 금액</th>
+                            <th style={{textAlign: 'center'}}>주문 상태</th>
                             {/* <th>송장번호</th> */}
                             {/* <th></th> */}
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className={ProductManageCSS.producer_tbody}>
                         {Array.isArray(orderList) &&
                             orderList.map((o) => (
                                 <tr
@@ -76,26 +79,17 @@ function ProductManage() {
                                     onClick={() => onClickTableTr(o.orderId)}
                                     style={{ cursor: "pointer" }}
                                 >
-                                    <td>{o.orderId}</td>
-                                    <td>{o.userId}</td>
-                                    <td>{o.orderTotalCount}</td>
-                                    <td>
+                                    <td style={{textAlign: 'center'}}>{o.orderId}</td>
+                                    <td style={{textAlign: 'center'}}>{o.userId}</td>
+                                    <td style={{textAlign: 'right'}}>{o.orderTotalCount}</td>
+                                    <td style={{textAlign: 'right'}}>
                                         {o.orderTotalAmount.toLocaleString()} 원
                                     </td>
-                                    <td>
+                                    <td style={{textAlign: 'center'}}>
                                         {o?.orderStatus === "completed"
                                             ? "주문완료"
                                             : o?.orderStatus === "canceled"
                                             ? "주문취소"
-                                            : ""}
-                                    </td>
-                                    <td>
-                                        {o?.deliveryStatus === "pending"
-                                            ? "배송전"
-                                            : o?.deliveryStatus === "sent"
-                                            ? "배송완료"
-                                            : o?.deliveryStatus === "canceled"
-                                            ? "배송취소"
                                             : ""}
                                     </td>
                                     {/* <td>{o.trackingNumber}</td> */}
@@ -107,13 +101,7 @@ function ProductManage() {
                     </tbody>
                 </table>
             </div>
-            <div
-                style={{
-                    listStyleType: "none",
-                    display: "flex",
-                    justifyContent: "center",
-                }}
-            >
+            <div className={ProductMoreCSS.product_paging} style={{padding: '50px 0 0 0'}}>
                 {Array.isArray(orderList) && (
                     <button
                         onClick={() => setCurrentPage(currentPage - 1)}
@@ -124,11 +112,17 @@ function ProductManage() {
                     </button>
                 )}
                 {pageNumber.map((num) => (
-                    <li key={num} onClick={() => setCurrentPage(num)}>
+                    <li key={num} 
+                    style={
+                        currentPage === num
+                            ? { backgroundColor: "#647453" }
+                            : null
+                    }
+                    onClick={() => setCurrentPage(num)}>
                         <button
                             style={
                                 currentPage === num
-                                    ? { backgroundColor: "lightgreen" }
+                                    ? { color: "#fff", fontWeight: '500' }
                                     : null
                             }
                             className=""

@@ -10,7 +10,7 @@ function MypageLayout(props) {
 				<main style={{height: '1000px'}}>
 					<Outlet />
 				</main>
-				<Footer/>
+				{/* <Footer/> */}
 			</div>
 		</>
 	);

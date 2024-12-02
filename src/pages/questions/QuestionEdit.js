@@ -6,6 +6,7 @@ import { decodeJwt } from "../../utils/tokenUtils";
 
 import QuestionEditCSS from "./css/QuestionEdit.module.css";
 import UserInfoCSS from "../../components/signup/css/UserInfoForm.module.css";
+import Footer from '../../components/common/Footer';
 
 function QuestionEdit() {
     const { questionId } = useParams();
@@ -55,7 +56,8 @@ function QuestionEdit() {
     console.log('questionDetail', questionDetail);
     console.log('form', form);
     return (
-        <div className={QuestionEditCSS.box}>
+        <>
+                <div className={QuestionEditCSS.box}>
             <div className={QuestionEditCSS.edit}>
                 <div>
                     <h3>문의 수정</h3>
@@ -72,6 +74,7 @@ function QuestionEdit() {
 
                 <div className={UserInfoCSS.txt}>
                     <input
+                        style={{padding: '5px 10px'}}
                         name="questionTitle"
                         value={form.questionTitle}
                         onChange={onChangeHandler}
@@ -103,6 +106,9 @@ function QuestionEdit() {
             </div>
             
         </div>
+        <Footer/>
+        </>
+        
     );
 }
 

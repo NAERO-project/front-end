@@ -8,6 +8,7 @@ import {
     callCartUpdateAPI,
 } from "../../apis/CartApiCall";
 import CartCSS from "./css/Cart.module.css";
+import Footer from "../../components/common/Footer";
 
 function isTokenExpired(decodedToken) {
     const currentTime = Math.floor(Date.now() / 1000);
@@ -119,7 +120,8 @@ function Cart() {
     };
 
     return (
-        <div className={CartCSS.content}>
+        <>
+            <div className={CartCSS.content}>
             <h2 className={CartCSS.title}>장바구니</h2>
             {Array.isArray(cartData) && cartData.length > 0 ? (
                 <div>
@@ -132,6 +134,7 @@ function Cart() {
                                     <img src={item.productImg} alt={item.productName} />
                                 </div>
                                 
+                                <div>
                                 <div className={CartCSS.txt}>
                                     <h3>{item.productName}</h3>
                                     <p>
@@ -143,14 +146,18 @@ function Cart() {
                                         원
                                     </p>
                                 </div>
+
+                                <div className={CartCSS.div_box02}>
+                                    <p>
+                                        {item.optionDesc} (추가 금액:{" "}
+                                        {(item.addPrice || 0).toLocaleString()}원)
+                                    </p>
+                                </div>
+                                </div>
+                                
                             </div>
                             
-                            <div className={CartCSS.div_box02}>
-                                <p>
-                                    {item.optionDesc} (추가 금액:{" "}
-                                    {(item.addPrice || 0).toLocaleString()}원)
-                                </p>
-                            </div>
+                            
 
                             <div className={CartCSS.div_box03}>
                                 <div className={CartCSS.btn}>
@@ -179,12 +186,14 @@ function Cart() {
                                         +
                                     </button>
                                 </div>
-                                <input
-
+                                <div className={CartCSS.checkbox}>
+                                    <input
                                     type="checkbox"
                                     checked={!!selectedItems[item.cartId]}
                                     onChange={() => selectItemHandler(item.cartId)}
-                                />
+                                    />
+                                </div>
+                                
                             </div>
                         </div>
                     ))}
@@ -196,7 +205,10 @@ function Cart() {
             ) : (
                 <p>장바구니가 비어 있습니다.</p>
             )}
-        </div>
+            </div>
+            <Footer/>
+        </>
+        
     );
 }
 

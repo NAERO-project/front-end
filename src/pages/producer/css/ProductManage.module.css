@@ -1,6 +1,15 @@
 .manage_box{
     width: 1350px;
     margin: 0 auto;
+    padding: 0 30px;
+
+}
+
+
+.main_bg{
+    width: 1350px;
+    height: 716px;
+    background-color: #E8E8E7;
 }
 
 .product_div1{
@@ -20,11 +29,11 @@ thead tr{
     background-color: #fff;
 }
 
-tbody tr:nth-child(odd){
+.producer_tbody tr:nth-child(odd){
     background-color: #E6F1D9;
 }
 
-tbody tr:nth-child(even){
+.producer_tbody tr:nth-child(even){
     background-color: #fff;
 }
 
@@ -44,4 +53,11 @@ thead th, td{
     margin: 0 0 10px 0;
 } */
 
+
+input{
+    /* width: 400px; */
+    height: 30px;
+    margin: 4px 5px 0 8px;
+    padding: 10px;
+}
 

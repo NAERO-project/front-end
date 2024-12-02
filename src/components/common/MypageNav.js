@@ -83,21 +83,21 @@ function MypageNav(props) {
                             <NavLink to="/mypage/update" className={MypageNavCSS.NavBar_txt}>개인정보 수정</NavLink>
                         </li>
 
-                        <li>
+                        {/* <li>
                             <NavLink to="/mypage/" className={MypageNavCSS.NavBar_txt}>찜 리스트</NavLink>
-                        </li>
+                        </li> */}
 
                         <li>
                             <NavLink to="/mypage/questions" className={MypageNavCSS.NavBar_txt}>1:1 문의</NavLink>
                         </li>
 
-                        <li>
+                        {/* <li>
                             <NavLink to="/mypage/" className={MypageNavCSS.NavBar_txt}>쿠폰 정보</NavLink>
                         </li>
 
                         <li>
-                            <NavLink to="/mypage/reviews/my-reviews" className={MypageNavCSS.NavBar_txt}>상품 후기</NavLink>
-                        </li>
+                            <NavLink to="/mypage/" className={MypageNavCSS.NavBar_txt}>상품 후기</NavLink>
+                        </li> */}
                     </ul>
                 </div>
         </div>

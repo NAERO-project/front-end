@@ -7,6 +7,7 @@ import { decodeJwt } from "../../utils/tokenUtils";
 
 import QuestionListCSS from "./css/QuestionListCSS.module.css";
 import ProductMoreCSS from "../products/css/ProductMore.module.css";
+import Footer from "../../components/common/Footer";
 
 function QuestionList() {
     const dispatch = useDispatch();
@@ -38,7 +39,7 @@ function QuestionList() {
                 })
             );
         }
-    }, [dispatch, currentPage, username]);
+    }, [questionsList, currentPage, username]);
 
     useEffect(() => {
         // questionStatus를 이용해 답변 존재 여부 확인 후 답변 상세 정보 가져오기
@@ -69,6 +70,7 @@ function QuestionList() {
 
 
 return (
+    <>
         <div className={QuestionListCSS.box}>
             <div className={QuestionListCSS.question}>
                 <div>
@@ -88,7 +90,7 @@ return (
                     <col width="30%" />
                     <col width="30%" />
                 </colgroup>
-                <thead>
+                <thead className={QuestionListCSS.question_thead}>
                     <tr>
                         <th>제목</th>
                         <th>작성일</th>
@@ -112,7 +114,12 @@ return (
                                     }
                                 >
                                     <td>{question.questionTitle}</td>
-                                    <td>{question.questionDate}</td>
+                                    <td>{question?.questionDate
+                                    ? question.questionDate
+                                          .replace("T", " ")
+                                          .replace("Z", "") // "T"를 공백으로, "Z"를 제거
+                                    : "정보 없음"}</td>
+                                    
                                     <td>
                                         {question.questionStatus === true || question.questionStatus === 1
                                             ? "답변 완료"
@@ -185,11 +192,17 @@ return (
                     </button>
                 )}
                 {pageNumber.map((num) => (
-                    <li key={num} onClick={() => setCurrentPage(num)}>
+                    <li key={num} 
+                    style={
+                        currentPage === num
+                            ? { backgroundColor: "#546E7A" }
+                            : null
+                    }
+                    onClick={() => setCurrentPage(num)}>
                         <button
                             style={
                                 currentPage === num
-                                    ? { backgroundColor: "lightgreen" }
+                                    ? { color: "#fff", fontWeight: '500' }
                                     : null
                             }
                         >
@@ -210,6 +223,8 @@ return (
                 )}
             </div>
         </div>
+    </>
+        
     );
 }
 

@@ -76,8 +76,18 @@ function ProductCategory() {
                         {Array.isArray(productList) &&
                             <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>&lt;</button>}
                         {pageNumber.map((num) => (
-                            <li key={num} onClick={() => setCurrentPage(num)}>
-                                <button>{num}</button>
+                            <li key={num} style={
+                                currentPage === num
+                                    ? { backgroundColor: "#546E7A" }
+                                    : null
+                            } onClick={() => setCurrentPage(num)}>
+                                <button
+                                style={
+                                    currentPage === num
+                                        ? { color: "#fff", fontWeight: '500' }
+                                        : null
+                                }
+                                >{num}</button>
                             </li>
                         ))}
                         {Array.isArray(productList) &&

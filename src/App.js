@@ -128,7 +128,7 @@ function App() {
             <Route path="order-update/error" element={<ProducerErrorPage />} />
             {/* <Route path="coupon-manage" element={<CouponManage />} /> */}
             <Route path="banner-manage" element={<BannerManage />} />
-            <Route path="banner-regist" element={<BannerRegist />} />
+            {/* <Route path="banner-regist" element={<BannerRegist/>} /> */}
             {/* <Route path="products/:producerId" element={ <ProducerItem/> }/> */}
           </Route>
 
