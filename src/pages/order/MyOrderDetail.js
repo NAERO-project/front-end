@@ -114,7 +114,7 @@ function MyOrderDetail() {
                                 <h3>주문자 정보</h3>
                             </div>
                             <div className={UserInfoCSS.info}>
-                                <p>주문자:</p>
+                                <p style={{width: '75px', padding: '5px 0 0 0'}}>주문자:</p>
                                 <p
                                     style={{ width: "408px", padding: "5px 10px" }}
                                     className={UserInfoCSS.txt}
@@ -124,7 +124,7 @@ function MyOrderDetail() {
                             </div>
 
                             <div className={UserInfoCSS.info}>
-                                <p>전화번호:</p>
+                                <p style={{width: '75px', padding: '5px 0 0 0'}}>전화번호:</p>
                                 <p
                                     style={{ width: "408px", padding: "5px 10px" }}
                                     className={UserInfoCSS.txt}
@@ -134,7 +134,7 @@ function MyOrderDetail() {
                             </div>
 
                             <div className={UserInfoCSS.info}>
-                                <p>이메일:</p>
+                                <p style={{width: '75px', padding: '5px 0 0 0'}}>이메일:</p>
                                 <p
                                     style={{
                                         width: "408px",
@@ -153,7 +153,7 @@ function MyOrderDetail() {
                                 <h3>배송 정보</h3>
                             </div>
                             <div className={UserInfoCSS.info}>
-                                <p>수령자:</p>
+                                <p style={{width: '75px', padding: '5px 0 0 0'}}>수령자:</p>
                                 <p
                                     style={{ width: "408px", padding: "5px 10px" }}
                                     className={UserInfoCSS.txt}
@@ -163,7 +163,7 @@ function MyOrderDetail() {
                             </div>
 
                             <div className={UserInfoCSS.info}>
-                                <p>전화번호:</p>
+                                <p style={{width: '75px', padding: '5px 0 0 0'}}>전화번호:</p>
                                 <p
                                     style={{ width: "408px", padding: "5px 10px" }}
                                     className={UserInfoCSS.txt}
@@ -173,7 +173,7 @@ function MyOrderDetail() {
                             </div>
 
                             <div className={UserInfoCSS.info}>
-                                <p>우편번호:</p>
+                                <p style={{width: '75px', padding: '5px 0 0 0'}}>우편번호:</p>
                                 <p
                                     style={{ width: "408px", padding: "5px 10px" }}
                                     className={UserInfoCSS.txt}
@@ -183,7 +183,7 @@ function MyOrderDetail() {
                             </div>
 
                             <div className={UserInfoCSS.info}>
-                                <p>배송주소:</p>
+                                <p style={{width: '75px', padding: '5px 0 0 0'}}>배송주소:</p>
                                 <p
                                     style={{
                                         width: "408px",
@@ -212,7 +212,7 @@ function MyOrderDetail() {
                     <div style={{display: "flex", justifyContent: "space-between"}}>
                         <div>
                             <div className={UserInfoCSS.info}>
-                                <p style={{ width: "80px" }}>주문 상태:</p>
+                                <p style={{width: '75px', padding: '5px 0 0 0'}}>주문 상태:</p>
                                 <p
                                     style={{ width: "408px", padding: "5px 10px" }}
                                     className={UserInfoCSS.txt}
@@ -227,7 +227,7 @@ function MyOrderDetail() {
                             </div>
 
                             <div className={UserInfoCSS.info}>
-                                <p style={{ width: "80px" }}>결제 수단:</p>
+                                <p style={{width: '75px', padding: '5px 0 0 0'}}>결제 수단:</p>
                                 <p
                                     style={{ width: "408px", padding: "5px 10px" }}
                                     className={UserInfoCSS.txt}
@@ -249,7 +249,7 @@ function MyOrderDetail() {
                             </div>
 
                             <div className={UserInfoCSS.info}>
-                                <p style={{ width: "80px" }}>총 결제 금액:</p>
+                                <p style={{width: '75px', padding: '5px 0 0 0'}}>총 결제 금액:</p>
                                 <p
                                     style={{ width: "408px", padding: "5px 10px" }}
                                     className={UserInfoCSS.txt}
@@ -260,7 +260,7 @@ function MyOrderDetail() {
                             </div>
 
                             <div className={UserInfoCSS.info}>
-                                <p style={{ width: "80px" }}>총 배송비:</p>
+                                <p style={{width: '75px', padding: '5px 0 0 0'}}>총 배송비:</p>
                                 <p
                                     style={{ width: "408px", padding: "5px 10px" }}
                                     className={UserInfoCSS.txt}
@@ -274,7 +274,7 @@ function MyOrderDetail() {
                         
                         <div>
                             <div className={UserInfoCSS.info}>
-                                <p style={{ width: "80px" }}>
+                                <p style={{width: '75px', padding: '5px 0 0 0'}}>
                                     총 포인트 <br />
                                     할인:
                                 </p>
@@ -288,7 +288,7 @@ function MyOrderDetail() {
                             </div>
 
                             <div className={UserInfoCSS.info}>
-                                <p style={{ width: "80px" }}>
+                                <p style={{width: '75px', padding: '5px 0 0 0'}}>
                                     총 쿠폰 <br />
                                     할인:
                                 </p>
@@ -305,7 +305,7 @@ function MyOrderDetail() {
                             </div>
 
                             <div className={UserInfoCSS.info}>
-                                <p style={{ width: "80px" }}>결제 일시:</p>
+                                <p style={{width: '75px', padding: '5px 0 0 0'}}>결제 일시:</p>
                                 <p
                                     style={{ width: "408px", padding: "5px 10px" }}
                                     className={UserInfoCSS.txt}
@@ -320,7 +320,7 @@ function MyOrderDetail() {
                             </div>
 
                             <div className={UserInfoCSS.info}>
-                                <p style={{ width: "80px" }}>배송 상태:</p>
+                                <p style={{width: '75px', padding: '5px 0 0 0'}}>배송 상태:</p>
                                 <p
                                     style={{ width: "408px", padding: "5px 10px" }}
                                     className={UserInfoCSS.txt}
