@@ -25,6 +25,7 @@
 }
 
 .product_paging li{
+    width: 45px;
     margin: 0 10px;
     padding: 5px 10px;
     border: 1px solid #b3b3b3 ;

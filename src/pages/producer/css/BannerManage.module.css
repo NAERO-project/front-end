@@ -1,0 +1,22 @@
+.delete_btn{
+    width: 70px;
+    height: 30px;
+    margin: 0 auto;
+    border-radius: 5px;
+    border: 1px solid #cf5346;
+    color: #cf5346;
+    background-color: #fff;
+}
+
+.create_btn{
+    width: 70px;
+    height: 30px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #647453;
+}
+
+.table_banner{
+    padding: 5px 10px;
+}

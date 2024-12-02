@@ -5,6 +5,8 @@ import { decodeJwt } from "../../utils/tokenUtils";
 
 import { callProducerOrderListPageApi } from "../../apis/OrderApiCall";
 
+import ProductMoreCSS from "../products/css/ProductMore.module.css";
+
 function ProductManage() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -107,13 +109,7 @@ function ProductManage() {
                     </tbody>
                 </table>
             </div>
-            <div
-                style={{
-                    listStyleType: "none",
-                    display: "flex",
-                    justifyContent: "center",
-                }}
-            >
+            <div className={ProductMoreCSS.product_paging} style={{padding: '50px 0 0 0'}}>
                 {Array.isArray(orderList) && (
                     <button
                         onClick={() => setCurrentPage(currentPage - 1)}

@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import ProductCSS from "./css/Product.module.css"
 import { FaRegHeart } from "react-icons/fa6";
 import { LuShoppingCart } from "react-icons/lu";
+import ButtonCSS from "../Button.module.css";
 
 function Product({
     product: { productId, productName, productPrice, productImg, smallCategory: {smallCategoryName}}
@@ -30,9 +31,10 @@ function Product({
                 </div>
                 <div>
                     <p>{productPrice.toLocaleString()}원</p>
-                    <span 
+                    {/* <span 
                         style={{padding: '4px 10px', borderRadius: '10px', fontWeight: '300', color: '#fff', backgroundColor: '#bbdefb'}}
-                    >{smallCategoryName}</span>
+                    >{smallCategoryName}</span> */}
+                    <span className={ButtonCSS.product_tag}>{smallCategoryName}</span>
                 </div>
             </div>
         </div>

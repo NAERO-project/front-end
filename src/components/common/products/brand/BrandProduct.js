@@ -31,7 +31,8 @@ function BrandProduct({
                 </div>
                 <div>
                 <p>{productPrice ? productPrice.toLocaleString() + '원' : '가격 정보 없음'}</p>
-                    <span style={{padding: '4px 10px', borderRadius: '10px', fontWeight: '300', color: '#fff', backgroundColor: '#bbdefb'}}>{smallCategoryName}</span>
+                    {/* <span style={{padding: '4px 10px', borderRadius: '10px', fontWeight: '300', color: '#fff', backgroundColor: '#bbdefb'}}>{smallCategoryName}</span> */}
+                    <span className={ButtonCSS.product_tag}>{smallCategoryName}</span>
                 </div>
             </div>
         </div>
