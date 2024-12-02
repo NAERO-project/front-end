@@ -1,0 +1,38 @@
+.errorPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+  text-align: center;
+  background-color: #f8f9fa; /* Light gray background */
+  color: #343a40; /* Dark gray text */
+}
+
+.errorHeader {
+  font-size: 48px; /* Large text for the header */
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #dc3545; /* Red for emphasis */
+}
+
+.errorMessage {
+  font-size: 18px; /* Standard size for the message text */
+  margin-bottom: 20px;
+  color: #6c757d; /* Muted gray for message text */
+}
+
+.backButton {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff; /* Bootstrap primary color (blue) */
+  border: none;
+  border-radius: 5px; /* Rounded corners for the button */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.backButton:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}

@@ -4,11 +4,12 @@ import { decodeJwt } from "../../utils/tokenUtils";
 import { useDispatch } from "react-redux";
 import { callProducerOrderProductListApi } from "../../apis/OrderApiCall";
 import { callShippingStatusListApi } from "../../apis/ShippingApiCall";
+import { callShippingComListApi } from "../../apis/ShippingApiCall";
 import DeliveryUpdateModal from "../../components/shipping/DeliveryUpdateModal";
 import DeliveryTrackModal from "../../components/shipping/DeliveryTrackModal";
 import styles from "./css/ProductOrderProductList.module.css";
 
-function ProducerOrderProductList({ orderId }) {
+function ProducerOrderProductList({ orderId, orderStatus }) {
   const { orderId: routeOrderId } = useParams();
   const effectiveOrderId =
     orderId || routeOrderId || localStorage.getItem("currentOrderId");
@@ -26,6 +27,9 @@ function ProducerOrderProductList({ orderId }) {
   const [isDeliveryTrackModalOpen, setIsDeliveryTrackModalOpen] =
     useState(false);
   const [currentShippingId, setCurrentShippingId] = useState(null);
+  const [currentTrackingNumber, setCurrentTrackingNumber] = useState(null);
+  const [currentShipComName, setCurrentShipComName] = useState(null);
+  // console.log("orderStatus_ProducerOrderProductList", orderStatus);
 
   // Fetch producer order products
   const fetchOrderProducts = async () => {
@@ -37,7 +41,7 @@ function ProducerOrderProductList({ orderId }) {
         })
       );
 
-      console.log("Order Products Response:", response);
+      // console.log("Order Products Response:", response);
 
       if (response?.length > 0) {
         setOrderProducts(response);
@@ -49,14 +53,32 @@ function ProducerOrderProductList({ orderId }) {
           callShippingStatusListApi(shippingId)
         );
 
-        console.log("Shipping Status Response:", statusResponse);
+        // console.log("Shipping Status Response:", statusResponse);
 
         setShippingStatus(statusResponse?.shippingStatus || "");
+
+        setCurrentTrackingNumber(statusResponse?.trackingNumber || "");
+
+        const shipComList = await dispatch(callShippingComListApi());
+
+        // console.log("Ship Com List:", shipComList);
+
+        if (shipComList?.length > 0) {
+          for (let i = 0; i < shipComList.length; i++) {
+            if (shipComList[i].shipComId === statusResponse?.shipComId) {
+              const shipComName = shipComList[i].shipComName;
+              // console.log("Ship Com Name:", shipComName);
+              setCurrentShipComName(shipComName);
+              break;
+            }
+          }
+        }
       } else {
-        console.warn("No products found for the given order ID.");
+        // console.warn("No products found for the given order ID.");
       }
     } catch (error) {
-      console.error("Failed to fetch order products:", error);
+      // console.error("Failed to fetch order products:", error);
+      alert("조회 중 오류가 발생했습니다. 다시 시도해주세요.");
     }
   };
 
@@ -104,34 +126,53 @@ function ProducerOrderProductList({ orderId }) {
       ) : (
         <p>주문된 상품이 없습니다.</p>
       )}
-      
-      <div className={styles["button-container"]}>
-        <button
-          className={styles["delivery-button"]}
-          onClick={() => setIsDeliveryUpdateModalOpen(true)}
-          disabled={shippingStatus !== "pending"}
-        >
-          송장등록
-        </button>
-        <button
-          className={styles["delivery-button"]}
-          onClick={() => setIsDeliveryTrackModalOpen(true)}
-          disabled={shippingStatus !== "sent"}
-        >
-          배송 조회
-        </button>
-        {isDeliveryUpdateModalOpen && (
-          <DeliveryUpdateModal
-            orderId={effectiveOrderId}
-            onClose={handleDeliveryUpdateModalClose}
-          />
-        )}
-        {isDeliveryTrackModalOpen && (
-          <DeliveryTrackModal
-            shippingId={currentShippingId}
-            onClose={handleDeliveryTrackModalClose}
-          />
-        )}
+      <div className={styles["tracking-container"]}>
+        <div className={styles["tracking-info"]}>
+          {currentTrackingNumber !== null && currentShipComName !== null && (
+            <>
+              <div className={styles["tracking-number"]}>
+                <p>송장번호: {currentTrackingNumber}</p>
+              </div>
+            </>
+          )}
+          {currentShipComName !== null && currentTrackingNumber !== null && (
+            <>
+              <div className={styles["ship-com-name"]}>
+                <p>배송회사: {currentShipComName}</p>
+              </div>
+            </>
+          )}
+        </div>
+        <div className={styles["button-container"]}>
+          <button
+            className={styles["delivery-button"]}
+            onClick={() => setIsDeliveryUpdateModalOpen(true)}
+            // disabled={shippingStatus !== "pending"}
+            disabled={orderStatus !== "completed"}
+          >
+            송장등록
+          </button>
+          <button
+            className={styles["delivery-button"]}
+            onClick={() => setIsDeliveryTrackModalOpen(true)}
+            disabled={shippingStatus !== "sent"}
+          >
+            배송 조회
+          </button>
+          {isDeliveryUpdateModalOpen && (
+            <DeliveryUpdateModal
+              orderId={effectiveOrderId}
+              onClose={handleDeliveryUpdateModalClose}
+            />
+          )}
+          {isDeliveryTrackModalOpen && (
+            <DeliveryTrackModal
+              orderId={effectiveOrderId}
+              shippingId={currentShippingId}
+              onClose={handleDeliveryTrackModalClose}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

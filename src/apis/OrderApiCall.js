@@ -300,5 +300,8 @@ export const callOrderDetailApi = ({ orderId }) => {
     );
 
     dispatch({ type: GET_ORDER_DETAILS, payload: result.data });
+
+    // Mana가 추가한 코드: 호출한 곳에 데이터 반환
+    return result.data; // Return data for the caller
   };
 };

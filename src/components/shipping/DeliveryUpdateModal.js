@@ -46,7 +46,9 @@ function DeliveryUpdateModal({ orderId, onClose }) {
           }));
         }
       } catch (error) {
-        console.error("Failed to fetch order products:", error);
+        // console.error("Failed to fetch order products:", error);
+        alert("등록 중 오류가 발생했습니다. 다시 시도해주세요.");
+        onClose(true);
       }
     };
     fetchOrderProducts();
@@ -56,8 +58,8 @@ function DeliveryUpdateModal({ orderId, onClose }) {
     if (!shipComList || shipComList.length === 0) {
       dispatch(callShippingComListApi());
     }
-    console.log("[DeliveryUpdateModal] shipComList : ", shipComList);
-    console.log("[DeliveryUpdateModal] form : ", form);
+    // console.log("[DeliveryUpdateModal] shipComList : ", shipComList);
+    // console.log("[DeliveryUpdateModal] form : ", form);
   }, [dispatch, shipComList]);
 
   useEffect(() => {
@@ -103,7 +105,7 @@ function DeliveryUpdateModal({ orderId, onClose }) {
     try {
       // Dispatch the update API and check its result
       const response = await dispatch(callShippingUpdateApi(form));
-      console.log("[DeliveryUpdateModal 뭔지 진짜 궁금] response : ", response);
+      // console.log("[DeliveryUpdateModal 뭔지 진짜 궁금] response : ", response);
       if (response === 200) {
         alert("송장등록이 성공적으로 완료되었습니다.");
         onClose(true); // Notify parent of success
@@ -111,9 +113,9 @@ function DeliveryUpdateModal({ orderId, onClose }) {
         throw new Error("API 호출 실패"); // Simulate a failure if the response isn't as expected
       }
     } catch (error) {
-      console.error("송장등록 에러:", error);
-      alert("배송 상태 등록 중 오류가 발생했습니다. 다시 시도해주세요.");
-      onClose(false); // Notify parent of failure
+      // console.error("송장등록 에러:", error);
+      alert("등록 중 오류가 발생했습니다. 다시 시도해주세요.");
+      onClose(true); // Notify parent of failure
     }
   };
 
@@ -124,21 +126,21 @@ function DeliveryUpdateModal({ orderId, onClose }) {
           <label>송장번호</label>
           <div className={styles["vertical-line"]}></div>
           <input
+            className={styles["input-text"]}
             type="text"
             name="trackingNumber"
             value={form.trackingNumber}
             onChange={handleInputChange}
           />
-          {error.trackingNumber && (
-            <div className={styles["error-message"]}>
-              {error.trackingNumber}
-            </div>
-          )}
         </div>
+        {error.trackingNumber && (
+          <div className={styles["error-message"]}>{error.trackingNumber}</div>
+        )}
         <div className={styles["input-container"]}>
           <label>배송회사</label>
           <div className={styles["vertical-line"]}></div>
           <select
+            className={styles["select-text"]}
             name="shipComId"
             value={form.shipComId}
             onChange={handleInputChange}
@@ -150,10 +152,10 @@ function DeliveryUpdateModal({ orderId, onClose }) {
               </option>
             ))}
           </select>
-          {error.shipComId && (
-            <div className={styles["error-message"]}>{error.shipComId}</div>
-          )}
         </div>
+        {error.shipComId && (
+          <div className={styles["error-message"]}>{error.shipComId}</div>
+        )}
         <div className={styles["execute-button-container"]}>
           <button className={styles["sub-button"]} onClick={handleSubmit}>
             등록
