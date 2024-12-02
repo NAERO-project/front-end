@@ -134,6 +134,7 @@ function Cart() {
                                     <img src={item.productImg} alt={item.productName} />
                                 </div>
                                 
+                                <div>
                                 <div className={CartCSS.txt}>
                                     <h3>{item.productName}</h3>
                                     <p>
@@ -145,14 +146,18 @@ function Cart() {
                                         원
                                     </p>
                                 </div>
+
+                                <div className={CartCSS.div_box02}>
+                                    <p>
+                                        {item.optionDesc} (추가 금액:{" "}
+                                        {(item.addPrice || 0).toLocaleString()}원)
+                                    </p>
+                                </div>
+                                </div>
+                                
                             </div>
                             
-                            <div className={CartCSS.div_box02}>
-                                <p>
-                                    {item.optionDesc} (추가 금액:{" "}
-                                    {(item.addPrice || 0).toLocaleString()}원)
-                                </p>
-                            </div>
+                            
 
                             <div className={CartCSS.div_box03}>
                                 <div className={CartCSS.btn}>
