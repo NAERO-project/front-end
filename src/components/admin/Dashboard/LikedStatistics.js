@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLikedStatistics } from "../../../apis/DashboardApiCall";
 import MyResponsiveBar from "./MyResponsiveBar";
@@ -7,12 +7,13 @@ import styles from "./css/LikedStatistics.module.css";
 
 function LikedStatistics() {
   const dispatch = useDispatch();
+  const listRef = useRef(null); // Ref for the filtered list
 
   // Fetch productList and brandList from Redux store
   const productList = useSelector((state) => state.dashboard.productList);
-  console.log("productList:", productList);
+  // console.log("productList:", productList);
   const brandList = useSelector((state) => state.dashboard.brandList);
-  console.log("brandList:", brandList);
+  // console.log("brandList:", brandList);
 
   // Fetch likedStatistics from Redux store
   const { data } = useSelector((state) => state.dashboard.likedStatistics);
@@ -27,6 +28,7 @@ function LikedStatistics() {
   const [formInputsLiked, setFormInputsLiked] = useState(initialInputsLiked);
   const [filteredOptionsLiked, setFilteredOptionsLiked] = useState([]);
   const [isTypingLiked, setIsTypingLiked] = useState(false); // Track if the user is typing
+  const [highlightedIndex, setHighlightedIndex] = useState(-1); // Track the highlighted index
   const [submittedSpecificationLiked, setSubmittedSpecificationLiked] =
     useState("");
 
@@ -36,6 +38,15 @@ function LikedStatistics() {
     setSubmittedSpecificationLiked(formInputsLiked.specification || "");
   }, [dispatch, formInputsLiked]);
 
+  useEffect(() => {
+    if (listRef.current && highlightedIndex >= 0) {
+      const listItem = listRef.current.children[highlightedIndex];
+      if (listItem) {
+        listItem.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    }
+  }, [highlightedIndex]);
+
   // Handle input changes and dynamic filtering
   const handleInputChange = (key, value) => {
     setFormInputsLiked((prevInputs) => ({
@@ -43,10 +54,8 @@ function LikedStatistics() {
       [key]: value,
     }));
 
-    console.log("formInputsLiked:", formInputsLiked);
-
     if (key === "specification") {
-      setIsTypingLiked(true); // User is typing
+      setIsTypingLiked(true);
 
       if (value.trim() !== "") {
         const options =
@@ -54,18 +63,14 @@ function LikedStatistics() {
             ? productList.data.data.map((item) => item.productName)
             : brandList.data.data.map((item) => item.producerName);
 
-        console.log("options:", options);
-
-        const filtered = options.filter(
-          (option) =>
-            option.normalize("NFC").includes(value.trim().normalize("NFC")) // Normalize and trim for matching
+        const filtered = options.filter((option) =>
+          option.normalize("NFC").includes(value.trim().normalize("NFC"))
         );
 
-        console.log("filtered:", filtered);
-
         setFilteredOptionsLiked(filtered);
+        setHighlightedIndex(-1); // Reset highlighted index
       } else {
-        setIsTypingLiked(false); // User cleared the input
+        setIsTypingLiked(false);
         setFilteredOptionsLiked([]);
         setFormInputsLiked((prevInputs) => ({
           ...prevInputs,
@@ -84,6 +89,25 @@ function LikedStatistics() {
     setIsTypingLiked(false); // User is not typing
     setFilteredOptionsLiked([]); // Clear dropdown after selection
     setSubmittedSpecificationLiked(option); // Update submitted specification
+  };
+
+  const handleKeyDown = (e) => {
+    if (filteredOptionsLiked.length === 0) return;
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setHighlightedIndex((prevIndex) =>
+        prevIndex < filteredOptionsLiked.length - 1 ? prevIndex + 1 : prevIndex
+      );
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setHighlightedIndex((prevIndex) =>
+        prevIndex > 0 ? prevIndex - 1 : prevIndex
+      );
+    } else if (e.key === "Enter" && highlightedIndex >= 0) {
+      e.preventDefault();
+      handleOptionSelect(filteredOptionsLiked[highlightedIndex]);
+    }
   };
 
   // Determin chart type based on the value of the specification
@@ -140,14 +164,17 @@ function LikedStatistics() {
             placeholder="개별 입력 조회"
             value={formInputsLiked.specification || ""}
             onChange={(e) => handleInputChange("specification", e.target.value)}
+            onKeyDown={handleKeyDown} // Attach the keydown event listener
           />
           {filteredOptionsLiked.length > 0 && (
-            <ul className={styles["filtered-list"]}>
+            <ul className={styles["filtered-list"]} ref={listRef}>
               {filteredOptionsLiked.map((option, index) => (
                 <li
                   key={index}
                   onClick={() => handleOptionSelect(option)}
-                  className={styles["filtered-list-item"]}
+                  className={`${styles["filtered-list-item"]} ${
+                    highlightedIndex === index ? styles["highlighted"] : ""
+                  }`}
                 >
                   {option}
                 </li>
