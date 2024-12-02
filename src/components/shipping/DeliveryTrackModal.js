@@ -102,7 +102,7 @@ function DeliveryTrackModal({ orderId, shippingId, onClose }) {
   };
 
   if (loading) {
-    return <p>Loading...</p>;
+    return null;
   }
 
   return (
