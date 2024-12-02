@@ -337,7 +337,7 @@ function ProductUpdate() {
             </div>
 
 
-                <div style={{display: 'flex', flexFlow: 'row'}}>
+                <div>
                     <div className={UserInfoCSS.info}>
                         <label>판매 여부</label>
                     </div>

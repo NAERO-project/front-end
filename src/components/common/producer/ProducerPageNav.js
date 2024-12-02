@@ -30,11 +30,11 @@ function SellerPageNavBar() {
             }`}>
                     <NavLink to="/producer/order-manage" className={ProductSideNavContainerCSS.navLink}>주문관리</NavLink>
                 </li>
-                <li className={`${ProductSideNavContainerCSS.navItem} ${
+                {/* <li className={`${ProductSideNavContainerCSS.navItem} ${
               location.pathname === "/producer/coupon-manage" ? ProductSideNavContainerCSS.active : ""
             }`}>
                     <NavLink to="/producer/coupon-manage" className={ProductSideNavContainerCSS.navLink}>쿠폰관리</NavLink>
-                </li>
+                </li> */}
                 <li className={`${ProductSideNavContainerCSS.navItem} ${
               location.pathname === "/producer/banner-manage" ? ProductSideNavContainerCSS.active : ""
             }`}>

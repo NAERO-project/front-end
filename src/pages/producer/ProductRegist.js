@@ -335,19 +335,19 @@ function ProductRegist() {
 
     return (
         <div className={ProductManageCSS.manage_box} style={{padding: '114px 0 0 0'}}>
-            <div>
-
-            <div className={UserInfoCSS.info}>
-				<p>상품 이름</p>
-				<div className={UserInfoCSS.txt}>
-                <input
-                        name="productName"
-                        onChange={onChangeHandler}
-                    />
+            <div >
+                
+                <div className={UserInfoCSS.info}>
+                    <p>상품 이름</p>
+                    <div className={UserInfoCSS.txt}>
+                    <input
+                            name="productName"
+                            onChange={onChangeHandler}
+                        />
+                    </div>
                 </div>
-			</div>
 
-        <div style={{display: 'flex', flexFlow: 'row'}}>
+            <div style={{display: 'flex', flexFlow: 'row'}}>
             <div style={{margin: '0 15px 0 0'}} className={UserInfoCSS.info}>
 				<p>상품 가격</p>
 				<div className={UserInfoCSS.txt}>
@@ -359,7 +359,7 @@ function ProductRegist() {
                 </div>
 			</div>
 
-            <div style={{display: 'flex', flexFlow: 'row'}}>
+            <div style={{display: 'flex', flexFlow: 'row', marginTop: '20px'}}>
                 <div className={UserInfoCSS.info}>
                     <label>판매 여부</label>
                 </div>
