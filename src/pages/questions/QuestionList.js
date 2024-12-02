@@ -192,11 +192,17 @@ return (
                     </button>
                 )}
                 {pageNumber.map((num) => (
-                    <li key={num} onClick={() => setCurrentPage(num)}>
+                    <li key={num} 
+                    style={
+                        currentPage === num
+                            ? { backgroundColor: "#546E7A" }
+                            : null
+                    }
+                    onClick={() => setCurrentPage(num)}>
                         <button
                             style={
                                 currentPage === num
-                                    ? { backgroundColor: "lightgreen" }
+                                    ? { color: "#fff", fontWeight: '500' }
                                     : null
                             }
                         >
