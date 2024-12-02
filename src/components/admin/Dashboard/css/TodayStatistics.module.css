@@ -1,5 +1,72 @@
+/* Container for today's statistics */
 .today-statistics-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* Creates 4 equal columns */
   gap: 16px; /* Optional: Adds space between grid items */
+  padding: 16px;
+}
+
+/* Individual statistic card */
+.today-statistics-container > div {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  position: relative; /* Ensure child pseudo-elements like borders stay inside */
+}
+
+/* Add vertical dividers */
+.today-statistics-container > div:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 10%;
+  bottom: 10%;
+  right: 0;
+  width: 1px;
+  background-color: #dcdcdc; /* Gray color for the divider */
+}
+
+/* Main heading (e.g., 500 백만 원) */
+.today-statistics-container h1 {
+  font-size: 24px; /* Adjust font size */
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/* Subheading (e.g., 매출 총액) */
+.today-statistics-container p:first-of-type {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+/* Arrow and ratio styling */
+.today-statistics-container p:last-of-type {
+  font-size: 14px;
+  display: flex;
+}
+
+.stat-icon-container {
+  display: flex; /* Flex container */
+  justify-content: space-between; /* Spread children to the far ends */
+  align-items: center; /* Vertically align items in the center */
+  width: 100%; /* Ensure it spans the full width */
+}
+
+/* Icon inside the cards */
+.stat-icon {
+  font-size: 24px; /* Larger icon */
+  color: #7b9064; /* Green tone for visual hierarchy */
+  margin-bottom: 12px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .today-statistics-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on smaller screens */
+  }
+
+  /* Remove dividers for smaller screens */
+  .today-statistics-container > div:not(:last-child)::after {
+    display: none;
+  }
 }

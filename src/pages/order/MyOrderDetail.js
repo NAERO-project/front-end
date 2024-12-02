@@ -294,7 +294,7 @@ function MyOrderDetail() {
                         </div>
 
                         <div className={UserInfoCSS.info}>
-                            <p style={{ width: "80px" }}>결제 생성 일시:</p>
+                            <p style={{ width: "80px" }}>결제 일시:</p>
                             <p
                                 style={{ width: "408px", padding: "5px 10px" }}
                                 className={UserInfoCSS.txt}

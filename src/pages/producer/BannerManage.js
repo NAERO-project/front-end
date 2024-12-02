@@ -30,6 +30,10 @@ function BannerManage(){
         }
     }
 
+    // useEffect(() =>{
+    //     dispatch();
+    // },[]);
+
     useEffect(() => {
         setStart((currentPage - 1) * 5);
         dispatch(
@@ -44,9 +48,7 @@ function BannerManage(){
         navigate("/producer/banner-regist", { replace: false });
     };
 
-    const onClickBannerDelete = (bannerId) =>{
-        dispatch(callBannerDeleteApi(bannerId));
-    }
+
 
     return(
         <div>
@@ -101,14 +103,16 @@ function BannerManage(){
                                     // onClick={() => onClickTableTr(b.productId)}
                                 >
                                     <td>{b.bannerId}</td>
-                                    <td>{b.bannerThumbnail}</td>
+                                    <td>
+                                        <img src={b.bannerThumbnail} alt={b.bannerId}/>
+                                    </td>
                                     <td>{b.bannerUrl}</td>
                                     <td>{b.bannerCreateAt}</td>
                                     <td>{b.bannerAcceptStatus}</td>
                                     <td>{b.approverId}</td>
                                     <td></td>
                                     <td>
-                                        <button  >삭제</button>
+                                        <button>삭제</button>
                                     </td>
                                 </tr>
                             ))}

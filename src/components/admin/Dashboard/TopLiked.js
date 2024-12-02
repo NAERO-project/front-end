@@ -6,6 +6,8 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { FaCrown } from "react-icons/fa";
+import styles from "./css/Top.module.css";
 
 function CustomTooltip({ active, payload }) {
   if (active && payload && payload.length) {
@@ -46,30 +48,41 @@ function TopLiked() {
   console.log("chartDataLiked", chartDataLiked);
 
   return (
-    <div>
-      <h4>선호도 NO.1</h4>
-      {chartDataLiked && chartDataLiked.ratio !== undefined && (
-        <ResponsiveContainer width="100%" height={400}>
-          <RadialBarChart
-            data={[chartDataLiked]}
-            innerRadius="50%"
-            outerRadius="100%"
-            barSize={40}
-            startAngle={180}
-            endAngle={180 - chartDataLiked.ratio * 360}
-          >
-            <RadialBar
-              minAngle={15}
-              background
-              clockWise
-              dataKey="ratio"
-              fill="#7B9064"
-            />
-            <Tooltip content={<CustomTooltip />} />
-          </RadialBarChart>
-        </ResponsiveContainer>
-      )}
-    </div>
+    <>
+      <h4 className={styles["top-title"]}>선호도 NO.1</h4>
+      <div className={styles["top-container"]}>
+        <FaCrown className={styles["crown-icon"]} />
+        <h4>{chartDataLiked?.name}</h4>
+        <div className={styles["recharts-wrapper"]}>
+          {chartDataLiked && chartDataLiked.ratio !== undefined && (
+            <ResponsiveContainer width="100%" height={300}>
+              <RadialBarChart
+                data={[chartDataLiked]}
+                innerRadius="50%"
+                outerRadius="100%"
+                barSize={40}
+                startAngle={180}
+                endAngle={180 - chartDataLiked.ratio * 360}
+              >
+                <RadialBar
+                  minAngle={15}
+                  background
+                  clockWise
+                  dataKey="ratio"
+                  fill="#7B9064"
+                />
+                <Tooltip content={<CustomTooltip />} />
+              </RadialBarChart>
+            </ResponsiveContainer>
+          )}
+        </div>
+        <p>
+          {chartDataLiked?.ratio
+            ? `${Math.round(chartDataLiked.ratio * 100)}%`
+            : null}
+        </p>
+      </div>
+    </>
   );
 }
 

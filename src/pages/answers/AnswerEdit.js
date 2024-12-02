@@ -2,26 +2,31 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { callAnswerUpdateApi, callAnswerDetailApi } from '../../apis/AnswerAPICalls';
 import { useParams, useNavigate } from 'react-router-dom';
+import { decodeJwt } from "../../utils/tokenUtils";
 
 function AnswerEdit() {
     const { questionId, answerId } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const answer = useSelector((state) => state.answerReducer.answer);
     const [form, setForm] = useState({ answerTitle: '', answerContent: '', answerEmpId: 7 });
 
+    const isLogin = window.localStorage.getItem("accessToken"); // Local Storage 에 token 정보 확인
+    const username = isLogin ? decodeJwt(isLogin).sub : null;
+    
     useEffect(() => {
         const fetchAnswerDetail = async () => {
-            const response = await dispatch(callAnswerDetailApi(answerId, questionId));
-            if (response && response.data) {
+            const response = await dispatch(callAnswerDetailApi(answerId, questionId , username));
+            if (answer) {
                 setForm({
-                    answerTitle: response.data.answerTitle,
-                    answerContent: response.data.answerContent,
-                    answerEmpId: response.data.answerEmpId,
+                    answerTitle: answer.answerTitle,
+                    answerContent: answer.answerContent,
+                    answerEmpId: answer.answerEmpId,
                 });
             }
         };
         fetchAnswerDetail();
-    }, [dispatch, questionId, answerId]);
+    }, [questionId, answerId]);
 
     const onChangeHandler = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });

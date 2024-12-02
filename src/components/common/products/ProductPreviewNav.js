@@ -1,17 +1,21 @@
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import MainProductNavCSS from "./css/MainProductNav.module.css"
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { callProductCategoryApi01 } from "../../../apis/CategoryApiCall";
 
 function ProductPreviewNav({setState, state}){
-    
+    const [isActive, setIsActive] = useState(null);
 
+    // function activeHandleClick(){
+    //     setIsActive(!isActive);
+    // }
+    
     const navigate = useNavigate();    
     const dispatch = useDispatch();
 
     const params = useParams();
-    const producerId = params.producerId
+    const producerId = params.producerId;
 
     const categoryList = useSelector(state => state.largeCategoryReducer);
     console.log("categoryList", categoryList);
@@ -33,8 +37,9 @@ const fetchData=()=>{
     }, [categoryList]);
 
 const onClickHandler = (id)=>{
-    console.log("버튼 클릭", id)
-    setState(id)
+    console.log("버튼 클릭", id);
+    setIsActive(id);
+    setState(id);
 
 }
     return (
@@ -42,7 +47,7 @@ const onClickHandler = (id)=>{
             <div className={MainProductNavCSS.product_nav}>
                 <ul className={MainProductNavCSS.nav_ul}>
                 {Array.isArray(categoryList) && categoryList.map((category) => (
-                        <li onClick={()=>onClickHandler(category.largeCategoryId)} key={category.largeCategoryId} className={MainProductNavCSS.nav}>
+                        <li onClick={()=>onClickHandler(category.largeCategoryId)} key={category.largeCategoryId} className={`${MainProductNavCSS.nav} ${isActive === category.largeCategoryId ? MainProductNavCSS.active : ''}`}>
                         {category.largeCategoryName}
                             {/* <NavLink 
                                 className={MainProductNavCSS.nav} 

@@ -5,6 +5,7 @@ import Product from "../../components/common/products/Product";
 import { callProductListApi } from "../../apis/ProductApiCall";
 import ProductMoreCSS from "./css/ProductMore.module.css";
 import ProductNav from "../../components/common/products/ProductNav";
+import Footer from "../../components/common/Footer";
  
  function ProductMore(){
     const navigate = useNavigate();
@@ -47,22 +48,23 @@ import ProductNav from "../../components/common/products/ProductNav";
         <div>
             <div className={ProductMoreCSS.main_product_box}>
                 {Array.isArray(productList) && productList.map((product) => (
-                    <Product key={product.productId} product={product}/>
+                    <Product key={product.productId} product={product} />
                 ))}
             </div>
 
-            {/* <div className={ProductMoreCSS.product_paging}>
+            <div className={ProductMoreCSS.product_paging}>
                 {Array.isArray(productList) &&
-                <button onClick={() =>setCurrentPage(currentPage -1)} disabled={currentPage === 1} >&lt;</button>}
-                {pageNumber.map((num) =>(
+                    <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>&lt;</button>}
+                {pageNumber.map((num) => (
                     <li key={num} onClick={() => setCurrentPage(num)}>
                         <button>{num}</button>
                     </li>
                 ))}
                 {Array.isArray(productList) &&
-                <button onClick={() => setCurrentPage(currentPage +1)} disabled={currentPage === pageInfo.pageEnd || pageInfo.total === 0}>&gt;</button>
+                    <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === pageInfo.pageEnd || pageInfo.total === 0}>&gt;</button>
                 }
-            </div> */}
+            </div>
+            <Footer/>
         </div>   
     );
  }
