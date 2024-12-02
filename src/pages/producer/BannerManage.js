@@ -7,6 +7,8 @@ import BannerRegist from "./BannerRegist";
 import BannerManageCSS from "./css/BannerManage.module.css";
 import ProductMoreCSS from "../products/css/ProductMore.module.css";
 
+import ProductManageCSS from "./css/ProductManage.module.css";
+
 function BannerManage(){
 
     const navigate = useNavigate();
@@ -68,7 +70,7 @@ function BannerManage(){
 
 
     return(
-        <div>
+        <div className={BannerManageCSS.box}>
             <div>
                 <div></div>
                 <button className={BannerManageCSS.create_btn} onClick={onClickProductInsert}>등록</button>
@@ -93,10 +95,7 @@ function BannerManage(){
                         <col width="350px" />
                         <col width="100px" />
                         <col width="100px" />
-                        <col width="100px" />
-                        <col width="80px" />
-                        <col width="80px" />
-                        <col width="60px" />
+                        
                         {/* <col width="80px" /> */}
                         <col width="121px" />
                     </colgroup>
@@ -109,10 +108,9 @@ function BannerManage(){
                             <th>등록여부</th>
                             <th>승인자</th>
                             {/* <th></th> */}
-                            <th></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className={ProductManageCSS.producer_tbody}>
                         {Array.isArray(bannerList) &&
                             bannerList.map((b) => (
                                 <tr
@@ -132,9 +130,9 @@ function BannerManage(){
                                     <td>{b.bannerAcceptStatus}</td>
                                     <td>{b.approverId}</td>
                                     {/* <td></td> */}
-                                    <td className={BannerManageCSS.table_banner}>
+                                    {/* <td className={BannerManageCSS.table_banner}>
                                         <button className={BannerManageCSS.delete_btn}>삭제</button>
-                                    </td>
+                                    </td> */}
                                 </tr>
                             ))}
                     </tbody>

@@ -100,7 +100,7 @@ function ProductManage() {
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className={ProductManageCSS.producer_tbody}>
                         {Array.isArray(productList) &&
                             productList.map((p) => (
                                 <tr
@@ -135,11 +135,17 @@ function ProductManage() {
                     </button>
                 )}
                 {pageNumber.map((num) => (
-                    <li key={num} onClick={() => setCurrentPage(num)}>
+                    <li key={num}
+                    style={
+                        currentPage === num
+                            ? { backgroundColor: "#647453" }
+                            : null
+                    }
+                    onClick={() => setCurrentPage(num)}>
                         <button
                             style={
                                 currentPage === num
-                                    ? { backgroundColor: "lightgreen" }
+                                    ? { color: "#fff", fontWeight: '500' }
                                     : null
                             }
                             className=""
