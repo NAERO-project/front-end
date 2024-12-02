@@ -12,11 +12,14 @@
     background-color: rgba(0, 0, 0, 0.6);
 }
 
-.producer_box .producer_img:first-child{
+.producer_box .producer_img{
+    /* width: 100%; */
+    /* width: 1168px; */
     margin: 0 20px 0 0;
     background-image: url(../../../img/naero_img//brand/brand_img.png);
     background-repeat: no-repeat;
     background-position: center;
+    /* background-color: #000; */
 }
 
 /* .producer_box .producer_img:last-child{
@@ -25,7 +28,8 @@
 } */
 
 .producer_box div{
-    width: 1168px;
+    /* width: 1168px; */
+    width: 100%;
     height: 250px;
     position: relative;
 }

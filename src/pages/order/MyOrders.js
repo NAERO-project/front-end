@@ -122,6 +122,7 @@ function MyOrders() {
                     </td>
                     <td>
                       <button
+                        style={{width: '130px', height: '50px', fontSize: '18px', borderRadius: '5px', color:'#fff', backgroundColor: '#647453'}}
                         className={MyOrderCSS.detail_btn}
                         onClick={() => onClickOrderDetailHandler(order.orderId)}
                       >
@@ -146,11 +147,19 @@ function MyOrders() {
           </button>
         )}
         {pageNumber.map((num) => (
-          <li key={num} onClick={() => setCurrentPage(num)}>
+          <li key={num} 
+          style={
+            currentPage === num
+                ? { backgroundColor: "#546E7A" }
+                : null
+          }
+          onClick={() => setCurrentPage(num)}>
             <button
               style={
-                currentPage === num ? { backgroundColor: "lightgreen" } : null
-              }
+                currentPage === num
+                    ? { color: "#fff", fontWeight: '500' }
+                    : null
+            }
               className=""
             >
               {num}

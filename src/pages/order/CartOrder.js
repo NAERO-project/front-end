@@ -431,17 +431,17 @@ const processEasyPay = async (provider) => {
                     <h3>주문자 정보</h3>
 
                     <div className={UserInfoCSS.info}>
-                        <p>이름 :</p>
+                        <p style={{width: '75px', padding: '5px 0 0 0'}}>이름 :</p>
                         <p style={{width: '408px', padding: '5px 10px'}} className={UserInfoCSS.txt}>{orderData?.userDTO?.userFullName || "이름 없음"}</p>
                     </div>
 
                     <div className={UserInfoCSS.info}>
-                        <p style={{width: '75px'}}>전화번호 :</p>
+                        <p style={{width: '75px', padding: '5px 0 0 0'}}>전화번호 :</p>
                         <p style={{width: '408px', padding: '5px 10px'}} className={UserInfoCSS.txt}>{orderData?.userDTO?.userPhone || "전화번호 없음"}</p>
                     </div>
 
                     <div className={UserInfoCSS.info}>
-                        <p>이메일 :</p>
+                        <p style={{width: '75px', padding: '5px 0 0 0'}}>이메일 :</p>
                         <p style={{width: '408px', padding: '5px 10px'}} className={UserInfoCSS.txt}>{orderData?.userDTO?.userEmail || "이메일 없음"}</p>
                     </div>
                 </div>
@@ -475,7 +475,7 @@ const processEasyPay = async (provider) => {
                 <h3>배송지 정보</h3>
 
                 <div style={{margin: '0 0 20px 0'}}>
-                    <label style={{margin: '0 30px 0 0'}}>이름 :</label>
+                    <label style={{width: '75px', padding: '5px 0 0 0'}}>이름 :</label>
                     <input
                         style={{width: '408px', padding: '5px 10px', margin: '0 30px 0 0'}} 
                         className={UserInfoCSS.txt}
@@ -485,8 +485,10 @@ const processEasyPay = async (provider) => {
                         placeholder="받는 사람 이름"
                         onChange={onChangeHandler}
                     />
+                </div>
 
-                    <label style={{margin: '0 30px 0 0'}}>전화번호 :</label>
+                <div style={{margin: '0 0 20px 0'}}>
+                    <label style={{width: '75px', padding: '5px 0 0 0'}}>전화번호 :</label>
                     <input
                         style={{width: '408px', padding: '5px 10px', margin: '0 30px 0 0'}} 
                         className={UserInfoCSS.txt}
@@ -499,7 +501,7 @@ const processEasyPay = async (provider) => {
                 </div>
                 
                 <div style={{margin: '0 0 20px 0'}}>
-                <label style={{margin: '0 10px 0 0'}}>우편번호 :</label>
+                <label style={{width: '75px', padding: '5px 0 0 0'}}>우편번호 :</label>
                     <input
                         style={{width: '408px', padding: '5px 10px', margin: '0 30px 0 0'}} 
                         className={UserInfoCSS.txt}
@@ -512,7 +514,7 @@ const processEasyPay = async (provider) => {
                 </div>
                 
                 
-                <label style={{margin: '0 23px 0 0'}}>도로명 :</label>
+                <label style={{width: '75px', padding: '5px 0 0 0'}}>도로명 :</label>
                 <input
                     style={{width: '408px', padding: '5px 10px', margin: '0 0 20px 0'}} 
                     className={UserInfoCSS.txt}
@@ -522,7 +524,7 @@ const processEasyPay = async (provider) => {
                     placeholder="주소를 입력하세요"
                 />
                 <br />
-                <label style={{margin: '0 15px 0 0'}}>상세주소 :</label>
+                <label style={{width: '75px', padding: '5px 0 0 0'}}>상세주소 :</label>
                 <input
                     style={{width: '408px', padding: '5px 10px', margin: '0 0 20px 0'}} 
                     className={UserInfoCSS.txt}
@@ -547,7 +549,7 @@ const processEasyPay = async (provider) => {
                 )}
                 <br />
                 <textarea
-                    style={{width: '408px', height: '100px', padding: '5px 10px', borderRadius: '10px', border: '1px solid #828282'}} 
+                    style={{width: '480px', height: '100px', padding: '5px 10px', borderRadius: '10px', border: '1px solid #828282'}} 
                     className={CartOrderCSS.post_txt}
                     name="deliveryNote"
                     value={payRequest.orderDTO.deliveryNote}
@@ -561,27 +563,27 @@ const processEasyPay = async (provider) => {
                     <h3>결제 금액</h3>
                     
                     <div className={UserInfoCSS.info}>
-                        <p style={{width: '80px'}}>주문 금액:</p>
+                        <p style={{width: '100px', padding: '5px 0 0 0'}}>주문 금액:</p>
                         <p style={{width: '408px', padding: '5px 10px'}} className={UserInfoCSS.txt}>{formatNumber(calculateOrderTotalAmount())}원</p>
                     </div>
 
                     <div className={UserInfoCSS.info}>
-                        <p style={{width: '80px'}}>배송비:</p>
+                        <p style={{width: '100px', padding: '5px 0 0 0'}}>배송비:</p>
                         <p style={{width: '408px', padding: '5px 10px'}} className={UserInfoCSS.txt}>+{formatNumber(orderData.orderDTO?.deliveryFee || 0)}원</p>
                     </div>
 
                     <div className={UserInfoCSS.info}>
-                        <p style={{width: '80px'}}>쿠폰 할인:</p>
+                        <p style={{width: '100px', padding: '5px 0 0 0'}}>쿠폰 할인:</p>
                         <p style={{width: '408px', padding: '5px 10px'}} className={UserInfoCSS.txt}>-{formatNumber(payRequest.orderDTO.couponDiscount || 0)}원</p>
                     </div>
 
                     <div className={UserInfoCSS.info}>
-                        <p style={{width: '80px'}}>포인트 할인:</p>
+                        <p style={{width: '100px', padding: '5px 0 0 0'}}>포인트 할인:</p>
                         <p style={{width: '408px', padding: '5px 10px'}} className={UserInfoCSS.txt}>-{formatNumber(payRequest.orderDTO.pointDiscount || 0)}원</p>
                     </div>
 
                     <div className={UserInfoCSS.info}>
-                        <p style={{width: '80px'}}>최종 주문 금액:</p>
+                        <p style={{width: '100px', padding: '5px 0 0 0'}}>최종 주문 <br/>금액:</p>
                         <p style={{width: '408px', padding: '5px 10px'}} className={UserInfoCSS.txt}>{formatNumber(
                             calculateOrderTotalAmount() +
                                 (orderData.orderDTO?.deliveryFee || 0) -
@@ -597,7 +599,7 @@ const processEasyPay = async (provider) => {
                     <div>
                         <h3>할인 정보</h3>
                         <div className={UserInfoCSS.info}>
-                            <p style={{width: '80px'}}>쿠폰 적용</p>
+                            <p style={{width: '75px', padding: '5px 0 0 0'}}>쿠폰 적용</p>
                             <div style={{width: '408px', padding: '5px 10px'}} className={UserInfoCSS.txt}>
                                 <select
                                     style={{width: '100%'}}
@@ -615,7 +617,7 @@ const processEasyPay = async (provider) => {
                         </div>
                     
                         <div className={UserInfoCSS.info}>
-                            <p style={{width: '85px'}}>포인트 적용</p>
+                            <p style={{width: '75px', padding: '5px 0 0 0'}}>포인트<br/>적용</p>
                             <div>
                                 <input
                                 className={UserInfoCSS.txt}
@@ -670,7 +672,7 @@ const processEasyPay = async (provider) => {
                         {paymentMethod === "BANK_TRANSFER" && (
                             <div>
                                 <div className={UserInfoCSS.info}>
-                                    <p style={{width: '80px'}}>입금할 계좌 정보 :</p>
+                                    <p style={{width: '75px', padding: '5px 0 0 0'}}>입금할 계좌 정보 :</p>
                                     <input
                                     style={{width: '408px', padding: '5px 10px'}} 
                                     className={UserInfoCSS.txt}
@@ -681,7 +683,7 @@ const processEasyPay = async (provider) => {
                                 </div>
 
                                 <div className={UserInfoCSS.info}>
-                                    <p style={{width: '80px'}}>입금자명 :</p>
+                                    <p style={{width: '75px', padding: '5px 0 0 0'}}>입금자명 :</p>
                                     <input
                                     style={{width: '408px', padding: '5px 10px'}} 
                                     className={UserInfoCSS.txt}
