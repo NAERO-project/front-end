@@ -44,17 +44,21 @@
     text-align: center;
 }
 
+.question_thead tr{
+    background-color: transparent;
+}
+
 .question_tbody tr:nth-child(odd){
-    background-color: none;
+    background-color: transparent;
 }
 
 .question_tbody tr:nth-child(even){
-    background-color: none;
+    background-color: transparent;
 }
 
-/* .question_tbody th, td{
+.question_tbody th, td{
     border: 1px solid #757575;
-}  */
+} 
 
 .detail_btn{
     /* width: 170px;

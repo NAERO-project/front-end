@@ -9,13 +9,16 @@
     justify-content: space-between;
     flex-flow: row;
     margin-bottom: 20px;
+    
 }
 
 .img_box{
     width: 142px;
     height: 137px;
     /* margin: ; */
-    background-color: red;
+    box-sizing: border-box;
+    overflow: hidden;
+    /* background-color: red; */
 }
 
 .txt_box{

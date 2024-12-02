@@ -347,7 +347,9 @@
 
 /* 카테고리 태그 */
 .product_tag{ 
-    padding: 4px 10px;
+    height: 18px;
+    /* line-height: 2rem; */
+    padding: 0px 5px 6px 5px;
     border-radius: 10px;
     font-size: 12px;
     font-weight: 300;
