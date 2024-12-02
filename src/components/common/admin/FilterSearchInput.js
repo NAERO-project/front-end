@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import FilterCSS from "./css/AdminFilterSearch.module.css";
+
 function FilterSearchInput(props) {
     const { keywords, state, setState, handler } = props;
     const [ input, setInput ] = useState("")
@@ -16,7 +18,7 @@ function FilterSearchInput(props) {
     
 
     return (
-        <div>
+        <div className={FilterCSS.box}>
             <input placeholder="검색어" onChange={(e) => {setInput(e.target.value) }} type="text" /> 
             <select onChange={(e) => { setKeyword(e.target.value) }} >{keys.map((value, index, array) => {
                 return (<option value={value}>{keywords[value] }</option>)
