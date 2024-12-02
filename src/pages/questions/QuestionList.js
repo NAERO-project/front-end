@@ -112,7 +112,12 @@ return (
                                     }
                                 >
                                     <td>{question.questionTitle}</td>
-                                    <td>{question.questionDate}</td>
+                                    <td>{question?.questionDate
+                                    ? question.questionDate
+                                          .replace("T", " ")
+                                          .replace("Z", "") // "T"를 공백으로, "Z"를 제거
+                                    : "정보 없음"}</td>
+                                    
                                     <td>
                                         {question.questionStatus === true || question.questionStatus === 1
                                             ? "답변 완료"

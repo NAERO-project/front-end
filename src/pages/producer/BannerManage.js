@@ -72,7 +72,7 @@ function BannerManage(){
                     <colgroup>
                         <col width="80px" />
                         <col width="100px" />
-                        <col width="100px" />
+                        {/* <col width="100px" /> */}
                         <col width="350px" />
                         <col width="100px" />
                         <col width="100px" />
@@ -80,18 +80,18 @@ function BannerManage(){
                         <col width="80px" />
                         <col width="80px" />
                         <col width="60px" />
-                        <col width="80px" />
+                        {/* <col width="80px" /> */}
                         <col width="121px" />
                     </colgroup>
                     <thead>
                         <tr>
                             <th>배너번호</th>
                             <th>배너이미지</th>
-                            <th>URL</th>
+                            {/* <th>URL</th> */}
                             <th>등록일자</th>
                             <th>등록여부</th>
                             <th>승인자</th>
-                            <th></th>
+                            {/* <th></th> */}
                             <th></th>
                         </tr>
                     </thead>
@@ -106,11 +106,15 @@ function BannerManage(){
                                     <td>
                                         <img src={b.bannerThumbnail} alt={b.bannerId}/>
                                     </td>
-                                    <td>{b.bannerUrl}</td>
-                                    <td>{b.bannerCreateAt}</td>
+                                    {/* <td>{b.bannerUrl}</td> */}
+                                    <td> {b?.bannerCreateAt
+                                    ? b.bannerCreateAt
+                                          .replace("T", " ")
+                                          .replace("Z", "") // "T"를 공백으로, "Z"를 제거
+                                    : "정보 없음"}</td>
                                     <td>{b.bannerAcceptStatus}</td>
                                     <td>{b.approverId}</td>
-                                    <td></td>
+                                    {/* <td></td> */}
                                     <td>
                                         <button>삭제</button>
                                     </td>
