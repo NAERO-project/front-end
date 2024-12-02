@@ -63,7 +63,7 @@ function DeliveryTrackModal({ orderId, shippingId, onClose }) {
           callDeliveryInfoApi(trackingNumber, shipComCode)
         );
 
-        console.log("deliveryData", deliveryData);
+        // console.log("deliveryData", deliveryData);
 
         if (!deliveryData || deliveryData.status === false) {
           throw new Error(
@@ -83,7 +83,7 @@ function DeliveryTrackModal({ orderId, shippingId, onClose }) {
         }
         // setProgress(70);
       } catch (err) {
-        console.error("Error fetching delivery information:", err.message);
+        // console.error("Error fetching delivery information:", err.message);
         // navigate(`/producer/order-update/error`, {
         //   state: { errorMessage: err.message },
         // }); // Redirect to ErrorPage

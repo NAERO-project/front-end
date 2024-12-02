@@ -41,7 +41,7 @@ function ProducerOrderProductList({ orderId, orderStatus }) {
         })
       );
 
-      console.log("Order Products Response:", response);
+      // console.log("Order Products Response:", response);
 
       if (response?.length > 0) {
         setOrderProducts(response);
@@ -53,7 +53,7 @@ function ProducerOrderProductList({ orderId, orderStatus }) {
           callShippingStatusListApi(shippingId)
         );
 
-        console.log("Shipping Status Response:", statusResponse);
+        // console.log("Shipping Status Response:", statusResponse);
 
         setShippingStatus(statusResponse?.shippingStatus || "");
 
@@ -74,10 +74,11 @@ function ProducerOrderProductList({ orderId, orderStatus }) {
           }
         }
       } else {
-        console.warn("No products found for the given order ID.");
+        // console.warn("No products found for the given order ID.");
       }
     } catch (error) {
-      console.error("Failed to fetch order products:", error);
+      // console.error("Failed to fetch order products:", error);
+      alert("조회 중 오류가 발생했습니다. 다시 시도해주세요.");
     }
   };
 
