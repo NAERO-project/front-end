@@ -40,7 +40,7 @@
   z-index: 2; /* Icons above the progress bars */
 }
 
-.icon-button {
+.icon-button:disabled {
   display: flex;
   justify-content: center;
   align-items: center;

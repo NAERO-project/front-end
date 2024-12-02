@@ -124,6 +124,7 @@ function DeliveryUpdateModal({ orderId, onClose }) {
           <label>송장번호</label>
           <div className={styles["vertical-line"]}></div>
           <input
+            className={styles["input-text"]}
             type="text"
             name="trackingNumber"
             value={form.trackingNumber}
@@ -137,6 +138,7 @@ function DeliveryUpdateModal({ orderId, onClose }) {
           <label>배송회사</label>
           <div className={styles["vertical-line"]}></div>
           <select
+            className={styles["select-text"]}
             name="shipComId"
             value={form.shipComId}
             onChange={handleInputChange}

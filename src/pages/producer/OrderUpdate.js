@@ -16,6 +16,8 @@ function OrderUpdate() {
   const params = useParams();
   const orderDetail = useSelector((state) => state.orderReducer);
 
+  console.log("orderStatus", orderDetail?.orderStatus);
+
   useEffect(() => {
     console.log("[OrderUpdate] orderId : ", params.orderId);
     const intermediateOrderDetail = dispatch(
@@ -54,6 +56,7 @@ function OrderUpdate() {
             <ProducerOrderProductList
               key={params.orderId}
               orderId={params.orderId}
+              orderStatus={orderDetail?.orderStatus}
             />
           </div>
           <div className={styles["aside-info"]}>

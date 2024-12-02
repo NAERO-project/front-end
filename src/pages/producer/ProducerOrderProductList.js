@@ -9,7 +9,7 @@ import DeliveryUpdateModal from "../../components/shipping/DeliveryUpdateModal";
 import DeliveryTrackModal from "../../components/shipping/DeliveryTrackModal";
 import styles from "./css/ProductOrderProductList.module.css";
 
-function ProducerOrderProductList({ orderId }) {
+function ProducerOrderProductList({ orderId, orderStatus }) {
   const { orderId: routeOrderId } = useParams();
   const effectiveOrderId =
     orderId || routeOrderId || localStorage.getItem("currentOrderId");
@@ -29,6 +29,7 @@ function ProducerOrderProductList({ orderId }) {
   const [currentShippingId, setCurrentShippingId] = useState(null);
   const [currentTrackingNumber, setCurrentTrackingNumber] = useState(null);
   const [currentShipComName, setCurrentShipComName] = useState(null);
+  // console.log("orderStatus_ProducerOrderProductList", orderStatus);
 
   // Fetch producer order products
   const fetchOrderProducts = async () => {
@@ -40,7 +41,7 @@ function ProducerOrderProductList({ orderId }) {
         })
       );
 
-      // console.log("Order Products Response:", response);
+      console.log("Order Products Response:", response);
 
       if (response?.length > 0) {
         setOrderProducts(response);
@@ -146,6 +147,7 @@ function ProducerOrderProductList({ orderId }) {
             className={styles["delivery-button"]}
             onClick={() => setIsDeliveryUpdateModalOpen(true)}
             // disabled={shippingStatus !== "pending"}
+            disabled={orderStatus !== "completed"}
           >
             송장등록
           </button>

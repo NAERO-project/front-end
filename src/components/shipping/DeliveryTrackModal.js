@@ -84,9 +84,11 @@ function DeliveryTrackModal({ orderId, shippingId, onClose }) {
         // setProgress(70);
       } catch (err) {
         console.error("Error fetching delivery information:", err.message);
-        navigate(`/producer/order-update/error`, {
-          state: { errorMessage: err.message },
-        }); // Redirect to ErrorPage
+        // navigate(`/producer/order-update/error`, {
+        //   state: { errorMessage: err.message },
+        // }); // Redirect to ErrorPage
+        alert(err.message);
+        onClose();
       } finally {
         setLoading(false);
       }
