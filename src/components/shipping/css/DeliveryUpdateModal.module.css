@@ -41,17 +41,20 @@
   margin: 0 10px; /* Space around the vertical line */
 }
 
-.input-container input[type="text"],
-.input-container select {
+.input-container .input-text,
+.input-container .select-text {
   flex: 1;
   background-color: #fff;
+  margin-top: 0px;
   margin-right: 15px;
   padding: 10px 10px 10px 10px;
+  padding-inline: 0px;
   border-radius: 0px 30px 30px 0px;
+  height: 100%;
 }
 
-.input-container input[type="text"]:focus,
-.input-container select:focus {
+.input-container .input-text:focus,
+.input-container .select-text:focus {
   border: none;
   outline: none;
 }

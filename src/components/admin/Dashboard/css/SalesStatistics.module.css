@@ -48,15 +48,16 @@
   border-radius: 4px;
 }
 
+/* Filtered List Dropdown */
 .filtered-list-item {
   padding: 8px;
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.filtered-list-item:hover {
-  background-color: #f0f0f0;
-  color: var(--main-color01);
+.filtered-list-item:hover,
+.filtered-list-item.highlighted {
+  background-color: #007bff;
+  color: #fff;
 }
 
 /* No Results Placeholder (if applicable) */

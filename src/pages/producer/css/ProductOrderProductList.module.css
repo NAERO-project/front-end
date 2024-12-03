@@ -7,26 +7,27 @@
 }
 
 .product-item {
-  width: 920px;
-    height: 178px;
-    padding: 20px 24px;
-    border: 1px solid #849076;
-    border-radius: 10px;
-    background-color: #fff;
-    display: flex;
-    justify-content: space-between;
-    flex-flow: row;
-    margin-bottom: 20px;
+  width: 100%;
+  height: 178px;
+  padding: 20px 24px;
+  border: 1px solid #849076;
+  border-radius: 10px;
+  background-color: #fff;
+  display: flex;
+  /* justify-content: space-between; */
+  gap: 24px;
+  flex-flow: row;
+  margin-bottom: 20px;
 }
 
 .product-item img {
   width: 142px;
-    height: 137px;
-    /* margin: ; */
-    box-sizing: border-box;
-    overflow: hidden;
-    /* background-color: red; */
-  }
+  height: 137px;
+  /* margin: ; */
+  box-sizing: border-box;
+  overflow: hidden;
+  /* background-color: red; */
+}
 
 .product-item .info {
   display: grid; /* Use grid to create three rows */
@@ -38,10 +39,31 @@
   margin-bottom: 10px; Remove default margin from paragraphs
 } */
 
+.tracking-container {
+  display: flex; /* Align child elements in a row */
+  justify-content: space-between; /* Push elements to opposite ends */
+  align-items: stretch;
+  align-items: stretch; /* Ensures both sides match in height */
+  width: 100%; /* Adjust width as needed */
+  margin: 0 auto; /* Center the container horizontally */
+}
+
+.tracking-info {
+  display: flex;
+  flex-direction: column; /* Ensures vertical alignment */
+  justify-content: center; /* Center content vertically */
+}
+
+.tracking-info p {
+  font-size: 0.9rem;
+  margin-bottom: 0px;
+  color: gray;
+}
+
 .button-container {
   display: flex;
-  justify-content: flex-end; /* Align buttons to the right */
-  margin-top: 10px; /* Add some space above the buttons */
+  flex-direction: row; /* Align buttons horizontally */
+  align-items: center; /* Vertically align buttons */
 }
 
 .delivery-button {

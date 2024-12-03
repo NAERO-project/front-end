@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSalesStatistics } from "../../../apis/DashboardApiCall";
 import MyResponsiveBar from "./MyResponsiveBar";
@@ -7,6 +7,7 @@ import styles from "./css/SalesStatistics.module.css";
 
 function SalesStatistics() {
   const dispatch = useDispatch();
+  const listRef = useRef(null); // Ref for the filtered list
 
   // Fetch productList and brandList from Redux store
   const productList = useSelector((state) => state.dashboard.productList);
@@ -28,6 +29,7 @@ function SalesStatistics() {
   const [formInputsSales, setFormInputsSales] = useState(initialInputs);
   const [filteredOptions, setFilteredOptions] = useState([]);
   const [isTyping, setIsTyping] = useState(false); // Track if the user is typing
+  const [highlightedIndex, setHighlightedIndex] = useState(-1); // Track the highlighted index
   const [submittedSpecificationSales, setSubmittedSpecificationSales] =
     useState("");
 
@@ -36,6 +38,15 @@ function SalesStatistics() {
     dispatch(fetchSalesStatistics(formInputsSales));
     setSubmittedSpecificationSales(formInputsSales.specification || "");
   }, [dispatch, formInputsSales]);
+
+  useEffect(() => {
+    if (listRef.current && highlightedIndex >= 0) {
+      const listItem = listRef.current.children[highlightedIndex];
+      if (listItem) {
+        listItem.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    }
+  }, [highlightedIndex]);
 
   // Version1: Update Local form state when an input changes
   // const handleInputChange = (key, value) => {
@@ -70,9 +81,10 @@ function SalesStatistics() {
             option.normalize("NFC").includes(value.trim().normalize("NFC")) // Trim to remove leading/trailing whitespace
         );
 
-        console.log("options:", options);
+        // console.log("options:", options);
 
         setFilteredOptions(filtered);
+        setHighlightedIndex(-1); // Reset highlighted index
       } else {
         setIsTyping(false); // User cleared the input
         setFilteredOptions([]);
@@ -104,14 +116,33 @@ function SalesStatistics() {
   //   setSubmittedSpecificationSales(formInputsSales.specification || "");
   // };
 
+  const handleKeyDown = (e) => {
+    if (filteredOptions.length === 0) return;
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault(); // Prevent default scrolling behavior
+      setHighlightedIndex((prevIndex) =>
+        prevIndex < filteredOptions.length - 1 ? prevIndex + 1 : prevIndex
+      );
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault(); // Prevent default scrolling behavior
+      setHighlightedIndex((prevIndex) =>
+        prevIndex > 0 ? prevIndex - 1 : prevIndex
+      );
+    } else if (e.key === "Enter" && highlightedIndex >= 0) {
+      e.preventDefault(); // Prevent form submission
+      handleOptionSelect(filteredOptions[highlightedIndex]);
+    }
+  };
+
   // Determin chart type based on the value of the specification
   const isSpecificationEmpty =
     !submittedSpecificationSales || submittedSpecificationSales.trim() === "";
 
   // Add console logs to debug
-  console.log("Data received:", data);
-  console.log("isSpecificationEmpty:", isSpecificationEmpty);
-  console.log("formInputsSales:", formInputsSales);
+  // console.log("Data received:", data);
+  // console.log("isSpecificationEmpty:", isSpecificationEmpty);
+  // console.log("formInputsSales:", formInputsSales);
 
   // Add this check before rendering
   // const shouldShowLineChart = !isSpecificationEmpty && data && data.length > 0;
@@ -174,14 +205,17 @@ function SalesStatistics() {
             placeholder="개별 입력 조회"
             value={formInputsSales.specification || ""}
             onChange={(e) => handleInputChange("specification", e.target.value)}
+            onKeyDown={handleKeyDown} // Attach the keydown event listener
           />
           {filteredOptions.length > 0 && (
-            <ul className={styles["filtered-list"]}>
+            <ul className={styles["filtered-list"]} ref={listRef}>
               {filteredOptions.map((option, index) => (
                 <li
                   key={index}
                   onClick={() => handleOptionSelect(option)}
-                  className={styles["filtered-list-item"]}
+                  className={`${styles["filtered-list-item"]} ${
+                    highlightedIndex === index ? styles["highlighted"] : ""
+                  }`}
                 >
                   {option}
                 </li>
