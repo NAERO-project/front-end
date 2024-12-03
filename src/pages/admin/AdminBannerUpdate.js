@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { callBannerUpdateApi } from "../../apis/BannerApiCall";
 
+import AdminBannerUpdateCSS from "./manageusers/css/AdminBannerUpdate.module.css";
+
 function AdminBannerUpdate({bannerId, onClose}){
 
     const dispatch = useDispatch();
@@ -43,31 +45,30 @@ function AdminBannerUpdate({bannerId, onClose}){
         }));
 
         alert('배너 등록했습니다.');
-        onClose(); // 모달 닫기
-        navigate('/admin/banner-manage', {replace: true});
+        onClose(true); // 모달 닫기
+        // navigate('/admin/banner-manage', {replace: true});
     }
 
     return(
-        <div>
-            <table>
-                <tbody>
-                    <tr>
-                        <td>
-                            <label>
-                                등록여부
-                            </label>
-                            <td>
-                                <input name="bannerAcceptStatus" placeholder="등록 여부" onChange={onChangeHandler}/>
-                            </td>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div>
-                <button onClick={onClickBannerUpdateHandler}>배너 등록</button>
+        <>
+            <div className={AdminBannerUpdateCSS.box}>
+                <div className={AdminBannerUpdateCSS.banner}>
+                    <div>
+                        <input 
+                        className={AdminBannerUpdateCSS.img_box}
+                        name="bannerAcceptStatus" 
+                        placeholder="등록 여부" 
+                        onChange={onChangeHandler}/>
+                    </div>          
+                </div>
+                <div>
+                    <button className={AdminBannerUpdateCSS.regist_btn} onClick={onClickBannerUpdateHandler}>배너 등록</button>
+                    <button className={AdminBannerUpdateCSS.close_btn} onClick={() => onClose(false)}>닫기</button> {/* 닫기 버튼 추가 */}
+                </div>
             </div>
-            <button onClick={onClose}>닫기</button> {/* 닫기 버튼 추가 */}
-        </div>
+            <div className={AdminBannerUpdateCSS.blur}></div>
+        </>
+        
     );
 }
 

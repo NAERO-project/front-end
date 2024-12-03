@@ -64,10 +64,10 @@ function UserUpdateForm({ user }) {
 					autoComplete='off'
 					onChange={onChangeHandler}
                 />{ !isAdmin &&
-                <div>
+
+                <div className={UserUpdateFormCSS.pass}>	
                 <label>새 비밀번호</label>
 				<input
-				 	className={UserUpdateFormCSS.pass}
 					type='password'
 					name='password'
 					placeholder='비밀번호'
@@ -75,6 +75,7 @@ function UserUpdateForm({ user }) {
 					onChange={onChangeHandler}
 					required
                 />
+
                 <label>비밀번호 확인</label>
 				<input
 					type='password'
@@ -96,8 +97,8 @@ function UserUpdateForm({ user }) {
 					autoComplete='off'
 					onChange={onChangeHandler}
 				/>
-				<button onClick={fetchUpdate}>수정 요청</button>{" "}
 			</form>
+				<button className={`${UserUpdateFormCSS.btn}`} onClick={fetchUpdate}>수정</button>{" "}
         </div>
     );
 }

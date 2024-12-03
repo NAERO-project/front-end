@@ -106,7 +106,7 @@ function BannerManage(){
                             {/* <th>URL</th> */}
                             <th>등록일자</th>
                             <th>등록여부</th>
-                            <th>승인자</th>
+                            {/* <th>승인자</th> */}
                             {/* <th></th> */}
                         </tr>
                     </thead>
@@ -128,7 +128,7 @@ function BannerManage(){
                                           .replace("Z", "") // "T"를 공백으로, "Z"를 제거
                                     : "정보 없음"}</td>
                                     <td>{b.bannerAcceptStatus}</td>
-                                    <td>{b.approverId}</td>
+                                    {/* <td>{b.approverId}</td> */}
                                     {/* <td></td> */}
                                     {/* <td className={BannerManageCSS.table_banner}>
                                         <button className={BannerManageCSS.delete_btn}>삭제</button>
