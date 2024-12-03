@@ -34,9 +34,10 @@ tbody tr:nth-child(even){
 
 .filter_btn{
     width: 130px;
-    height: 50px;
-    margin: 10px 0;
-    font-size: 21px;
+    height: 35px;
+    margin: 10px 8px;
+    padding: 0 0 2px 0;
+    font-size: 18px;
     border-radius: 5px;
     color: #41535C;
     background-color: #fff;
@@ -45,9 +46,10 @@ tbody tr:nth-child(even){
 
 .filter_box{
     width: 374px;
-    height: 190px;
+    /* height: 190px; */
     /* display: flex;
     flex-grow: row; */
+    padding: 20px;
     position: relative;
     border: 1px solid #41535C;
     border-radius: 5px;
@@ -60,7 +62,7 @@ tbody tr:nth-child(even){
 }
 
 .name{
-    font-size: 18px;
+    font-size: 12px;
     font-weight: 500;
     margin-bottom: 0;
     color: #ddd;
@@ -72,9 +74,10 @@ tbody tr:nth-child(even){
 }
 
 .filter_item_box button:nth-child(odd){
-    width: 60px;
+    width: 70px;
     height: 25px;
     font-size: 12px;
+    padding: 0 0 2px 0;
     border: 1px solid #cf5346;
     color: #cf5346;
     background-color: #fff;
@@ -93,12 +96,13 @@ tbody tr:nth-child(even){
     /* position: absolute; 부모 요소를 기준으로 위치 조정
     right: 10px; 부모의 오른쪽 끝에서 10px 이동
     bottom: 10px; */
-    /* display: flex; */
-    width: 334px;
+    display: flex;
+    /* width: 34px; */
     height: 30px;
     text-align: center;
     /* margin: 0 auto; */
     /* padding: 0 0 0 5px; */
+    padding: 5px 130px;
     border-radius: 5px;
     margin: 0 auto;
     font-size: 12px;

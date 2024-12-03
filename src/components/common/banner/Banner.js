@@ -15,7 +15,8 @@ function Banner({
     };
 
     return(
-        <div onClick={() =>onClickBannerHandler()}>
+        // <div onClick={() =>onClickBannerHandler()}>
+        <div>
             <img className={BannerCSS.banner_img} src={bannerImg} alt={bannerId} />
         </div>
         

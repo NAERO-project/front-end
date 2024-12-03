@@ -10,6 +10,9 @@ import {
     callQuestionDetailApi
 } from '../../apis/QuestionAPICalls';
 
+import UserInfoCSS from "../../components/signup/css/UserInfoForm.module.css";
+import AnswerDetailCSS from "./css/AnswerDetail.module.css";
+
 function AnswerDetail() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -85,12 +88,19 @@ function AnswerDetail() {
     };
 
     return (
-        <div>
-            <h1>답변 상세 페이지</h1>
+        <div className={AnswerDetailCSS.div_box}>
+            <div className={AnswerDetailCSS.div}>
+            {/* <h1>답변 상세 페이지</h1> */}
             {question && (
                 <div>
-                    <h2>질문 제목: {question.questionTitle}</h2>
-                    <p>질문 내용: {question.questionContent}</p>
+                    <div className={UserInfoCSS.info}>
+                        <p style={{width: '100px'}}>질문 제목 : </p>
+                        <div style={{width: '600px'}} className={UserInfoCSS.txt}><p> {question.questionTitle}</p></div>
+				    </div>
+                    <div className={UserInfoCSS.info}>
+                        <p style={{width: '100px'}}>질문 내용 : </p>
+                        <div style={{width: '600px'}} className={UserInfoCSS.txt}><p> {question.questionContent}</p></div>
+				    </div>
                     {/* <p>최초 질문 작성 시간: {question.questionDate}</p>
                     <p>최종 질문 작성 시간: {question.questionUpdate}</p> */}
                 </div>
@@ -107,26 +117,41 @@ function AnswerDetail() {
             ) : (
                 answer && answer.questionId === question.questionId && (
                     <div>
-                        <h2>답변 제목: {answer.answerTitle}</h2>
-                        <p>답변 내용: {answer.answerContent}</p>
-                        <p>최초 답변 작성 날짜: {answer.answerDate}</p>
-                        <p>최종 답변 작성 날짜: {answer.answerUpdate}</p>
-                        <div>
-                            <button
+                        <h2 style={{fontWeight: '500', color: '#d1d1d1', margin: '50px 0 0 0'}}>{answer.answerTitle}</h2>
+                        
+                        <div style={{display: 'flex', flexFlow: 'column'}} className={UserInfoCSS.info}>
+                            <p style={{width: '100px'}}>답변 내용 : </p>
+                            <div style={{width: '600px', marginTop: '20px', borderRadius: '10px', width: '80%', height: '200px', overflowY: 'scroll'}} className={UserInfoCSS.txt}><p>{answer.answerContent}</p></div>
+				        </div>
+
+                        <div className={UserInfoCSS.info}>
+                            <p style={{width: '100px'}}>최초 답변<br/>작성 날짜 : </p>
+                            <div style={{width: '600px'}} className={UserInfoCSS.txt}><p>{answer.answerDate}</p></div>
+				        </div>
+
+                        <div className={UserInfoCSS.info}>
+                            <p style={{width: '100px'}}>최종 답변<br/>작성 날짜 : </p>
+                            <div style={{width: '600px'}} className={UserInfoCSS.txt}><p>{answer.answerUpdate}</p></div>
+				        </div>
+
+                        <div className={AnswerDetailCSS.btn_box}>
+                            <button className={AnswerDetailCSS.btn}
                                 onClick={() =>
                                     navigate(`/admin/answers/edit/${question.questionId}/${answer.answerId}`)
                                 }
                             >
                                 수정
                             </button>
-                            <button onClick={handleDelete}>삭제</button>
+                            <button onClick={handleDelete} className={AnswerDetailCSS.btn}>삭제</button>
                         </div>
                     </div>
                 )
             )}
 
-            <button onClick={() => navigate(-1)}>뒤로가기</button>
+            {/* <button onClick={() => navigate(-1)}>뒤로가기</button> */}
         </div>
+        </div>
+        
     );
 }
 

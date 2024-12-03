@@ -18,10 +18,12 @@ function UserDetailManage(props) {
 		dispatch(callUserDetailManageAPI({ username: username }));
     }, [username]);
     return (
-        <div className={UserDetailCSS.div}>
-            {user && (<UserInfoForm user={user}></UserInfoForm>)}
-            
-            <NavLink className={UserDetailCSS.btn} to={"/admin/user-update/"+username} >수정하기</NavLink>
+        <div className={UserDetailCSS.div_box}>
+            <div className={UserDetailCSS.div}>
+                {user && (<UserInfoForm user={user}></UserInfoForm>)}
+                
+                <NavLink className={UserDetailCSS.btn} to={"/admin/user-update/"+username} >수정</NavLink>
+            </div>
         </div>
     );
 }

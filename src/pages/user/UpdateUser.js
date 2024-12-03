@@ -14,6 +14,12 @@ function UpdateUser(props) {
     const navigate = useNavigate();
     const [isAuthed, setIsAuthed] = useState(false);
     const user = useSelector(state => state.userReducer || {});
+    
+    const isLogin = window.localStorage.getItem("accessToken");
+    const isProducer = decodeJwt(isLogin).auth.some((a) =>
+        /ROLE_PRODUCER/.test(a)
+      );
+    
     useEffect(() => { 
         if (user.status !== 203) {
             const isLogin = window.localStorage.getItem("accessToken");
@@ -22,13 +28,20 @@ function UpdateUser(props) {
         }
     }, [])
 
+
+
     useEffect(() => {
         if (user.status === 204) { 
             navigate("/mypage/detail", { replace: true });
     } },[user])
     return <div>{!isAuthed ? <PasswordCheck setstate={setIsAuthed} /> :
         <div className={UpdateUserCSS.box}><UserUpdateForm user={user.data?.user||user.data} />
-            <WithdrawButton comment={"회원 탈퇴"} url={"/user/withdraw"} /></div>}</div>;
+         { !isProducer &&
+            <button onClick={() => { navigate("/mypage/toproducer") }}> 사업자 전환</button>}
+            <WithdrawButton comment={"회원 탈퇴"} url={"/user/withdraw"} /></div>}
+           
+
+            </div>
 }
 
 export default UpdateUser;

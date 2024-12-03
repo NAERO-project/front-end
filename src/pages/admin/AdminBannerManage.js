@@ -96,8 +96,6 @@ function AdminBannerManage(){
                             <th>URL</th>
                             <th>등록일자</th>
                             <th>등록여부</th>
-                            <th>승인자</th>
-                            <th></th>
                             <th></th>
                         </tr>
                     </thead>
@@ -113,8 +111,6 @@ function AdminBannerManage(){
                                     <td>{b.bannerUrl}</td>
                                     <td>{b.bannerCreateAt}</td>
                                     <td>{b.bannerAcceptStatus}</td>
-                                    <td>{b.approverId}</td>
-                                    <td></td>
                                     <td style={{padding: '5px 10px'}}>
                                         <button style={{width: '70px', height: '30px', backgroundColor: '#41535c', color: '#fff', borderRadius: '5px'}} onClick={() =>onClickBannerUpdate(b.bannerId)}>등록</button>
                                         {/* <button onClick={() =>onClickBannerDelete(b.bannerId)}>삭제</button> */}

@@ -36,8 +36,9 @@
     padding: 0 5px;
     margin: 0 0 0 10px;
     border-radius: 10px;
-    color: #fff;
-    background-color: #849076;
+    border: 1px solid #41535C;
+    color: #41535C;
+    background-color: #fff;
     position: absolute;
     bottom: 0;
     right: 0;
