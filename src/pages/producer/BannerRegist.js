@@ -84,7 +84,6 @@ function BannerRegist({onClose}){
 
     return(
         <>
-            
             <div className={BannerRegistCSS.box}>
                 <div className={BannerRegistCSS.banner}>
                     {imageUrl && <img src={imageUrl} alt="preview" />}
