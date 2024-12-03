@@ -13,9 +13,9 @@ function Main(props) {
 			<div>
 				<MainListPreview/>
 			</div>
-			<div>
+			{/* <div>
 				<MainProducer/>
-			</div>
+			</div> */}
 				<Footer/>
 		</div>
 	);
