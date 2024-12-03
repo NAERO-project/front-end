@@ -30,6 +30,10 @@ function ProductManage() {
         }
     }
 
+    useEffect(() =>{
+
+    },[]);
+
     useEffect(() => {
         setStart((currentPage - 1) * 5);
         dispatch(
