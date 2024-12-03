@@ -404,7 +404,6 @@ function ProductUpdate() {
                             
                             name="optionDesc"
                             placeholder="옵션 설명"
-                            value={option.optionDesc || ""}
                             onChange={onChangeOptionInputHandler}
                         />
                         </div>
@@ -414,7 +413,6 @@ function ProductUpdate() {
                             name="addPrice"
                             placeholder="추가 가격"
                             type="number"
-                            value={option.addPrice || 0}
                             onChange={onChangeOptionHandler}
                         />
                         </div>
@@ -424,7 +422,6 @@ function ProductUpdate() {
                             name="optionQuantity"
                             placeholder="옵션 수량"
                             type="number"
-                            value={option.optionQuantity || 0}
                             onChange={onChangeOptionHandler}
                         />
                         </div>
