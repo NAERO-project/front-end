@@ -1,61 +1,54 @@
-import Pagination from 'react-bootstrap/Pagination';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import Pagination from "react-bootstrap/Pagination";
+import "bootstrap/dist/css/bootstrap.min.css";
+import ProductMoreCSS from "../../../pages/products/css/ProductMore.module.css";
 
 function TablePagenation(props) {
-    const { curpage, totalpage, setState } = props;
+	const { curpage: currentPage, totalpage, setState: setCurrentPage } = props;
 
-  const handlePageClick = (page) => {
-    setState(page); // 선택한 페이지를 업데이트
-  };
-  console.log(totalpage)
-  const startPage = Math.max(1, curpage - 2);
-  const endPage = Math.min(totalpage, curpage + 2);
+	console.log(currentPage);
+	const pageNumber = [];
+	if (totalpage > 0) {
+		for (let i = 1; i <= totalpage; i++) {
+			pageNumber.push(i);
+		}
+	}
 
-  return (
-    <Pagination  >
-    {curpage > 5 && (
-        <Pagination.Prev onClick={() => handlePageClick(Math.max(curpage - 5, 1))}>
-            -5
-        </Pagination.Prev>
-    )}
-    {curpage > 1 && (
-        <Pagination.First onClick={() => handlePageClick(1)} />
-    )}
-
-    { curpage >7&&<Pagination.Ellipsis disabled={true}/>}
-
-
-    {Array.from({ length: endPage - startPage + 1 }, (_, i) => {
-        const page = startPage + i;
-        return (
-            <Pagination.Item
-            activeLabel=""
-            size="sm"
-                key={page}
-                active={page === curpage} 
-            onClick={() => handlePageClick(page)}
-          >
-            {page}
-          </Pagination.Item>
-        );
-      })}
-
-
-    { curpage + 7 <= totalpage&&<Pagination.Ellipsis  disabled={true}/>}
-     
-          
-      {curpage < totalpage && (
-        <Pagination.Last onClick={() => handlePageClick(totalpage)} />
-          )}
-           {curpage + 5 <= totalpage && (
-        <Pagination.Next onClick={() => handlePageClick(Math.min(curpage + 5, totalpage))}>
-          +5
-        </Pagination.Next>
-      )}
-
-    </Pagination>
-  );
+	return (
+		<div className={ProductMoreCSS.product_paging} style={{ padding: "50px 0 0 0" }}>
+			{
+				<button
+					onClick={() => setCurrentPage(currentPage - 1)}
+					disabled={currentPage === 1}
+					className=''
+				>
+					&lt;
+				</button>
+			}
+			{pageNumber.map(num => (
+				<li
+					key={num}
+					style={currentPage === num ? { backgroundColor: "#41535C" } : null}
+					onClick={() => setCurrentPage(num)}
+				>
+					<button
+						style={currentPage === num ? { color: "#fff", fontWeight: "500" } : null}
+						className=''
+					>
+						{num}
+					</button>
+				</li>
+			))}
+			{
+				<button
+					className=''
+					onClick={() => setCurrentPage(currentPage + 1)}
+					disabled={currentPage >= totalpage || totalpage == 1}
+				>
+					&gt;
+				</button>
+			}
+		</div>
+	);
 }
 
 export default TablePagenation;
