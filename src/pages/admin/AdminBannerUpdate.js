@@ -32,7 +32,7 @@ function AdminBannerUpdate({bannerId, onClose}){
 
         const formData = new FormData();
         formData.append('bannerId', bannerId);  //bannerId 추가
-        formData.append('bannerAcceptStatus', 'Y'); //상태를 'Y'로 설정
+        formData.append('bannerAcceptStatus', form.bannerAcceptStatus); //상태를 'Y'로 설정
 
         // useEffect(() =>{
         //     dispatch(callBannerUpdateApi({
