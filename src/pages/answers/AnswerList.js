@@ -50,16 +50,19 @@ function AnswerList() {
                         );
 
                         return (
-                            <li className={AnswerListCSS.li_box} key={question.questionId}>
-                                <Link className={AnswerListCSS.link}
+                            
+                            <Link className={AnswerListCSS.link}
                                     to={`/admin/answers/detail/${question.questionId}/${
                                         questionAnswers.length > 0 ? questionAnswers[0].answerId : "0"
                                     }`}
                                 >
+                                        <li className={AnswerListCSS.li_box} key={question.questionId}>
                                     <h4 style={{ width: '450px', padding: '12px 0 0 0' }}>{question.questionTitle}</h4>
-                                </Link>
+                                
                                 <div style={{width: '1px', height: '50px', backgroundColor: '#41535c'}}></div>
+                                
                                 <p>{question.questionStatus ? "답변 완료" : "답변 미완료"}</p>
+                                
                                 <div style={{width: '1px', height: '50px', backgroundColor: '#41535c'}}></div>
                                 {questionAnswers.length > 0 ? (
                                     <ul>
@@ -73,6 +76,7 @@ function AnswerList() {
                                     <p style={{width: '500px'}}>답변이 없습니다.</p>
                                 )}
                             </li>
+                                </Link>
                         );
                     })}
                 </ul>
@@ -94,7 +98,7 @@ function AnswerList() {
                     <li key={num}
                     style={
                         currentPage === num
-                            ? { backgroundColor: "#647453" }
+                            ? { backgroundColor: "#41535C" }
                             : null
                     }
                     onClick={() => setCurrentPage(num)}>

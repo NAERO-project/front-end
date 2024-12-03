@@ -7,7 +7,7 @@ function MainProducer(){
         <div className={MainProducerCSS.producer_box}>
             <div className={MainProducerCSS.producer_img}>
                 <div className={MainProducerCSS.blur}></div>
-                <Link to="/products/brand/home" className={MainProducerCSS.producer_btn}>더보기</Link>
+                <Link to="/products/brand/home" className={MainProducerCSS.producer_btn}>브랜드 더보기</Link>
             </div>
 {/* 
             <div className={MainProducerCSS.producer_img}>

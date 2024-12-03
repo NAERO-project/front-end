@@ -5,7 +5,7 @@
 
 .div{
     width: 600px;
-    margin: 80px 0 0 0;
+    margin: 180px 0 0 0;
     padding: 60px;
     border-radius: 30px;
     /* padding: 180px 0 0 0; */
@@ -13,8 +13,10 @@
     position: relative;
 }
 
-
 .btn{
+    width: 70px;
+    height: 35px;
+    margin: 0 50px 0 0;
     position: absolute;
     bottom: 10px;
     right: 10px;
@@ -26,7 +28,9 @@
 }
 
 .btn2{
+    display: inline-block;
     position: absolute;
-    bottom: 20px;
+    bottom: 10px;
     right: 10px;
+    color: blue;
 }

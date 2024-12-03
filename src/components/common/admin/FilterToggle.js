@@ -50,7 +50,7 @@ function FilterModal(props) {
                       
                         <div className={TableCSS.filter_item_box}>{
                             keys.map((value, index) => {
-                                return (<p  className={TableCSS.filter_item}><input type="radio" name={colum} value={value} onChange={checkHandler} /><label>{values[value]}</label></p>)
+                                return (<p style={{fontSize: '16px'}} className={TableCSS.filter_item}><input type="radio" name={colum} value={value} onChange={checkHandler} /><label>{values[value]}</label></p>)
                             })}
                         
                         <button className={TableCSS.btn2} onClick={() => {

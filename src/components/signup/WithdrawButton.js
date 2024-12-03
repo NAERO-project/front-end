@@ -5,6 +5,7 @@ import { callWithdrawAPI, callLogoutAPI } from "../../apis/UserApiCall";
 import { decodeJwt } from "../../utils/tokenUtils";
 
 import WithdrawBtnCSS from "./css/WithdrawBtn.module.css";
+// import ProducerUpdateCSS from "./css/";
 
 function WithdrawButton(props) {
     const { url, comment, ...etc } = props;
@@ -40,8 +41,9 @@ function WithdrawButton(props) {
 		}
 	};
 	return (
-		<div className={WithdrawBtnCSS.btn_box}>
-			<button onClick={fetchWithdraw}>회원 탈퇴</button>
+		// <div className={`${WithdrawBtnCSS.btn_box} ${ProducerUpdateCSS.btn2}`}>
+		<div className={`${WithdrawBtnCSS.btn_box}`}>
+		<button onClick={fetchWithdraw}>회원 탈퇴</button>
 		</div>
 	);
 }

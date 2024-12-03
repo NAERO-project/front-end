@@ -4,6 +4,10 @@ import { callAnswerUpdateApi, callAnswerDetailApi } from '../../apis/AnswerAPICa
 import { useParams, useNavigate } from 'react-router-dom';
 import { decodeJwt } from "../../utils/tokenUtils";
 
+import AnswerEditCSS from "./css/AnswerEdit.module.css";
+import AnswerDetailCSS from "./css/AnswerDetail.module.css";
+import UserInfoCSS from "../../components/signup/css/UserInfoForm.module.css";
+
 function AnswerEdit() {
     const { questionId, answerId } = useParams();
     const dispatch = useDispatch();
@@ -58,22 +62,43 @@ function AnswerEdit() {
     };
 
     return (
-        <div>
-            <h1>답변 수정</h1>
-            <input
-                name="answerTitle"
-                placeholder="답변 제목"
-                onChange={onChangeHandler}
-                value={form.answerTitle}
-            />
-            <textarea
-                name="answerContent"
-                placeholder="답변 내용"
-                onChange={onChangeHandler}
-                value={form.answerContent}
-            />
-            <button onClick={onSubmitHandler}>수정</button>
-            <button onClick={() => navigate(-1)}>취소</button>
+        <div className={AnswerDetailCSS.div_box}>
+            <div className={AnswerDetailCSS.div}>
+            {/* <h1>답변 수정</h1> */}
+            <div className={UserInfoCSS.info}>
+				<p style={{width: '100px'}}>답변 제목 : </p>
+				<div>
+                    <input
+                    style={{width: '600px'}}
+                    className={UserInfoCSS.txt}
+                    name="answerTitle"
+                    placeholder="답변 제목"
+                    onChange={onChangeHandler}
+                    value={form.answerTitle}
+                    />
+                </div>
+			</div>
+
+            <div style={{display: 'flex', flexFlow: 'column'}} className={UserInfoCSS.info}>
+				<p style={{width: '100px'}}>답변 내용 : </p>
+				<div>
+                    <textarea
+                    style={{width: '600px', marginTop: '20px', borderRadius: '10px', width: '80%', height: '200px', overflowY: 'scroll'}}
+                    className={UserInfoCSS.txt}
+                    name="answerContent"
+                    placeholder="답변 내용"
+                    onChange={onChangeHandler}
+                    value={form.answerContent}
+                    />
+                </div>
+			</div>
+
+            <div className={AnswerDetailCSS.btn_box}>
+                <button className={AnswerDetailCSS.btn} onClick={onSubmitHandler}>수정</button>
+                <button className={AnswerDetailCSS.btn} onClick={() => navigate(-1)}>취소</button>
+            </div>
+            
+        </div>
         </div>
     );
 }

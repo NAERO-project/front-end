@@ -1,22 +1,22 @@
 .box input{
     width: 392px;
-    height: 50px;
+    height: 35px;
     padding: 5px;
     border: 1px solid #757575;
-    border-right: 0;
+    /* border-right: 0; */
     background-color: #fff;
 }
 
 .box select {
     width: 154px;
-    height: 50px;
+    height: 35px;
     border: 1px solid #757575;
 }
 
 .box button{
-    width: 100px;
-    height: 50px;
-    font-size: 21px;
+    width: 70px;
+    height: 35px;
+    font-size: 18px;
     margin: 0 0 0 10px;
     border-radius: 5px;
     color: #fff;

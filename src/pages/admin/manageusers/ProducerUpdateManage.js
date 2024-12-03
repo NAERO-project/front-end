@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { callUserDetailManageAPI } from "../../../apis/ManageApiCall";
 
+import ProducerUpdateCSS from "./css/ProducerUpdateManage.module.css";
+
 function ProducerUpdateManage(props) {
     const { username } = useParams();
     const navigate = useNavigate();
@@ -21,13 +23,19 @@ function ProducerUpdateManage(props) {
             navigate("/admin/producer-detail/"+username, { replace: true });
     } },[user])
     return (
-        <div>  
-            {getUser &&
-                <ProducerUpdateForm user={getUser} username={username} />
-            }
-            <WithdrawButton comment={"사업장 정보 삭제"}
-                url={"/manager/withdraw/producer"} username={username} />
+        <div className={ProducerUpdateCSS.div_box}>
+            <div className={ProducerUpdateCSS.div}>
+                <div>  
+                    {getUser &&
+                        <ProducerUpdateForm user={getUser} username={username} />
+                    }
+                    <WithdrawButton 
+                        comment={"사업장 정보 삭제"}
+                        url={"/manager/withdraw/producer"} username={username} />
+                </div>
+            </div>
         </div>
+        
     );
 }
 
