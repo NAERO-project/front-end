@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import SignupCSS from "./css/ProducerSignup.module.css";
+import UserInfoCSS from "../../components/signup/css/UserInfoForm.module.css";
+
 function ProducerSignup(props) {
 	const navigate = useNavigate();
 	const [form, setForm] = useState({
@@ -55,68 +59,96 @@ function ProducerSignup(props) {
 	};
 
 	return (
-		<div>
+		<div className={SignupCSS.box}>
 			<form>
-				<p>
-					<label>브랜드명</label>
+
+				<div className={UserInfoCSS.info}>
+					<p style={{ width: "75px", padding: "5px 0 0 0" }}>브랜드명 : </p>
+					<div>
 					<input
+						className={UserInfoCSS.txt}
 						required
 						type='text'
 						name='producerName'
 						placeholder='브랜드명'
 						onChange={onChangeHandler}
 					></input>
-				</p>
-				<p>
-					<label>사업자 번호</label>
+					</div>
+				</div>
+
+				<div className={UserInfoCSS.info}>
+					<p style={{ width: "75px", padding: "5px 0 0 0" }}>사업자<br/>번호 : </p>
+					<div>
 					<input
+						className={UserInfoCSS.txt}
 						required
 						type='text'
 						name='busiNo'
 						placeholder='사업자 번호'
 						onChange={onChangeHandler}
 					></input>
-				</p>
-				<p>
-					<label>사업장 주소</label>
+					</div>
+				</div>
+
+				<div className={UserInfoCSS.info}>
+					<p style={{ width: "75px", padding: "5px 0 0 0" }}>사업장<br/>주소 : </p>
+					<div>
 					<input
+						className={UserInfoCSS.txt}
 						type='text'
 						name='producerAdd'
 						placeholder='주소'
 						onChange={onChangeHandler}
 					></input>
-				</p>
-				<p>
-					<label>연락처</label>
+					</div>
+				</div>
+
+				<div className={UserInfoCSS.info}>
+					<p style={{ width: "75px", padding: "5px 0 0 0" }}>연락처 : </p>
+					<div>
 					<input
+						className={UserInfoCSS.txt}
 						type='text'
 						name='producerPhone'
 						placeholder='연락처'
 						onChange={onChangeHandler}
 					></input>
-				</p>
-				<p>
-					<label>배달비</label>
+					</div>
+				</div>
+
+				<div className={UserInfoCSS.info}>
+					<p style={{ width: "75px", padding: "5px 0 0 0" }}>배달비 : </p>
+					<div>
 					<input
+						className={UserInfoCSS.txt}
 						type='text'
 						name='deliveryFee'
 						placeholder='배달비'
 						onChange={onChangeHandler}
 					></input>
-				</p>
-				<p>
-					<label>무료배달 기준</label>
+					</div>
+				</div>
+
+				<div className={UserInfoCSS.info}>
+					<p style={{ width: "75px", padding: "5px 0 0 0" }}>무료배달<br/>기준 : </p>
+					<div>
 					<input
+						className={UserInfoCSS.txt}
 						type='text'
 						name='deliveryCrit'
 						placeholder='무료배달 기준'
 						onChange={onChangeHandler}
 					></input>
-				</p>
-				<button type='button' onClick={fetchSignup}>
-					등록
-				</button>
-				<button onClick={cancelInsert}>취소</button>
+					</div>
+				</div>
+
+				<div style={{margin: '20px 0 0 0'}}>
+					<button style={{width: '70px', height: '35px', margin: '0 10px 0 0', borderRadius: '8px' ,color: '#fff', backgroundColor: '#647453'}} type='button' onClick={fetchSignup}>
+						등록
+					</button>
+					<button style={{width: '70px', height: '35px', border: '1px solid #CF5346', borderRadius: '8px' ,color: '#CF5346', backgroundColor: '#fff'}} onClick={cancelInsert}>취소</button>
+				</div>
+				
 			</form>
 		</div>
 	);

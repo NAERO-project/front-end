@@ -3,6 +3,9 @@ import { useDispatch } from 'react-redux';
 import { callAnswerCreateApi } from '../../apis/AnswerAPICalls';
 import { useParams, useNavigate } from 'react-router-dom';
 
+import UserInfoCSS from "../../components/signup/css/UserInfoForm.module.css";
+import createCSS from './css/AnswerCreate.module.css';
+
 function AnswerCreate() {
     const { questionId } = useParams();
     const dispatch = useDispatch();
@@ -40,22 +43,38 @@ function AnswerCreate() {
     };
 
     return (
-        <div>
-            <h1>답변 작성</h1>
-            <input
-                name="answerTitle"
-                placeholder="답변 제목"
-                onChange={onChangeHandler}
-                value={form.answerTitle}
-            />
-            <textarea
-                name="answerContent"
-                placeholder="답변 내용"
-                onChange={onChangeHandler}
-                value={form.answerContent}
-            />
-            <button onClick={onSubmitHandler}>등록</button>
-            <button onClick={() => navigate(-1)}>취소</button>
+        <div className={createCSS.div_box}>
+            {/* <h1>답변 작성</h1> */}
+
+            <div className={UserInfoCSS.info}>
+                <p style={{width: '100px'}}>답변 제목 : </p>
+                <div style={{width: '600px'}} className={UserInfoCSS.txt}>
+                    <input
+                    name="answerTitle"
+                    // placeholder="답변 제목"
+                    onChange={onChangeHandler}
+                    value={form.answerTitle}
+                    />
+                </div>
+            </div>
+
+
+            <div style={{display: 'flex', flexFlow: 'column'}} className={UserInfoCSS.info}>
+                <p style={{width: '100px'}}>답변 제목 : </p>
+                <div style={{border: '1px solid #222', marginTop: '20px', borderRadius: '10px', width: '80%', height: '200px', overflowY: 'scroll'}}>
+                    <textarea
+                    style={{width: '100%', height: '100%'}}
+                    name="answerContent"
+                    placeholder="답변 내용"
+                    onChange={onChangeHandler}
+                    value={form.answerContent}
+                    />
+                </div>
+            </div>
+            
+            
+            <button style={{width: '70px', height: '35px', margin: '0 15px 0 0' ,color: '#fff', backgroundColor: '#41535C', borderRadius: '8px'}} onClick={onSubmitHandler}>등록</button>
+            <button style={{width: '70px', height: '35px', color: '#CF5346', backgroundColor: '#fff', borderRadius: '8px', border: '1px solid #CF5346'}} onClick={() => navigate(-1)}>취소</button>
         </div>
     );
 }

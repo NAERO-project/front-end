@@ -72,32 +72,19 @@ function BannerManage(){
     return(
         <div className={BannerManageCSS.box}>
             <div>
-                <div></div>
                 <button className={BannerManageCSS.create_btn} onClick={onClickProductInsert}>등록</button>
             </div>
             <table>
-                    {/* 판매자의 상품 리스트 조회하는 부분 */}
-                    {/* <colgroup>
-                        <col width="5%" />
-                        <col width="30%" />
-                        <col width="10%" />
-                        <col width="10%" />
-                        <col width="10%" />
-                        <col width="10%" />
-                        <col width="15%" />
-                        <col width="10%" />
-                    </colgroup> */}
-
                     <colgroup>
-                        <col width="80px" />
-                        <col width="100px" />
+                        <col width="5%" />
+                        <col width="7%" />
                         {/* <col width="100px" /> */}
-                        <col width="350px" />
-                        <col width="100px" />
-                        <col width="100px" />
+                        <col width="25%" />
+                        <col width="25%" />
+                        {/* <col width="100px" /> */}
                         
                         {/* <col width="80px" /> */}
-                        <col width="121px" />
+                        {/* <col width="121px" /> */}
                     </colgroup>
                     <thead>
                         <tr>
