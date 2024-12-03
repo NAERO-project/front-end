@@ -93,6 +93,7 @@ function Cart() {
 
         await dispatch(callCartDeleteAPI({ cartIds: itemsToDelete }));
         alert("장바구니 삭제 완료");
+        setSelectedItems({})
         dispatch(callCartListApi({ username })); // 삭제 후 리로딩 제대로 되게 함
     };
 
