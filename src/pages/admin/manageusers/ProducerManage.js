@@ -9,7 +9,7 @@ import TablePagenation from "../../../components/common/admin/TablePagenation";
 
 const keywords = { "a.producer_id": "회원 번호" , "a.producer_name":"브랜드명" ,"b.username": "아이디" ,  "b.user_fullname": "이름" }
 //필터를 동적으로 바꾸려면 시간이 조금 걸림. 일단 하드코딩 해두기
-const filters = { "a.grade_id": { name: "회원 등급", value: { "1": "초보 사장님", "2": "중수 사장님", "3": "고수 사장님", "4": "최고의 사장님" } }, "a.with_status": { name: "영업 여부", value: { "Y": "탈퇴하지 않음", "N": "탈퇴함" } } } 
+const filters = { "a.grade_id": { name: "회원 등급", value: { "1": "초보 사장님", "2": "중수 사장님", "3": "고수 사장님", "4": "최고의 사장님" } }, "a.with_status": { name: "영업 여부", value: { "Y": "탈퇴함", "N": "탈퇴하지 않음" } } } 
 
 
 

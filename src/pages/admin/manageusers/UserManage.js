@@ -8,7 +8,7 @@ import TablePagenation from "../../../components/common/admin/TablePagenation";
 
 const keywords = { user_id: "회원 번호" ,  username: "아이디" ,  user_fullname: "이름" }
 //필터를 동적으로 바꾸려면 시간이 조금 걸림. 일단 하드코딩 해두기
-const filters = { grade_id: { name: "회원 등급", value: { "1": "새싹", "2": "묘목", "3": "나무", "4": "거목" } }, with_status: { name: "탈퇴 여부", value: { "Y": "탈퇴하지 않음", "N": "탈퇴함" } } } 
+const filters = { grade_id: { name: "회원 등급", value: { "1": "새싹", "2": "묘목", "3": "나무", "4": "거목" } }, with_status: { name: "탈퇴 여부", value: { "Y": "탈퇴함", "N": "탈퇴하지 않음" } } } 
 
 
 
