@@ -48,16 +48,22 @@ function AdminBannerManage(){
     //     navigate(`/admin/banner-update/${bannerId}`)
     // }
 
-    const onClickBannerDelete = bannerId =>{
-        dispatch(callBannerDeleteApi(bannerId)).then(() =>{
-            console.log('delete bannerId', bannerId)
+    const onClickBannerDelete = bannerId => {
+        dispatch(callBannerDeleteApi(bannerId)).then(() => {
             fetchData();
         });
     };
 
-    const onClickBannerUpdate = (bannerId) => {
+    const onClickProductInsert = (bannerId) => {
         setSelectedBannerId(bannerId); // 선택된 배너 ID 설정
         setModalOpen(true); // 모달 열기
+    };
+
+    const handleCloseModal = (success) => {
+        setModalOpen(false); // 모달 닫기
+        if (success) {
+            fetchData(); // 배너 목록 새로고침
+        }
     };
 
     return(
@@ -107,12 +113,19 @@ function AdminBannerManage(){
                                     // onClick={() => onClickTableTr(b.productId)}
                                 >
                                     <td>{b.bannerId}</td>
-                                    <td>{b.bannerThumbnail}</td>
+                                    <td>
+                                        <img src={b.bannerImg}/>
+                                    </td>
                                     <td>{b.bannerUrl}</td>
                                     <td>{b.bannerCreateAt}</td>
                                     <td>{b.bannerAcceptStatus}</td>
                                     <td style={{padding: '5px 10px'}}>
-                                        <button style={{width: '70px', height: '30px', backgroundColor: '#41535c', color: '#fff', borderRadius: '5px'}} onClick={() =>onClickBannerUpdate(b.bannerId)}>등록</button>
+                                    <button
+                                        style={{ width: '70px', height: '30px', backgroundColor: '#41535c', color: '#fff', borderRadius: '5px' }}
+                                        onClick={() => onClickProductInsert(b.bannerId)} // 배너 ID 전달
+                                    >
+                                        등록
+                                    </button>
                                         {/* <button onClick={() =>onClickBannerDelete(b.bannerId)}>삭제</button> */}
                                     </td>
                                 </tr>
@@ -120,10 +133,10 @@ function AdminBannerManage(){
                     </tbody>
                 </table>
 
-                {/* 모달 컴포넌트 추가 */}
+            {/* 모달 컴포넌트 추가 */}
             {isModalOpen && (
-                <div className="modal">
-                    <AdminBannerUpdate bannerId={selectedBannerId} onClose={() => setModalOpen(false)} /> {/* 모달 닫기 */}
+                <div>
+                    <AdminBannerUpdate bannerId={selectedBannerId} onClose={handleCloseModal} /> {/* 모달 닫기 */}
                 </div>
             )}
         </div>

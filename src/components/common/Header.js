@@ -45,10 +45,15 @@ function Header(props) {
     return (
       <div className={HeaderCSS.HeaderBar}>
         <div className={HeaderCSS.HeaderContent}>
-          <div className={HeaderCSS.LogoImage}>
-            <NavLink to="/">
-              <img src={imagePath} alt="NeroLogo" />
-            </NavLink>
+          <div style={{display: 'flex', flexFlow: 'row'}}>
+            <div className={HeaderCSS.LogoImage}>
+              <NavLink to="/">
+                <img src={imagePath} alt="NeroLogo" />
+              </NavLink>
+            </div>
+            <div style={{margin: '8px 50px'}}>
+              <NavLink style={{color: '#fff'}} to="/products/brand/home">브랜드</NavLink>
+            </div>
           </div>
           {additionalContent && (
             <div className={HeaderCSS.NavLinkContainer}>

@@ -347,12 +347,13 @@
 
 /* 카테고리 태그 */
 .product_tag{ 
-    height: 18px;
+    /* height: 18px; */
     /* line-height: 2rem; */
-    padding: 0px 5px 6px 5px;
+    /* padding: 0px 5px 6px 5px; */
+    padding: 3px 8px;
     border-radius: 10px;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 300;
     color: var(--text01);
-    background-color: var(--sub-color01);
+    background-color: #52789f;
 }

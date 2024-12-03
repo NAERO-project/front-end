@@ -11,8 +11,9 @@
 }
 
 .form_box label{
-    width: 100px;
-    margin-bottom: 10px;
+    width: 130px;
+    margin: 10px 0 0 0;
+    /* margin-bottom: 10px; */
 }
 
 .form_box input{
@@ -27,10 +28,11 @@
 }
 
 .pass{
-    margin: 0 85px 0 0;
+    display: flex;
+    justify-content: space-between;
 }
 
-.form_box button{
+.btn{
     width: 98px;
     height: 40px;
     padding: 0 5px;
@@ -43,3 +45,4 @@
     bottom: 0;
     right: 0;
 }
+
