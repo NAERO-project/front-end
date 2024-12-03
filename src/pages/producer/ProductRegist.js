@@ -359,33 +359,40 @@ function ProductRegist() {
                 </div>
 			</div>
 
-            <div style={{display: 'flex', flexFlow: 'row', marginTop: '20px'}}>
-                <div className={UserInfoCSS.info}>
-                    <label>판매 여부</label>
+            <div className={UserInfoCSS.info} >
+                        <p>판매 여부</p>
+                    <div style={{display: 'flex', flexFlow: 'row'}}>
+                        {/* <label className={UserInfoCSS.txt} style={{width: '100px', padding: '5px, 10px', margin: '0 15px'}}> */}
+                        <div>
+                            <label style={{display: 'flex', flexFlow: 'row'}}>
+                                <input
+                                    type="radio"
+                                    name="productCheck"
+                                    checked={form.productCheck === "Y"}
+                                    value="Y"
+                                    onChange={onChangeHandler}
+                                    style={{cursor: 'pointer'}}
+                                />{" "}
+                                <p style={{margin: '5px 6px'}}>Y</p> 
+                            </label>
+                        </div>
+                        
+                        <div>
+                            <label style={{display: 'flex', flexFlow: 'row'}}>
+                                <input
+                                    type="radio"
+                                    name="productCheck"
+                                    checked={form.productCheck === "N"}
+                                    value="N"
+                                    onChange={onChangeHandler}
+                                    style={{cursor: 'pointer'}}
+                                />{" "}
+                                <p style={{margin: '5px 6px'}}>N</p>
+                            </label>
+                        </div>
+                        
+                    </div>
                 </div>
-                <div >
-                    <label className={UserInfoCSS.txt} style={{width: '100px', padding: '5px, 10px', margin: '0 15px'}}>
-                        <input
-                            type="radio"
-                            name="productCheck"
-                            value="Y"
-                            onChange={onChangeHandler}
-                            style={{cursor: 'pointer'}}
-                        />{" "}
-                        Y
-                    </label>
-                    <label className={UserInfoCSS.txt} style={{width: '100px', padding: '5px, 10px'}}>
-                        <input
-                            type="radio"
-                            name="productCheck"
-                            value="N"
-                            onChange={onChangeHandler}
-                            style={{cursor: 'pointer'}}
-                        />{" "}
-                        N
-                    </label>
-                </div>
-            </div>
         </div>
             
 
@@ -549,7 +556,7 @@ function ProductRegist() {
             <div>
                 <p>상품 설명</p>
 				
-				<div style={{width: '100%', height: '100px', overflow: 'scroll'}}>
+				<div style={{width: '100%', height: '100px',padding: '10px' ,overflow: 'scroll', borderTop: '1px solid #222',borderLeft: '1px solid #222' ,borderRadius: '5px'}}>
                 <textarea
                         style={{width: '100%', height: '100%'}}
                         name="productDesc"
