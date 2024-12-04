@@ -30,6 +30,10 @@ function ProductManage() {
         }
     }
 
+    useEffect(() =>{
+
+    },[]);
+
     useEffect(() => {
         setStart((currentPage - 1) * 5);
         dispatch(
@@ -62,7 +66,8 @@ function ProductManage() {
             <div className={ProductManageCSS.manage_box}>
                 <div className={ProductManageCSS.product_div1}>
                     <div></div>
-                    <button className={ButtonCSS.producer_button01} onClick={onClickProductInsert}>등록</button>
+                    {/* <button className={ButtonCSS.producer_button01} onClick={onClickProductInsert}>등록</button> */}
+                    <button style={{width: '70px', height: '35px', backgroundColor: '#849076', borderRadius: '5px', color: '#fff', fontSize: '16px'}} onClick={onClickProductInsert}>등록</button>
                 </div>
                 
                 <table className={ProductManageCSS.manage_table}>

@@ -99,7 +99,7 @@ function AnswerDetail() {
 				    </div>
                     <div className={UserInfoCSS.info}>
                         <p style={{width: '100px'}}>질문 내용 : </p>
-                        <div style={{width: '600px'}} className={UserInfoCSS.txt}><p> {question.questionContent}</p></div>
+                        <div style={{width: '800px'}} className={UserInfoCSS.txt}><p> {question.questionContent}</p></div>
 				    </div>
                     {/* <p>최초 질문 작성 시간: {question.questionDate}</p>
                     <p>최종 질문 작성 시간: {question.questionUpdate}</p> */}
@@ -109,10 +109,14 @@ function AnswerDetail() {
             {/* answerId가 "none"인 경우 답변 등록만 가능하도록 처리 */}
             {params.answerId === "0" ? (
                 <div>
-                    <p>답변이 없습니다.</p>
-                    <button onClick={() => navigate(`/admin/answers/create/${question.questionId}`)}>
-                        답변 등록
-                    </button>
+                    <div style={{width: '600px', marginTop: '20px', borderRadius: '10px', width: '80%', height: '200px', backgroundColor: '#fff', border: '1px solid #222', padding: '10px'}}>답변이 없습니다.</div>
+                    
+                    <div>
+                        <button style={{width: '70px', height: '35px', margin: '15px 0 0 0' ,borderRadius: '8px', color: '#fff', backgroundColor: '#41535c'}} onClick={() => navigate(`/admin/answers/create/${question.questionId}`)}>
+                            답변 등록
+                        </button>
+                    </div>
+                    
                 </div>
             ) : (
                 answer && answer.questionId === question.questionId && (

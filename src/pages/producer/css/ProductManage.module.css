@@ -61,3 +61,7 @@ input{
     padding: 10px;
 }
 
+label{
+    width: 60px;
+}
+
